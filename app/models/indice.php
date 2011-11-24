@@ -26,58 +26,102 @@ class Indice extends AppModel {
     );
     public $dimensoes = array(
         'vulnerabilidade' => array(
-            //'v1' => 1,
-            //'v2' => 1,
-            'v3' => 1,
-            'v4' => 1,
-            'v5' => 1,
-            //'v6' => 1,
-            'v7' => 1,
-            //'v8' => 1,
-            'v9' => 1,
+            'gestacao' => array(
+                //'v1' => 1,
+                //'v2' => 1,
+            ),
+            'criancas' => array(
+                'v3' => 1,
+                'v4' => 1,
+                'v5' => 1,
+            ),
+            'idosos' => array(
+                //'v6' => 1,
+                'v7' => 1,
+            ),
+            'dependencia' => array(
+                //'v8' => 1,
+                'v9' => 1,
+            ),
         ),
         'conhecimento' => array(
-            'c1' => 1,
-            'c2' => 1,
-            'c3' => 0,
-            'c4' => 0,
-            'c5' => 0,
+            'analfabetismo' => array(
+                'c1' => 1,
+                'c2' => 1,
+            ),
+            'escolaridade' => array(
+                'c3' => 0,
+                'c4' => 0,
+                'c5' => 0,
+            ),
         ),
         'trabalho' => array(
-            't1' => 0,
-            't2' => 0,
-            't3' => 0,
-            't4' => 0,
-            't5' => 0,
+            'disponibilidade' => array(
+                't1' => 0,
+            ),
+            'qualidade' => array(
+                't2' => 0,
+                't3' => 0,
+            ),
+            'remuneracao' => array(
+                't4' => 0,
+                't5' => 0,
+            ),
         ),
         'recursos' => array(
-            //'r1' => 1,
-            'r2' => 1,
-            //'r3' => 1,
-            //'r4' => 1,
-            'r5' => 1,
-            'r6' => 1,
+            'extremaPobreza' => array(
+                //'r1' => 1,
+                'r2' => 1,
+                //'r3' => 1,
+            ),
+            'pobreza' => array(
+                //'r4' => 1,
+                'r5' => 1,
+            ),
+            'capacidadeGeracao' => array(
+                'r6' => 1,
+            ),
         ),
         'desenvolvimento' => array(
-            'd1' => 1,
-            'd2' => 1,
-            'd3' => 1,
-            'd4' => 1,
-            'd5' => 1,
-            'd6' => 1,
-            'd7' => 1,
-            'd8' => 1,
+            'trabalhoPrecoce' => array(
+                'd1' => 1,
+                'd2' => 1,
+            ),
+            'acessoEscola' => array(
+                'd3' => 1,
+                'd4' => 1,
+                'd5' => 1,
+            ),
+            'progressoEscolar' => array(
+                'd6' => 1,
+                'd7' => 1,
+                'd8' => 1,
+            ),
         ),
         'habitacao' => array(
-            'h1' => 1,
-            'h2' => 1,
-            'h3' => 1,
-            'h4' => 1,
-            'h5' => 1,
-            'h6' => 1,
-            'h7' => 1,
-            'h8' => 1,
-        )
+            'propriedade' => array(
+                'h1' => 1,
+                'h2' => 1,
+            ),
+            'deficit' => array(
+                'h3' => 1,
+            ),
+            'abrigalidade' => array(
+                'h4' => 1,
+            ),
+            'acessoAgua' => array(
+                'h5' => 1,
+            ),
+            'acessoSaneamento' => array(
+                'h6' => 1,
+            ),
+            'acessoColetaLixo' => array(
+                'h7' => 1,
+            ),
+            'acessoEletricidade' => array(
+                'h8' => 1,
+            ),
+        ),
     );
 
 }
