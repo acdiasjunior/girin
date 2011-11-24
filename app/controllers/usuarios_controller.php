@@ -1,0 +1,106 @@
+<?php
+
+class UsuariosController extends AppController {
+
+    var $name = 'Usuarios';
+
+    function index() {
+        if ($this->Session->read('Auth.Usuario.id') != 1) {
+            $this->Session->setFlash('Somente o Administrador pode<br />cadastrar usuários!');
+            $this->redirect(array('controller' => 'pages'));
+        }
+    }
+
+    function lista() {
+        $this->layout = 'ajax';
+        $this->Usuario->order = array(
+            $this->params['form']['sortname'] => $this->params['form']['sortorder']
+        );
+        $data = $this->Usuario->find('all', array('conditions' => array('Usuario.id <>' => 1)));
+        $this->set('usuarios', $data);
+    }
+
+    function cadastro($id = null) {
+        if (empty($this->data)) {
+            if ($id == null && $this->Session->read('Auth.Usuario.id') != 1)
+                $id = $this->Session->read('Auth.Usuario.id');
+            if ($id == 1) {
+                $this->Session->setFlash('Alteração do Usuário Admistrador desabilitada!');
+                $this->redirect(array('controller' => 'pages'));
+            }
+            if ($id != $this->Session->read('Auth.Usuario.id') && $this->Session->read('Auth.Usuario.id') != 1) {
+                $this->Session->setFlash('Somente o Administrador pode alterar os outros cadastros.');
+                $this->redirect(array('controller' => 'pages'));
+            }
+            $this->Usuario->id = $id;
+            $this->data = $this->Usuario->read();
+        } else {
+            $this->beforeSave();
+            if ($this->Usuario->save($this->data)) {
+                if ($this->Session->read('Auth.Usuario.id') == 1)
+                    $this->redirect(array('controller' => $this->name, 'action' => 'index'));
+                else
+                    $this->redirect(array('controller' => 'pages'));
+            }
+        }
+    }
+
+    function excluir($id) {
+        if ($this->Session->read('Auth.Usuario.id') != 1) {
+            $this->Session->setFlash('Somente o Administrador pode<br />excluir usuários!');
+            $this->redirect(array('controller' => 'pages'));
+        } else {
+            if (!empty($id)) {
+                $this->Usuario->delete($id);
+                $this->Session->setFlash('O usuario com id: ' . $id . ' foi excluído.');
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash('Erro ao tentar excluir: ID inexistente!');
+                $this->redirect(array('action' => 'index'));
+            }
+        }
+    }
+
+    function login() {
+        if (!(empty($this->data)) && $this->Auth->user()) {
+            $this->Usuario->Acesso->create();
+            $this->Usuario->Acesso->set('usuario_id', $this->Session->read('Auth.Usuario.id'));
+            $this->Usuario->Acesso->set('login', date('Y-m-d H:i:s'));
+            $this->Usuario->Acesso->set('ip', $this->RequestHandler->getClientIP());
+            $this->Usuario->Acesso->save();
+            $this->redirect($this->Auth->redirect());
+        }
+    }
+
+    function logout() {
+        $this->redirect($this->Auth->logout());
+    }
+    
+    function gravaParametros($container) {
+//        if($_SERVER['SERVER_NAME'] == 'localhost')
+//            xdebug_break();
+        $this->autoRender = false;
+        $controller = array_shift($this->params['form']);
+        $action = array_shift($this->params['form']);
+        $this->Session->delete("$controller.$action.$container");
+        foreach($this->params['form'] as $key => $value) {
+            $this->Session->write("$controller.$action.$container.$key", $value);
+        }
+    }
+
+    function beforeFilter() {
+        $this->Auth->autoRedirect = false;
+        // executa o beforeFilter do AppController
+        parent::beforeFilter();
+        // adicione ao método allow as actions que quer permitir sem o usuário estar logado
+        $this->Auth->allow(array('login', 'logout'));
+    }
+
+    function beforeSave() {
+        if (!empty($this->data['Usuario']['passwd'])) {
+            $this->data['Usuario']['password'] = $this->Auth->password($this->data['Usuario']['passwd']);
+        }
+        return true;
+    }
+
+}
