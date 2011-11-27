@@ -224,7 +224,7 @@ class PessoasController extends AppController {
                     'EST CIVIL' => 'estado_civil',
                     'GRAU DE INSTRUCAO' => 'grau_instrucao',
                     'GENERO' => 'genero',
-                    'FREQUENTA ESCOLA' => 'frequenta_escola',
+                    'FREQUENTA ESCOLA' => 'tipo_escola',
                 );
                 $combinacoes = array(
                     'SERIE ESCOLAR' => $this->Pessoa->serieEscolar(),

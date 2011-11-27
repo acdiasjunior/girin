@@ -422,22 +422,22 @@ class IndicesController extends AppController {
                     }
                     break;
                 case 'd3': //D.3 Ausência de pelo menos uma criança de 0-6 anos fora da escola
-                    if ($pessoa['idade'] <= 6 && ($pessoa['frequenta_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
-                            || $pessoa['frequenta_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
+                    if ($pessoa['idade'] <= 6 && ($pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
+                            || $pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
                         $valor = 0;
                         $usuario = true;
                     }
                     break;
                 case 'd4': //D.4 Ausência de pelo menos uma criança de 7-14 anos fora da escola
-                    if ($pessoa['idade'] >= 7 && $pessoa['idade'] <= 14 && ($pessoa['frequenta_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
-                            || $pessoa['frequenta_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
+                    if ($pessoa['idade'] >= 7 && $pessoa['idade'] <= 14 && ($pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
+                            || $pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
                         $valor = 0;
                         $usuario = true;
                     }
                     break;
                 case 'd5': //D.5 Ausência de pelo menos uma criança de 7-17 anos fora da escola
-                    if ($pessoa['idade'] >= 7 && $pessoa['idade'] <= 17 && ($pessoa['frequenta_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
-                            || $pessoa['frequenta_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
+                    if ($pessoa['idade'] >= 7 && $pessoa['idade'] <= 17 && ($pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
+                            || $pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
                         $valor = 0;
                         $usuario = true;
                     }
