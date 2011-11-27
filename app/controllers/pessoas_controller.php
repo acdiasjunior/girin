@@ -233,7 +233,7 @@ class PessoasController extends AppController {
                     'EST CIVIL' => $this->Pessoa->estadoCivil(),
                     'GRAU DE INSTRUCAO' => $this->Pessoa->grauInstrucao(),
                     'GENERO' => $this->Pessoa->genero(),
-                    'FREQUENTA ESCOLA' => $this->Pessoa->frequentaEscola(),
+                    'FREQUENTA ESCOLA' => $this->Pessoa->tipoEscola(),
                 );
 
                 $handle = fopen($this->data['Pessoa']['arquivo']['tmp_name'], "r");

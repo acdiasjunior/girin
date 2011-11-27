@@ -215,7 +215,7 @@ class Pessoa extends AppModel {
     const ESCOLARIDADE_MESTRADO = 11;
     const ESCOLARIDADE_DOUTORADO = 12;
 
-    static function frequentaEscola($value = null) {
+    static function tipoEscola($value = null) {
         $options = array(
             self::ESCOLA_NAO_INFORMADO => __('Não Informado', true),
             self::ESCOLA_NAO_FREQUENTA => __('Não frequenta', true),

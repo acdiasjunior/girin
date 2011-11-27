@@ -74,7 +74,7 @@ echo $this->Form->input('cor', array('options' => Pessoa::cor(),'label' => 'Cor'
 echo $this->Html->div('', '', array('style' => 'clear: both;'));
 echo $this->Form->input('grau_instrucao', array('options' => Pessoa::grauInstrucao(),'label' => 'Grau de instrução'));
 echo $this->Form->input('serie_escolar', array('options' => Pessoa::serieEscolar(),'label' => 'Série Escolar'));
-echo $this->Form->input('tipo_escola', array('options' => Pessoa::frequentaEscola(),'label' => 'Frequenta Escola'));
+echo $this->Form->input('tipo_escola', array('options' => Pessoa::tipoEscola(),'label' => 'Tipo de Escola'));
 echo $this->Html->div('', '', array('style' => 'clear: both;'));
 echo $this->Form->input('tipo_trabalho', array('options' => Pessoa::tipoTrabalho(),'label' => 'Tipo de Trabalho'));
 echo $this->Form->input('ocupacao', array('label' => 'Ocupação'));
