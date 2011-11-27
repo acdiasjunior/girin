@@ -1,11 +1,25 @@
 -- PESSOAS
 SELECT
-	p.no_pessoa as nome, p.co_nis as nis, p.dt_nascimento as data_nascimento, p.co_cpf as cpf, p.de_titulo_eleitor as titulo_eleitor,
-	p.de_zona_titulo_eleitor as zona, p.de_secao_titulo_eleitor as secao, p.co_ocupacao as codigo_ocupacao, p.nu_inep_escola as inep,
-	p.dt_alteracao_pessoa as data_atualizacao, p.dt_inclusao_pessoa as data_inclusao, d.nu_domiciliar,
-	r.co_nis as responsavel_nis, p.vr_renda_aposentadoria as valor_aposentadoria, p.vr_renda_seguro_desemprego as valor_seguro_desemprego,
+	p.co_nis as nis, p.no_pessoa as nome, p.dt_nascimento as data_nascimento, p.co_cpf as cpf, p.de_titulo_eleitor as titulo_eleitor,
+	p.de_zona_titulo_eleitor as zona, p.de_secao_titulo_eleitor as secao, o.de_ocupacao as ocupacao, p.nu_inep_escola as inep,
+	(CASE
+		WHEN p.dt_alteracao_pessoa = '1899-12-30' THEN NULL
+		ELSE p.dt_alteracao_pessoa
+	END) as data_atualizacao,
+	(CASE
+		WHEN p.dt_inclusao_pessoa = '1899-12-30' THEN NULL
+		ELSE p.dt_inclusao_pessoa
+	END) as data_inclusao,
+	d.nu_domiciliar,
+	r.co_nis as responsavel_nis, p.ic_parentesco_responsavel AS reponsavel_parentesco, p.vr_renda_aposentadoria as valor_aposentadoria,
+	p.vr_renda_seguro_desemprego as valor_seguro_desemprego,
 	p.vr_renda_pensao as valor_pensao, p.vr_outras_rendas as valor_renda, p.ic_serie_escolar AS serie_escolar, p.ic_grau_instrucao AS grau_instrucao,
-	p.ic_tipo_escola AS tipo_escola, p.ic_sexo AS genero, p.ic_raca_cor AS raca_cor,
+	p.ic_tipo_escola AS tipo_escola, p.ic_sexo AS genero, p.ic_raca_cor AS raca_cor, p.ic_estado_civil AS estado_civil,
+	(CASE
+		WHEN p.nu_mes_gestacao IS NOT NULL THEN
+			(SELECT CURRENT_DATE + (9 - p.nu_mes_gestacao) * INTERVAL '1 month')
+		ELSE NULL
+	END) AS data_concepcao_gestacao, p.nu_mes_gestacao AS mes_gestacao
 FROM cubtb027_pessoa AS p
 LEFT JOIN
 	cubtb027_pessoa AS r
@@ -13,7 +27,10 @@ LEFT JOIN
 INNER JOIN
 	cubtb013_domicilio AS d
 	ON p.co_domicilio = d.co_domicilio
-WHERE p.dt_alteracao_pessoa > '2009-11-01'
+LEFT JOIN
+	cubtb038_ocupacao AS o
+	ON p.co_ocupacao = o.co_ocupacao
+WHERE p.dt_alteracao_pessoa > (now() - interval '2 YEAR')
 
 -- DOMICILIOS
 SUM(vr_despesa_aluguel) AS valor_despesa_aluguel,
