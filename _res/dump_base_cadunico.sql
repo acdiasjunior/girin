@@ -1,19 +1,19 @@
 -- PESSOAS
 SELECT
-	p.co_nis as nis, p.no_pessoa as nome, p.dt_nascimento as data_nascimento, p.co_cpf as cpf, p.de_titulo_eleitor as titulo_eleitor,
-	p.de_zona_titulo_eleitor as zona, p.de_secao_titulo_eleitor as secao, o.de_ocupacao as ocupacao, p.nu_inep_escola as inep,
+	p.co_nis AS nis, p.no_pessoa AS nome, p.dt_nascimento AS data_nascimento, p.co_cpf AS cpf, p.de_titulo_eleitor AS titulo_eleitor,
+	p.de_zona_titulo_eleitor AS zona, p.de_secao_titulo_eleitor AS secao, o.de_ocupacao AS ocupacao, p.nu_inep_escola AS inep,
 	(CASE
 		WHEN p.dt_alteracao_pessoa = '1899-12-30' THEN NULL
 		ELSE p.dt_alteracao_pessoa
-	END) as data_atualizacao,
+	END) AS data_atualizacao,
 	(CASE
 		WHEN p.dt_inclusao_pessoa = '1899-12-30' THEN NULL
 		ELSE p.dt_inclusao_pessoa
-	END) as data_inclusao,
+	END) AS data_inclusao,
 	d.nu_domiciliar,
-	r.co_nis as responsavel_nis, p.ic_parentesco_responsavel AS reponsavel_parentesco, p.vr_renda_aposentadoria as valor_aposentadoria,
-	p.vr_renda_seguro_desemprego as valor_seguro_desemprego,
-	p.vr_renda_pensao as valor_pensao, p.vr_outras_rendas as valor_renda, p.ic_serie_escolar AS serie_escolar, p.ic_grau_instrucao AS grau_instrucao,
+	r.co_nis AS responsavel_nis, p.ic_parentesco_responsavel AS reponsavel_parentesco, p.vr_renda_aposentadoria AS valor_aposentadoria,
+	p.vr_renda_seguro_desemprego AS valor_seguro_desemprego,
+	p.vr_renda_pensao AS valor_pensao, p.vr_outras_rendas AS valor_renda, p.ic_serie_escolar AS serie_escolar, p.ic_grau_instrucao AS grau_instrucao,
 	p.ic_tipo_escola AS tipo_escola, p.ic_sexo AS genero, p.ic_raca_cor AS raca_cor, p.ic_estado_civil AS estado_civil,
 	(CASE
 		WHEN p.nu_mes_gestacao IS NOT NULL THEN
