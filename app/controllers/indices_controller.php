@@ -168,6 +168,7 @@ class IndicesController extends AppController {
                     'limit' => $limite,
                         )
                 );
+
                 foreach ($domicilios as $codigo_domiciliar) {
 
                     set_time_limit(2);
@@ -182,7 +183,7 @@ class IndicesController extends AppController {
 
                     $dimensao = $this->Indice->dimensoes;
 
-                    foreach ($domicilio['Pessoa'] as $pessoa)
+                    foreach ($domicilio['Pessoa'] as $pessoa) {
                         foreach ($dimensao as $nome => $componentes)
                             foreach ($componentes as $nomeComponente => $indicadores)
                                 foreach ($indicadores as $indicador => $padrao)
@@ -191,97 +192,85 @@ class IndicesController extends AppController {
                                         $dimensao[$nome][$nomeComponente][$indicador] = $retorno['valor'];
                                     }
 
-
-
-
-
-                    $contador['membros']++;
-                    //V.9 Mais da metade dos membros encontra-se em idade ativa
-                    if ($pessoa['idade'] >= Pessoa::IDADE_ADOLESCENTE)
-                        $contador['idade_ativa']++;
-                    //T.1 Mais da metade dos membros em idade ativa encontram-se ocupados
-                    if ($pessoa['idade'] >= Pessoa::IDADE_ADOLESCENTE &&
-                            $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
-                            && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA)
-                        $contador['idade_ativa_ocupado']++;
-                    //R.2 Renda familiar per capita superior a linha de extema pobreza
-                    //R.5 Renda familiar per capita superior a linha de pobreza
-                    $somatorio['valor_renda'] += $pessoa['valor_renda'];
-                    //R.6 Maior parte da renda familiar não advém de transferências
-                    $somatorio['valor_beneficio'] += $pessoa['valor_beneficio'];
-                }
-
-                foreach ($dimensao['habitacao'] as $indicador => $valor) {
-                    $retorno = $this->calculaIndicadorDomicilio($domicilio['Domicilio'], $indicador, $dimensao[$nome][$indicador]);
-                    $dimensao['habitacao'][$indicador] = $retorno['valor'];
-                }
-
-                //H.3 Densidade de até 2 moradores por dormitório
-                if (($contador['membros'] / $domicilio['Domicilio']['comodos']) > 2)
-                    $dimensao['habitacao']['deficit']['h3'] = 0;
-
-                //V.9 Mais da metade dos membros encontra-se em idade ativa
-                if ($contador['idade_ativa'] < ($contador['membros'] / 2))
-                    $dimensao['vulnerabilidade']['dependencia']['v9'] = 0;
-
-                //T.1 Mais da metade dos membros em idade ativa encontram-se ocupados
-                if ($contador['idade_ativa_ocupado'] > ($contador['idade_ativa'] / 2))
-                    $dimensao['trabalho']['disponibilidade']['t1'] = 1;
-
-                //R.2 Renda familiar per capita superior a linha de extema pobreza
-                if (($somatorio['valor_renda'] + $somatorio['valor_beneficio']) / $contador['membros'] < 70)
-                    $dimensao['recursos']['extremaPobreza']['r2'] = 0;
-
-                //R.5 Renda familiar per capita superior a linha de pobreza
-                if (($somatorio['valor_renda'] + $somatorio['valor_beneficio']) / $contador['membros'] < 140)
-                    $dimensao['recursos']['pobreza']['r5'] = 0;
-
-                //R.6 Maior parte da renda familiar não advém de transferências
-                if ($somatorio['valor_renda'] < $somatorio['valor_beneficio'])
-                    $dimensao['recursos']['capacidadeGeracao']['r6'] = 0;
-
-                //NAO V.1 Ausência de Gestantes
-                //NAO V.2 Ausência de Mães Amamentando
-                //NAO V.6 Ausência de portadores de deficiência
-                //NAO V.8 Presença de cônjuge
-                //NAO R.1 Despesa familiar per capita superior a linha de extema pobreza
-                //NAO R.3 Despesa com alimentos superior a linha de extema pobreza
-                //NAO R.4 Despesa familiar per capita superior a linha de pobreza
-                /// SALVANDO OS DADOS
-                foreach ($dimensao as $d => $componentes)
-                    foreach ($componentes as $c => $indicadores)
-                        foreach ($indicadores as $i => $valor)
-                            $this->data['Indice'][$c][$i] = $valor;
-
-                //$this->data['Indice']['idf'] = array_sum($this->data['Indice']) / count($this->data['Indice']);
-                $this->data['Indice']['codigo_domiciliar'] = $codigo_domiciliar;
-
-                $this->data['Domicilio']['codigo_domiciliar'] = $this->data['Indice']['codigo_domiciliar'];
-
-                $idf['dimensoes']['qtd'] = 0;
-                $idf['dimensoes']['soma'] = 0;
-
-                foreach ($dimensao as $d => $componentes) {
-                    $d['soma'] = 0;
-                    $d['qtd'] = 0;
-                    foreach ($componentes as $c => $valor) {
-                        $this->data['Indice'][$c] = array_sum($dimensao[$d][$c]) / count($dimensao[$d][$c]);
-                        $idf['componentes']['soma'] += $this->data['Indice'][$c];
-                        //Somatorios para dimensao e para total
-                        $d['soma'] += $this->data['Indice'][$c];
-                        $d['qtd']++;
-                        $idf['componentes']['soma'] += $this->data['Indice'][$c];
-                        $idf['componentes']['qtd']++;
+                        $contador['membros']++;
+                        //V.9 Mais da metade dos membros encontra-se em idade ativa
+                        if ($pessoa['idade'] >= Pessoa::IDADE_ADOLESCENTE)
+                            $contador['idade_ativa']++;
+                        //T.1 Mais da metade dos membros em idade ativa encontram-se ocupados
+                        if ($pessoa['idade'] >= Pessoa::IDADE_ADOLESCENTE &&
+                                $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
+                                && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA)
+                            $contador['idade_ativa_ocupado']++;
+                        //R.2 Renda familiar per capita superior a linha de extema pobreza
+                        //R.5 Renda familiar per capita superior a linha de pobreza
+                        $somatorio['valor_renda'] += $pessoa['valor_renda'];
+                        //R.6 Maior parte da renda familiar não advém de transferências
+                        $somatorio['valor_beneficio'] += $pessoa['valor_beneficio'];
                     }
-                    $this->data['Indice'][$d] = $d['soma'] / $d['qtd'];
-                }
-                $this->data['Indice']['idf'] = $idf['componentes']['soma'] / $idf['componentes']['qtd'];
-                $this->data['Domicilio']['idf'] = $this->data['Indice']['idf'];
 
-                $this->data['IndicesHistorico'] = $this->data['Indice'];
+                    foreach ($dimensao['habitacao'] as $indicador => $valor) {
+                        $retorno = $this->calculaIndicadorDomicilio($domicilio['Domicilio'], $indicador, $dimensao[$nome][$indicador]);
+                        $dimensao['habitacao'][$indicador] = $retorno['valor'];
+                    }
 
-                if (!$this->Indice->saveAll($this->data)) {
-                    $retorno['status'] = 0;
+                    //H.3 Densidade de até 2 moradores por dormitório
+                    if (($contador['membros'] / $domicilio['Domicilio']['comodos']) > 2)
+                        $dimensao['habitacao']['deficit']['h3'] = 0;
+
+                    //V.9 Mais da metade dos membros encontra-se em idade ativa
+                    if ($contador['idade_ativa'] < ($contador['membros'] / 2))
+                        $dimensao['vulnerabilidade']['dependencia']['v9'] = 0;
+
+                    //T.1 Mais da metade dos membros em idade ativa encontram-se ocupados
+                    if ($contador['idade_ativa_ocupado'] > ($contador['idade_ativa'] / 2))
+                        $dimensao['trabalho']['disponibilidade']['t1'] = 1;
+
+                    //R.2 Renda familiar per capita superior a linha de extema pobreza
+                    if (($somatorio['valor_renda'] + $somatorio['valor_beneficio']) / $contador['membros'] < 70)
+                        $dimensao['recursos']['extremaPobreza']['r2'] = 0;
+
+                    //R.5 Renda familiar per capita superior a linha de pobreza
+                    if (($somatorio['valor_renda'] + $somatorio['valor_beneficio']) / $contador['membros'] < 140)
+                        $dimensao['recursos']['pobreza']['r5'] = 0;
+
+                    //R.6 Maior parte da renda familiar não advém de transferências
+                    if ($somatorio['valor_renda'] < $somatorio['valor_beneficio'])
+                        $dimensao['recursos']['capacidadeGeracao']['r6'] = 0;
+
+                    //NAO V.1 Ausência de Gestantes
+                    //NAO V.2 Ausência de Mães Amamentando
+                    //NAO V.6 Ausência de portadores de deficiência
+                    //NAO V.8 Presença de cônjuge
+                    //NAO R.1 Despesa familiar per capita superior a linha de extema pobreza
+                    //NAO R.3 Despesa com alimentos superior a linha de extema pobreza
+                    //NAO R.4 Despesa familiar per capita superior a linha de pobreza
+                    /// SALVANDO OS DADOS
+                    // Totalizar as medias por componente e Dimensao
+                    $somatorio['idf'] = 0;
+                    $contador['idf'] = 0;
+                    foreach ($dimensao as $nomeDimensao => $componentes) {
+                        $somatorio[$nomeDimensao] = 0;
+                        $contador[$nomeDimensao] = 0;
+                        foreach ($componentes as $nomeComponente => $indicadores) {
+                            $this->data['Indice'][$nomeComponente] = array_sum($dimensao[$nomeDimensao][$nomeComponente]) / count($dimensao[$nomeDimensao][$nomeComponente]);
+                            $somatorio[$nomeDimensao] += $this->data['Indice'][$nomeComponente];
+                            $contador[$nomeDimensao]++;
+                            foreach($indicadores as $nomeIndicador => $valor)
+                                $this->data['Indice'][$nomeIndicador] = $valor;
+                        }
+                        $this->data['Indice'][$nomeDimensao] = $somatorio[$nomeDimensao] / $contador[$nomeDimensao];
+                        $somatorio['idf'] += $this->data['Indice'][$nomeDimensao];
+                        $contador['idf']++;
+                    }
+
+                    $this->data['Indice']['idf'] = $somatorio['idf'] / $contador['idf'];
+                    $this->data['Indice']['codigo_domiciliar'] = $codigo_domiciliar;
+                    $this->data['Domicilio']['idf'] = $this->data['Indice']['idf'];
+                    //$this->data['IndicesHistorico'] = $this->data['Indice'];
+
+                    if (!$this->Indice->save($this->data)) {
+                        $retorno['status'] = 0;
+                    }
                 }
         }
 
