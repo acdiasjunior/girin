@@ -248,7 +248,6 @@ class IndicesController extends AppController {
                 //NAO R.3 Despesa com alimentos superior a linha de extema pobreza
                 //NAO R.4 Despesa familiar per capita superior a linha de pobreza
                 /// SALVANDO OS DADOS
-                xdebug_break();
                 foreach ($dimensao as $d => $componentes)
                     foreach ($componentes as $c => $indicadores)
                         foreach ($indicadores as $i => $valor)
@@ -258,7 +257,6 @@ class IndicesController extends AppController {
                 $this->data['Indice']['codigo_domiciliar'] = $codigo_domiciliar;
 
                 $this->data['Domicilio']['codigo_domiciliar'] = $this->data['Indice']['codigo_domiciliar'];
-                $this->data['Domicilio']['idf'] = $this->data['Indice']['idf'];
 
                 $idf['dimensoes']['qtd'] = 0;
                 $idf['dimensoes']['soma'] = 0;
@@ -278,6 +276,7 @@ class IndicesController extends AppController {
                     $this->data['Indice'][$d] = $d['soma'] / $d['qtd'];
                 }
                 $this->data['Indice']['idf'] = $idf['componentes']['soma'] / $idf['componentes']['qtd'];
+                $this->data['Domicilio']['idf'] = $this->data['Indice']['idf'];
 
                 $this->data['IndicesHistorico'] = $this->data['Indice'];
 

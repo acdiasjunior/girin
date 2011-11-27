@@ -36,7 +36,7 @@
         if($_SERVER['SERVER_NAME'] == 'localhost')
             Configure::write('debug', 1); // Servidor Local
         else
-            Configure::write('debug', 0); // Servidor Remoto
+            Configure::write('debug', 1); // Servidor Remoto
 
 /**
  * CakePHP Log Level:
