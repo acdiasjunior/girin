@@ -181,21 +181,19 @@ class IndicesController extends AppController {
                     $somatorio = array('valor_renda' => 0, 'valor_beneficio' => 0);
 
                     $dimensao = $this->Indice->dimensoes;
-                    xdebug_break();
 
-                    foreach ($domicilio['Pessoa'] as $pessoa) {
-                        foreach ($dimensao as $componentes) {
-                            foreach ($componentes as $nomeComponente => $indicadores) {
-                                foreach ($indicadores as $indicador => $padrao) {
+                    foreach ($domicilio['Pessoa'] as $pessoa)
+                        foreach ($dimensao as $nome => $componentes)
+                            foreach ($componentes as $nomeComponente => $indicadores)
+                                foreach ($indicadores as $indicador => $padrao)
                                     if ($dimensao[$nome][$nomeComponente][$indicador] == $padrao) {
-                                        $retorno = $this->calculaIndicadorPessoa($pessoa, $indicador, $dimensao[$nome][$indicador]);
+                                        $retorno = $this->calculaIndicadorPessoa($pessoa, $indicador, $dimensao[$nome][$nomeComponente][$indicador]);
                                         $dimensao[$nome][$nomeComponente][$indicador] = $retorno['valor'];
                                     }
-                                }
-                            }
-                        }
-                    }
-                    die();
+
+
+
+
 
                     $contador['membros']++;
                     //V.9 Mais da metade dos membros encontra-se em idade ativa
@@ -220,27 +218,27 @@ class IndicesController extends AppController {
 
                 //H.3 Densidade de até 2 moradores por dormitório
                 if (($contador['membros'] / $domicilio['Domicilio']['comodos']) > 2)
-                    $dimensao['habitacao']['h3'] = 0;
+                    $dimensao['habitacao']['deficit']['h3'] = 0;
 
                 //V.9 Mais da metade dos membros encontra-se em idade ativa
                 if ($contador['idade_ativa'] < ($contador['membros'] / 2))
-                    $dimensao['vulnerabilidade']['v9'] = 0;
+                    $dimensao['vulnerabilidade']['dependencia']['v9'] = 0;
 
                 //T.1 Mais da metade dos membros em idade ativa encontram-se ocupados
                 if ($contador['idade_ativa_ocupado'] > ($contador['idade_ativa'] / 2))
-                    $dimensao['trabalho']['t1'] = 1;
+                    $dimensao['trabalho']['disponibilidade']['t1'] = 1;
 
                 //R.2 Renda familiar per capita superior a linha de extema pobreza
                 if (($somatorio['valor_renda'] + $somatorio['valor_beneficio']) / $contador['membros'] < 70)
-                    $dimensao['recursos']['r2'] = 0;
+                    $dimensao['recursos']['extremaPobreza']['r2'] = 0;
 
                 //R.5 Renda familiar per capita superior a linha de pobreza
                 if (($somatorio['valor_renda'] + $somatorio['valor_beneficio']) / $contador['membros'] < 140)
-                    $dimensao['recursos']['r5'] = 0;
+                    $dimensao['recursos']['pobreza']['r5'] = 0;
 
                 //R.6 Maior parte da renda familiar não advém de transferências
                 if ($somatorio['valor_renda'] < $somatorio['valor_beneficio'])
-                    $dimensao['recursos']['r6'] = 0;
+                    $dimensao['recursos']['capacidadeGeracao']['r6'] = 0;
 
                 //NAO V.1 Ausência de Gestantes
                 //NAO V.2 Ausência de Mães Amamentando
@@ -250,9 +248,11 @@ class IndicesController extends AppController {
                 //NAO R.3 Despesa com alimentos superior a linha de extema pobreza
                 //NAO R.4 Despesa familiar per capita superior a linha de pobreza
                 /// SALVANDO OS DADOS
-                foreach ($dimensao as $key => $value)
-                    foreach ($value as $k => $v)
-                        $this->data['Indice'][$k] = $v;
+                xdebug_break();
+                foreach ($dimensao as $d => $componentes)
+                    foreach ($componentes as $c => $indicadores)
+                        foreach ($indicadores as $i => $valor)
+                            $this->data['Indice'][$c][$i] = $valor;
 
                 //$this->data['Indice']['idf'] = array_sum($this->data['Indice']) / count($this->data['Indice']);
                 $this->data['Indice']['codigo_domiciliar'] = $codigo_domiciliar;
@@ -262,12 +262,22 @@ class IndicesController extends AppController {
 
                 $idf['dimensoes']['qtd'] = 0;
                 $idf['dimensoes']['soma'] = 0;
-                foreach ($dimensao as $key => $value) {
-                    $this->data['Indice'][$key] = array_sum($dimensao[$key]) / count($dimensao[$key]);
-                    $idf['dimensoes']['soma'] += $this->data['Indice'][$key];
-                    $idf['dimensoes']['qtd']++;
+
+                foreach ($dimensao as $d => $componentes) {
+                    $d['soma'] = 0;
+                    $d['qtd'] = 0;
+                    foreach ($componentes as $c => $valor) {
+                        $this->data['Indice'][$c] = array_sum($dimensao[$d][$c]) / count($dimensao[$d][$c]);
+                        $idf['componentes']['soma'] += $this->data['Indice'][$c];
+                        //Somatorios para dimensao e para total
+                        $d['soma'] += $this->data['Indice'][$c];
+                        $d['qtd']++;
+                        $idf['componentes']['soma'] += $this->data['Indice'][$c];
+                        $idf['componentes']['qtd']++;
+                    }
+                    $this->data['Indice'][$d] = $d['soma'] / $d['qtd'];
                 }
-                $this->data['Indice']['idf'] = $idf['dimensoes']['soma'] / $idf['dimensoes']['qtd'];
+                $this->data['Indice']['idf'] = $idf['componentes']['soma'] / $idf['componentes']['qtd'];
 
                 $this->data['IndicesHistorico'] = $this->data['Indice'];
 
