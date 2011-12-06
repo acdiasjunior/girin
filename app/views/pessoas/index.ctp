@@ -1,7 +1,6 @@
 <?php
 echo $this->Html->css(array('flexigrid'));
 echo $javascript->link(array('flexigrid.pack', 'button'));
-$flexigridSession = $this->params['controller'] . '.' . $this->params['action'] . '.flexigrid';
 ?>
 <table id="flex" style="display: none"></table> 
 <script type="text/javascript">
@@ -29,16 +28,12 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             {display: 'Responsável', name : 'Responsavel.nome'},
             {display: 'NIS Responsável', name : 'Responsavel.nis'}
         ],
-        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Pessoa.nome'; ?>',
-        sortorder: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortorder') : 'asc'; ?>',
-        page: <?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.page') : 1; ?>,
-        pages: 1000,
+        sortname: "Pessoa.nome",
+        sortorder: "asc",
         usepager: true,
         useRp: true,
-        rp: <?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.rp') : '15'; ?>,
+        rp: 15,
         rpOptions: [15,30,50,100],
-        qtype: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.qtype') : 'Pessoa.nome'; ?>',
-        query: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.query') : ''; ?>',
         title: 'Cadastro - Pessoas',
         width: 920,
         height: 370,
@@ -84,23 +79,4 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
                 break;
             }
         }
-        
-        window.onbeforeunload = function() {
-            $.ajax({
-                url: '<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'gravaParametros')) ?>',
-                type: 'POST',
-                async: false,
-                data: {
-                    controller: '<?php echo $this->params['controller'] ?>',
-                    action: '<?php echo $this->params['action'] ?>',
-                    rp: $(".flexigrid .pGroup select").val(),
-                    qtype: $(".flexigrid .sDiv select").val(),
-                    query: $(".flexigrid .qsbox").val(),
-                    page: $('.flexigrid .pcontrol :input').val(),
-                    sortname: $('.flexigrid .sorted').attr('abbr'),
-                    sortorder: $('.flexigrid .sorted div').attr('class').substr(1,5)
-                }
-            });
-        };
-        
 </script>

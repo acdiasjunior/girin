@@ -32,20 +32,9 @@ class ProntuariosController extends AppController {
         $total = $this->Prontuario->find('count', array('conditions' => $conditions));
         $this->set(compact('prontuarios', 'page', 'total'));
     }
-    
-    function gerar() {
-        $this->loadModel('Domicilio');
-        $bairros = $this->Domicilio->Bairro->find('list', array('order' => 'Bairro.nome'));
-        $cras = $this->Domicilio->Cras->find('list');
-        $regioes = $this->Domicilio->Regiao->find('list');
-        $this->set(compact('bairros', 'cras', 'regioes'));
-        foreach($this->Session->read('prontuarios.gerar.filtroDomicilios') as $key => $value) {
-            $this->data[$key] = $value;
-        }
-    }
 
     function gerarProntuario($codigo_domiciliar = null) {
-        if ($codigo_domiciliar == null) 
+        if ($codigo_domiciliar == null)
             $this->redirect(array('action' => 'index'));
 
         $this->loadModel('Indice');
@@ -127,22 +116,8 @@ class ProntuariosController extends AppController {
         $numero_prontuario = $this->Prontuario->field('numero_prontuario');
         $html = $this->requestAction(array('controller' => 'prontuarios', 'action' => 'exibirProntuario'), array('return', 'pass' => array($id)));
         App::import('Vendor', 'mpdf53/mpdf');
-        $pdf = new mPDF('utf-8', 'A4-L', '', '', 15, 15, 25, 15, 10, 10);
-        //The last parameters are all margin values in millimetres: left-margin, right-margin, top-margin, bottom-margin, header-margin, footer-margin.
+        $pdf = new mPDF('utf-8', 'A4-L');
         $setFooter = $pdf->SetFooter("Prontuário no. " . str_pad($numero_prontuario, 4, "0", STR_PAD_LEFT) . "|Código Domiciliar: $codigo_domiciliar|{PAGENO}");
-        $setFooter = $pdf->SetHTMLHeader('<table cellspacing="0" cellpading="0" border="0" style="border: none; margin-bottom: 10mm;">
-        <tr>
-            <td style="border: none;">
-                <img src="/prefeitura/img/logos/logo_agenda_familia.png" style="height: 12mm;" alt="" />            </td>
-            <td style="text-align: right; border: none;">
-                <img src="/prefeitura/img/logos/logopjf.png" style="height: 12mm;" alt="" />            </td>
-            <td style="width: 65mm; text-align: right; border: none;">
-                <span style="text-decoration: none; color: #000; font-size: 10pt; font-weight: bold;">Secretaria de Assistência Social</span>
-                <br /><span style="font-size: 9pt;">Subsecretaria de Vigilância e
-                    <br />Monitoramento da Assistência Social</span>
-            </td>
-        </tr>
-    </table>');
         $pdf->WriteHTML($html);
         $pdf->Output('Prontuario_' . $codigo_domiciliar . '_' . str_pad($numero_prontuario, 4, "0", STR_PAD_LEFT) . '.pdf', 'D');
     }

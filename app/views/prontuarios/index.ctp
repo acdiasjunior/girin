@@ -24,9 +24,11 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
              */
         ],
         buttons : [
-            {name: 'Exibir', bclass: 'show', onpress : actions},
+            {name: 'Incluir', bclass: 'add', onpress : actions},
             {separator: true},
-            {name: 'Gerar PDF', bclass: 'pdf', onpress : actions},
+            {name: 'Editar', bclass: 'edit', onpress : actions},
+            {separator: true},
+            {name: 'Excluir', bclass: 'delete', onpress : actions},
             {separator: true}
         ],
         searchitems : [
@@ -56,31 +58,35 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
     });
     
     $('#flex').dblclick( function(){
-        var id = $('.trSelected').find('td[abbr="Prontuario.id"]').text();
+        var id = $('.trSelected').find('td[abbr="Prontuario.codigo_domiciliar"]').text();
         if(id != '')
-            $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'exibirProntuario')); ?>/' + id);
+            $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'cadastro')); ?>/' + id);
     });
     //}).disableSelection();
     
     function actions(com, grid) {
-        var id = $('.trSelected', grid).find('td[abbr="Prontuario.id"]').text();
-        var nome = $('.trSelected', grid).find('td[abbr="Usuario.nome"]').text();
+        var id = $('.trSelected', grid).find('td[abbr="Prontuario.codigo_domiciliar"]').text();
+        var nome = $('.trSelected', grid).find('td[abbr="Responsavel.nome"]').text();
         switch(com)
         {
-            case "Exibir":
+            case "Incluir":
+                $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'cadastro')); ?>');
+                break;
+            case "Editar":
                 if(id != '')
-                    $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'exibirProntuario')); ?>/' + id);
+                    $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'cadastro')); ?>/' + id);
                 else
                     alert('Selecione um registro primeiro!');
                 break;
-            case "Gerar PDF":
+            case "Excluir":
                 if(id != '')
-                    $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'gerarPDF')); ?>/' + id);
+                {
+                    if(confirm('Deseja realmente excluir?\nResponsável Legal: ' + nome))
+                        $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'excluir')); ?>/' + id);
+                }
                 else
                     alert('Selecione um registro primeiro!');
                 break;
-             default:
-                 break;
+            }
         }
-    }
 </script>

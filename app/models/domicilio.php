@@ -7,7 +7,9 @@ class Domicilio extends AppModel {
     var $belongsTo = array(
         'Cras',
         'Regiao',
-        'Bairro',
+        'Bairro' => array(
+            'counterCache' => true,
+        ),
         'Responsavel' => array(
             'className' => 'Pessoa',
             'foreignKey' => 'nis_responsavel'
@@ -37,11 +39,9 @@ class Domicilio extends AppModel {
 
     public function __construct($id=false, $table=null, $ds=null) {
         parent::__construct($id, $table, $ds);
-        $pessoa_count = '(SELECT COUNT(*) FROM pessoas WHERE `pessoas`.`codigo_domiciliar` = `Domicilio`.`codigo_domiciliar`)';
         $this->virtualFields = array(
             'renda_familiar' => "SELECT SUM(`pessoas`.`valor_renda` + `pessoas`.`valor_beneficio`) FROM `pessoas` WHERE `pessoas`.`codigo_domiciliar` = `Domicilio`.`codigo_domiciliar`",
-            'renda_per_capita' => "SELECT SUM((`pessoas`.`valor_renda` + `pessoas`.`valor_beneficio`) / $pessoa_count) FROM `pessoas` WHERE `pessoas`.`codigo_domiciliar` = `Domicilio`.`codigo_domiciliar`",
-            'pessoa_count' => $pessoa_count,
+            'renda_per_capita' => "SELECT SUM((`pessoas`.`valor_renda` + `pessoas`.`valor_beneficio`) / `Domicilio`.`pessoa_count`) FROM `pessoas` WHERE `pessoas`.`codigo_domiciliar` = `Domicilio`.`codigo_domiciliar`",
         );
     }
 
@@ -51,17 +51,6 @@ class Domicilio extends AppModel {
      * static enum: Model::function()
      * @access static
      */
-
-    static function bolsaFamilia($value = null) {
-        $options = array(
-            self::BOLSA_FAMILIA_NAO => __('Não', true),
-            self::BOLSA_FAMILIA_SIM => __('Sim', true),
-        );
-        return parent::enum($value, $options);
-    }
-
-    const BOLSA_FAMILIA_NAO = 0;
-    const BOLSA_FAMILIA_SIM = 1;
 
     static function tipoLocalidade($value = null) {
         $options = array(

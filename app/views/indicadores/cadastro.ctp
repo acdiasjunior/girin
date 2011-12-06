@@ -17,11 +17,6 @@ echo $this->Form->input('label', array('label' => 'Label', 'class' => 'edit40'))
 echo $this->Form->input('coluna', array('label' => 'Coluna', 'disabled' => 'disabled'));
 echo $this->Html->tag('/fieldset', null);
 
-echo $this->Html->tag('fieldset', null);
-echo $this->Html->tag('legend', 'Estratégias');
-echo $this->Form->input('Estrategia', array('multiple' => 'checkbox'));
-echo $this->Html->tag('/fieldset', null);
-
 echo $this->Form->button('Fechar', array(
     'type' => 'button',
     'onClick' => "window.location.href = '" . $this->Html->url(array('controller' => 'indicadores', 'action' => 'index')) . "';"

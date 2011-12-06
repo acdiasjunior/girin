@@ -1,8 +1,3 @@
-<?php
-/*
-*
-*/
-?>
 <script type="text/javascript">
     
     var chart;
@@ -139,7 +134,7 @@
                 enabled: false
             },
             title: {
-                text: 'Índice do Desenvolvimento Familiar por Dimensão'
+                text: 'Índice por Dimensões'
             },
             subtitle: {
                 //text: 'Clique para ver por indicador. Clique novamente para ver por dimensão.'
@@ -156,17 +151,17 @@
             },
             plotOptions: {
                 column: {
-//                    cursor: 'pointer',
+                    //cursor: 'pointer',
                     point: {
                         events: {
-//                            click: function() {
-//                                var drilldown = this.drilldown;
-//                                if (drilldown) { // drill down
-//                                    setChart(drilldown.name, drilldown.categories, drilldown.data, drilldown.color);
-//                                } else { // restore
-//                                    setChart(name, categories, data);
-//                                }
-//                            }
+                            //                            click: function() {
+                            //                                var drilldown = this.drilldown;
+                            //                                if (drilldown) { // drill down
+                            //                                    setChart(drilldown.name, drilldown.categories, drilldown.data, drilldown.color);
+                            //                                } else { // restore
+                            //                                    setChart(name, categories, data);
+                            //                                }
+                            //                            }
                         }
                     },
                     dataLabels: {
@@ -285,3 +280,4 @@ echo 'Média: ' . round($indices[0][0]['idf_media'], 2) . '<br />';
 echo 'Máximo: ' . round($indices[0][0]['idf_max'], 2) . '<br />';
 echo 'Mínimo: ' . round($indices[0][0]['idf_min'], 2) . '<br />';
 echo '<br />';
+?>

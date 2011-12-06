@@ -6,15 +6,10 @@ class Pessoa extends AppModel {
     var $primaryKey = 'nis';
     var $displayField = 'nome';
     var $actsAs = array('DateFormatter');
-    var $hasAndBelongsToMany = array(
-        'Servico' => array(
-            'foreignKey' => 'pessoa_nis',
-            'associationForeignKey' => 'servico_id',
-        ),
-    );
     var $belongsTo = array(
         'Domicilio' => array(
             'foreignKey' => 'codigo_domiciliar',
+            'counterCache' => true,
         ),
         'Responsavel' => array(
             'className' => 'Pessoa',
@@ -81,7 +76,7 @@ class Pessoa extends AppModel {
         );
         return parent::enum($value, $options);
     }
-
+    
     const ESTADO_CIVIL_NAO_INFORMADO = 0;
     const ESTADO_CIVIL_SOLTEIRO = 1;
     const ESTADO_CIVIL_CASADO = 2;
@@ -122,15 +117,15 @@ class Pessoa extends AppModel {
     const SERIE_JARDIM_I = 5;
     const SERIE_JARDIM_II = 6;
     const SERIE_JARDIM_III = 7;
-    const SERIE_1_ENSINO_FUNDAMENTAL = 8; //6 anos
-    const SERIE_2_ENSINO_FUNDAMENTAL = 9; //7 anos
-    const SERIE_3_ENSINO_FUNDAMENTAL = 10; //8 anos
-    const SERIE_4_ENSINO_FUNDAMENTAL = 11; //9 anos
-    const SERIE_5_ENSINO_FUNDAMENTAL = 12; //10 anos
-    const SERIE_6_ENSINO_FUNDAMENTAL = 13; //11 anos
-    const SERIE_7_ENSINO_FUNDAMENTAL = 14; //12 anos
-    const SERIE_8_ENSINO_FUNDAMENTAL = 15; //13 anos
-    const SERIE_1_ENSINO_MEDIO = 16; //14 anos
+    const SERIE_1_ENSINO_FUNDAMENTAL = 8;
+    const SERIE_2_ENSINO_FUNDAMENTAL = 9;
+    const SERIE_3_ENSINO_FUNDAMENTAL = 10;
+    const SERIE_4_ENSINO_FUNDAMENTAL = 11;
+    const SERIE_5_ENSINO_FUNDAMENTAL = 12;
+    const SERIE_6_ENSINO_FUNDAMENTAL = 13;
+    const SERIE_7_ENSINO_FUNDAMENTAL = 14;
+    const SERIE_8_ENSINO_FUNDAMENTAL = 15;
+    const SERIE_1_ENSINO_MEDIO = 16;
     const SERIE_2_ENSINO_MEDIO = 17;
     const SERIE_3_ENSINO_MEDIO = 18;
 

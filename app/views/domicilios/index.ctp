@@ -1,7 +1,6 @@
 <?php
 echo $this->Html->css(array('flexigrid'));
 echo $javascript->link(array('flexigrid.pack', 'button'));
-$flexigridSession = $this->params['controller'] . '.' . $this->params['action'] . '.flexigrid';
 ?>
 <table id="flex" style="display: none"></table>
 <script type="text/javascript">
@@ -32,21 +31,16 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         searchitems : [
             {display: 'Cód. Domiciliar', name : 'Domicilio.codigo_domiciliar', isdefault: true},
             {display: 'Responsável', name : 'Responsavel.nome'},
-            {display: 'IDF <=', name : 'Domicilio.idf'},
             {display: 'Logradouro', name : 'Domicilio.logradouro'},
             {display: 'Bairro', name : 'Bairro.nome'},
             {display: 'Cidade', name : 'Domicilio.cidade'}
         ],
-        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Domicilio.codigo_domiciliar'; ?>',
-        sortorder: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortorder') : 'asc'; ?>',
-        page: <?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.page') : 1; ?>,
-        pages: 1000,
+        sortname: "Domicilio.codigo_domiciliar",
+        sortorder: "asc",
         usepager: true,
         useRp: true,
-        rp: <?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.rp') : '15'; ?>,
+        rp: 15,
         rpOptions: [15,30,50,100],
-        qtype: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.qtype') : 'Domicilio.codigo_domiciliar'; ?>',
-        query: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.query') : ''; ?>',
         title: 'Domicílios',
         width: 920,
         height: 370,
@@ -91,29 +85,8 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
                     alert('Selecione um registro primeiro!');
                 break;
             case "Prontuario":
-                if(id != '')
-                    $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'gerarProntuario')); ?>/' + id);
-                else
-                    alert('Selecione um registro primeiro!');
+                $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'gerarProntuario')); ?>/' + id);
                 break;
             }
         }
-        
-        window.onbeforeunload = function() {
-            $.ajax({
-                url: '<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'gravaParametros', 'flexigrid')) ?>',
-                type: 'POST',
-                async: false,
-                data: {
-                    controller: '<?php echo $this->params['controller'] ?>',
-                    action: '<?php echo $this->params['action'] ?>',
-                    rp: $(".flexigrid .pGroup select").val(),
-                    qtype: $(".flexigrid .sDiv select").val(),
-                    query: $(".flexigrid .qsbox").val(),
-                    page: $('.flexigrid .pcontrol :input').val(),
-                    sortname: $('.flexigrid .sorted').attr('abbr'),
-                    sortorder: $('.flexigrid .sorted div').attr('class').substr(1,5)
-                }
-            });
-        };
 </script>

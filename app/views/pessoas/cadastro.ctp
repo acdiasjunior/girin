@@ -110,11 +110,6 @@ echo $this->Form->input('data_inclusao', array('label' => 'Data da Inclusão', '
 echo $this->Form->input('data_atualizacao', array('label' => 'Data da Atualização', 'type' => 'text', 'class' => 'maskdata data'));
 echo $this->Html->tag('/fieldset', null);
 
-echo $this->Html->tag('fieldset', null);
-echo $this->Html->tag('legend', 'Serviços Associados');
-echo $this->Form->input('Servico', array('multiple' => 'checkbox', 'label' => ''));
-echo $this->Html->tag('/fieldset', null);
-
 echo $this->Form->button('Fechar', array(
     'type' => 'button',
     'onClick' => "window.location.href = '" . $this->Html->url(array('controller' => 'pessoas', 'action' => 'index')) . "';"

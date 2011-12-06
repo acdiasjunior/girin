@@ -36,17 +36,6 @@
                 </ul>
             </li>
             <li>
-                <a href="#" class="hide">Serviços »</a>
-                <ul>
-                    <li>
-                        <a href="<?php echo $this->Html->url(array('controller' => 'servicos', 'action' => 'index')); ?>">Lista</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo $this->Html->url(array('controller' => 'servicos', 'action' => 'cadastro')); ?>">Cadastro</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
                 <a href="#" class="hide">Território »</a>
                 <ul>
                     <li>
@@ -77,9 +66,9 @@
                     <li>
                         <a href="<?php echo $this->Html->url(array('controller' => 'indicadores', 'action' => 'index')); ?>">Indicadores</a>
                     </li>
-<!--                    <li>
+                    <li>
                         <a href="<?php echo $this->Html->url(array('controller' => 'dimensoes', 'action' => 'index')); ?>">Dimensões</a>
-                    </li>-->
+                    </li>
                 </ul>
             </li>
             <li>
@@ -121,19 +110,19 @@
     </li>
     <li><a href="#" class="hide pai">Classificação</a>
         <ul>
-<!--            <li>
+            <li>
                 <a href="#" class="hide">Índices »</a>
                 <ul>
                     <li>
                         <a href="<?php echo $this->Html->url(array('controller' => 'indices', 'action' => 'atualizarIndices')); ?>">Atualizar Índices</a>
                     </li>
                 </ul>
-            </li>-->
-<!--            <li>
-                <a href="<?php echo $this->Html->url(array('controller' => 'relatorios', 'action' => 'idf')); ?>">Selecionar Famílias</a>
-            </li>-->
+            </li>
             <li>
-                <a href="<?php echo $this->Html->url(array('controller' => 'indices', 'action' => 'index')); ?>">Mapa Social</a>
+                <a href="<?php echo $this->Html->url(array('controller' => 'relatorios', 'action' => 'idf')); ?>">IDF</a>
+            </li>
+            <li>
+                <a href="<?php echo $this->Html->url(array('controller' => 'indices', 'action' => 'index')); ?>">Totalizadores</a>
             </li>
             <li>
                 <a href="<?php echo $this->Html->url(array('controller' => 'relatorios', 'action' => 'mapaIdfCsv')); ?>">Mapa IDF CSV</a>
@@ -146,7 +135,7 @@
                 <a href="<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'index')); ?>">Listar</a>
             </li>
             <li>
-                <a href="<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'gerar')); ?>">Gerar Prontuário</a>
+                <a href="<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'gerarProntuario')); ?>">Gerar Prontuário</a>
             </li>
         </ul>
     </li>

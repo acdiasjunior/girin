@@ -17,7 +17,7 @@ echo $this->Html->tag('legend', 'Dados');
 echo $this->Form->input('responsavel', array('label' => 'Responsável', 'options' => Acao::responsavel()));
 echo $this->Form->input('usuarios', array('label' => 'Usuários', 'options' => Acao::usuarios()));
 echo $this->Form->input('atividade', array('label' => 'Atividade', 'options' => Acao::atividade()));
-echo $this->Form->input('rede', array('label' => 'Rede de Proteção Social', 'options' => Acao::rede()));
+echo $this->Form->input('rede', array('label' => 'Rede', 'options' => Acao::rede()));
 echo $this->Form->input('ponto_socioassistencial', array('label' => 'Ponto Socioassistencial', 'options' => Acao::pontoSocioassistencial()));
 echo $this->Form->input('sistema_setorial_apoio', array('label' => 'Sistema Setorial de Apoio', 'options' => Acao::sistemaSetorialApoio()));
 echo $this->Form->input('sistema_logistico', array('label' => 'Sistema Logístico', 'options' => Acao::sistemaLogistico()));

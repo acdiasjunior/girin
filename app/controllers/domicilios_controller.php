@@ -5,7 +5,6 @@ class DomiciliosController extends AppController {
     var $name = 'Domicilios';
     var $helpers = array('Javascript', 'Js');
     var $components = array('RequestHandler');
-    var $pessoa_count = '(SELECT COUNT(*) FROM pessoas WHERE `pessoas`.`codigo_domiciliar` = `Domicilio`.`codigo_domiciliar`)';
 
     function index() {
         $this->set('title_for_layout', 'Listagem de Domicílios');
@@ -16,14 +15,12 @@ class DomiciliosController extends AppController {
         $this->layout = 'ajax';
 
         $conditions = array(
-            $this->pessoa_count . ' != 0',
+            'Domicilio.pessoa_count != 0',
+            'Domicilio.pessoa_count IS NOT NULL'
         );
 
         if ($this->params['form']['query'] != '')
-            if ($this->params['form']['qtype'] == 'Domicilio.idf')
-                $conditions['Domicilio.idf <='] = $this->params['form']['query'];
-            else
-                $conditions[$this->params['form']['qtype'] . ' LIKE'] = '%' . str_replace(' ', '%', $this->params['form']['query']) . '%';
+            $conditions[$this->params['form']['qtype'] . ' LIKE'] = '%' . str_replace(' ', '%', $this->params['form']['query']) . '%';
 
         $this->paginate = array(
             'page' => $this->params['form']['page'],
@@ -37,53 +34,6 @@ class DomiciliosController extends AppController {
         $page = $this->params['form']['page'];
         $total = $this->Domicilio->find('count', array('conditions' => $conditions));
         $this->set(compact('domicilios', 'page', 'total'));
-    }
-
-    function listaDomiciliosFiltro() {
-
-        $this->layout = 'ajax';
-        $container = 'prontuarios.gerar.filtroDomicilios';
-
-        $conditions = array(
-            $this->pessoa_count . ' != 0',
-        );
-
-        if ($this->Session->read("$container.Domicilio_codigo_domiciliar") != '')
-            $conditions['Domicilio.codigo_domiciliar'] = $this->Session->read("$container.Domicilio_codigo_domiciliar");
-        if ($this->Session->read("$container.Domicilio_regiao_id") != '')
-            $conditions['Domicilio.regiao_id'] = $this->Session->read("$container.Domicilio_regiao_id");
-        if ($this->Session->read("$container.Domicilio_cras_id") != '')
-            $conditions['Domicilio.cras_id'] = $this->Session->read("$container.Domicilio_cras_id");
-        if ($this->Session->read("$container.Domicilio_bairro_id") != '')
-            $conditions['Domicilio.bairro_id'] = $this->Session->read("$container.Domicilio_bairro_id");
-        if ($this->Session->read("$container.Domicilio_responsavel_nis") != '')
-            $conditions['Responsavel.nis'] = $this->Session->read("$container.Domicilio_responsavel_nis");
-        if ($this->Session->read("$container.Domicilio_responsavel_cpf") != '')
-            $conditions['Responsavel.cpf'] = $this->Session->read("$container.Domicilio_responsavel_cpf");
-        if ($this->Session->read("$container.Domicilio_responsavel_nome") != '')
-            $conditions['Responsavel.nome'] = $this->Session->read("$container.Domicilio_responsavel_nome");
-        if ($this->Session->read("$container.Domicilio_idf") != '')
-            $conditions['Domicilio.idf ' . $this->Session->read("$container.TipoBusca")] = $this->Session->read("$container.Domicilio_idf");
-
-        if ($this->params['form']['query'] != '')
-            if ($this->params['form']['qtype'] == 'Domicilio.idf')
-                $conditions['Domicilio.idf <='] = $this->params['form']['query'];
-            else
-                $conditions[$this->params['form']['qtype'] . ' LIKE'] = '%' . str_replace(' ', '%', $this->params['form']['query']) . '%';
-
-        $this->paginate = array(
-            'page' => $this->params['form']['page'],
-            'limit' => $this->params['form']['rp'],
-            'order' => array(
-                $this->params['form']['sortname'] => $this->params['form']['sortorder']
-            ),
-            'conditions' => $conditions
-        );
-        $domicilios = $this->paginate('Domicilio');
-        $page = $this->params['form']['page'];
-        $total = $this->Domicilio->find('count', array('conditions' => $conditions));
-        $this->set(compact('domicilios', 'page', 'total'));
-        $this->render('lista');
     }
 
     function cadastro($id = null) {
@@ -174,6 +124,7 @@ class DomiciliosController extends AppController {
                         //TRAT. ÁGUA
                         //SITU DOMICÍLIO
                         //ÁREA
+                        //PLAN CAIXA
                         //SITU CADASTRAL
                         //MODALIDADE
                         //SITU DOMICÍLIO
@@ -189,7 +140,6 @@ class DomiciliosController extends AppController {
                     'ESCOAMENTO SAN' => 'escoamento_sanitario',
                     'DESTINO LIXO' => 'destino_lixo',
                     'BAIRRO' => 'bairro_id',
-                    'PLAN CAIXA' => 'bolsa_familia',
                 );
                 $combinacoes = array(
                     'AREA' => $this->Domicilio->tipoLocalidade(),
@@ -201,8 +151,7 @@ class DomiciliosController extends AppController {
                     'TIPO ILUM' => $this->Domicilio->tipoIluminacao(),
                     'ESCOAMENTO SAN' => $this->Domicilio->escoamentoSanitario(),
                     'DESTINO LIXO' => $this->Domicilio->destinoLixo(),
-                    'BAIRRO' => $this->Domicilio->Bairro->find('list'),
-                    'PLAN CAIXA' => $this->Domicilio->bolsaFamilia(),
+                    'BAIRRO' => $this->Domicilio->Bairro->find('list')
                 );
 
                 $handle = fopen($this->data['Domicilio']['arquivo']['tmp_name'], "r");

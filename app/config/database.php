@@ -83,8 +83,8 @@ class DATABASE_CONFIG {
                 'driver' => 'mysql',
                 'persistent' => false,
                 'host' => 'localhost',
-                'login' => 'root',
-                'password' => '',
+                'login' => 'juniordias02',
+                'password' => 'sistema',
                 'database' => 'juniordias02',
                 'encoding' => 'utf8'
             );

@@ -36,7 +36,6 @@ class EstrategiasController extends AppController {
     function cadastro($id = null) {
         if (empty($this->data)) {
             $this->data = $this->Estrategia->read();
-            $this->Estrategia->Indicador->displayField = array("%s - %s", "{n}.Indicador.codigo", "{n}.Indicador.label");
         } else {
             if ($this->Estrategia->save($this->data)) {
                 $this->Session->setFlash('Cadastro salvo.');

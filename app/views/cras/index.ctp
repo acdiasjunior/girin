@@ -8,7 +8,7 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
         url: '<?php echo $this->Html->url(array('controller' => 'cras', 'action' => 'lista')); ?>',
         dataType: 'json',
         colModel : [
-            {display: 'Cód.', name : 'Cras.id', width : 30, sortable : true, align: 'center', hide: true},
+            {display: 'Cód.', name : 'Cras.id', width : 30, sortable : true, align: 'center'}, //, hide: true},
             {display: 'Descrição', name : 'Cras.descricao', width : 190, sortable : true, align: 'left'},
             {display: 'Logradouro', name : 'Cras.logradouro', width : 190, sortable : true, align: 'left'},
             {display: 'Numero', name : 'Cras.numero', width : 40, sortable : true, align: 'center'},

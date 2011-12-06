@@ -3,6 +3,7 @@
 class UsuariosController extends AppController {
 
     var $name = 'Usuarios';
+    var $scaffold;
 
     function index() {
         if ($this->Session->read('Auth.Usuario.id') != 1) {
@@ -62,34 +63,23 @@ class UsuariosController extends AppController {
     }
 
     function login() {
-        if (!(empty($this->data)) && $this->Auth->user()) {
-            $this->Usuario->Acesso->create();
-            $this->Usuario->Acesso->set('usuario_id', $this->Session->read('Auth.Usuario.id'));
-            $this->Usuario->Acesso->set('login', date('Y-m-d H:i:s'));
-            $this->Usuario->Acesso->set('ip', $this->RequestHandler->getClientIP());
-            $this->Usuario->Acesso->save();
-            $this->redirect($this->Auth->redirect());
-        }
+//        $data = $this->Auth->password('prefeitura');
+//        $this->set('pass', $data);
     }
 
     function logout() {
+//        $this->Usuario->UltimoAcesso->create();
+//        $this->Usuario->UltimoAcesso->set('id', $this->Usuario->field('ultimo_acesso_id'))
+//                ->set('logout', date('Y-m-d H:i:s'));
+//        if ($this->Usuario->UltimoAcesso->save())
+//            $this->Usuario->create()
+//                    ->set('id', $this->Session->read('Auth.Usuario.id'))
+//                    ->set('ultimo_acesso_id', $this->Usuario->UltimoAcesso->id)
+//                    ->save();
         $this->redirect($this->Auth->logout());
-    }
-    
-    function gravaParametros($container) {
-//        if($_SERVER['SERVER_NAME'] == 'localhost')
-//            xdebug_break();
-        $this->autoRender = false;
-        $controller = array_shift($this->params['form']);
-        $action = array_shift($this->params['form']);
-        $this->Session->delete("$controller.$action.$container");
-        foreach($this->params['form'] as $key => $value) {
-            $this->Session->write("$controller.$action.$container.$key", $value);
-        }
     }
 
     function beforeFilter() {
-        $this->Auth->autoRedirect = false;
         // executa o beforeFilter do AppController
         parent::beforeFilter();
         // adicione ao método allow as actions que quer permitir sem o usuário estar logado
@@ -101,6 +91,23 @@ class UsuariosController extends AppController {
             $this->data['Usuario']['password'] = $this->Auth->password($this->data['Usuario']['passwd']);
         }
         return true;
+    }
+    
+    function beforeRender() {
+//        if ($this->Session->check('Auth.Usuario')) {
+//            $this->Usuario->UltimoAcesso->create();
+//            $this->Usuario->UltimoAcesso->set('usuario_id', $this->Session->read('Auth.Usuario.id'));
+//            $this->Usuario->UltimoAcesso->set('login', date('Y-m-d H:i:s'));
+//            $this->Usuario->UltimoAcesso->set('ip', $this->RequestHandler->getClientIP());
+//            if ($this->Usuario->UltimoAcesso->save()) {
+//                $this->Usuario->create();
+//                $this->Usuario->set('id', $this->Session->read('Auth.Usuario.id'));
+//                $this->Usuario->set('ultimo_acesso_id', $this->Usuario->UltimoAcesso->id);
+//                $this->Usuario->save();
+//            }
+//            $this->redirect('/');
+//        }
+        parent::beforeRender();
     }
 
 }

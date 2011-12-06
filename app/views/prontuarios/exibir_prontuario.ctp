@@ -31,6 +31,9 @@ function classificaIDF($indice) {
 }
 ?>
 <style type="text/css">
+    /*    @page {
+            margin: 12mm;
+        }*/
     body, table {
         font-family: "Times New Roman", "Garamond", serif;
         font-size: 10pt;
@@ -81,32 +84,23 @@ function classificaIDF($indice) {
     }
 </style>
 <div class="content">
+    <?php echo $this->element('print/header'); ?>
     <p class="titulo">Plano de Desenvolvimento da Família</p>
     <p class="subtitulo">1. Dados da Família</p>
-    <table>
-        <tr>
-            <td>
-                <strong>Código Domiciliar:</strong> <?php echo $this->data['Domicilio']['codigo_domiciliar'] ?>
-                <strong>CRAS:</strong> <?php echo $this->data['Domicilio']['Cras']['descricao'] ?>
-                <strong>Bairro:</strong> <?php echo $this->data['Domicilio']['Bairro']['nome'] ?>
-                <br />
-                <strong>Endereço: </strong>
-                <?php
-                echo $this->data['Domicilio']['tipo_logradouro'] . ' ';
-                echo $this->data['Domicilio']['logradouro'] . ', ';
-                echo (strlen($this->data['Domicilio']['numero']) > 0) ? ', no ' . $this->data['Domicilio']['numero'] : '';
-                echo (strlen($this->data['Domicilio']['complemento']) > 0) ? ', ' . $this->data['Domicilio']['complemento'] : '';
-                ?>
-                <p><strong>Responsável Legal:</strong> <?php echo $this->data['Domicilio']['Responsavel']['nome'] ?></p>
-            </td>
-            <td>
-                Resumo:<br />
-                Estratégias de enfrentamento: <?php echo count($this->data['Estrategia']) ?> de <?php echo $total_estrategias ?><br />
-                Indicadores do IDF: <?php echo count($this->data['Indicador']) ?> de 41
-            </td>
-        </tr>
-    </table>
-    <p><!-- SEPARADOR --></p>
+    <p>
+        <strong>Código Domiciliar:</strong> <?php echo $this->data['Domicilio']['codigo_domiciliar'] ?>
+        <strong>CRAS:</strong> <?php echo $this->data['Domicilio']['Cras']['descricao'] ?>
+        <strong>Bairro:</strong> <?php echo $this->data['Domicilio']['Bairro']['nome'] ?>
+        <br />
+        <strong>Endereço: </strong>
+        <?php
+        echo $this->data['Domicilio']['tipo_logradouro'] . ' ';
+        echo $this->data['Domicilio']['logradouro'] . ', ';
+        echo (strlen($this->data['Domicilio']['numero']) > 0) ? ', no ' . $this->data['Domicilio']['numero'] : '';
+        echo (strlen($this->data['Domicilio']['complemento']) > 0) ? ', ' . $this->data['Domicilio']['complemento'] : '';
+        ?>
+    </p>
+    <p><strong>Responsável Legal:</strong> <?php echo $this->data['Domicilio']['Responsavel']['nome'] ?></p>
     <strong>Membros:</strong>
     <?php
     if ($this->data['Domicilio']['Pessoa'] > 0) {
@@ -117,8 +111,10 @@ function classificaIDF($indice) {
                     <td>Nome
                         <br />Idade - NIS</td>
                     <td>Est. Civil</td>
-                    <td>Série Escolar - Frequenta Escola</td>
-                    <td>Tipo Trabalho</td>
+                    <td>Grau de Instrução
+                        <br />Série Escolar</td>
+                    <td>Freq. Escola
+                        <br />Tipo Trabalho</td>
                 </tr>
             </thead>
             <tbody>
@@ -127,8 +123,10 @@ function classificaIDF($indice) {
                         <br />Idade: <?php echo $this->data['Domicilio']['Responsavel']['idade'] ?>
                         - NIS: <?php echo $this->data['Domicilio']['Responsavel']['nis'] ?></td>
                     <td><?php echo Pessoa::estadoCivil($this->data['Domicilio']['Responsavel']['estado_civil']) ?></td>
-                    <td><?php echo Pessoa::serieEscolar($this->data['Domicilio']['Responsavel']['serie_escolar']) ?> - <?php echo Pessoa::frequentaEscola($this->data['Domicilio']['Responsavel']['frequenta_escola']) ?></td>
-                    <td><?php echo Pessoa::tipoTrabalho($this->data['Domicilio']['Responsavel']['tipo_trabalho']) ?></td>
+                    <td><?php echo Pessoa::grauInstrucao($this->data['Domicilio']['Responsavel']['grau_instrucao']) ?>
+                        <br /><?php echo Pessoa::serieEscolar($this->data['Domicilio']['Responsavel']['serie_escolar']) ?></td>
+                    <td><?php echo Pessoa::frequentaEscola($this->data['Domicilio']['Responsavel']['frequenta_escola']) ?>
+                        <br /><?php echo Pessoa::tipoTrabalho($this->data['Domicilio']['Responsavel']['tipo_trabalho']) ?></td>
                 </tr>
             </tbody>
             <tbody>
@@ -141,8 +139,10 @@ function classificaIDF($indice) {
                                 <br />Idade: <?php echo $membro['idade'] ?>
                                 - NIS: <?php echo $membro['nis'] ?></td>
                             <td><?php echo Pessoa::estadoCivil($membro['estado_civil']) ?></td>
-                            <td><?php echo Pessoa::serieEscolar($membro['serie_escolar']) ?> - <?php echo Pessoa::frequentaEscola($membro['frequenta_escola']) ?></td>
-                            <td><?php echo Pessoa::tipoTrabalho($membro['tipo_trabalho']) ?></td>
+                            <td><?php echo Pessoa::grauInstrucao($membro['grau_instrucao']) ?>
+                                <br /><?php echo Pessoa::serieEscolar($membro['serie_escolar']) ?></td>
+                            <td><?php echo Pessoa::frequentaEscola($membro['frequenta_escola']) ?>
+                                <br /><?php echo Pessoa::tipoTrabalho($membro['tipo_trabalho']) ?></td>
                         </tr>
                         <?php
                     } //end if
@@ -175,9 +175,11 @@ function classificaIDF($indice) {
             </tr>
         </tbody>
     </table>
+</p>
 </div>
 <pagebreak />
 <div class="content">
+    <?php echo $this->element('print/header'); ?>
     <p class="titulo">2. Situação do Desenvolvimento da Família</p>
     <?php
     if ($this->data['Indice']['vulnerabilidade'] != 1) {
@@ -465,7 +467,7 @@ function classificaIDF($indice) {
         </thead>
         <tbody>
             <?php
-            for ($i = 0; $i < 3; $i++) {
+            for ($i = 0; $i < 6; $i++) {
                 ?>
                 <tr>
                     <td>&nbsp;</td>
@@ -478,15 +480,17 @@ function classificaIDF($indice) {
 </div>
 <pagebreak />
 <div class="content">
+    <?php echo $this->element('print/header'); ?>
     <p class="titulo">3. Estratégia de Enfrentamento</p>
     <?php
     foreach ($this->data['Estrategia'] as $estrategia) {
         ?>
         <table cellspacing="0" cellpading="0">
             <tr>
-                <td colspan="3"><strong><?php echo $estrategia['codigo'] ?></strong> - <?php echo $estrategia['descricao'] ?></td>
+                <td colspan="4"><strong><?php echo $estrategia['codigo'] ?></strong> - <?php echo $estrategia['descricao'] ?></td>
             </tr>
             <tr>
+                <td>Usuários:</td>
                 <td>Atividade:</td>
                 <td>Encaminhamento:</td>
                 <td>Prazo máximo:</td>
@@ -495,6 +499,7 @@ function classificaIDF($indice) {
             foreach ($estrategia['Acao'] as $acao) {
                 ?>
                 <tr>
+                    <td><?php echo Acao::usuarios($acao['usuarios']) ?></td>
                     <td><?php echo Acao::atividade($acao['atividade']) ?></td>
                     <td><?php echo $acao['encaminhamento'] ?></td>
                     <td><?php echo $acao['prazo_maximo'] ?> dias</td>
@@ -516,11 +521,12 @@ function classificaIDF($indice) {
 </div>
 <pagebreak />
 <div class="content">
+    <?php echo $this->element('print/header'); ?>
     <p class="titulo">4. Observações Gerais (preenchido pelo agente social)</p>
     <table>
         <tbody>
             <?php
-            for ($i = 0; $i < 8; $i++) {
+            for ($i = 0; $i < 15; $i++) {
                 ?>
                 <tr>
                     <td>&nbsp;</td>
@@ -539,7 +545,7 @@ function classificaIDF($indice) {
         </thead>
         <tbody>
             <?php
-            for ($i = 0; $i < 5; $i++) {
+            for ($i = 0; $i < 8; $i++) {
                 ?>
                 <tr>
                     <td>&nbsp;</td>
@@ -549,12 +555,15 @@ function classificaIDF($indice) {
             ?>
         </tbody>
     </table>
-    <p><!-- SEPARADOR --></p>
+</div>
+<pagebreak />
+<div class="content">
+    <?php echo $this->element('print/header'); ?>
     <p class="titulo">5. Análise do Plano de Desenvolvimento Familiar (a ser preenchido pelo técnico do Cras)</p>
     <table>
         <tbody>
             <?php
-            for ($i = 0; $i < 10; $i++) {
+            for ($i = 0; $i < 20; $i++) {
                 ?>
                 <tr>
                     <td>&nbsp;</td>

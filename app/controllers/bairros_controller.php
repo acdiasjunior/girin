@@ -5,8 +5,7 @@ class BairrosController extends AppController {
     var $name = 'Bairros';
 
     function index() {
-        $bairros = $this->Bairro->find('list');
-        $this->set(compact('bairros'));
+
     }
 
     function lista() {
@@ -79,17 +78,11 @@ class BairrosController extends AppController {
             echo '<option value="' . $key . '">' . $value . '</option>';
     }
 
-    function excluir($id, $novo_bairro = null) {
+    function excluir($id) {
         if (!empty($id)) {
             $this->Bairro->delete($id);
             $this->Session->setFlash('O bairro com código: ' . $id . ' foi excluído.');
             $this->redirect(array('controller' => $this->name, 'action' => 'index'));
-            if($novo_bairro != null)
-            {
-                $this->loadModel('Domicilio');
-                $this->Domicilio->updateAll(array('Domicilio.bairro_id' => $novo_bairro), array('Domicilio.bairro_id' => $id));
-                $this->Domicilio->query('UPDATE domicilios SET cras_id = (SELECT cras_id FROM bairros WHERE bairros.id = domicilios.bairro_id), regiao_id = (SELECT regiao_id FROM bairros WHERE bairros.id = domicilios.bairro_id)');
-            }
         } else {
             $this->Session->setFlash('Erro ao tentar excluir: código inexistente!');
             $this->redirect(array('controller' => $this->name, 'action' => 'index'));

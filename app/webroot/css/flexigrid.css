@@ -637,11 +637,3 @@ div.pGroup {
 .flexigrid div.fbutton .delete {
 	background: url(images/excluir.png) no-repeat center left;
 }
-
-.flexigrid div.fbutton .prontuario {
-	background: url(images/prontuario.png) no-repeat center left;
-}
-
-.flexigrid div.fbutton .pdf {
-	background: url(images/pdf.png) no-repeat center left;
-}

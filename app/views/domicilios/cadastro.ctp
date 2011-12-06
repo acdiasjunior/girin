@@ -76,12 +76,9 @@ echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Endereço');
 echo $this->Form->input('codigo_domiciliar', array('label' => 'Cód. Domiciliar'));
 echo $this->Form->input('cep', array('class' => 'maskcep', 'label' => 'Cep'));
-/*
 echo $this->Html->div('input text', $this->Form->button('?', array('type' => 'button', 'onClick' => 'consultaCep();')), array('style' => 'padding: 15px 2px 5px;'));
 echo $this->Html->div('input text loading', $this->Html->image('ajax-loader.gif'), array('style' => 'visibility: hidden; padding-top: 20px;'));
 echo $this->Html->div('', '', array('style' => 'clear: both;'));
- * 
- */
 echo $this->Form->input('tipo_logradouro', array('label' => 'Tipo'));
 echo $this->Form->input('logradouro', array('label' => 'Logradouro'));
 echo $this->Form->input('numero', array('label' => 'Número'));
@@ -104,8 +101,6 @@ echo $this->Form->input('tratamento_agua', array('options' => Domicilio::tratame
 echo $this->Form->input('tipo_iluminacao', array('options' => Domicilio::tipoIluminacao(),'label' => 'Tipo de iluminação'));
 echo $this->Form->input('escoamento_sanitario', array('options' => Domicilio::escoamentoSanitario(),'label' => 'Escoamento Sanitário'));
 echo $this->Form->input('destino_lixo', array('options' => Domicilio::destinoLixo(),'label' => 'Destino do Lixo'));
-echo $this->Form->input('bolsa_familia', array('options' => Domicilio::bolsaFamilia(),'label' => 'Bolsa Família'));
-echo $this->Form->input('comodos', array('label' => 'Cômodos', 'class' => 'edit4'));
 echo $this->Html->tag('/fieldset', null);
 
 echo $this->Html->tag('fieldset', null);

@@ -38,7 +38,7 @@ class AppController extends Controller {
         $this->Auth->userModel = 'Usuario'; // nome do seu modelo de usuario
         //$this->Auth->fields = array('username' => 'login', 'password' => 'senha'); // campos correspondentes a usuario e senha
         $this->Auth->authorize = 'controller';
-        $this->Auth->autoRedirect = false; // auto redirecionar
+        $this->Auth->autoRedirect = true; // auto redirecionar
         $this->Auth->loginAction = array('admin' => false, 'controller' => 'usuarios', 'action' => 'login'); // controlador e action de login
         $this->Auth->loginRedirect = ('/'); // controlador e action para enviar o usuario que entrou
         $this->Auth->logoutRedirect = array('controller' => 'usuarios', 'action' => 'login');

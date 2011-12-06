@@ -34,9 +34,9 @@
  * In development mode, you need to click the flash message to continue.
  */
         if($_SERVER['SERVER_NAME'] == 'localhost')
-            Configure::write('debug', 1); // Servidor Local
+            Configure::write('debug', 0);
         else
-            Configure::write('debug', 0); // Servidor Remoto
+            Configure::write('debug', 0);
 
 /**
  * CakePHP Log Level:
