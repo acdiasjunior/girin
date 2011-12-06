@@ -8,16 +8,6 @@ class IndicesController extends AppController {
     var $pessoa_count = '(SELECT COUNT(*) FROM pessoas WHERE pessoas.codigo_domiciliar = Domicilio.codigo_domiciliar)';
 
     function index() {
-        //$indices = $this->Indice->query("SELECT AVG(idf) as media, MAX(idf) as maximo, MIN(idf) as minimo FROM indices;");
-
-        /* SELECT bairros.id, bairros.nome, AVG( indices.idf ) AS idf, AVG( `vulnerabilidade` ) AS vulnerabilidade,
-         *  AVG( `conhecimento` ) AS conhecimento, AVG( `trabalho` ) AS trabalho, AVG( `recursos` ) AS recursos,
-         *  AVG( `desenvolvimento` )AS desenvolvimento, AVG( `habitacao` ) AS habitacao
-          FROM indices
-          INNER JOIN domicilios ON domicilios.codigo_domiciliar = indices.codigo_domiciliar
-          INNER JOIN bairros ON bairros.id = domicilios.bairro_id
-          GROUP BY bairros.id */
-
         $joins = array(
             array('table' => 'domicilios',
                 'alias' => 'Domicilio',
@@ -60,9 +50,9 @@ class IndicesController extends AppController {
             'AVG(Indice.habitacao) AS habitacao',
         );
         $conditions = array();
-        
+
         foreach ($this->Indice->indicadores as $indicador)
-            $fields[] = "AVG($indicador) AS $indicador";
+            $options['fields'][] = "AVG($indicador) AS $indicador";
 
         switch ($this->data['Relatorio']['filtro']) {
             case 'regiao_id':
@@ -95,11 +85,11 @@ class IndicesController extends AppController {
         $fields = array(
             'COUNT(*) AS total',
             '(CASE
-                    WHEN Indice.idf <= 0.61 THEN "ate06"
-                    WHEN Indice.idf > 0.61 AND Indice.idf <= 0.71 THEN "de06a07"
-                    WHEN Indice.idf > 0.71 AND Indice.idf <= 0.81 THEN "de07a08"
-                    WHEN Indice.idf > 0.81 AND Indice.idf <= 0.91 THEN "de08a09"
-                    WHEN Indice.idf > 0.91 THEN "maior09"
+                    WHEN Indice.idf <= 0.6 THEN "ate06"
+                    WHEN Indice.idf > 0.6 AND Indice.idf <= 0.7 THEN "de06a07"
+                    WHEN Indice.idf > 0.7 AND Indice.idf <= 0.8 THEN "de07a08"
+                    WHEN Indice.idf > 0.8 AND Indice.idf <= 0.9 THEN "de08a09"
+                    WHEN Indice.idf > 0.9 THEN "maior09"
                  END) AS idf',
         );
         $group = array('idf');
@@ -185,7 +175,7 @@ class IndicesController extends AppController {
                     foreach ($domicilio['Pessoa'] as $pessoa) {
                         foreach ($dimensao as $nome => $valor) {
                             foreach ($valor as $indicador => $padrao) {
-                                if ($dimensao[$nome][$indicador] == $padrao) {
+                                if ($dimensao[$nome][$indicador] === $padrao) {
                                     $retorno = $this->calculaIndicadorPessoa($pessoa, $indicador, $dimensao[$nome][$indicador]);
                                     $dimensao[$nome][$indicador] = $retorno['valor'];
                                 }
@@ -197,9 +187,7 @@ class IndicesController extends AppController {
                         if ($pessoa['idade'] >= Pessoa::IDADE_ADOLESCENTE)
                             $contador['idade_ativa']++;
                         //T.1 Mais da metade dos membros em idade ativa encontram-se ocupados
-                        if ($pessoa['idade'] >= Pessoa::IDADE_ADOLESCENTE &&
-                                $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
-                                && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA)
+                        if ($pessoa['idade'] >= Pessoa::IDADE_ADOLESCENTE && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA)
                             $contador['idade_ativa_ocupado']++;
                         //R.2 Renda familiar per capita superior a linha de extema pobreza
                         //R.5 Renda familiar per capita superior a linha de pobreza
@@ -207,7 +195,7 @@ class IndicesController extends AppController {
                         //R.6 Maior parte da renda familiar não advém de transferências
                         $somatorio['valor_beneficio'] += $pessoa['valor_beneficio'];
                     }
-                    
+
                     foreach ($dimensao['habitacao'] as $indicador => $valor) {
                         $retorno = $this->calculaIndicadorDomicilio($domicilio['Domicilio'], $indicador, $dimensao[$nome][$indicador]);
                         $dimensao['habitacao'][$indicador] = $retorno['valor'];
@@ -236,7 +224,7 @@ class IndicesController extends AppController {
                     //R.6 Maior parte da renda familiar não advém de transferências
                     if ($somatorio['valor_renda'] < $somatorio['valor_beneficio'])
                         $dimensao['recursos']['r6'] = 0;
-                    
+
                     //NAO V.1 Ausência de Gestantes
                     //NAO V.2 Ausência de Mães Amamentando
                     //NAO V.6 Ausência de portadores de deficiência
@@ -245,24 +233,27 @@ class IndicesController extends AppController {
                     //NAO R.3 Despesa com alimentos superior a linha de extema pobreza
                     //NAO R.4 Despesa familiar per capita superior a linha de pobreza
                     /// SALVANDO OS DADOS
-                    foreach ($dimensao as $key => $value)
-                        foreach ($value as $k => $v)
+                    
+                    $contador['dimensoes'] = 0;
+                    $somatorio['dimensoes'] = 0;
+                    foreach ($dimensao as $key => $value) {
+                        $contador[$key] = 0;
+                        $somatorio[$key] = 0;
+                        foreach ($value as $k => $v) {
                             $this->data['Indice'][$k] = $v;
+                            $contador[$key]++;
+                            $somatorio[$key] = $v;
+                        }
+                        $this->data['Indice'][$k] = $somatorio[$key] / $contador[$key];
+                        $somatorio['dimensoes'] = $this->data['Indice'][$k];
+                        $contador['dimensoes']++;
+                    }
 
-                    //$this->data['Indice']['idf'] = array_sum($this->data['Indice']) / count($this->data['Indice']);
+                    $this->data['Indice']['idf'] = $contador['dimensoes'] / $somatorio['dimensoes'];
                     $this->data['Indice']['codigo_domiciliar'] = $codigo_domiciliar;
 
                     $this->data['Domicilio']['codigo_domiciliar'] = $this->data['Indice']['codigo_domiciliar'];
                     $this->data['Domicilio']['idf'] = $this->data['Indice']['idf'];
-
-                    $idf['dimensoes']['qtd'] = 0;
-                    $idf['dimensoes']['soma'] = 0;
-                    foreach ($dimensao as $key => $value) {
-                        $this->data['Indice'][$key] = array_sum($dimensao[$key]) / count($dimensao[$key]);
-                        $idf['dimensoes']['soma'] += $this->data['Indice'][$key];
-                        $idf['dimensoes']['qtd']++;
-                    }
-                    $this->data['Indice']['idf'] = $idf['dimensoes']['soma'] / $idf['dimensoes']['qtd'];
 
                     $this->data['IndicesHistorico'] = $this->data['Indice'];
 
@@ -373,7 +364,6 @@ class IndicesController extends AppController {
                     break;
                 case 't3': //T.3 Presença de pelo menos um ocupado em atividade não agrícola
                     if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA &&
-                            $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO &&
                             $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_TRABALHADOR_RURAL
                             && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_EMPREGADOR_RURAL) {
                         $valor = 1;
@@ -383,9 +373,7 @@ class IndicesController extends AppController {
                     }
                     break;
                 case 't4': //T.4 Presença de pelo menos um ocupado com rendimento superior a 1 salário mínimo
-                    if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
-                            && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
-                            && $pessoa['valor_renda'] > 545) {
+                    if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA && $pessoa['valor_renda'] > 545) {
                         $valor = 1;
                         $usuario = false;
                     } else {
@@ -393,9 +381,7 @@ class IndicesController extends AppController {
                     }
                     break;
                 case 't5':  //T.5 Presença de pelo menos um ocupado com rendimento superior a 2 salários mínimos
-                    if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
-                            && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
-                            && $pessoa['valor_renda'] > (545 * 2)) {
+                    if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA && $pessoa['valor_renda'] > (545 * 2)) {
                         $valor = 1;
                         $usuario = false;
                     } else {
@@ -403,7 +389,7 @@ class IndicesController extends AppController {
                     }
                     break;
                 case 'd1': //D.1 Ausência de pelo menos uma criança de menos de 10 anos trabalhando
-                    if ($pessoa['idade'] < Pessoa::IDADE_ADOLESCENTE
+                    if ($pessoa['idade'] < 10
                             && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
                             && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO) {
                         $valor = 0;
@@ -419,42 +405,37 @@ class IndicesController extends AppController {
                     }
                     break;
                 case 'd3': //D.3 Ausência de pelo menos uma criança de 0-6 anos fora da escola
-                    if ($pessoa['idade'] <= 6 && ($pessoa['frequenta_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
-                            || $pessoa['frequenta_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
+                    if ($pessoa['idade'] <= 6 && $pessoa['frequenta_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA) {
                         $valor = 0;
                         $usuario = true;
                     }
                     break;
                 case 'd4': //D.4 Ausência de pelo menos uma criança de 7-14 anos fora da escola
-                    if ($pessoa['idade'] >= 7 && $pessoa['idade'] <= 14 && ($pessoa['frequenta_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
-                            || $pessoa['frequenta_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
+                    if ($pessoa['idade'] >= 7 && $pessoa['idade'] <= 14 && $pessoa['frequenta_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA) {
                         $valor = 0;
                         $usuario = true;
                     }
                     break;
                 case 'd5': //D.5 Ausência de pelo menos uma criança de 7-17 anos fora da escola
-                    if ($pessoa['idade'] >= 7 && $pessoa['idade'] <= 17 && ($pessoa['frequenta_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
-                            || $pessoa['frequenta_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
+                    if ($pessoa['idade'] >= 7 && $pessoa['idade'] <= 17 && $pessoa['frequenta_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA) {
                         $valor = 0;
                         $usuario = true;
                     }
                     break;
                 case 'd6': //D.6 Ausência de pelo menos uma criança com até 14 anos com mais de 2 anos de atraso
-                    if (($pessoa['idade'] >= 6 && $pessoa['idade'] <= 14) && ($pessoa['idade'] - $pessoa['serie_escolar']) >= 0) {
+                    if (($pessoa['idade'] >= 7 && $pessoa['idade'] <= 14) && ($pessoa['serie_escolar'] - $pessoa['idade'] < 0)) {
                         $valor = 0;
                         $usuario = true;
                     }
                     break;
                 case 'd7': //D.7 Ausência de pelo menos um adolescente de 10 a 14 anos analfabeto
-                    if ($pessoa['idade'] >= 10 && $pessoa['idade'] <= 14 && (
-                            $pessoa['grau_instrucao'] == Pessoa::ESCOLARIDADE_ANALFABETO || $pessoa['grau_instrucao'] == Pessoa::ESCOLARIDADE_NAO_INFORMADO)) {
+                    if ($pessoa['idade'] >= 10 && $pessoa['idade'] <= 14 && $pessoa['grau_instrucao'] == Pessoa::ESCOLARIDADE_ANALFABETO) {
                         $valor = 0;
                         $usuario = true;
                     }
                     break;
                 case 'd8': //D.8 Ausência de pelo menos um jovem de 15 a 17 anos analfabeto
-                    if ($pessoa['idade'] >= 15 && $pessoa['idade'] <= 17 && (
-                            $pessoa['grau_instrucao'] == Pessoa::ESCOLARIDADE_ANALFABETO || $pessoa['grau_instrucao'] == Pessoa::ESCOLARIDADE_NAO_INFORMADO)) {
+                    if ($pessoa['idade'] >= 15 && $pessoa['idade'] <= 17 && $pessoa['grau_instrucao'] == Pessoa::ESCOLARIDADE_ANALFABETO) {
                         $valor = 0;
                         $usuario = true;
                     }
@@ -485,7 +466,7 @@ class IndicesController extends AppController {
                         $domicilio['situacao_domicilio'] != Domicilio::DOMICILIO_ALUGADO) {
                     $valor = 0;
                     $vulnerabilidade = true;
-                        }
+                }
                 break;
             case 'h4': //H.4 Material de construção permanente
                 if ($domicilio['tipo_construcao'] != Domicilio::CONSTRUCAO_TIJOLO_ALVENARIA) {
@@ -516,7 +497,7 @@ class IndicesController extends AppController {
                         $domicilio['tipo_iluminacao'] != Domicilio::ILUMINACAO_RELOGIO_COMUNITARIO) {
                     $valor = 0;
                     $vulnerabilidade = true;
-                        }
+                }
                 break;
         }
         return array('valor' => $valor, 'vulnerabilidade' => $vulnerabilidade);
