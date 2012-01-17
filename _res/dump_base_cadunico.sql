@@ -15,7 +15,16 @@ SELECT
 	p.vr_renda_seguro_desemprego AS valor_seguro_desemprego,
 	p.vr_renda_pensao AS valor_pensao, p.vr_outras_rendas AS valor_renda, p.ic_serie_escolar AS serie_escolar, p.ic_grau_instrucao AS grau_instrucao,
 	p.ic_tipo_escola AS tipo_escola, p.ic_sexo AS genero, p.ic_raca_cor AS raca_cor, p.ic_estado_civil AS estado_civil,
-	p.nu_mes_gestacao AS mes_gestacao
+	p.nu_mes_gestacao AS mes_gestacao, p.ic_amamentando AS amamentando, p.ic_cegueira AS cegueira, p.ic_mudez AS mudez, p.ic_surdez AS surdez,
+        p.ic_deficiencia_mental AS deficiencia_mental, p.ic_deficiencia_fisica AS deficiencia_fisica, p.ic_outra_deficiencia AS outra_deficiencia,
+        (CASE
+            WHEN p.ic_sem_deficiencia = '0' THEN 1
+            ELSE 0
+         END) AS portador_deficiencia,
+        (CASE
+            WHEN p.nu_ordem_esposa_companheiro <> 99 THEN 1
+            ELSE 0
+         END) AS esposa_companheiro
 FROM cubtb027_pessoa AS p
 LEFT JOIN
 	cubtb027_pessoa AS r
@@ -26,15 +35,18 @@ INNER JOIN
 LEFT JOIN
 	cubtb038_ocupacao AS o
 	ON p.co_ocupacao = o.co_ocupacao
-WHERE p.dt_alteracao_pessoa > (now() - interval '2 YEAR')
-
--- DOMICILIOS
-SUM(vr_despesa_aluguel) AS valor_despesa_aluguel,
-SUM(vr_prestacao_habitacional) AS valor_despesa_prestacao,
-SUM(vr_despesa_alimentacao) AS valor_despesa_alimentacao,
-SUM(vr_despesa_agua) AS valor_despesa_agua,
-SUM(vr_despesa_luz) AS valor_despesa_luz,
-SUM(vr_despesa_transporte) AS valor_despesa_transporte,
-SUM(vr_despesa_medicamento) AS valor_despesa_medicamento,
-SUM(vr_despesa_gas) AS valor_despesa_gas,
-SUM(vr_outras_despesas) AS valor_outras_despesas
+WHERE
+    p.dt_alteracao_pessoa > (now() - interval '2 YEAR') AND
+    p.co_nis IS NOT NULL AND
+    p.nu_pessoa IN (
+        SELECT DISTINCT ON (id) u.id FROM
+            ((SELECT
+                DISTINCT ON (c.co_cpf) c.nu_pessoa AS id
+                FROM cubtb027_pessoa AS c
+                ORDER BY c.co_cpf, c.dt_alteracao_pessoa DESC)
+            UNION
+            (SELECT
+                d.nu_pessoa AS id
+                FROM cubtb027_pessoa AS d
+                WHERE d.co_cpf IS NULL)) AS u
+        )
