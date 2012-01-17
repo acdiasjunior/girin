@@ -85,17 +85,17 @@ class DATABASE_CONFIG {
                 'host' => 'localhost',
                 'login' => 'root',
                 'password' => '',
-                'database' => 'juniordias02',
+                'database' => 'programacaolocal',
                 'encoding' => 'utf8'
             );
         else
             $this->default = array(
                 'driver' => 'mysql',
                 'persistent' => false,
-                'host' => 'mysql.juniordias.com.br',
-                'login' => 'juniordias02',
-                'password' => 'system',
-                'database' => 'juniordias02',
+                'host' => 'localhost',
+                'login' => 'root',
+                'password' => '',
+                'database' => 'programacaolocal',
                 'encoding' => 'utf8'
             );
     }
