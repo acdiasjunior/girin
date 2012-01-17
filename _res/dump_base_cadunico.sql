@@ -15,11 +15,7 @@ SELECT
 	p.vr_renda_seguro_desemprego AS valor_seguro_desemprego,
 	p.vr_renda_pensao AS valor_pensao, p.vr_outras_rendas AS valor_renda, p.ic_serie_escolar AS serie_escolar, p.ic_grau_instrucao AS grau_instrucao,
 	p.ic_tipo_escola AS tipo_escola, p.ic_sexo AS genero, p.ic_raca_cor AS raca_cor, p.ic_estado_civil AS estado_civil,
-	(CASE
-		WHEN p.nu_mes_gestacao IS NOT NULL THEN
-			(SELECT CURRENT_DATE + (9 - p.nu_mes_gestacao) * INTERVAL '1 month')
-		ELSE NULL
-	END) AS data_concepcao_gestacao, p.nu_mes_gestacao AS mes_gestacao
+	p.nu_mes_gestacao AS mes_gestacao
 FROM cubtb027_pessoa AS p
 LEFT JOIN
 	cubtb027_pessoa AS r
