@@ -24,7 +24,8 @@ SELECT
         (CASE
             WHEN p.nu_ordem_esposa_companheiro <> 99 THEN 1
             ELSE 0
-         END) AS esposa_companheiro
+         END) AS esposa_companheiro,
+         p.dt_exclusao_pessoa AS data_exclusao
 FROM cubtb027_pessoa AS p
 LEFT JOIN
 	cubtb027_pessoa AS r
@@ -38,6 +39,8 @@ LEFT JOIN
 WHERE
     p.dt_alteracao_pessoa > (now() - interval '2 YEAR') AND
     p.co_nis IS NOT NULL AND
+    (p.dt_exclusao_pessoa = '1899-12-30' OR
+    p.dt_exclusao_pessoa IS NULL) AND
     p.nu_pessoa IN (
         SELECT DISTINCT ON (id) u.id FROM
             ((SELECT
@@ -50,3 +53,9 @@ WHERE
                 FROM cubtb027_pessoa AS d
                 WHERE d.co_cpf IS NULL)) AS u
         )
+
+-- DOMICILIOS
+--`nis_responsavel`, `cep`, `tipo_logradouro`, `logradouro`, `numero`, `complemento`, `bairro_id`, `cras_id`, `regiao_id`, `cidade`, `uf`, `ddd`, `telefone`, `tipo_localidade`, `situacao_domicilio`, `tipo_domicilio`, `tipo_construcao`, `tipo_abastecimento`, `tratamento_agua`, `tipo_iluminacao`, `escoamento_sanitario`, `destino_lixo`, `bolsa_familia`, `comodos`, `valor_despesa_aluguel`, `valor_despesa_prestacao`, `valor_despesa_alimentacao`, `valor_despesa_agua`, `valor_despesa_luz`, `valor_despesa_transporte`, `valor_despesa_medicamento`, `valor_despesa_gas`, `valor_outras_despesas`, `idf`, `data_pesquisa`, `data_inclusao`, `data_atualizacao`, `entrevistador`
+SELECT
+    d.nu_domiciliar AS codigo_domiciliar,
+FROM cubtb013_domicilio AS d
