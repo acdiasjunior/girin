@@ -10,7 +10,7 @@ SELECT
 		WHEN p.dt_inclusao_pessoa = '1899-12-30' THEN NULL
 		ELSE p.dt_inclusao_pessoa
 	END) AS data_inclusao,
-	d.nu_domiciliar,
+	d.nu_domiciliar AS codigo_domiciliar,
 	r.co_nis AS responsavel_nis, p.ic_parentesco_responsavel AS reponsavel_parentesco, p.vr_renda_aposentadoria AS valor_aposentadoria,
 	p.vr_renda_seguro_desemprego AS valor_seguro_desemprego,
 	p.vr_renda_pensao AS valor_pensao, p.vr_outras_rendas AS valor_renda, p.ic_serie_escolar AS serie_escolar, p.ic_grau_instrucao AS grau_instrucao,
@@ -55,7 +55,17 @@ WHERE
         )
 
 -- DOMICILIOS
---`nis_responsavel`, `cep`, `tipo_logradouro`, `logradouro`, `numero`, `complemento`, `bairro_id`, `cras_id`, `regiao_id`, `cidade`, `uf`, `ddd`, `telefone`, `tipo_localidade`, `situacao_domicilio`, `tipo_domicilio`, `tipo_construcao`, `tipo_abastecimento`, `tratamento_agua`, `tipo_iluminacao`, `escoamento_sanitario`, `destino_lixo`, `bolsa_familia`, `comodos`, `valor_despesa_aluguel`, `valor_despesa_prestacao`, `valor_despesa_alimentacao`, `valor_despesa_agua`, `valor_despesa_luz`, `valor_despesa_transporte`, `valor_despesa_medicamento`, `valor_despesa_gas`, `valor_outras_despesas`, `idf`, `data_pesquisa`, `data_inclusao`, `data_atualizacao`, `entrevistador`
+-- bolsa_familia,
+-- `valor_despesa_aluguel`, `valor_despesa_prestacao`,
+-- `valor_despesa_alimentacao`, `valor_despesa_agua`, `valor_despesa_luz`, `valor_despesa_transporte`,
+-- `valor_despesa_medicamento`, `valor_despesa_gas`, `valor_outras_despesas`, `idf`, `data_pesquisa`,
+-- `data_inclusao`, `data_atualizacao`, `entrevistador`
 SELECT
-    d.nu_domiciliar AS codigo_domiciliar,
+    DISTINCT ON (d.nu_domiciliar) d.nu_domiciliar AS codigo_domiciliar, (SELECT DISTINCT(p.co_nis) FROM cubfn002_recuperar_nu_ordem(p.nu_responsavel::bigint)) AS responsavel_nis,
+    d.co_cep_domicilio AS cep, d.ic_tipo_logradouro AS tipo_logradouro, d.no_logradouro_domicilio AS logradouro, d.co_logradouro_domicilio AS numero, d.de_complemento_logradouro_domicilio AS complemento,
+    d.no_bairro_domicilio AS bairro, d.nu_ddd_domicilio AS ddd, d.nu_telefone_domicilio AS telefone, d.ic_tipo_localidade AS tipo_localidade, d.ic_situacao_domicilio AS situacao_domicilio,
+    d.ic_tipo_domicilio AS tipo_domicilio, d.ic_tipo_construcao AS tipo_construcao, d.ic_tipo_abastecimento_agua AS tipo_abastecimento, d.ic_tratamento_agua AS tratamento_agua,
+    d.ic_tipo_iluminacao AS tipo_iluminacao, d.ic_escoamento_sanitario AS escoamento_sanitario, d.ic_destino_lixo AS destino_lixo, d.qt_comodos AS comodos
 FROM cubtb013_domicilio AS d
+INNER JOIN
+	cubtb027_pessoa AS p ON p.co_domicilio = d.co_domicilio
