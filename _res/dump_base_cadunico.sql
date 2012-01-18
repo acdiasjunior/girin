@@ -65,7 +65,51 @@ SELECT
     d.co_cep_domicilio AS cep, d.ic_tipo_logradouro AS tipo_logradouro, d.no_logradouro_domicilio AS logradouro, d.co_logradouro_domicilio AS numero, d.de_complemento_logradouro_domicilio AS complemento,
     d.no_bairro_domicilio AS bairro, d.nu_ddd_domicilio AS ddd, d.nu_telefone_domicilio AS telefone, d.ic_tipo_localidade AS tipo_localidade, d.ic_situacao_domicilio AS situacao_domicilio,
     d.ic_tipo_domicilio AS tipo_domicilio, d.ic_tipo_construcao AS tipo_construcao, d.ic_tipo_abastecimento_agua AS tipo_abastecimento, d.ic_tratamento_agua AS tratamento_agua,
-    d.ic_tipo_iluminacao AS tipo_iluminacao, d.ic_escoamento_sanitario AS escoamento_sanitario, d.ic_destino_lixo AS destino_lixo, d.qt_comodos AS comodos
+    d.ic_tipo_iluminacao AS tipo_iluminacao, d.ic_escoamento_sanitario AS escoamento_sanitario, d.ic_destino_lixo AS destino_lixo, d.qt_comodos AS comodos,
+    despesas.despesa_aluguel, despesas.valor_despesa_prestacao,	despesas.valor_despesa_alimentacao, despesas.valor_despesa_agua, despesas.valor_despesa_luz,
+    despesas.valor_despesa_transporte, despesas.valor_despesa_medicamento, despesas.valor_despesa_gas, despesas.valor_outras_despesas
 FROM cubtb013_domicilio AS d
 INNER JOIN
-	cubtb027_pessoa AS p ON p.co_domicilio = d.co_domicilio
+    cubtb027_pessoa AS p ON p.co_domicilio = d.co_domicilio
+INNER JOIN
+(SELECT
+	d.co_domicilio,
+	SUM(p.vr_despesa_aluguel) AS despesa_aluguel,
+	SUM(p.vr_prestacao_habitacional) AS valor_despesa_prestacao,
+	SUM(p.vr_despesa_alimentacao) AS valor_despesa_alimentacao,
+	SUM(p.vr_despesa_agua) AS valor_despesa_agua,
+	SUM(p.vr_despesa_luz) AS valor_despesa_luz,
+	SUM(p.vr_despesa_transporte) AS valor_despesa_transporte,
+	SUM(p.vr_despesa_medicamento) AS valor_despesa_medicamento,
+	SUM(p.vr_despesa_gas) AS valor_despesa_gas,
+	SUM(p.vr_outras_despesas) AS valor_outras_despesas
+    FROM cubtb027_pessoa p
+    INNER JOIN
+             cubtb013_domicilio d ON p.co_domicilio = d.co_domicilio
+    GROUP BY
+	d.co_domicilio
+) AS despesas ON despesas.co_domicilio = d.co_domicilio
+WHERE d.co_domicilio IN (SELECT
+                                d.co_domicilio
+                        FROM cubtb027_pessoa AS p
+                        INNER JOIN
+                                cubtb013_domicilio AS d
+                                ON p.co_domicilio = d.co_domicilio
+                        WHERE
+                            p.dt_alteracao_pessoa > (now() - interval '2 YEAR') AND
+                            p.co_nis IS NOT NULL AND
+                            (p.dt_exclusao_pessoa = '1899-12-30' OR
+                            p.dt_exclusao_pessoa IS NULL) AND
+                            p.nu_pessoa IN (
+                                SELECT DISTINCT ON (id) u.id FROM
+                                    ((SELECT
+                                        DISTINCT ON (c.co_cpf) c.nu_pessoa AS id
+                                        FROM cubtb027_pessoa AS c
+                                        ORDER BY c.co_cpf, c.dt_alteracao_pessoa DESC)
+                                    UNION
+                                    (SELECT
+                                        d.nu_pessoa AS id
+                                        FROM cubtb027_pessoa AS d
+                                        WHERE d.co_cpf IS NULL)) AS u
+                                )
+                        )
