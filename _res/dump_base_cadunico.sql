@@ -1,7 +1,8 @@
 -- PESSOAS
 SELECT
-	p.co_nis AS nis, p.no_pessoa AS nome, p.dt_nascimento AS data_nascimento, p.co_cpf AS cpf, p.de_titulo_eleitor AS titulo_eleitor,
-	p.de_zona_titulo_eleitor AS zona, p.de_secao_titulo_eleitor AS secao, o.de_ocupacao AS ocupacao, p.nu_inep_escola AS inep,
+	p.co_nis AS nis, d.nu_domiciliar AS codigo_domiciliar, p.no_pessoa AS nome, p.dt_nascimento AS data_nascimento, p.co_cpf AS cpf,
+        p.de_titulo_eleitor AS titulo_eleitor, p.de_zona_titulo_eleitor AS zona, p.de_secao_titulo_eleitor AS secao, o.de_ocupacao AS ocupacao,
+        p.nu_inep_escola AS inep,
 	(CASE
 		WHEN p.dt_alteracao_pessoa = '1899-12-30' THEN NULL
 		ELSE p.dt_alteracao_pessoa
@@ -10,7 +11,6 @@ SELECT
 		WHEN p.dt_inclusao_pessoa = '1899-12-30' THEN NULL
 		ELSE p.dt_inclusao_pessoa
 	END) AS data_inclusao,
-	d.nu_domiciliar AS codigo_domiciliar,
 	r.co_nis AS responsavel_nis, p.ic_parentesco_responsavel AS reponsavel_parentesco, p.vr_renda_aposentadoria AS valor_aposentadoria,
 	p.vr_renda_seguro_desemprego AS valor_seguro_desemprego,
 	p.vr_renda_pensao AS valor_pensao, p.vr_outras_rendas AS valor_renda, p.ic_serie_escolar AS serie_escolar, p.ic_grau_instrucao AS grau_instrucao,
