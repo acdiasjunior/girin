@@ -61,13 +61,19 @@ SELECT
     d.co_cep_domicilio AS cep, d.ic_tipo_logradouro AS tipo_logradouro, d.no_logradouro_domicilio AS logradouro, d.co_logradouro_domicilio AS numero, d.de_complemento_logradouro_domicilio AS complemento,
     d.no_bairro_domicilio AS bairro, d.nu_ddd_domicilio AS ddd, d.nu_telefone_domicilio AS telefone, d.ic_tipo_localidade AS tipo_localidade, d.ic_situacao_domicilio AS situacao_domicilio,
     d.ic_tipo_domicilio AS tipo_domicilio, d.ic_tipo_construcao AS tipo_construcao, d.ic_tipo_abastecimento_agua AS tipo_abastecimento, d.ic_tratamento_agua AS tratamento_agua,
-    d.ic_tipo_iluminacao AS tipo_iluminacao, d.ic_escoamento_sanitario AS escoamento_sanitario, d.ic_destino_lixo AS destino_lixo, d.qt_comodos AS comodos,
+    d.ic_tipo_iluminacao AS tipo_iluminacao, d.ic_escoamento_sanitario AS escoamento_sanitario, d.ic_destino_lixo AS destino_lixo, d.qt_pessoas AS quantidade_pessoas, d.qt_comodos AS comodos,
+    -- Despesas
     despesas.despesa_aluguel, despesas.valor_despesa_prestacao,	despesas.valor_despesa_alimentacao, despesas.valor_despesa_agua, despesas.valor_despesa_luz,
     despesas.valor_despesa_transporte, despesas.valor_despesa_medicamento, despesas.valor_despesa_gas, despesas.valor_outras_despesas,
+    (COALESCE(despesa_aluguel,0) + COALESCE(valor_despesa_prestacao,0) + COALESCE(valor_despesa_alimentacao,0) + COALESCE(valor_despesa_agua,0) +
+    COALESCE(valor_despesa_luz,0) + COALESCE(valor_despesa_transporte,0) + COALESCE(valor_despesa_medicamento,0) + COALESCE(valor_despesa_gas,0) +
+    COALESCE(valor_outras_despesas,0)) AS valor_despesa_familia,
+    -- Rendas
     rendas.valor_remuneracao, rendas.valor_aposentadoria_pensao, rendas.valor_seguro_desemprego, rendas.valor_pensao_alimenticia, rendas.valor_outras_rendas,
     (COALESCE(valor_remuneracao,0) + COALESCE(valor_aposentadoria_pensao,0) +
         COALESCE(valor_seguro_desemprego,0) + COALESCE(valor_pensao_alimenticia,0) +
         COALESCE(valor_outras_rendas,0)) AS valor_renda_familia
+
 FROM cubtb013_domicilio AS d
 INNER JOIN
     cubtb027_pessoa AS p ON p.co_domicilio = d.co_domicilio
