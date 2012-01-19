@@ -138,6 +138,13 @@ class Indice extends AppModel {
         // Calculo para Dimensão - Conhecimento
         $analfabetismo = $this->calculoComponenteAnalfabetismo();
         $escolaridade = $this->calculoComponenteEscolaridade();
+        $conhecimento = ($analfabetismo + $vulnerabilidade) / 2;
+
+        // Calculo para Dimensão - Trabalho
+        $disponibilidade = $this->calculoComponenteDisponibilidade();
+        $qualidade = $this->calculoComponenteQualidade();
+        $remuneracao = $this->calculoComponenteRemuneracao();
+        $trabalho = ($disponibilidade + $qualidade + $remuneracao) / 3;
     }
 
     private function calculoComponenteGestacao() {
@@ -328,13 +335,13 @@ class Indice extends AppModel {
             $this->domicilio['Indice']['c4'] = $retorno;
             return $retorno;
         }
-        
+
         //C.5 Presença de pelo menos um adulto com alguma educação superior
         function c5() {
             $retorno = 0;
             foreach ($this->domicilio['Pessoa'] as $pessoa) {
-                    if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO) {
-                        if ($pessoa['grau_instrucao'] >= Pessoa::ESCOLARIDADE_SUPERIOR_INCOMPLETO) {
+                if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO) {
+                    if ($pessoa['grau_instrucao'] >= Pessoa::ESCOLARIDADE_SUPERIOR_INCOMPLETO) {
                         $retorno = 1;
                         break;
                     }
@@ -345,6 +352,83 @@ class Indice extends AppModel {
         }
 
         return (c3() + c4() + c5()) / 3;
+    }
+
+    private function calculoComponenteDisponibilidade() {
+
+        // T.1 IMPLEMENTAR CALCULO DE FUNÇÃO GENERICA COM TOTALIZADORES PARA ESTA FUNÇÃO E DEMAIS
+
+        return t1();
+    }
+
+    private function calculoComponenteQualidade() {
+
+        //T.2 Presença de pelo menos um ocupado no setor formal
+        function t2() {
+            $retorno = 0;
+            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+                if ($pessoa['tipo_trabalho'] == Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA
+                        || $pessoa['tipo_trabalho'] == Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA) {
+                    $retorno = 1;
+                    break;
+                }
+            }
+            $this->domicilio['Indice']['t2'] = $retorno;
+            return $retorno;
+        }
+
+        //T.3 Presença de pelo menos um ocupado em atividade não agrícola
+        function t3() {
+            $retorno = 0;
+            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+                if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA &&
+                        $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO &&
+                        $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_TRABALHADOR_RURAL
+                        && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_EMPREGADOR_RURAL) {
+                    $retorno = 1;
+                    break;
+                }
+            }
+            $this->domicilio['Indice']['t3'] = $retorno;
+            return $retorno;
+        }
+
+        return (t2() + t3()) / 2;
+    }
+
+    private function calculoComponenteRemuneracao() {
+
+        //T.4 Presença de pelo menos um ocupado com rendimento superior a 1 salário mínimo
+        function t4() {
+            $retorno = 0;
+            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+                if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
+                        && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
+                        && $pessoa['valor_renda'] > 545) {
+                    $retorno = 1;
+                    break;
+                }
+            }
+            $this->domicilio['Indice']['t4'] = $retorno;
+            return $retorno;
+        }
+
+        //T.5 Presença de pelo menos um ocupado com rendimento superior a 2 salários mínimos
+        function t5() {
+            $retorno = 0;
+            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+                if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
+                        && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
+                        && $pessoa['valor_renda'] > (545 * 2)) {
+                    $retorno = 1;
+                    break;
+                }
+            }
+            $this->domicilio['Indice']['t5'] = $retorno;
+            return $retorno;
+        }
+
+        return (t4() + t5()) / 2;
     }
 
 }

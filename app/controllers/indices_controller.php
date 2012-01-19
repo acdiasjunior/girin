@@ -283,46 +283,7 @@ class IndicesController extends AppController {
         if (($idade_min == null && $idade_max == null) || ($pessoa['idade'] >= $idade_min && $pessoa['idade'] < $idade_max)) {
             switch ($indicador) {
                 
-                case 't2': //T.2 Presença de pelo menos um ocupado no setor formal
-                    if ($pessoa['tipo_trabalho'] == Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA
-                            || $pessoa['tipo_trabalho'] == Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA) {
-                        $valor = 1;
-                        $usuario = false;
-                    } else {
-                        $usuario = true;
-                    }
-                    break;
-                case 't3': //T.3 Presença de pelo menos um ocupado em atividade não agrícola
-                    if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA &&
-                            $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO &&
-                            $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_TRABALHADOR_RURAL
-                            && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_EMPREGADOR_RURAL) {
-                        $valor = 1;
-                        $usuario = false;
-                    } else {
-                        $usuario = true;
-                    }
-                    break;
-                case 't4': //T.4 Presença de pelo menos um ocupado com rendimento superior a 1 salário mínimo
-                    if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
-                            && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
-                            && $pessoa['valor_renda'] > 545) {
-                        $valor = 1;
-                        $usuario = false;
-                    } else {
-                        $usuario = true;
-                    }
-                    break;
-                case 't5':  //T.5 Presença de pelo menos um ocupado com rendimento superior a 2 salários mínimos
-                    if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
-                            && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
-                            && $pessoa['valor_renda'] > (545 * 2)) {
-                        $valor = 1;
-                        $usuario = false;
-                    } else {
-                        $usuario = true;
-                    }
-                    break;
+                
                 case 'd1': //D.1 Ausência de pelo menos uma criança de menos de 10 anos trabalhando
                     if ($pessoa['idade'] < Pessoa::IDADE_ADOLESCENTE
                             && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
