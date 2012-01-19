@@ -129,7 +129,7 @@ class Indice extends AppModel {
         $this->domicilio = $domicilio;
         $gestacao = (v1() + v2()) / 2;
         $criancas = (v3() + v4() + v5()) / 3;
-        $idosos   = (v6() + v7()) / 2;
+        $idosos = (v6() + v7()) / 2;
     }
 
     // V.1 Ausencia de gestantes
@@ -140,7 +140,8 @@ class Indice extends AppModel {
                 $retorno = 0;
             }
         }
-        return $this->domicilio['Indice']['v1'] = $retorno;
+        $this->domicilio['Indice']['v1'] = $retorno;
+        return $retorno;
     }
 
     // V.2 Ausencia de gestantes
@@ -151,7 +152,8 @@ class Indice extends AppModel {
                 $retorno = 0;
             }
         }
-        return $this->domicilio['Indice']['v2'] = $retorno;
+        $this->domicilio['Indice']['v2'] = $retorno;
+        return $retorno;
     }
 
     //V.3 Ausência de crianças
@@ -162,7 +164,8 @@ class Indice extends AppModel {
                 $retorno = 0;
             }
         }
-        return $this->domicilio['Indice']['v3'] = $retorno;
+        $this->domicilio['Indice']['v3'] = $retorno;
+        return $retorno;
     }
 
     //V.4 Ausência de crianças e adolescente
@@ -173,7 +176,8 @@ class Indice extends AppModel {
                 $retorno = 0;
             }
         }
-        return $this->domicilio['Indice']['v4'] = $retorno;
+        $this->domicilio['Indice']['v4'] = $retorno;
+        return $retorno;
     }
 
     //V.5  Ausência de crianças, adolescente e jovens
@@ -184,18 +188,20 @@ class Indice extends AppModel {
                 $retorno = 0;
             }
         }
-        return $this->domicilio['Indice']['v5'] = $retorno;
+        $this->domicilio['Indice']['v5'] = $retorno;
+        return $retorno;
     }
 
-    //V.6 Ausência de portadores de deficiencia
+    //V.6 Ausência de portadores de deficiência
     static function v6() {
         $retorno = 1;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
-            if ($pessoa['portador_deficiencia'] >= Pessoa::IDADE_IDOSO) {
+            if ($pessoa['portador_deficiencia'] == 1) {
                 $retorno = 0;
             }
         }
-        return $this->domicilio['Indice']['v6'] = $retorno;
+        $this->domicilio['Indice']['v6'] = $retorno;
+        return $retorno;
     }
 
     //V.7 Ausência de Idosos
@@ -206,7 +212,20 @@ class Indice extends AppModel {
                 $retorno = 0;
             }
         }
-        return $this->domicilio['Indice']['v7'] = $retorno;
+        $this->domicilio['Indice']['v7'] = $retorno;
+        return $retorno;
+    }
+
+    // V.8 Presença de cônjuge
+    static function v8() {
+        $retorno = 0;
+        foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            if ($pessoa['esposa_companheiro'] == 1) {
+                $retorno = 1;
+            }
+        }
+        $this->domicilio['Indice']['v8'] = $retorno;
+        return $retorno;
     }
 
 }
