@@ -52,7 +52,7 @@ class Domicilio extends AppModel {
      * @access static
      */
 
-    static function bolsaFamilia($value = null) {
+    static function bolsaFamilia($value = null) { // 211
         $options = array(
             self::BOLSA_FAMILIA_NAO => __('Não', true),
             self::BOLSA_FAMILIA_SIM => __('Sim', true),
@@ -76,7 +76,7 @@ class Domicilio extends AppModel {
     const LOCALIDADE_URBANA = 1;
     const LOCALIDADE_RURAL = 2;
 
-    static function situacaoDomicilio($value = null) {
+    static function situacaoDomicilio($value = null) { // 213
         $options = array(
             self::DOMICILIO_NAO_INFORMADO => __('Não Informado', true),
             self::DOMICILIO_PROPRIO => __('Próprio', true),
@@ -99,7 +99,7 @@ class Domicilio extends AppModel {
     const DOMICILIO_FINANCIADO = 6;
     const DOMICILIO_OUTRA = 7;
 
-    static function tipoDomicilio($value = null) {
+    static function tipoDomicilio($value = null) { // 214
         $options = array(
             self::TIPO_DOMICILIO_NAO_INFORMADO => __('Não Informado', true),
             self::TIPO_DOMICILIO_APARTAMENTO => __('Apartamento', true),
@@ -111,12 +111,12 @@ class Domicilio extends AppModel {
     }
 
     const TIPO_DOMICILIO_NAO_INFORMADO = 0;
-    const TIPO_DOMICILIO_APARTAMENTO = 1;
-    const TIPO_DOMICILIO_CASA = 2;
+    const TIPO_DOMICILIO_CASA = 1;
+    const TIPO_DOMICILIO_APARTAMENTO = 2;
     const TIPO_DOMICILIO_COMODOS = 3;
     const TIPO_DOMICILIO_OUTRO = 4;
 
-    static function tipoConstrucao($value = null) {
+    static function tipoConstrucao($value = null) { // 216
         $options = array(
             self::CONSTRUCAO_NAO_INFORMADO => __('Não Informado', true),
             self::CONSTRUCAO_TIJOLO_ALVENARIA => __('Tijolo/Alvenaria', true),
@@ -133,13 +133,13 @@ class Domicilio extends AppModel {
     const CONSTRUCAO_NAO_INFORMADO = 0;
     const CONSTRUCAO_TIJOLO_ALVENARIA = 1;
     const CONSTRUCAO_ADOBE = 2;
-    const CONSTRUCAO_MADEIRA = 3;
-    const CONSTRUCAO_MATERIAL_APROVEITADO = 4;
-    const CONSTRUCAO_TAIPA_REVESTIDA = 5;
-    const CONSTRUCAO_TAIPA_NAO_REVESTIDA = 6;
+    const CONSTRUCAO_TAIPA_REVESTIDA = 3;
+    const CONSTRUCAO_TAIPA_NAO_REVESTIDA = 4;
+    const CONSTRUCAO_MADEIRA = 5;
+    const CONSTRUCAO_MATERIAL_APROVEITADO = 6;
     const CONSTRUCAO_OUTRO = 7;
 
-    static function tipoAbastecimentoAgua($value = null) {
+    static function tipoAbastecimentoAgua($value = null) { // 217
         $options = array(
             self::ABASTECIMENTO_NAO_INFORMADO => __('Não Informado', true),
             self::ABASTECIMENTO_REDE_PUBLICA => __('Rede Pública', true),
@@ -156,7 +156,7 @@ class Domicilio extends AppModel {
     const ABASTECIMENTO_CARRO_PIPA = 3;
     const ABASTECIMENTO_OUTRO = 4;
 
-    static function tratamentoAgua($value = null) {
+    static function tratamentoAgua($value = null) { // 218
         $options = array(
             self::TRATAMENTO_NAO_INFORMADO => __('Não Informado', true),
             self::TRATAMENTO_FILTRACAO => __('Filtração', true),
@@ -175,7 +175,7 @@ class Domicilio extends AppModel {
     const TRATAMENTO_SEM_TRATAMENTO = 4;
     const TRATAMENTO_OUTRO = 5;
 
-    static function tipoIluminacao($value = null) {
+    static function tipoIluminacao($value = null) { // 219
         $options = array(
             self::ILUMINACAO_NAO_INFORMADO => __('Não Informado', true),
             self::ILUMINACAO_RELOGIO_PROPRIO => __('Relógio Próprio', true),
@@ -190,13 +190,13 @@ class Domicilio extends AppModel {
 
     const ILUMINACAO_NAO_INFORMADO = 0;
     const ILUMINACAO_RELOGIO_PROPRIO = 1;
-    const ILUMINACAO_RELOGIO_COMUNITARIO = 2;
-    const ILUMINACAO_SEM_RELOGIO = 3;
+    const ILUMINACAO_SEM_RELOGIO = 2;
+    const ILUMINACAO_RELOGIO_COMUNITARIO = 3;
     const ILUMINACAO_LAMPIAO = 4;
     const ILUMINACAO_VELA = 5;
     const ILUMINACAO_OUTRO = 6;
 
-    static function escoamentoSanitario($value = null) {
+    static function escoamentoSanitario($value = null) { // 220
         $options = array(
             self::ESCOAMENTO_NAO_INFORMADO => __('Não Informado', true),
             self::ESCOAMENTO_REDE_PUBLICA => __('Rede pública', true),
@@ -211,13 +211,13 @@ class Domicilio extends AppModel {
 
     const ESCOAMENTO_NAO_INFORMADO = 0;
     const ESCOAMENTO_REDE_PUBLICA = 1;
-    const ESCOAMENTO_FOSSA_SEPTICA = 2;
-    const ESCOAMENTO_FOSSA_RUDIMENTAR = 3;
+    const ESCOAMENTO_FOSSA_RUDIMENTAR = 2;
+    const ESCOAMENTO_FOSSA_SEPTICA = 3;
     const ESCOAMENTO_VALA = 4;
     const ESCOAMENTO_CEU_ABERTO = 5;
     const ESCOAMENTO_OUTRO = 6;
 
-    static function destinoLixo($value = null) {
+    static function destinoLixo($value = null) { // 221
         $options = array(
             self::LIXO_NAO_INFORMADO => __('Não Informado', true),
             self::LIXO_COLETADO => __('Coletado', true),

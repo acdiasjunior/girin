@@ -57,7 +57,7 @@ class Pessoa extends AppModel {
      * @access static
      */
 
-    static function genero($value = null) {
+    static function genero($value = null) { // 203
         $options = array(
             self::GENERO_NAO_INFORMADO => __('Não Informado', true),
             self::GENERO_MASCULINO => __('Masculino', true),
@@ -70,7 +70,7 @@ class Pessoa extends AppModel {
     const GENERO_MASCULINO = 'M';
     const GENERO_FEMININO = 'F';
 
-    static function estadoCivil($value = null) {
+    static function estadoCivil($value = null) { // 212
         $options = array(
             self::ESTADO_CIVIL_NAO_INFORMADO => __('Não Informado', true),
             self::ESTADO_CIVIL_SOLTEIRO => __('Solteiro(a)', true),
@@ -85,11 +85,11 @@ class Pessoa extends AppModel {
     const ESTADO_CIVIL_NAO_INFORMADO = 0;
     const ESTADO_CIVIL_SOLTEIRO = 1;
     const ESTADO_CIVIL_CASADO = 2;
-    const ESTADO_CIVIL_SEPARADO = 3;
-    const ESTADO_CIVIL_DIVORCIADO = 4;
+    const ESTADO_CIVIL_DIVORCIADO = 3;
+    const ESTADO_CIVIL_SEPARADO = 4;
     const ESTADO_CIVIL_VIUVO = 5;
 
-    static function serieEscolar($value = null) {
+    static function serieEscolar($value = null) { // 239
         $options = array(
             self::SERIE_NAO_INFORMADO => __('Não Informado', true),
             self::SERIE_CA_ALFABETIZACAO => __('CA (Alfabetização)', true),
@@ -115,13 +115,13 @@ class Pessoa extends AppModel {
     }
 
     const SERIE_NAO_INFORMADO = 0;
-    const SERIE_CA_ALFABETIZACAO = 1;
-    const SERIE_MATERNAL_I = 2;
-    const SERIE_MATERNAL_II = 3;
-    const SERIE_MATERNAL_III = 4;
-    const SERIE_JARDIM_I = 5;
-    const SERIE_JARDIM_II = 6;
-    const SERIE_JARDIM_III = 7;
+    const SERIE_MATERNAL_I = 1;
+    const SERIE_MATERNAL_II = 2;
+    const SERIE_MATERNAL_III = 3;
+    const SERIE_JARDIM_I = 4;
+    const SERIE_JARDIM_II = 5;
+    const SERIE_JARDIM_III = 6;
+	const SERIE_CA_ALFABETIZACAO = 7;
     const SERIE_1_ENSINO_FUNDAMENTAL = 8; //6 anos
     const SERIE_2_ENSINO_FUNDAMENTAL = 9; //7 anos
     const SERIE_3_ENSINO_FUNDAMENTAL = 10; //8 anos
@@ -134,7 +134,7 @@ class Pessoa extends AppModel {
     const SERIE_2_ENSINO_MEDIO = 17;
     const SERIE_3_ENSINO_MEDIO = 18;
 
-    static function tipoTrabalho($value = null) {
+    static function tipoTrabalho($value = null) { // 242
         $options = array(
             self::TRABALHO_NAO_INFORMADO => __('Não Informado', true),
             self::TRABALHO_ASSALARIADO_COM_CARTEIRA => __('Assalariado com carteira de trabalho', true),
@@ -152,18 +152,18 @@ class Pessoa extends AppModel {
     }
 
     const TRABALHO_NAO_INFORMADO = 0;
-    const TRABALHO_ASSALARIADO_COM_CARTEIRA = 1;
-    const TRABALHO_ASSALARIADO_SEM_CARTEIRA = 2;
-    const TRABALHO_AUTONOMO_COM_PREVIDENCIA = 3;
-    const TRABALHO_AUTONOMO_SEM_PREVIDENCIA = 4;
-    const TRABALHO_APOSENTADO_PENSIONISTA = 5;
-    const TRABALHO_EMPREGADOR = 6;
-    const TRABALHO_EMPREGADOR_RURAL = 7;
-    const TRABALHO_TRABALHADOR_RURAL = 8;
+    const TRABALHO_EMPREGADOR = 1;
+    const TRABALHO_ASSALARIADO_COM_CARTEIRA = 2;
+    const TRABALHO_ASSALARIADO_SEM_CARTEIRA = 3;
+    const TRABALHO_AUTONOMO_COM_PREVIDENCIA = 4;
+    const TRABALHO_AUTONOMO_SEM_PREVIDENCIA = 5;
+    const TRABALHO_APOSENTADO_PENSIONISTA = 6;
+	const TRABALHO_TRABALHADOR_RURAL = 7;
+    const TRABALHO_EMPREGADOR_RURAL = 8;
     const TRABALHO_NAO_TRABALHA = 9;
     const TRABALHO_OUTRA = 10;
 
-    static function cor($value = null) {
+    static function cor($value = null) { //215
         $options = array(
             self::COR_NAO_INFORMADO => __('Não Informado', true),
             self::COR_NEGRA => __('Negra', true),
@@ -176,13 +176,13 @@ class Pessoa extends AppModel {
     }
 
     const COR_NAO_INFORMADO = 0;
-    const COR_NEGRA = 1;
-    const COR_BRANCA = 2;
+    const COR_BRANCA = 1;
+	const COR_NEGRA = 2;
     const COR_PARDA = 3;
     const COR_AMARELA = 4;
     const COR_INDIGENA = 5;
 
-    static function grauInstrucao($value = null) {
+    static function grauInstrucao($value = null) { // 238
         $options = array(
             self::ESCOLARIDADE_NAO_INFORMADO => __('Não Informado', true),
             self::ESCOLARIDADE_ANALFABETO => __('Analfabeto', true), // ANALFABETO TOTAL
@@ -209,13 +209,13 @@ class Pessoa extends AppModel {
     const ESCOLARIDADE_FUNDAMENTAL_COMPLETO = 5;
     const ESCOLARIDADE_MEDIO_INCOMPLETO = 6;
     const ESCOLARIDADE_MEDIO_COMPLETO = 7;
-    const ESCOLARIDADE_ESPECIALIZACAO = 8;
-    const ESCOLARIDADE_SUPERIOR_INCOMPLETO = 9;
-    const ESCOLARIDADE_SUPERIOR_COMPLETO = 10;
+    const ESCOLARIDADE_SUPERIOR_INCOMPLETO = 8;
+    const ESCOLARIDADE_SUPERIOR_COMPLETO = 9;
+	const ESCOLARIDADE_ESPECIALIZACAO = 10;
     const ESCOLARIDADE_MESTRADO = 11;
     const ESCOLARIDADE_DOUTORADO = 12;
 
-    static function tipoEscola($value = null) {
+    static function tipoEscola($value = null) { // 237
         $options = array(
             self::ESCOLA_NAO_INFORMADO => __('Não Informado', true),
             self::ESCOLA_NAO_FREQUENTA => __('Não frequenta', true),
@@ -229,12 +229,12 @@ class Pessoa extends AppModel {
     }
 
     const ESCOLA_NAO_INFORMADO = 0;
-    const ESCOLA_NAO_FREQUENTA = 1;
-    const ESCOLA_PUBLICA_MUNICIPAL = 2;
-    const ESCOLA_PUBLICA_ESTADUAL = 3;
-    const ESCOLA_PUBLICA_FEDERAL = 4;
-    const ESCOLA_PARTICULAR = 5;
-    const ESCOLA_OUTRA = 6;
+    const ESCOLA_PUBLICA_MUNICIPAL = 1;
+    const ESCOLA_PUBLICA_ESTADUAL = 2;
+    const ESCOLA_PUBLICA_FEDERAL = 3;
+    const ESCOLA_PARTICULAR = 4;
+    const ESCOLA_OUTRA = 5;
+	const ESCOLA_NAO_FREQUENTA = 6;
 
     static function faixaEtaria($value = null) {
         $options = array(
