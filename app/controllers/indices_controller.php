@@ -284,20 +284,6 @@ class IndicesController extends AppController {
             switch ($indicador) {
                 
                 
-                
-                
-                case 'c1': //C.1 Ausência de Adultos Analfabetos
-                    if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO && $pessoa['grau_instrucao'] < Pessoa::ESCOLARIDADE_ATE_4A_INCOMPLETA) {
-                        $valor = 0;
-                        $usuario = true;
-                    }
-                    break;
-                case 'c2': //C.2 Ausência de Adultos Analfabetos Funcionais
-                    if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO && $pessoa['grau_instrucao'] < Pessoa::ESCOLARIDADE_4A_COMPLETA) {
-                        $valor = 0;
-                        $usuario = true;
-                    }
-                    break;
                 case 'c3': //C.3 Presença de pelo menos um adulto com fundamental completo
                     if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO) {
                         if ($pessoa['grau_instrucao'] >= Pessoa::ESCOLARIDADE_FUNDAMENTAL_COMPLETO) {

@@ -127,12 +127,16 @@ class Indice extends AppModel {
 
     static function calcularIndices(array $domicilio) {
         $this->domicilio = $domicilio;
+        
         // Calculo para Dimensão - Vulnerabilidade
         $gestacao = $this->calculoComponenteGestacao();
         $criancas = $this->calculoComponenteCriancas();
         $idosos = $this->calculoComponenteIdosos();
         $dependencia = $this->calculoComponenteDependencia();
         $vulnerabilidade = ($gestacao + $criancas + $idosos + $dependencia) / 4;
+        
+        // Calculo para Dimensão - Conhecimento
+        $analfabetismo = $this->calculoComponenteAnalfabetismo();
     }
 
     private function calculoComponenteGestacao() {
@@ -143,6 +147,7 @@ class Indice extends AppModel {
             foreach ($this->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['mes_gestacao'] > 0) {
                     $retorno = 0;
+                    break;
                 }
             }
             $this->domicilio['Indice']['v1'] = $retorno;
@@ -155,6 +160,7 @@ class Indice extends AppModel {
             foreach ($this->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['amamentando'] == 1) {
                     $retorno = 0;
+                    break;
                 }
             }
             $this->domicilio['Indice']['v2'] = $retorno;
@@ -172,6 +178,7 @@ class Indice extends AppModel {
             foreach ($this->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] < Pessoa::IDADE_ADOLESCENTE) {
                     $retorno = 0;
+                    break;
                 }
             }
             $this->domicilio['Indice']['v3'] = $retorno;
@@ -184,6 +191,7 @@ class Indice extends AppModel {
             foreach ($this->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] < Pessoa::IDADE_JOVEM) {
                     $retorno = 0;
+                    break;
                 }
             }
             $this->domicilio['Indice']['v4'] = $retorno;
@@ -196,6 +204,7 @@ class Indice extends AppModel {
             foreach ($this->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] < Pessoa::IDADE_ADULTO) {
                     $retorno = 0;
+                    break;
                 }
             }
             $this->domicilio['Indice']['v5'] = $retorno;
@@ -213,6 +222,7 @@ class Indice extends AppModel {
             foreach ($this->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['portador_deficiencia'] == 1) {
                     $retorno = 0;
+                    break;
                 }
             }
             $this->domicilio['Indice']['v6'] = $retorno;
@@ -225,6 +235,7 @@ class Indice extends AppModel {
             foreach ($this->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] >= Pessoa::IDADE_IDOSO) {
                     $retorno = 0;
+                    break;
                 }
             }
             $this->domicilio['Indice']['v7'] = $retorno;
@@ -242,15 +253,47 @@ class Indice extends AppModel {
             foreach ($this->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['esposa_companheiro'] == 1) {
                     $retorno = 1;
+                    break;
                 }
             }
             $this->domicilio['Indice']['v8'] = $retorno;
             return $retorno;
         }
-        
+
         // V.9 IMPLEMENTAR CALCULO DE FUNÇÃO GENERICA COM TOTALIZADORES PARA ESTA FUNÇÃO E DEMAIS
 
         return (v8() + v9()) / 2;
+    }
+
+    private function calculoComponenteAnalfabetismo() {
+
+        //C.1 Ausência de Adultos Analfabetos
+        function c1() {
+            $retorno = 1;
+            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+                if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO && $pessoa['grau_instrucao'] < Pessoa::ESCOLARIDADE_ATE_4A_INCOMPLETA) {
+                    $retorno = 0;
+                    break;
+                }
+            }
+            $this->domicilio['Indice']['c1'] = $retorno;
+            return $retorno;
+        }
+
+        //C.2 Ausência de Adultos Analfabetos Funcionais
+        function c2() {
+            $retorno = 1;
+            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+                if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO && $pessoa['grau_instrucao'] < Pessoa::ESCOLARIDADE_4A_COMPLETA) {
+                    $retorno = 0;
+                    break;
+                }
+            }
+            $this->domicilio['Indice']['c2'] = $retorno;
+            return $retorno;
+        }
+
+        return (c1() + c2()) / 2;
     }
 
 }
