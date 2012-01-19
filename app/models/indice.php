@@ -27,8 +27,8 @@ class Indice extends AppModel {
     public $dimensoes = array(
         'vulnerabilidade' => array(
             'gestacao' => array(
-                //'v1' => 1,
-                //'v2' => 1,
+            //'v1' => 1,
+            //'v2' => 1,
             ),
             'criancas' => array(
                 'v3' => 1,
@@ -72,7 +72,7 @@ class Indice extends AppModel {
             'extremaPobreza' => array(
                 //'r1' => 1,
                 'r2' => 1,
-                //'r3' => 1,
+            //'r3' => 1,
             ),
             'pobreza' => array(
                 //'r4' => 1,
@@ -123,34 +123,56 @@ class Indice extends AppModel {
             ),
         ),
     );
-    
     private $domicilio = array();
-    
+
     static function calcularIndices(array $domicilio) {
         $this->domicilio = $domicilio;
-        $gestacao = v1($this->domicilio) + v2($this->domicilio) / 2;
+        $gestacao = v1() + v2() / 2;
     }
-    
-    // Ausencia de gestantes
-    static function v1(array $domicilio) {
-        foreach($domicilio['Pessoa'] as $pessoa) {
-            if($pessoa['mes_gestacao'] > 0) {
+
+    // V.1 Ausencia de gestantes
+    static function v1() {
+        $retorno = 1;
+        foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            if ($pessoa['mes_gestacao'] > 0) {
                 $retorno = 0;
             }
         }
-        $retorno = 1;
         return $this->domicilio['Indice']['v1'] = $retorno;
     }
-    
-    // Ausencia de gestantes
-    static function v1(array $domicilio) {
-        foreach($domicilio['Pessoa'] as $pessoa) {
-            if($pessoa['amamentando'] == 1) {
+
+    // V.2 Ausencia de gestantes
+    static function v2() {
+        $retorno = 1;
+        foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            if ($pessoa['amamentando'] == 1) {
                 $retorno = 0;
             }
         }
-        $retorno = 1;
         return $this->domicilio['Indice']['v2'] = $retorno;
+    }
+
+    //V.3 Ausência de crianças
+    static function v3() {
+        $retorno = 1;
+        foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            if ($pessoa['idade'] < Pessoa::IDADE_ADOLESCENTE) {
+                $retorno = 0;
+            }
+        }
+        return $this->domicilio['Indice']['v3'] = $retorno;
+    }
+
+    //V.4 Ausência de crianças e adolescente
+    static function v3() {
+        $retorno = 1;
+        foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            if ($pessoa['idade'] < Pessoa::IDADE_JOVEM) {
+                $valor = 0;
+                $usuario = true;
+            }
+        }
+        return $this->domicilio['Indice']['v3'] = $retorno;
     }
 
 }
