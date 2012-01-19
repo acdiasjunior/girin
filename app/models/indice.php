@@ -127,16 +127,17 @@ class Indice extends AppModel {
 
     static function calcularIndices(array $domicilio) {
         $this->domicilio = $domicilio;
-        
+
         // Calculo para Dimensão - Vulnerabilidade
         $gestacao = $this->calculoComponenteGestacao();
         $criancas = $this->calculoComponenteCriancas();
         $idosos = $this->calculoComponenteIdosos();
         $dependencia = $this->calculoComponenteDependencia();
         $vulnerabilidade = ($gestacao + $criancas + $idosos + $dependencia) / 4;
-        
+
         // Calculo para Dimensão - Conhecimento
         $analfabetismo = $this->calculoComponenteAnalfabetismo();
+        $escolaridade = $this->calculoComponenteEscolaridade();
     }
 
     private function calculoComponenteGestacao() {
@@ -294,6 +295,56 @@ class Indice extends AppModel {
         }
 
         return (c1() + c2()) / 2;
+    }
+
+    private function calculoComponenteEscolaridade() {
+
+        //C.3 Presença de pelo menos um adulto com fundamental completo
+        function c3() {
+            $retorno = 0;
+            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+                if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO) {
+                    if ($pessoa['grau_instrucao'] >= Pessoa::ESCOLARIDADE_FUNDAMENTAL_COMPLETO) {
+                        $retorno = 1;
+                        break;
+                    }
+                }
+            }
+            $this->domicilio['Indice']['c3'] = $retorno;
+            return $retorno;
+        }
+
+        //C.4 Presença de pelo menos um adulto com secundário completo
+        function c4() {
+            $retorno = 0;
+            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+                if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO) {
+                    if ($pessoa['grau_instrucao'] >= Pessoa::ESCOLARIDADE_MEDIO_COMPLETO) {
+                        $retorno = 1;
+                        break;
+                    }
+                }
+            }
+            $this->domicilio['Indice']['c4'] = $retorno;
+            return $retorno;
+        }
+        
+        //C.5 Presença de pelo menos um adulto com alguma educação superior
+        function c5() {
+            $retorno = 0;
+            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+                    if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO) {
+                        if ($pessoa['grau_instrucao'] >= Pessoa::ESCOLARIDADE_SUPERIOR_INCOMPLETO) {
+                        $retorno = 1;
+                        break;
+                    }
+                }
+            }
+            $this->domicilio['Indice']['c5'] = $retorno;
+            return $retorno;
+        }
+
+        return (c3() + c4() + c5()) / 3;
     }
 
 }

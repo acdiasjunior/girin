@@ -283,43 +283,6 @@ class IndicesController extends AppController {
         if (($idade_min == null && $idade_max == null) || ($pessoa['idade'] >= $idade_min && $pessoa['idade'] < $idade_max)) {
             switch ($indicador) {
                 
-                
-                case 'c3': //C.3 Presença de pelo menos um adulto com fundamental completo
-                    if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO) {
-                        if ($pessoa['grau_instrucao'] >= Pessoa::ESCOLARIDADE_FUNDAMENTAL_COMPLETO) {
-                            $valor = 1;
-                            $usuario = false;
-                        } else {
-                            $usuario = true;
-                        }
-                    } else {
-                        $usuario = false;
-                    }
-                    break;
-                case 'c4': //C.4 Presença de pelo menos um adulto com secundário completo
-                    if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO) {
-                        if ($pessoa['grau_instrucao'] >= Pessoa::ESCOLARIDADE_MEDIO_COMPLETO) {
-                            $valor = 1;
-                            $usuario = false;
-                        } else {
-                            $usuario = true;
-                        }
-                    } else {
-                        $usuario = false;
-                    }
-                    break;
-                case 'c5': //C.5 Presença de pelo menos um adulto com alguma educação superior
-                    if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO) {
-                        if ($pessoa['grau_instrucao'] >= Pessoa::ESCOLARIDADE_SUPERIOR_INCOMPLETO) {
-                            $valor = 1;
-                            $usuario = false;
-                        } else {
-                            $usuario = true;
-                        }
-                    } else {
-                        $usuario = false;
-                    }
-                    break;
                 case 't2': //T.2 Presença de pelo menos um ocupado no setor formal
                     if ($pessoa['tipo_trabalho'] == Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA
                             || $pessoa['tipo_trabalho'] == Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA) {
