@@ -214,25 +214,7 @@ class IndicesController extends AppController {
                     if ($contador['idade_ativa_ocupado'] > ($contador['idade_ativa'] / 2))
                         $dimensao['trabalho']['disponibilidade']['t1'] = 1;
 
-                    //R.2 Renda familiar per capita superior a linha de extema pobreza
-                    if (($somatorio['valor_renda'] + $somatorio['valor_beneficio']) / $contador['membros'] < 70)
-                        $dimensao['recursos']['extremaPobreza']['r2'] = 0;
-
-                    //R.5 Renda familiar per capita superior a linha de pobreza
-                    if (($somatorio['valor_renda'] + $somatorio['valor_beneficio']) / $contador['membros'] < 140)
-                        $dimensao['recursos']['pobreza']['r5'] = 0;
-
-                    //R.6 Maior parte da renda familiar não advém de transferências
-                    if ($somatorio['valor_renda'] < $somatorio['valor_beneficio'])
-                        $dimensao['recursos']['capacidadeGeracao']['r6'] = 0;
-
-                    //NAO V.1 Ausência de Gestantes OK
-                    //NAO V.2 Ausência de Mães Amamentando OK
-                    //NAO V.6 Ausência de portadores de deficiência OK
-                    //NAO V.8 Presença de cônjuge OK
-                    //NAO R.1 Despesa familiar per capita superior a linha de extema pobreza
-                    //NAO R.3 Despesa com alimentos superior a linha de extema pobreza
-                    //NAO R.4 Despesa familiar per capita superior a linha de pobreza
+                                       
                     /// SALVANDO OS DADOS
                     // Totalizar as medias por componente e Dimensao
                     $somatorio['idf'] = 0;

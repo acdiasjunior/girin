@@ -145,6 +145,12 @@ class Indice extends AppModel {
         $qualidade = $this->calculoComponenteQualidade();
         $remuneracao = $this->calculoComponenteRemuneracao();
         $trabalho = ($disponibilidade + $qualidade + $remuneracao) / 3;
+
+        // Calculo para Dimensao - Recursos
+        $extremaPobreza = $this->calculoComponenteExtremaPobreza();
+        $pobreza = $this->calculoComponentePobreza();
+        $capacidadeGeracao = $this->calculoComponenteCapacidadeGeracao();
+        $recursos = ($extremaPobreza + $pobreza + $capacidadeGeracao) / 3;
     }
 
     private function calculoComponenteGestacao() {
@@ -429,6 +435,81 @@ class Indice extends AppModel {
         }
 
         return (t4() + t5()) / 2;
+    }
+
+    private function calculoComponenteExtremaPobreza() {
+
+        //R.1 Despesa familiar per capita superior a linha de extema pobreza
+        function r1() {
+            $retorno = 0;
+            if ($domicilio['Domicilio']['valor_despesa_familia'] / $domicilio['Domicilio']['quantidade_pessoas'] >= 70) {
+                $retorno = 1;
+            }
+            $this->domicilio['Indice']['r2'] = $retorno;
+            return $retorno;
+        }
+
+        //R.2 Renda familiar per capita superior a linha de  pobreza
+        function t4() {
+            $retorno = 0;
+            if ($domicilio['Domicilio']['valor_renda_familia'] / $domicilio['Domicilio']['quantidade_pessoas'] >= 70) {
+                $retorno = 1;
+            }
+            $this->domicilio['Indice']['r2'] = $retorno;
+            return $retorno;
+        }
+
+        //R.3 Despesa com alimentos superior a linha de extema pobreza
+        function r3() {
+            $retorno = 0;
+            if ($domicilio['Domicilio']['valor_despesa_alimentacao'] >= 70) {
+                $retorno = 1;
+            }
+            $this->domicilio['Indice']['r3'] = $retorno;
+            return $retorno;
+        }
+
+        return (r1() + r2() + r3()) / 3;
+    }
+
+    private function calculoComponentePobreza() {
+
+        //R.4 Despesa familiar per capita superior a linha de pobreza
+        function t4() {
+            $retorno = 0;
+            if ($domicilio['Domicilio']['valor_despesa_familia'] / $domicilio['Domicilio']['quantidade_pessoas'] >= 140) {
+                $retorno = 1;
+            }
+            $this->domicilio['Indice']['r2'] = $retorno;
+            return $retorno;
+        }
+
+        //R.5 Renda familiar per capita superior a linha de pobreza
+        function r5() {
+            $retorno = 0;
+            if ($domicilio['Domicilio']['valor_renda_familia'] >= 140) {
+                $retorno = 1;
+            }
+            $this->domicilio['Indice']['r5'] = $retorno;
+            return $retorno;
+        }
+
+        return (r4() + r5()) / 2;
+    }
+
+    private function calculoComponenteCapacidadeGeracao() {
+
+        //R.6 Maior parte da renda familiar não advém de transferências
+        function r6() {
+            $retorno = 0;
+            if ($domicilio['Domicilio']['valor_renda_familia'] > $domicilio['Domicilio']['valor_beneficio_familia']) {
+                $retorno = 1;
+            }
+            $this->domicilio['Indice']['r6'] = $retorno;
+            return $retorno;
+        }
+
+        return r6();
     }
 
 }
