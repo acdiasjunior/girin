@@ -284,18 +284,8 @@ class IndicesController extends AppController {
             switch ($indicador) {
                 
                 
-                case 'v5': //V.5  Ausência de crianças, adolescente e jovens
-                    if ($pessoa['idade'] < Pessoa::IDADE_ADULTO) {
-                        $valor = 0;
-                        $usuario = true;
-                    }
-                    break;
-                case 'v7': //V.7 Ausência de Idosos
-                    if ($pessoa['idade'] >= Pessoa::IDADE_IDOSO) {
-                        $valor = 0;
-                        $usuario = true;
-                    }
-                    break;
+                
+                
                 case 'c1': //C.1 Ausência de Adultos Analfabetos
                     if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO && $pessoa['grau_instrucao'] < Pessoa::ESCOLARIDADE_ATE_4A_INCOMPLETA) {
                         $valor = 0;

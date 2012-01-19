@@ -27,8 +27,8 @@ class Indice extends AppModel {
     public $dimensoes = array(
         'vulnerabilidade' => array(
             'gestacao' => array(
-            //'v1' => 1,
-            //'v2' => 1,
+                'v1' => 1,
+                'v2' => 1,
             ),
             'criancas' => array(
                 'v3' => 1,
@@ -36,7 +36,7 @@ class Indice extends AppModel {
                 'v5' => 1,
             ),
             'idosos' => array(
-                //'v6' => 1,
+                'v6' => 1,
                 'v7' => 1,
             ),
             'dependencia' => array(
@@ -127,7 +127,9 @@ class Indice extends AppModel {
 
     static function calcularIndices(array $domicilio) {
         $this->domicilio = $domicilio;
-        $gestacao = v1() + v2() / 2;
+        $gestacao = (v1() + v2()) / 2;
+        $criancas = (v3() + v4() + v5()) / 3;
+        $idosos   = (v6() + v7()) / 2;
     }
 
     // V.1 Ausencia de gestantes
@@ -164,15 +166,47 @@ class Indice extends AppModel {
     }
 
     //V.4 Ausência de crianças e adolescente
-    static function v3() {
+    static function v4() {
         $retorno = 1;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
             if ($pessoa['idade'] < Pessoa::IDADE_JOVEM) {
-                $valor = 0;
-                $usuario = true;
+                $retorno = 0;
             }
         }
-        return $this->domicilio['Indice']['v3'] = $retorno;
+        return $this->domicilio['Indice']['v4'] = $retorno;
+    }
+
+    //V.5  Ausência de crianças, adolescente e jovens
+    static function v5() {
+        $retorno = 1;
+        foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            if ($pessoa['idade'] < Pessoa::IDADE_ADULTO) {
+                $retorno = 0;
+            }
+        }
+        return $this->domicilio['Indice']['v5'] = $retorno;
+    }
+
+    //V.6 Ausência de portadores de deficiencia
+    static function v6() {
+        $retorno = 1;
+        foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            if ($pessoa['portador_deficiencia'] >= Pessoa::IDADE_IDOSO) {
+                $retorno = 0;
+            }
+        }
+        return $this->domicilio['Indice']['v6'] = $retorno;
+    }
+
+    //V.7 Ausência de Idosos
+    static function v7() {
+        $retorno = 1;
+        foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            if ($pessoa['idade'] >= Pessoa::IDADE_IDOSO) {
+                $retorno = 0;
+            }
+        }
+        return $this->domicilio['Indice']['v7'] = $retorno;
     }
 
 }
