@@ -123,5 +123,34 @@ class Indice extends AppModel {
             ),
         ),
     );
+    
+    private $domicilio = array();
+    
+    static function calcularIndices(array $domicilio) {
+        $this->domicilio = $domicilio;
+        $gestacao = v1($this->domicilio) + v2($this->domicilio) / 2;
+    }
+    
+    // Ausencia de gestantes
+    static function v1(array $domicilio) {
+        foreach($domicilio['Pessoa'] as $pessoa) {
+            if($pessoa['mes_gestacao'] > 0) {
+                $retorno = 0;
+            }
+        }
+        $retorno = 1;
+        return $this->domicilio['Indice']['v1'] = $retorno;
+    }
+    
+    // Ausencia de gestantes
+    static function v1(array $domicilio) {
+        foreach($domicilio['Pessoa'] as $pessoa) {
+            if($pessoa['amamentando'] == 1) {
+                $retorno = 0;
+            }
+        }
+        $retorno = 1;
+        return $this->domicilio['Indice']['v2'] = $retorno;
+    }
 
 }

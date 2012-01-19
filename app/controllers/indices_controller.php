@@ -8,16 +8,6 @@ class IndicesController extends AppController {
     var $pessoa_count = '(SELECT COUNT(*) FROM pessoas WHERE pessoas.codigo_domiciliar = Domicilio.codigo_domiciliar)';
 
     function index() {
-        //$indices = $this->Indice->query("SELECT AVG(idf) as media, MAX(idf) as maximo, MIN(idf) as minimo FROM indices;");
-
-        /* SELECT bairros.id, bairros.nome, AVG( indices.idf ) AS idf, AVG( `vulnerabilidade` ) AS vulnerabilidade,
-         *  AVG( `conhecimento` ) AS conhecimento, AVG( `trabalho` ) AS trabalho, AVG( `recursos` ) AS recursos,
-         *  AVG( `desenvolvimento` )AS desenvolvimento, AVG( `habitacao` ) AS habitacao
-          FROM indices
-          INNER JOIN domicilios ON domicilios.codigo_domiciliar = indices.codigo_domiciliar
-          INNER JOIN bairros ON bairros.id = domicilios.bairro_id
-          GROUP BY bairros.id */
-
         $joins = array(
             array('table' => 'domicilios',
                 'alias' => 'Domicilio',
@@ -171,8 +161,6 @@ class IndicesController extends AppController {
 
                 foreach ($domicilios as $codigo_domiciliar) {
 
-                    set_time_limit(2);
-
                     $this->data = array();
 
                     $this->Domicilio->id = $codigo_domiciliar;
@@ -182,6 +170,7 @@ class IndicesController extends AppController {
                     $somatorio = array('valor_renda' => 0, 'valor_beneficio' => 0);
 
                     $dimensao = $this->Indice->dimensoes;
+                    $this->Indice->calcularIndices($domicilio);
 
                     foreach ($domicilio['Pessoa'] as $pessoa) {
                         foreach ($dimensao as $nome => $componentes)
@@ -237,10 +226,10 @@ class IndicesController extends AppController {
                     if ($somatorio['valor_renda'] < $somatorio['valor_beneficio'])
                         $dimensao['recursos']['capacidadeGeracao']['r6'] = 0;
 
-                    //NAO V.1 Ausência de Gestantes
-                    //NAO V.2 Ausência de Mães Amamentando
-                    //NAO V.6 Ausência de portadores de deficiência
-                    //NAO V.8 Presença de cônjuge
+                    //NAO V.1 Ausência de Gestantes OK
+                    //NAO V.2 Ausência de Mães Amamentando OK
+                    //NAO V.6 Ausência de portadores de deficiência OK
+                    //NAO V.8 Presença de cônjuge OK
                     //NAO R.1 Despesa familiar per capita superior a linha de extema pobreza
                     //NAO R.3 Despesa com alimentos superior a linha de extema pobreza
                     //NAO R.4 Despesa familiar per capita superior a linha de pobreza
