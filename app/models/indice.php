@@ -151,6 +151,12 @@ class Indice extends AppModel {
         $pobreza = $this->calculoComponentePobreza();
         $capacidadeGeracao = $this->calculoComponenteCapacidadeGeracao();
         $recursos = ($extremaPobreza + $pobreza + $capacidadeGeracao) / 3;
+
+        // Calculo para Dimensao - Desenvolvimento Infantil
+        $trabalhoPrecoce = $this->calculoComponenteTrabalhoPrecoce();
+        $acessoEscola = $this->calculoComponenteAcessoEscola();
+        $progressoEscolar = $this->calculoComponenteProgressoEscolar();
+        $desenvolvimento = ($trabalhoPrecoce + $acessoEscola + $progressoEscolar) / 3;
     }
 
     private function calculoComponenteGestacao() {
@@ -510,6 +516,134 @@ class Indice extends AppModel {
         }
 
         return r6();
+    }
+
+    private function calculoComponenteTrabalhoPrecoce() {
+
+        //D.1 Ausência de pelo menos uma criança de menos de 10 anos trabalhando
+        function d1() {
+            $retorno = 1;
+            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+                if ($pessoa['idade'] < Pessoa::IDADE_ADOLESCENTE
+                        && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
+                        && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO) {
+                    $retorno = 0;
+                    break;
+                }
+            }
+            $this->domicilio['Indice']['d1'] = $retorno;
+            return $retorno;
+        }
+
+        //D.2 Ausência de pelo menos uma criança de menos de 16 anos de trabalhando
+        function d2() {
+            $retorno = 1;
+            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+                if ($pessoa['idade'] < 16
+                        && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
+                        && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO) {
+                    $retorno = 0;
+                    break;
+                }
+            }
+            $this->domicilio['Indice']['d2'] = $retorno;
+            return $retorno;
+        }
+
+        return (d1() + d2()) / 2;
+    }
+
+    private function calculoComponenteAcessoEscola() {
+
+        //D.3 Ausência de pelo menos uma criança de 0-6 anos fora da escola
+        function d3() {
+            $retorno = 1;
+            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+                if ($pessoa['idade'] <= 6 && ($pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
+                        || $pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
+                    $retorno = 0;
+                    break;
+                }
+            }
+            $this->domicilio['Indice']['d3'] = $retorno;
+            return $retorno;
+        }
+
+        //D.4 Ausência de pelo menos uma criança de 7-14 anos fora da escola
+        function d4() {
+            $retorno = 1;
+            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+                if ($pessoa['idade'] >= 7 && $pessoa['idade'] <= 14 && ($pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
+                        || $pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
+                    $retorno = 0;
+                    break;
+                }
+            }
+            $this->domicilio['Indice']['d4'] = $retorno;
+            return $retorno;
+        }
+
+        //D.5 Ausência de pelo menos uma criança de 7-17 anos fora da escola
+        function d5() {
+            $retorno = 1;
+            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+                if ($pessoa['idade'] >= 7 && $pessoa['idade'] <= 17 && ($pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
+                        || $pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
+                    $retorno = 0;
+                    break;
+                }
+            }
+            $this->domicilio['Indice']['d5'] = $retorno;
+            return $retorno;
+        }
+
+        return (d3() + d4() + d5()) / 3;
+    }
+
+    private function calculoComponenteProgressoEscolar() {
+
+        //D.6 Ausência de pelo menos uma criança com até 14 anos com mais de 2 anos de atraso
+        function d6() {
+            $retorno = 1;
+            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+                if (($pessoa['idade'] >= 6 && $pessoa['idade'] <= 14) && ($pessoa['idade'] - $pessoa['serie_escolar']) >= 0) {
+                    $retorno = 0;
+                    break;
+                }
+            }
+            $this->domicilio['Indice']['d6'] = $retorno;
+            return $retorno;
+        }
+
+        //D.7 Ausência de pelo menos um adolescente de 10 a 14 anos analfabeto
+        function d7() {
+            $retorno = 1;
+            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+                if ($pessoa['idade'] >= 10 && $pessoa['idade'] <= 14 && (
+                        $pessoa['grau_instrucao'] == Pessoa::ESCOLARIDADE_ANALFABETO || $pessoa['grau_instrucao'] == Pessoa::ESCOLARIDADE_NAO_INFORMADO)) {
+                    $retorno = 0;
+                    break;
+                }
+            }
+            $this->domicilio['Indice']['d7'] = $retorno;
+            return $retorno;
+        }
+
+        //D.8 Ausência de pelo menos um jovem de 15 a 17 anos analfabeto
+        function d8() {
+            $retorno = 1;
+            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+                if ($pessoa['idade'] >= 15 && $pessoa['idade'] <= 17 && (
+                        $pessoa['grau_instrucao'] == Pessoa::ESCOLARIDADE_ANALFABETO || $pessoa['grau_instrucao'] == Pessoa::ESCOLARIDADE_NAO_INFORMADO)) {
+                    $retorno = 0;
+                    break;
+                }
+            }
+            $this->domicilio['Indice']['d8'] = $retorno;
+            return $retorno;
+        }
+
+        return (d6() + d7() + d8()) / 3;
     }
 
 }

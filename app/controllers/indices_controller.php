@@ -266,63 +266,9 @@ class IndicesController extends AppController {
             switch ($indicador) {
                 
                 
-                case 'd1': //D.1 Ausência de pelo menos uma criança de menos de 10 anos trabalhando
-                    if ($pessoa['idade'] < Pessoa::IDADE_ADOLESCENTE
-                            && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
-                            && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO) {
-                        $valor = 0;
-                        $usuario = true;
-                    }
-                    break;
-                case 'd2': //D.2 Ausência de pelo menos uma criança de menos de 16 anos de trabalhando
-                    if ($pessoa['idade'] < 16
-                            && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
-                            && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO) {
-                        $valor = 0;
-                        $usuario = true;
-                    }
-                    break;
-                case 'd3': //D.3 Ausência de pelo menos uma criança de 0-6 anos fora da escola
-                    if ($pessoa['idade'] <= 6 && ($pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
-                            || $pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
-                        $valor = 0;
-                        $usuario = true;
-                    }
-                    break;
-                case 'd4': //D.4 Ausência de pelo menos uma criança de 7-14 anos fora da escola
-                    if ($pessoa['idade'] >= 7 && $pessoa['idade'] <= 14 && ($pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
-                            || $pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
-                        $valor = 0;
-                        $usuario = true;
-                    }
-                    break;
-                case 'd5': //D.5 Ausência de pelo menos uma criança de 7-17 anos fora da escola
-                    if ($pessoa['idade'] >= 7 && $pessoa['idade'] <= 17 && ($pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
-                            || $pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
-                        $valor = 0;
-                        $usuario = true;
-                    }
-                    break;
-                case 'd6': //D.6 Ausência de pelo menos uma criança com até 14 anos com mais de 2 anos de atraso
-                    if (($pessoa['idade'] >= 6 && $pessoa['idade'] <= 14) && ($pessoa['idade'] - $pessoa['serie_escolar']) >= 0) {
-                        $valor = 0;
-                        $usuario = true;
-                    }
-                    break;
-                case 'd7': //D.7 Ausência de pelo menos um adolescente de 10 a 14 anos analfabeto
-                    if ($pessoa['idade'] >= 10 && $pessoa['idade'] <= 14 && (
-                            $pessoa['grau_instrucao'] == Pessoa::ESCOLARIDADE_ANALFABETO || $pessoa['grau_instrucao'] == Pessoa::ESCOLARIDADE_NAO_INFORMADO)) {
-                        $valor = 0;
-                        $usuario = true;
-                    }
-                    break;
-                case 'd8': //D.8 Ausência de pelo menos um jovem de 15 a 17 anos analfabeto
-                    if ($pessoa['idade'] >= 15 && $pessoa['idade'] <= 17 && (
-                            $pessoa['grau_instrucao'] == Pessoa::ESCOLARIDADE_ANALFABETO || $pessoa['grau_instrucao'] == Pessoa::ESCOLARIDADE_NAO_INFORMADO)) {
-                        $valor = 0;
-                        $usuario = true;
-                    }
-                    break;
+                
+                
+                
             }
         }
         return array('valor' => $valor,
