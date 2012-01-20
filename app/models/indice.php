@@ -125,6 +125,32 @@ class Indice extends AppModel {
     );
     private $domicilio = array();
 
+    private function contadorMembrosIdadeAtiva() {
+
+        $idade_ativa = 0;
+        foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            //V.9 Mais da metade dos membros encontra-se em idade ativa
+            if ($pessoa['idade'] >= Pessoa::IDADE_ADOLESCENTE)
+                $idade_ativa++;
+        }
+
+        return $idade_ativa;
+    }
+
+    private function contadorMembrosIdadeAtivaOcupados() {
+
+        $idade_ativa_ocupado = 0;
+        foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            //T.1 Mais da metade dos membros em idade ativa encontram-se ocupados
+            if ($pessoa['idade'] >= Pessoa::IDADE_ADOLESCENTE &&
+                    $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
+                    && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA)
+                $contador['idade_ativa_ocupado']++;
+        }
+
+        return $idade_ativa_ocupado;
+    }
+
     static function calcularIndices(array $domicilio) {
         $this->domicilio = $domicilio;
 
@@ -134,29 +160,54 @@ class Indice extends AppModel {
         $idosos = $this->calculoComponenteIdosos();
         $dependencia = $this->calculoComponenteDependencia();
         $vulnerabilidade = ($gestacao + $criancas + $idosos + $dependencia) / 4;
+        $this->domicilio['Indice']['vulnerabilidade'] = $vulnerabilidade;
 
         // Calculo para Dimensão - Conhecimento
         $analfabetismo = $this->calculoComponenteAnalfabetismo();
         $escolaridade = $this->calculoComponenteEscolaridade();
         $conhecimento = ($analfabetismo + $vulnerabilidade) / 2;
+        $this->domicilio['Indice']['conhecimento'] = $conhecimento;
 
         // Calculo para Dimensão - Trabalho
         $disponibilidade = $this->calculoComponenteDisponibilidade();
         $qualidade = $this->calculoComponenteQualidade();
         $remuneracao = $this->calculoComponenteRemuneracao();
         $trabalho = ($disponibilidade + $qualidade + $remuneracao) / 3;
+        $this->domicilio['Indice']['trabalho'] = $trabalho;
 
         // Calculo para Dimensao - Recursos
         $extremaPobreza = $this->calculoComponenteExtremaPobreza();
         $pobreza = $this->calculoComponentePobreza();
         $capacidadeGeracao = $this->calculoComponenteCapacidadeGeracao();
         $recursos = ($extremaPobreza + $pobreza + $capacidadeGeracao) / 3;
+        $this->domicilio['Indice']['recursos'] = $recursos;
 
         // Calculo para Dimensao - Desenvolvimento Infantil
         $trabalhoPrecoce = $this->calculoComponenteTrabalhoPrecoce();
         $acessoEscola = $this->calculoComponenteAcessoEscola();
         $progressoEscolar = $this->calculoComponenteProgressoEscolar();
         $desenvolvimento = ($trabalhoPrecoce + $acessoEscola + $progressoEscolar) / 3;
+        $this->domicilio['Indice']['desenvolvimento'] = $desenvolvimento;
+
+        // Calculo para Dimensao - Habitação
+        $propriedade = $this->calculoComponentePropriedade();
+        $deficit = $this->calculoComponenteDeficit();
+        $abrigalidade = $this->calculoComponenteAbrigalidade();
+        $acessoAgua = $this->calculoComponenteAcessoAgua();
+        $acessoSaneamento = $this->calculoComponenteAcessoSaneamento();
+        $acessoColetaLixo = $this->calculoComponenteAcessoColetaLixo();
+        $acessoEletricidade = $this->calculoComponenteAcessoEletricidade();
+        $habitacao = ($propriedade + $deficit + $abrigalidade +
+                $acessoAgua + $acessoSaneamento +
+                $acessoColetaLixo + $acessoEletricidade) / 7;
+        $this->domicilio['Indice']['habitacao'] = $habitacao;
+
+        // Calculo do IDF da Familia
+        $idf = ($vulnerabilidade + $conhecimento + $trabalho +
+                $recursos + $desenvolvimento + $habitacao) / 6;
+
+        $this->domicilio['Indice']['idf'] = $idf;
+        return $this->domicilio;
     }
 
     private function calculoComponenteGestacao() {
@@ -280,7 +331,15 @@ class Indice extends AppModel {
             return $retorno;
         }
 
-        // V.9 IMPLEMENTAR CALCULO DE FUNÇÃO GENERICA COM TOTALIZADORES PARA ESTA FUNÇÃO E DEMAIS
+        //V.9 Mais da metade dos membros encontra-se em idade ativa
+        function v9() {
+            $retorno = 0;
+            if ($domicilio['Domicilio']['quantidade_pessoas'] / 2 < $this->contadorMembrosIdadeAtiva()) {
+                $retorno = 1;
+            }
+            $this->domicilio['Indice']['v9'] = $retorno;
+            return $retorno;
+        }
 
         return (v8() + v9()) / 2;
     }
@@ -368,8 +427,16 @@ class Indice extends AppModel {
 
     private function calculoComponenteDisponibilidade() {
 
-        // T.1 IMPLEMENTAR CALCULO DE FUNÇÃO GENERICA COM TOTALIZADORES PARA ESTA FUNÇÃO E DEMAIS
-
+        //T.1 Mais da metade dos membros em idade ativa encontram-se ocupados
+        function t1() {
+            $retorno = 0;
+            if ($domicilio['Domicilio']['quantidade_pessoas'] / 2 < $this->contadorMembrosIdadeAtivaOcupados()) {
+                $retorno = 1;
+            }
+            $this->domicilio['Indice']['t1'] = $retorno;
+            return $retorno;
+        }
+        
         return t1();
     }
 
@@ -644,6 +711,124 @@ class Indice extends AppModel {
         }
 
         return (d6() + d7() + d8()) / 3;
+    }
+
+    private function calculoComponentePropriedade() {
+
+        //H.1 Domicílio próprio
+        function h1() {
+            $retorno = 1;
+            if ($domicilio['situacao_domicilio'] != Domicilio::DOMICILIO_PROPRIO) {
+                $retorno = 0;
+            }
+            $this->domicilio['Indice']['h1'] = $retorno;
+            return $retorno;
+        }
+
+        //H.2 Domicílio próprio, cedido ou invadido
+        function h1() {
+            $retorno = 1;
+            if ($domicilio['situacao_domicilio'] != Domicilio::DOMICILIO_PROPRIO &&
+                    $domicilio['situacao_domicilio'] != Domicilio::DOMICILIO_CEDIDO &&
+                    $domicilio['situacao_domicilio'] != Domicilio::DOMICILIO_ALUGADO) {
+                $retorno = 0;
+            }
+            $this->domicilio['Indice']['h1'] = $retorno;
+            return $retorno;
+        }
+
+        return (h1() + h2()) / 2;
+    }
+
+    private function calculoComponenteDeficit() {
+
+        //H.3 Densidade de até 2 moradores por dormitório
+        function h3() {
+            $retorno = 1;
+            if ($domicilio['quantidade_pessoas'] / $domicilio['comodos'] > 2) {
+                $retorno = 0;
+            }
+            $this->domicilio['Indice']['h3'] = $retorno;
+            return $retorno;
+        }
+
+        return h3();
+    }
+
+    private function calculoComponenteAbrigalidade() {
+
+        //H.4 Material de construção permanente
+        function h4() {
+            $retorno = 1;
+            if ($domicilio['tipo_construcao'] != Domicilio::CONSTRUCAO_TIJOLO_ALVENARIA) {
+                $retorno = 0;
+            }
+            $this->domicilio['Indice']['h4'] = $retorno;
+            return $retorno;
+        }
+
+        return h4();
+    }
+
+    private function calculoComponenteAcessoAgua() {
+
+        //H.5 Acesso adequado à água
+        function h5() {
+            $retorno = 1;
+            if ($domicilio['tipo_abastecimento'] != Domicilio::ABASTECIMENTO_REDE_PUBLICA) {
+                $retorno = 0;
+            }
+            $this->domicilio['Indice']['h5'] = $retorno;
+            return $retorno;
+        }
+
+        return h5();
+    }
+
+    private function calculoComponenteAcessoSaneamento() {
+
+        //H.6 Esgotamento sanitário adequado
+        function h6() {
+            $retorno = 1;
+            if ($domicilio['escoamento_sanitario'] != Domicilio::ESCOAMENTO_REDE_PUBLICA) {
+                $retorno = 0;
+            }
+            $this->domicilio['Indice']['h6'] = $retorno;
+            return $retorno;
+        }
+
+        return h6();
+    }
+
+    private function calculoComponenteAcessoColetaLixo() {
+
+        //H.7 Lixo é coletado
+        function h7() {
+            $retorno = 1;
+            if ($domicilio['destino_lixo'] != Domicilio::LIXO_COLETADO) {
+                $retorno = 0;
+            }
+            $this->domicilio['Indice']['h7'] = $retorno;
+            return $retorno;
+        }
+
+        return h7();
+    }
+
+    private function calculoComponenteAcessoEletricidade() {
+
+        //H.8 Acesso à eletricidade
+        function h8() {
+            $retorno = 1;
+            if ($domicilio['tipo_iluminacao'] != Domicilio::ILUMINACAO_RELOGIO_PROPRIO &&
+                    $domicilio['tipo_iluminacao'] != Domicilio::ILUMINACAO_RELOGIO_COMUNITARIO) {
+                $retorno = 0;
+            }
+            $this->domicilio['Indice']['h8'] = $retorno;
+            return $retorno;
+        }
+
+        return h8();
     }
 
 }
