@@ -146,65 +146,6 @@ class DomiciliosController extends AppController {
         } else {
             if ($this->isUploadedFile($this->data['Domicilio']['arquivo'])) {
 
-                $colunas_simples = array(
-                    'COD DOMIC' => 'codigo_domiciliar',
-                    'TP LOG' => 'tipo_logradouro',
-                    'LOGRADOURO' => 'logradouro',
-                    'NO' => 'numero',
-                    'COMP' => 'complemento',
-                    //'NOME R. L.' => 'nome_responsavel_legal',
-                    //'RENDA FAMILIAR' => 'renda_familiar',
-                    //'QT PESSOAS' => 'pessoas_count',
-                    //'RENDA PERCAPITA' => 'renda_per_capita',
-                    'CEP' => 'cep',
-                    'DDD' => 'ddd',
-                    'TELEFONE' => 'telefone',
-                    'ULT ATUALIZ' => 'data_atualizacao',
-                    'ENTREVISTADOR' => 'entrevistador',
-                    'DT INCLUSAO' => 'data_inclusao',
-                    'QT COMODOS' => 'comodos',
-                    //'BAIRRO',
-                    'NIS R L' => 'nis_responsavel',
-                        //TIPO ABASTEC
-                        //TIPO ILUM
-                        //ESCOAMENTO SAN
-                        //DESTINO LIXO
-                        //TIPO CONSTR
-                        //TIPO DE DOMIC
-                        //TRAT. ÁGUA
-                        //SITU DOMICÍLIO
-                        //ÁREA
-                        //SITU CADASTRAL
-                        //MODALIDADE
-                        //SITU DOMICÍLIO
-                );
-                $colunas_combinadas = array(
-                    'AREA' => 'tipo_localidade',
-                    'SITU DOMICILIO' => 'situacao_domicilio',
-                    'TIPO DE DOMIC' => 'tipo_domicilio',
-                    'TIPO CONSTR' => 'tipo_construcao',
-                    'TIPO ABASTEC' => 'tipo_abastecimento',
-                    'TRAT AGUA' => 'tratamento_agua',
-                    'TIPO ILUM' => 'tipo_iluminacao',
-                    'ESCOAMENTO SAN' => 'escoamento_sanitario',
-                    'DESTINO LIXO' => 'destino_lixo',
-                    'BAIRRO' => 'bairro_id',
-                    'PLAN CAIXA' => 'bolsa_familia',
-                );
-                $combinacoes = array(
-                    'AREA' => $this->Domicilio->tipoLocalidade(),
-                    'SITU DOMICILIO' => $this->Domicilio->situacaoDomicilio(),
-                    'TIPO DE DOMIC' => $this->Domicilio->tipoDomicilio(),
-                    'TIPO CONSTR' => $this->Domicilio->tipoConstrucao(),
-                    'TIPO ABASTEC' => $this->Domicilio->tipoAbastecimentoAgua(),
-                    'TRAT AGUA' => $this->Domicilio->tratamentoAgua(),
-                    'TIPO ILUM' => $this->Domicilio->tipoIluminacao(),
-                    'ESCOAMENTO SAN' => $this->Domicilio->escoamentoSanitario(),
-                    'DESTINO LIXO' => $this->Domicilio->destinoLixo(),
-                    'BAIRRO' => $this->Domicilio->Bairro->find('list'),
-                    'PLAN CAIXA' => $this->Domicilio->bolsaFamilia(),
-                );
-
                 $handle = fopen($this->data['Domicilio']['arquivo']['tmp_name'], "r");
                 $header = fgetcsv($handle, 0, ';');
 
@@ -215,25 +156,8 @@ class DomiciliosController extends AppController {
                     $this->data = array();
 
                     foreach ($header as $key => $value) {
-
-                        $value = strtoupper(Inflector::slug(utf8_encode($value), ' '));
-                        $header[$key] = $value;
-
                         $row[$key] = utf8_encode($row[$key]);
-
-                        if ($value == 'ULT ATUALIZ' || $value == 'DT INCLUSAO') {
-                            if ($row[$key] == '1899-12-30 00:00:00')
-                                $row[$key] = null;
-                            $row[$key] = (strtotime($row[$key]) !== false) ? date('d/m/Y', strtotime($row[$key])) : null;
-                        }
-
-                        //var_dump($row); die();
-
-                        if (array_key_exists($value, $colunas_simples)) {
-                            $this->data['Domicilio'][$colunas_simples[$value]] = $row[$key];
-                        } else if (array_key_exists($value, $colunas_combinadas)) {
-                            $this->data['Domicilio'][$colunas_combinadas[$value]] = array_search($row[$key], $combinacoes[$value]);
-                        }
+                        $this->data['Domicilio'][$value] = $row[$key];
                     }
 
                     $this->Domicilio->create();
@@ -253,7 +177,7 @@ class DomiciliosController extends AppController {
                 }
 
                 $this->Domicilio->query('UPDATE domicilios SET cras_id = (SELECT cras_id FROM bairros WHERE bairros.id = domicilios.bairro_id), regiao_id = (SELECT regiao_id FROM bairros WHERE bairros.id = domicilios.bairro_id)');
-                $this->Domicilio->query("UPDATE domicilios SET tipo_logradouro = 'RUA' WHERE tipo_logradouro = 'R';
+                /*$this->Domicilio->query("UPDATE domicilios SET tipo_logradouro = 'RUA' WHERE tipo_logradouro = 'R';
                         UPDATE domicilios SET tipo_logradouro = 'AVENIDA' WHERE tipo_logradouro = 'AV';
                         UPDATE domicilios SET tipo_logradouro = 'TRAVESSA' WHERE tipo_logradouro = 'TV';
                         UPDATE domicilios SET tipo_logradouro = 'ESTRADA' WHERE tipo_logradouro = 'EST';
@@ -270,7 +194,7 @@ class DomiciliosController extends AppController {
                         UPDATE domicilios SET tipo_logradouro = 'GALERIA' WHERE tipo_logradouro = 'GAL';
                         UPDATE domicilios SET tipo_logradouro = 'AVENIDA' WHERE tipo_logradouro = 'A';
                         UPDATE domicilios SET tipo_logradouro = 'TRAVESSA' WHERE tipo_logradouro = 'TRV';
-                        UPDATE domicilios SET tipo_logradouro = 'CONJUNTO' WHERE tipo_logradouro = 'CJ';");
+                        UPDATE domicilios SET tipo_logradouro = 'CONJUNTO' WHERE tipo_logradouro = 'CJ';");*/
 
                 // close the file
                 fclose($handle);

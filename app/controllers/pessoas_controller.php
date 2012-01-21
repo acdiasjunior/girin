@@ -180,104 +180,36 @@ class PessoasController extends AppController {
     }
 
     function importar($arquivo = null) {
+        
         if (empty($this->data)) {
             //Abre a tela de importação
         } else {
-
+            
             if ($this->isUploadedFile($this->data['Pessoa']['arquivo'])) {
-
-                $colunas_simples = array(
-                    'NOME PESSOA' => 'nome',
-                    'NIS' => 'nis',
-                    'DT NASCIMENTO' => 'data_nascimento',
-                    'CPF' => 'cpf',
-                    'TITULO ELEITOR' => 'titulo_eleitor',
-                    'ZONA' => 'zona',
-                    'SESSAO' => 'sessao',
-                    'OCUPACAO' => 'ocupacao',
-                    'INEP' => 'inep',
-                    'NIS RL' => 'responsavel_nis',
-                    //Nome RL
-                    'DT INCLUSAO PESSOA' => 'data_inclusao',
-                    'RENDA INDIVIDUAL' => 'valor_renda',
-                    'VALOR BENEFICIO' => 'valor_beneficio',
-                    'COD DOM' => 'codigo_domiciliar',
-                    //Tp Log
-                    //Lograd
-                    //Nº
-                    //Comp
-                    //CEP
-                    //Cod Área
-                    //Telefone
-                    //Qt de Pessoas
-                    'ULTIMA ATUALIZACAO' => 'data_atualizacao',
-                    'ENTREVISTADOR/SITUACAO' => 'entrevistador',
-                        //Dt Inclusão Domícilio
-                        //Qt de Comôdos
-                        //Região
-                        //Bairro
-                );
-                $colunas_combinadas = array(
-                    'SERIE ESCOLAR' => 'serie_escolar',
-                    'TP DE TRABALHO' => 'tipo_trabalho',
-                    'COR' => 'cor',
-                    'EST CIVIL' => 'estado_civil',
-                    'GRAU DE INSTRUCAO' => 'grau_instrucao',
-                    'GENERO' => 'genero',
-                    'FREQUENTA ESCOLA' => 'tipo_escola',
-                );
-                $combinacoes = array(
-                    'SERIE ESCOLAR' => $this->Pessoa->serieEscolar(),
-                    'TP DE TRABALHO' => $this->Pessoa->tipoTrabalho(),
-                    'COR' => $this->Pessoa->cor(),
-                    'EST CIVIL' => $this->Pessoa->estadoCivil(),
-                    'GRAU DE INSTRUCAO' => $this->Pessoa->grauInstrucao(),
-                    'GENERO' => $this->Pessoa->genero(),
-                    'FREQUENTA ESCOLA' => $this->Pessoa->tipoEscola(),
-                );
 
                 $handle = fopen($this->data['Pessoa']['arquivo']['tmp_name'], "r");
                 $header = fgetcsv($handle, 0, ';');
 
-                foreach ($header as $key => $value) {
-                    $value = strtoupper(Inflector::slug(utf8_encode($value), ' '));
-                    $header[$key] = $value;
-                }
-
                 while (($row = fgetcsv($handle, 0, ';')) !== FALSE) {
-
+                    
                     set_time_limit(1);
 
                     $this->data = array();
 
                     foreach ($header as $key => $value) {
-
-                        if ($value == 'DT NASCIMENTO' || $value == 'DT INCLUSAO PESSOA' || $value == 'ULTIMA ATUALIZACAO') {
-                            if ($row[$key] == '1899-12-30 00:00:00')
-                                $row[$key] = null;
-                            $row[$key] = (strtotime($row[$key]) !== false) ? date('d/m/Y', strtotime($row[$key])) : '';
-                        }
-
-                        if (array_key_exists($value, $colunas_simples)) {
-                            $this->data['Pessoa'][$colunas_simples[$value]] = $row[$key];
-                        } else if (array_key_exists($value, $colunas_combinadas)) {
-                            $row[$key] = utf8_encode($row[$key]);
-                            $this->data['Pessoa'][$colunas_combinadas[$value]] = array_search($row[$key], $combinacoes[$value]);
-                        }
+                        $this->data['Pessoa'][$value] = $row[$key];
                     }
 
                     $this->Pessoa->create();
                     $this->Pessoa->set($this->data);
 
-                    if (!empty($this->data['Pessoa']['nis'])) {
-                        if (!$this->Pessoa->validates()) {
-                            echo 'Erro na validação de um registro!<br>Nis:' . $this->data['Pessoa']['nis'] . '<br>';
-                        } else if (!$this->Pessoa->save($this->data, false)) {
-                            echo '<pre>';
-                            print_r($this->data);
-                            echo '</pre><br>';
-                            die('Erro ao gravar o registro!');
-                        }
+                    if (!$this->Pessoa->validates()) {
+                        echo 'Erro na validação de um registro!<br>Nis:' . $this->data['Pessoa']['nis'] . '<br>';
+                    } else if (!$this->Pessoa->save($this->data, false)) {
+                        echo '<pre>';
+                        print_r($this->data);
+                        echo '</pre><br>';
+                        die('Erro ao gravar o registro!');
                     }
                 }
 
