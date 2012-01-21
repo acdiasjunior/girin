@@ -2,16 +2,7 @@
 SELECT
 	p.co_nis AS nis, d.nu_domiciliar AS codigo_domiciliar, p.no_pessoa AS nome, p.dt_nascimento AS data_nascimento, p.co_cpf AS cpf,
         p.de_titulo_eleitor AS titulo_eleitor, p.de_zona_titulo_eleitor AS zona, p.de_secao_titulo_eleitor AS secao, o.de_ocupacao AS ocupacao,
-        p.nu_inep_escola AS inep,
-	(CASE
-		WHEN p.dt_alteracao_pessoa = '1899-12-30' THEN NULL
-		ELSE p.dt_alteracao_pessoa
-	END) AS data_atualizacao,
-	(CASE
-		WHEN p.dt_inclusao_pessoa = '1899-12-30' THEN NULL
-		ELSE p.dt_inclusao_pessoa
-	END) AS data_inclusao,
-	r.co_nis AS responsavel_nis, p.ic_parentesco_responsavel AS reponsavel_parentesco, p.vr_remuneracao AS valor_remuneracao,
+        p.nu_inep_escola AS inep, r.co_nis AS responsavel_nis, p.ic_parentesco_responsavel AS reponsavel_parentesco, p.vr_remuneracao AS valor_remuneracao,
         p.vr_renda_aposentadoria AS valor_aposentadoria, p.vr_renda_seguro_desemprego AS valor_seguro_desemprego,
 	p.vr_renda_pensao AS valor_pensao, p.vr_outras_rendas AS valor_outras_rendas, p.ic_serie_escolar AS serie_escolar, p.ic_grau_instrucao AS grau_instrucao,
 	p.ic_tipo_escola AS tipo_escola, p.ic_sexo AS genero, p.ic_raca_cor AS raca_cor, p.ic_estado_civil AS estado_civil,
@@ -21,6 +12,14 @@ SELECT
             WHEN p.ic_sem_deficiencia = '0' THEN 1
             ELSE 0
          END) AS portador_deficiencia,
+        (CASE
+		WHEN p.dt_alteracao_pessoa = '1899-12-30' THEN NULL
+		ELSE p.dt_alteracao_pessoa
+	END) AS data_atualizacao,
+	(CASE
+		WHEN p.dt_inclusao_pessoa = '1899-12-30' THEN NULL
+		ELSE p.dt_inclusao_pessoa
+	END) AS data_inclusao,
         (CASE
             WHEN p.nu_ordem_esposa_companheiro <> 99 THEN 1
             ELSE 0
@@ -72,8 +71,15 @@ SELECT
     rendas.valor_remuneracao, rendas.valor_aposentadoria_pensao, rendas.valor_seguro_desemprego, rendas.valor_pensao_alimenticia, rendas.valor_outras_rendas,
     (COALESCE(valor_remuneracao,0) + COALESCE(valor_aposentadoria_pensao,0) +
         COALESCE(valor_seguro_desemprego,0) + COALESCE(valor_pensao_alimenticia,0) +
-        COALESCE(valor_outras_rendas,0)) AS valor_renda_familia
-
+        COALESCE(valor_outras_rendas,0)) AS valor_renda_familia,
+    (CASE
+            WHEN d.dt_alteracao_domicilio = '1899-12-30' THEN NULL
+            ELSE d.dt_alteracao_domicilio
+    END) AS data_atualizacao,
+    (CASE
+            WHEN d.dt_inclusao_domicilio = '1899-12-30' THEN NULL
+            ELSE d.dt_inclusao_domicilio
+    END) AS data_inclusao
 FROM cubtb013_domicilio AS d
 INNER JOIN
     cubtb027_pessoa AS p ON p.co_domicilio = d.co_domicilio
