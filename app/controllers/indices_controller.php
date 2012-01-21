@@ -161,17 +161,14 @@ class IndicesController extends AppController {
 
                 foreach ($domicilios as $codigo_domiciliar) {
 
-                    $this->data = array();
-
                     $this->Domicilio->id = $codigo_domiciliar;
+                    $domicilio = array();
                     $domicilio = $this->Domicilio->read();
 
                     $this->Indice->calcularIndices($domicilio);
 
-                    $this->data['Indice']['idf'] = $somatorio['idf'] / $contador['idf'];
+                    $this->data['Indice']['idf'] = $domicilio['Indice']['idf'];
                     $this->data['Indice']['codigo_domiciliar'] = $codigo_domiciliar;
-                    $this->data['Domicilio']['idf'] = $this->data['Indice']['idf'];
-                    //$this->data['IndicesHistorico'] = $this->data['Indice'];
 
                     if (!$this->Indice->save($this->data)) {
                         $retorno['status'] = 0;

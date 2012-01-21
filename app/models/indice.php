@@ -123,9 +123,10 @@ class Indice extends AppModel {
             ),
         ),
     );
-    private $domicilio = array();
-
-    private function contadorMembrosIdadeAtiva() {
+    
+    var $domicilio = array();
+    
+    function contadorMembrosIdadeAtiva() {
 
         $idade_ativa = 0;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
@@ -137,7 +138,7 @@ class Indice extends AppModel {
         return $idade_ativa;
     }
 
-    private function contadorMembrosIdadeAtivaOcupados() {
+    function contadorMembrosIdadeAtivaOcupados() {
 
         $idade_ativa_ocupado = 0;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
@@ -151,236 +152,236 @@ class Indice extends AppModel {
         return $idade_ativa_ocupado;
     }
 
-    static function calcularIndices(array $domicilio) {
+    function calcularIndices($domicilio) {
         $this->domicilio = $domicilio;
-
         // Calculo para Dimensão - Vulnerabilidade
-        $gestacao = $this->calculoComponenteGestacao();
-        $criancas = $this->calculoComponenteCriancas();
-        $idosos = $this->calculoComponenteIdosos();
-        $dependencia = $this->calculoComponenteDependencia();
+        $gestacao = Indice::calculoComponenteGestacao();
+        $criancas = Indice::calculoComponenteCriancas();
+        $idosos = Indice::calculoComponenteIdosos();
+        $dependencia = Indice::calculoComponenteDependencia();
         $vulnerabilidade = ($gestacao + $criancas + $idosos + $dependencia) / 4;
-        $this->domicilio['Indice']['vulnerabilidade'] = $vulnerabilidade;
+        $this->domicilio['Domicilio']['Indice']['vulnerabilidade'] = $vulnerabilidade;
 
         // Calculo para Dimensão - Conhecimento
-        $analfabetismo = $this->calculoComponenteAnalfabetismo();
-        $escolaridade = $this->calculoComponenteEscolaridade();
+        $analfabetismo = Indice::calculoComponenteAnalfabetismo();
+        $escolaridade = Indice::calculoComponenteEscolaridade();
         $conhecimento = ($analfabetismo + $vulnerabilidade) / 2;
-        $this->domicilio['Indice']['conhecimento'] = $conhecimento;
+        $this->domicilio['Domicilio']['Indice']['conhecimento'] = $conhecimento;
 
         // Calculo para Dimensão - Trabalho
-        $disponibilidade = $this->calculoComponenteDisponibilidade();
-        $qualidade = $this->calculoComponenteQualidade();
-        $remuneracao = $this->calculoComponenteRemuneracao();
+        $disponibilidade = Indice::calculoComponenteDisponibilidade();
+        $qualidade = Indice::calculoComponenteQualidade();
+        $remuneracao = Indice::calculoComponenteRemuneracao();
         $trabalho = ($disponibilidade + $qualidade + $remuneracao) / 3;
-        $this->domicilio['Indice']['trabalho'] = $trabalho;
+        $this->domicilio['Domicilio']['Indice']['trabalho'] = $trabalho;
 
         // Calculo para Dimensao - Recursos
-        $extremaPobreza = $this->calculoComponenteExtremaPobreza();
-        $pobreza = $this->calculoComponentePobreza();
-        $capacidadeGeracao = $this->calculoComponenteCapacidadeGeracao();
+        $extremaPobreza = Indice::calculoComponenteExtremaPobreza();
+        $pobreza = Indice::calculoComponentePobreza();
+        $capacidadeGeracao = Indice::calculoComponenteCapacidadeGeracao();
         $recursos = ($extremaPobreza + $pobreza + $capacidadeGeracao) / 3;
-        $this->domicilio['Indice']['recursos'] = $recursos;
+        $this->domicilio['Domicilio']['Indice']['recursos'] = $recursos;
 
         // Calculo para Dimensao - Desenvolvimento Infantil
-        $trabalhoPrecoce = $this->calculoComponenteTrabalhoPrecoce();
-        $acessoEscola = $this->calculoComponenteAcessoEscola();
-        $progressoEscolar = $this->calculoComponenteProgressoEscolar();
+        $trabalhoPrecoce = Indice::calculoComponenteTrabalhoPrecoce();
+        $acessoEscola = Indice::calculoComponenteAcessoEscola();
+        $progressoEscolar = Indice::calculoComponenteProgressoEscolar();
         $desenvolvimento = ($trabalhoPrecoce + $acessoEscola + $progressoEscolar) / 3;
-        $this->domicilio['Indice']['desenvolvimento'] = $desenvolvimento;
+        $this->domicilio['Domicilio']['Indice']['desenvolvimento'] = $desenvolvimento;
 
         // Calculo para Dimensao - Habitação
-        $propriedade = $this->calculoComponentePropriedade();
-        $deficit = $this->calculoComponenteDeficit();
-        $abrigalidade = $this->calculoComponenteAbrigalidade();
-        $acessoAgua = $this->calculoComponenteAcessoAgua();
-        $acessoSaneamento = $this->calculoComponenteAcessoSaneamento();
-        $acessoColetaLixo = $this->calculoComponenteAcessoColetaLixo();
-        $acessoEletricidade = $this->calculoComponenteAcessoEletricidade();
+        $propriedade = Indice::calculoComponentePropriedade();
+        $deficit = Indice::calculoComponenteDeficit();
+        $abrigalidade = Indice::calculoComponenteAbrigalidade();
+        $acessoAgua = Indice::calculoComponenteAcessoAgua();
+        $acessoSaneamento = Indice::calculoComponenteAcessoSaneamento();
+        $acessoColetaLixo = Indice::calculoComponenteAcessoColetaLixo();
+        $acessoEletricidade = Indice::calculoComponenteAcessoEletricidade();
         $habitacao = ($propriedade + $deficit + $abrigalidade +
                 $acessoAgua + $acessoSaneamento +
                 $acessoColetaLixo + $acessoEletricidade) / 7;
-        $this->domicilio['Indice']['habitacao'] = $habitacao;
+        $this->domicilio['Domicilio']['Indice']['habitacao'] = $habitacao;
 
         // Calculo do IDF da Familia
         $idf = ($vulnerabilidade + $conhecimento + $trabalho +
                 $recursos + $desenvolvimento + $habitacao) / 6;
 
-        $this->domicilio['Indice']['idf'] = $idf;
-        return $this->domicilio;
+        $this->domicilio['Domicilio']['Indice']['idf'] = $idf;
+        return $this->domicilio['Domicilio'];
     }
 
-    private function calculoComponenteGestacao() {
-
+    function calculoComponenteGestacao() {
+        
         // V.1 Ausencia de gestantes
-        function v1() {
+        function v1($indice) {
+            xdebug_break();
             $retorno = 1;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['mes_gestacao'] > 0) {
                     $retorno = 0;
                     break;
                 }
             }
-            $this->domicilio['Indice']['v1'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['v1'] = $retorno;
             return $retorno;
         }
 
         // V.2 Ausencia de gestantes
-        function v2() {
+        function v2($indice) {
             $retorno = 1;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['amamentando'] == 1) {
                     $retorno = 0;
                     break;
                 }
             }
-            $this->domicilio['Indice']['v2'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['v2'] = $retorno;
             return $retorno;
         }
 
-        return (v1() + v2()) / 2;
+        return (v1($this) + v2($this)) / 2;
     }
 
-    private function calculoComponenteCriancas() {
+    function calculoComponenteCriancas() {
 
         //V.3 Ausência de crianças
-        function v3() {
+        function v3($indice) {
             $retorno = 1;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] < Pessoa::IDADE_ADOLESCENTE) {
                     $retorno = 0;
                     break;
                 }
             }
-            $this->domicilio['Indice']['v3'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['v3'] = $retorno;
             return $retorno;
         }
 
         //V.4 Ausência de crianças e adolescente
-        function v4() {
+        function v4($indice) {
             $retorno = 1;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] < Pessoa::IDADE_JOVEM) {
                     $retorno = 0;
                     break;
                 }
             }
-            $this->domicilio['Indice']['v4'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['v4'] = $retorno;
             return $retorno;
         }
 
         //V.5  Ausência de crianças, adolescente e jovens
-        function v5() {
+        function v5($indice) {
             $retorno = 1;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] < Pessoa::IDADE_ADULTO) {
                     $retorno = 0;
                     break;
                 }
             }
-            $this->domicilio['Indice']['v5'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['v5'] = $retorno;
             return $retorno;
         }
 
-        return (v3() + v4() + v5()) / 3;
+        return (v3($this) + v4($this) + v5($this)) / 3;
     }
 
-    private function calculoComponenteIdosos() {
+    function calculoComponenteIdosos() {
 
         //V.6 Ausência de portadores de deficiência
-        function v6() {
+        function v6($indice) {
             $retorno = 1;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['portador_deficiencia'] == 1) {
                     $retorno = 0;
                     break;
                 }
             }
-            $this->domicilio['Indice']['v6'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['v6'] = $retorno;
             return $retorno;
         }
 
         //V.7 Ausência de Idosos
-        function v7() {
+        function v7($indice) {
             $retorno = 1;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] >= Pessoa::IDADE_IDOSO) {
                     $retorno = 0;
                     break;
                 }
             }
-            $this->domicilio['Indice']['v7'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['v7'] = $retorno;
             return $retorno;
         }
 
-        return (v6() + v7()) / 2;
+        return (v6($this) + v7($this)) / 2;
     }
 
-    private function calculoComponenteDependencia() {
+    function calculoComponenteDependencia() {
 
         // V.8 Presença de cônjuge
-        function v8() {
+        function v8($indice) {
             $retorno = 0;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['esposa_companheiro'] == 1) {
                     $retorno = 1;
                     break;
                 }
             }
-            $this->domicilio['Indice']['v8'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['v8'] = $retorno;
             return $retorno;
         }
 
         //V.9 Mais da metade dos membros encontra-se em idade ativa
-        function v9() {
+        function v9($indice) {
             $retorno = 0;
-            if ($domicilio['Domicilio']['quantidade_pessoas'] / 2 < $this->contadorMembrosIdadeAtiva()) {
+            if ($indice->domicilio['Domicilio']['quantidade_pessoas'] / 2 < $this->contadorMembrosIdadeAtiva()) {
                 $retorno = 1;
             }
-            $this->domicilio['Indice']['v9'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['v9'] = $retorno;
             return $retorno;
         }
 
-        return (v8() + v9()) / 2;
+        return (v8($this) + v9($this)) / 2;
     }
 
-    private function calculoComponenteAnalfabetismo() {
+    function calculoComponenteAnalfabetismo() {
 
         //C.1 Ausência de Adultos Analfabetos
-        function c1() {
+        function c1($indice) {
             $retorno = 1;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO && $pessoa['grau_instrucao'] < Pessoa::ESCOLARIDADE_ATE_4A_INCOMPLETA) {
                     $retorno = 0;
                     break;
                 }
             }
-            $this->domicilio['Indice']['c1'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['c1'] = $retorno;
             return $retorno;
         }
 
         //C.2 Ausência de Adultos Analfabetos Funcionais
-        function c2() {
+        function c2($indice) {
             $retorno = 1;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO && $pessoa['grau_instrucao'] < Pessoa::ESCOLARIDADE_4A_COMPLETA) {
                     $retorno = 0;
                     break;
                 }
             }
-            $this->domicilio['Indice']['c2'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['c2'] = $retorno;
             return $retorno;
         }
 
-        return (c1() + c2()) / 2;
+        return (c1($this) + c2($this)) / 2;
     }
 
-    private function calculoComponenteEscolaridade() {
+    function calculoComponenteEscolaridade() {
 
         //C.3 Presença de pelo menos um adulto com fundamental completo
-        function c3() {
+        function c3($indice) {
             $retorno = 0;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO) {
                     if ($pessoa['grau_instrucao'] >= Pessoa::ESCOLARIDADE_FUNDAMENTAL_COMPLETO) {
                         $retorno = 1;
@@ -388,14 +389,14 @@ class Indice extends AppModel {
                     }
                 }
             }
-            $this->domicilio['Indice']['c3'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['c3'] = $retorno;
             return $retorno;
         }
 
         //C.4 Presença de pelo menos um adulto com secundário completo
-        function c4() {
+        function c4($indice) {
             $retorno = 0;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO) {
                     if ($pessoa['grau_instrucao'] >= Pessoa::ESCOLARIDADE_MEDIO_COMPLETO) {
                         $retorno = 1;
@@ -403,14 +404,14 @@ class Indice extends AppModel {
                     }
                 }
             }
-            $this->domicilio['Indice']['c4'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['c4'] = $retorno;
             return $retorno;
         }
 
         //C.5 Presença de pelo menos um adulto com alguma educação superior
-        function c5() {
+        function c5($indice) {
             $retorno = 0;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] >= Pessoa::IDADE_ADULTO) {
                     if ($pessoa['grau_instrucao'] >= Pessoa::ESCOLARIDADE_SUPERIOR_INCOMPLETO) {
                         $retorno = 1;
@@ -418,48 +419,48 @@ class Indice extends AppModel {
                     }
                 }
             }
-            $this->domicilio['Indice']['c5'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['c5'] = $retorno;
             return $retorno;
         }
 
-        return (c3() + c4() + c5()) / 3;
+        return (c3($this) + c4($this) + c5($this)) / 3;
     }
 
-    private function calculoComponenteDisponibilidade() {
+    function calculoComponenteDisponibilidade() {
 
         //T.1 Mais da metade dos membros em idade ativa encontram-se ocupados
-        function t1() {
+        function t1($indice) {
             $retorno = 0;
-            if ($domicilio['Domicilio']['quantidade_pessoas'] / 2 < $this->contadorMembrosIdadeAtivaOcupados()) {
+            if ($indice->domicilio['Domicilio']['quantidade_pessoas'] / 2 < $this->contadorMembrosIdadeAtivaOcupados()) {
                 $retorno = 1;
             }
-            $this->domicilio['Indice']['t1'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['t1'] = $retorno;
             return $retorno;
         }
         
-        return t1();
+        return t1($this);
     }
 
-    private function calculoComponenteQualidade() {
+    function calculoComponenteQualidade() {
 
         //T.2 Presença de pelo menos um ocupado no setor formal
-        function t2() {
+        function t2($indice) {
             $retorno = 0;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['tipo_trabalho'] == Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA
                         || $pessoa['tipo_trabalho'] == Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA) {
                     $retorno = 1;
                     break;
                 }
             }
-            $this->domicilio['Indice']['t2'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['t2'] = $retorno;
             return $retorno;
         }
 
         //T.3 Presença de pelo menos um ocupado em atividade não agrícola
-        function t3() {
+        function t3($indice) {
             $retorno = 0;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA &&
                         $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO &&
                         $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_TRABALHADOR_RURAL
@@ -468,19 +469,19 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $this->domicilio['Indice']['t3'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['t3'] = $retorno;
             return $retorno;
         }
 
-        return (t2() + t3()) / 2;
+        return (t2($this) + t3($this)) / 2;
     }
 
-    private function calculoComponenteRemuneracao() {
+    function calculoComponenteRemuneracao() {
 
         //T.4 Presença de pelo menos um ocupado com rendimento superior a 1 salário mínimo
-        function t4() {
+        function t4($indice) {
             $retorno = 0;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
                         && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
                         && $pessoa['valor_renda'] > 545) {
@@ -488,14 +489,14 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $this->domicilio['Indice']['t4'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['t4'] = $retorno;
             return $retorno;
         }
 
         //T.5 Presença de pelo menos um ocupado com rendimento superior a 2 salários mínimos
-        function t5() {
+        function t5($indice) {
             $retorno = 0;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
                         && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
                         && $pessoa['valor_renda'] > (545 * 2)) {
@@ -503,94 +504,94 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $this->domicilio['Indice']['t5'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['t5'] = $retorno;
             return $retorno;
         }
 
-        return (t4() + t5()) / 2;
+        return (t4($this) + t5($this)) / 2;
     }
 
-    private function calculoComponenteExtremaPobreza() {
+    function calculoComponenteExtremaPobreza() {
 
         //R.1 Despesa familiar per capita superior a linha de extema pobreza
-        function r1() {
+        function r1($indice) {
             $retorno = 0;
-            if ($domicilio['Domicilio']['valor_despesa_familia'] / $domicilio['Domicilio']['quantidade_pessoas'] >= 70) {
+            if ($indice->domicilio['Domicilio']['valor_despesa_familia'] / $indice->domicilio['Domicilio']['quantidade_pessoas'] >= 70) {
                 $retorno = 1;
             }
-            $this->domicilio['Indice']['r2'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['r2'] = $retorno;
             return $retorno;
         }
 
         //R.2 Renda familiar per capita superior a linha de  pobreza
-        function t4() {
+        function r2($indice) {
             $retorno = 0;
-            if ($domicilio['Domicilio']['valor_renda_familia'] / $domicilio['Domicilio']['quantidade_pessoas'] >= 70) {
+            if ($indice->domicilio['Domicilio']['valor_renda_familia'] / $indice->domicilio['Domicilio']['quantidade_pessoas'] >= 70) {
                 $retorno = 1;
             }
-            $this->domicilio['Indice']['r2'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['r2'] = $retorno;
             return $retorno;
         }
 
         //R.3 Despesa com alimentos superior a linha de extema pobreza
-        function r3() {
+        function r3($indice) {
             $retorno = 0;
-            if ($domicilio['Domicilio']['valor_despesa_alimentacao'] >= 70) {
+            if ($indice->domicilio['Domicilio']['valor_despesa_alimentacao'] >= 70) {
                 $retorno = 1;
             }
-            $this->domicilio['Indice']['r3'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['r3'] = $retorno;
             return $retorno;
         }
 
-        return (r1() + r2() + r3()) / 3;
+        return (r1($this) + r2($this) + r3($this)) / 3;
     }
 
-    private function calculoComponentePobreza() {
+    function calculoComponentePobreza() {
 
         //R.4 Despesa familiar per capita superior a linha de pobreza
-        function t4() {
+        function r4($indice) {
             $retorno = 0;
-            if ($domicilio['Domicilio']['valor_despesa_familia'] / $domicilio['Domicilio']['quantidade_pessoas'] >= 140) {
+            if ($indice->domicilio['Domicilio']['valor_despesa_familia'] / $indice->domicilio['Domicilio']['quantidade_pessoas'] >= 140) {
                 $retorno = 1;
             }
-            $this->domicilio['Indice']['r2'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['r4'] = $retorno;
             return $retorno;
         }
 
         //R.5 Renda familiar per capita superior a linha de pobreza
-        function r5() {
+        function r5($indice) {
             $retorno = 0;
-            if ($domicilio['Domicilio']['valor_renda_familia'] >= 140) {
+            if ($indice->domicilio['Domicilio']['valor_renda_familia'] >= 140) {
                 $retorno = 1;
             }
-            $this->domicilio['Indice']['r5'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['r5'] = $retorno;
             return $retorno;
         }
 
-        return (r4() + r5()) / 2;
+        return (r4($this) + r5($this)) / 2;
     }
 
-    private function calculoComponenteCapacidadeGeracao() {
+    function calculoComponenteCapacidadeGeracao() {
 
         //R.6 Maior parte da renda familiar não advém de transferências
-        function r6() {
+        function r6($indice) {
             $retorno = 0;
-            if ($domicilio['Domicilio']['valor_renda_familia'] > $domicilio['Domicilio']['valor_beneficio_familia']) {
+            if ($indice->domicilio['Domicilio']['valor_renda_familia'] > $indice->domicilio['Domicilio']['valor_beneficio_familia']) {
                 $retorno = 1;
             }
-            $this->domicilio['Indice']['r6'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['r6'] = $retorno;
             return $retorno;
         }
 
-        return r6();
+        return r6($this);
     }
 
-    private function calculoComponenteTrabalhoPrecoce() {
+    function calculoComponenteTrabalhoPrecoce() {
 
         //D.1 Ausência de pelo menos uma criança de menos de 10 anos trabalhando
-        function d1() {
+        function d1($indice) {
             $retorno = 1;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] < Pessoa::IDADE_ADOLESCENTE
                         && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
                         && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO) {
@@ -598,14 +599,14 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $this->domicilio['Indice']['d1'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['d1'] = $retorno;
             return $retorno;
         }
 
         //D.2 Ausência de pelo menos uma criança de menos de 16 anos de trabalhando
-        function d2() {
+        function d2($indice) {
             $retorno = 1;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] < 16
                         && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
                         && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO) {
@@ -613,222 +614,222 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $this->domicilio['Indice']['d2'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['d2'] = $retorno;
             return $retorno;
         }
 
-        return (d1() + d2()) / 2;
+        return (d1($this) + d2($this)) / 2;
     }
 
-    private function calculoComponenteAcessoEscola() {
+    function calculoComponenteAcessoEscola() {
 
         //D.3 Ausência de pelo menos uma criança de 0-6 anos fora da escola
-        function d3() {
+        function d3($indice) {
             $retorno = 1;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] <= 6 && ($pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
                         || $pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
                     $retorno = 0;
                     break;
                 }
             }
-            $this->domicilio['Indice']['d3'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['d3'] = $retorno;
             return $retorno;
         }
 
         //D.4 Ausência de pelo menos uma criança de 7-14 anos fora da escola
-        function d4() {
+        function d4($indice) {
             $retorno = 1;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] >= 7 && $pessoa['idade'] <= 14 && ($pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
                         || $pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
                     $retorno = 0;
                     break;
                 }
             }
-            $this->domicilio['Indice']['d4'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['d4'] = $retorno;
             return $retorno;
         }
 
         //D.5 Ausência de pelo menos uma criança de 7-17 anos fora da escola
-        function d5() {
+        function d5($indice) {
             $retorno = 1;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] >= 7 && $pessoa['idade'] <= 17 && ($pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
                         || $pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
                     $retorno = 0;
                     break;
                 }
             }
-            $this->domicilio['Indice']['d5'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['d5'] = $retorno;
             return $retorno;
         }
 
-        return (d3() + d4() + d5()) / 3;
+        return (d3($this) + d4($this) + d5($this)) / 3;
     }
 
-    private function calculoComponenteProgressoEscolar() {
+    function calculoComponenteProgressoEscolar() {
 
         //D.6 Ausência de pelo menos uma criança com até 14 anos com mais de 2 anos de atraso
-        function d6() {
+        function d6($indice) {
             $retorno = 1;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if (($pessoa['idade'] >= 6 && $pessoa['idade'] <= 14) && ($pessoa['idade'] - $pessoa['serie_escolar']) >= 0) {
                     $retorno = 0;
                     break;
                 }
             }
-            $this->domicilio['Indice']['d6'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['d6'] = $retorno;
             return $retorno;
         }
 
         //D.7 Ausência de pelo menos um adolescente de 10 a 14 anos analfabeto
-        function d7() {
+        function d7($indice) {
             $retorno = 1;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] >= 10 && $pessoa['idade'] <= 14 && (
                         $pessoa['grau_instrucao'] == Pessoa::ESCOLARIDADE_ANALFABETO || $pessoa['grau_instrucao'] == Pessoa::ESCOLARIDADE_NAO_INFORMADO)) {
                     $retorno = 0;
                     break;
                 }
             }
-            $this->domicilio['Indice']['d7'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['d7'] = $retorno;
             return $retorno;
         }
 
         //D.8 Ausência de pelo menos um jovem de 15 a 17 anos analfabeto
-        function d8() {
+        function d8($indice) {
             $retorno = 1;
-            foreach ($this->domicilio['Pessoa'] as $pessoa) {
+            foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['idade'] >= 15 && $pessoa['idade'] <= 17 && (
                         $pessoa['grau_instrucao'] == Pessoa::ESCOLARIDADE_ANALFABETO || $pessoa['grau_instrucao'] == Pessoa::ESCOLARIDADE_NAO_INFORMADO)) {
                     $retorno = 0;
                     break;
                 }
             }
-            $this->domicilio['Indice']['d8'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['d8'] = $retorno;
             return $retorno;
         }
 
-        return (d6() + d7() + d8()) / 3;
+        return (d6($this) + d7($this) + d8($this)) / 3;
     }
 
-    private function calculoComponentePropriedade() {
+    function calculoComponentePropriedade() {
 
         //H.1 Domicílio próprio
-        function h1() {
+        function h1($indice) {
             $retorno = 1;
-            if ($domicilio['situacao_domicilio'] != Domicilio::DOMICILIO_PROPRIO) {
+            if ($indice->domicilio['situacao_domicilio'] != Domicilio::DOMICILIO_PROPRIO) {
                 $retorno = 0;
             }
-            $this->domicilio['Indice']['h1'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['h1'] = $retorno;
             return $retorno;
         }
 
         //H.2 Domicílio próprio, cedido ou invadido
-        function h1() {
+        function h1($indice) {
             $retorno = 1;
-            if ($domicilio['situacao_domicilio'] != Domicilio::DOMICILIO_PROPRIO &&
-                    $domicilio['situacao_domicilio'] != Domicilio::DOMICILIO_CEDIDO &&
-                    $domicilio['situacao_domicilio'] != Domicilio::DOMICILIO_ALUGADO) {
+            if ($indice->domicilio['situacao_domicilio'] != Domicilio::DOMICILIO_PROPRIO &&
+                    $indice->domicilio['situacao_domicilio'] != Domicilio::DOMICILIO_CEDIDO &&
+                    $indice->domicilio['situacao_domicilio'] != Domicilio::DOMICILIO_ALUGADO) {
                 $retorno = 0;
             }
-            $this->domicilio['Indice']['h1'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['h1'] = $retorno;
             return $retorno;
         }
 
-        return (h1() + h2()) / 2;
+        return (h1($this) + h2($this)) / 2;
     }
 
-    private function calculoComponenteDeficit() {
+    function calculoComponenteDeficit() {
 
         //H.3 Densidade de até 2 moradores por dormitório
-        function h3() {
+        function h3($indice) {
             $retorno = 1;
-            if ($domicilio['quantidade_pessoas'] / $domicilio['comodos'] > 2) {
+            if ($indice->domicilio['quantidade_pessoas'] / $indice->domicilio['comodos'] > 2) {
                 $retorno = 0;
             }
-            $this->domicilio['Indice']['h3'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['h3'] = $retorno;
             return $retorno;
         }
 
-        return h3();
+        return h3($this);
     }
 
-    private function calculoComponenteAbrigalidade() {
+    function calculoComponenteAbrigalidade() {
 
         //H.4 Material de construção permanente
-        function h4() {
+        function h4($indice) {
             $retorno = 1;
-            if ($domicilio['tipo_construcao'] != Domicilio::CONSTRUCAO_TIJOLO_ALVENARIA) {
+            if ($indice->domicilio['tipo_construcao'] != Domicilio::CONSTRUCAO_TIJOLO_ALVENARIA) {
                 $retorno = 0;
             }
-            $this->domicilio['Indice']['h4'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['h4'] = $retorno;
             return $retorno;
         }
 
-        return h4();
+        return h4($this);
     }
 
-    private function calculoComponenteAcessoAgua() {
+    function calculoComponenteAcessoAgua() {
 
         //H.5 Acesso adequado à água
-        function h5() {
+        function h5($indice) {
             $retorno = 1;
-            if ($domicilio['tipo_abastecimento'] != Domicilio::ABASTECIMENTO_REDE_PUBLICA) {
+            if ($indice->domicilio['tipo_abastecimento'] != Domicilio::ABASTECIMENTO_REDE_PUBLICA) {
                 $retorno = 0;
             }
-            $this->domicilio['Indice']['h5'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['h5'] = $retorno;
             return $retorno;
         }
 
-        return h5();
+        return h5($this);
     }
 
-    private function calculoComponenteAcessoSaneamento() {
+    function calculoComponenteAcessoSaneamento() {
 
         //H.6 Esgotamento sanitário adequado
-        function h6() {
+        function h6($indice) {
             $retorno = 1;
-            if ($domicilio['escoamento_sanitario'] != Domicilio::ESCOAMENTO_REDE_PUBLICA) {
+            if ($indice->domicilio['escoamento_sanitario'] != Domicilio::ESCOAMENTO_REDE_PUBLICA) {
                 $retorno = 0;
             }
-            $this->domicilio['Indice']['h6'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['h6'] = $retorno;
             return $retorno;
         }
 
-        return h6();
+        return h6($this);
     }
 
-    private function calculoComponenteAcessoColetaLixo() {
+    function calculoComponenteAcessoColetaLixo() {
 
         //H.7 Lixo é coletado
-        function h7() {
+        function h7($indice) {
             $retorno = 1;
-            if ($domicilio['destino_lixo'] != Domicilio::LIXO_COLETADO) {
+            if ($indice->domicilio['destino_lixo'] != Domicilio::LIXO_COLETADO) {
                 $retorno = 0;
             }
-            $this->domicilio['Indice']['h7'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['h7'] = $retorno;
             return $retorno;
         }
 
-        return h7();
+        return h7($this);
     }
 
-    private function calculoComponenteAcessoEletricidade() {
+    function calculoComponenteAcessoEletricidade() {
 
         //H.8 Acesso à eletricidade
-        function h8() {
+        function h8($indice) {
             $retorno = 1;
-            if ($domicilio['tipo_iluminacao'] != Domicilio::ILUMINACAO_RELOGIO_PROPRIO &&
-                    $domicilio['tipo_iluminacao'] != Domicilio::ILUMINACAO_RELOGIO_COMUNITARIO) {
+            if ($indice->domicilio['tipo_iluminacao'] != Domicilio::ILUMINACAO_RELOGIO_PROPRIO &&
+                    $indice->domicilio['tipo_iluminacao'] != Domicilio::ILUMINACAO_RELOGIO_COMUNITARIO) {
                 $retorno = 0;
             }
-            $this->domicilio['Indice']['h8'] = $retorno;
+            $indice->domicilio['Domicilio']['Indice']['h8'] = $retorno;
             return $retorno;
         }
 
-        return h8();
+        return h8($this);
     }
 
 }
