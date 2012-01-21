@@ -335,7 +335,7 @@ class Indice extends AppModel {
         //V.9 Mais da metade dos membros encontra-se em idade ativa
         function v9($indice) {
             $retorno = 0;
-            if ($indice->domicilio['Domicilio']['quantidade_pessoas'] / 2 < $this->contadorMembrosIdadeAtiva()) {
+            if ($indice->domicilio['Domicilio']['quantidade_pessoas'] / 2 < $indice->contadorMembrosIdadeAtiva()) {
                 $retorno = 1;
             }
             $indice->domicilio['Domicilio']['Indice']['v9'] = $retorno;
@@ -431,7 +431,7 @@ class Indice extends AppModel {
         //T.1 Mais da metade dos membros em idade ativa encontram-se ocupados
         function t1($indice) {
             $retorno = 0;
-            if ($indice->domicilio['Domicilio']['quantidade_pessoas'] / 2 < $this->contadorMembrosIdadeAtivaOcupados()) {
+            if ($indice->domicilio['Domicilio']['quantidade_pessoas'] / 2 < $indice->contadorMembrosIdadeAtivaOcupados()) {
                 $retorno = 1;
             }
             $indice->domicilio['Domicilio']['Indice']['t1'] = $retorno;
