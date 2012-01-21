@@ -517,7 +517,7 @@ class Indice extends AppModel {
             if ($indice->domicilio['Domicilio']['valor_despesa_familia'] / $indice->domicilio['Domicilio']['quantidade_pessoas'] >= 70) {
                 $retorno = 1;
             }
-            $indice->domicilio['Indice']['r2'] = $retorno;
+            $indice->domicilio['Indice']['r1'] = $retorno;
             return $retorno;
         }
 
