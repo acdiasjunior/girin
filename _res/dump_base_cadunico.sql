@@ -56,15 +56,15 @@ WHERE
 -- DOMICILIOS
 -- bolsa_familia, `idf`, `data_pesquisa`, `data_inclusao`, `data_atualizacao`, `entrevistador`
 SELECT
-    DISTINCT ON (d.nu_domiciliar) d.nu_domiciliar AS codigo_domiciliar, (SELECT DISTINCT(p.co_nis) FROM cubfn002_recuperar_nu_ordem(p.nu_responsavel::bigint)) AS responsavel_nis,
+    DISTINCT ON (d.nu_domiciliar) d.nu_domiciliar AS codigo_domiciliar, (SELECT DISTINCT(p.co_nis) FROM cubfn002_recuperar_nu_ordem(p.nu_responsavel::bigint)) AS nis_responsavel,
     d.co_cep_domicilio AS cep, d.ic_tipo_logradouro AS tipo_logradouro, d.no_logradouro_domicilio AS logradouro, d.co_logradouro_domicilio AS numero, d.de_complemento_logradouro_domicilio AS complemento,
     d.no_bairro_domicilio AS bairro, d.nu_ddd_domicilio AS ddd, d.nu_telefone_domicilio AS telefone, d.ic_tipo_localidade AS tipo_localidade, d.ic_situacao_domicilio AS situacao_domicilio,
     d.ic_tipo_domicilio AS tipo_domicilio, d.ic_tipo_construcao AS tipo_construcao, d.ic_tipo_abastecimento_agua AS tipo_abastecimento, d.ic_tratamento_agua AS tratamento_agua,
     d.ic_tipo_iluminacao AS tipo_iluminacao, d.ic_escoamento_sanitario AS escoamento_sanitario, d.ic_destino_lixo AS destino_lixo, d.qt_pessoas AS quantidade_pessoas, d.qt_comodos AS comodos,
     -- Despesas
-    despesas.despesa_aluguel, despesas.valor_despesa_prestacao,	despesas.valor_despesa_alimentacao, despesas.valor_despesa_agua, despesas.valor_despesa_luz,
+    despesas.valor_despesa_aluguel, despesas.valor_despesa_prestacao,	despesas.valor_despesa_alimentacao, despesas.valor_despesa_agua, despesas.valor_despesa_luz,
     despesas.valor_despesa_transporte, despesas.valor_despesa_medicamento, despesas.valor_despesa_gas, despesas.valor_outras_despesas,
-    (COALESCE(despesa_aluguel,0) + COALESCE(valor_despesa_prestacao,0) + COALESCE(valor_despesa_alimentacao,0) + COALESCE(valor_despesa_agua,0) +
+    (COALESCE(valor_despesa_aluguel,0) + COALESCE(valor_despesa_prestacao,0) + COALESCE(valor_despesa_alimentacao,0) + COALESCE(valor_despesa_agua,0) +
     COALESCE(valor_despesa_luz,0) + COALESCE(valor_despesa_transporte,0) + COALESCE(valor_despesa_medicamento,0) + COALESCE(valor_despesa_gas,0) +
     COALESCE(valor_outras_despesas,0)) AS valor_despesa_familia,
     -- Rendas
@@ -79,14 +79,18 @@ SELECT
     (CASE
             WHEN d.dt_inclusao_domicilio = '1899-12-30' THEN NULL
             ELSE d.dt_inclusao_domicilio
-    END) AS data_inclusao
+    END) AS data_inclusao,
+    (CASE
+            WHEN d.dt_pesquisa = '1899-12-30' THEN NULL
+            ELSE d.dt_pesquisa
+    END) AS data_pesquisa
 FROM cubtb013_domicilio AS d
 INNER JOIN
     cubtb027_pessoa AS p ON p.co_domicilio = d.co_domicilio
 INNER JOIN
 (SELECT
 	d.co_domicilio,
-	SUM(p.vr_despesa_aluguel) AS despesa_aluguel,
+	SUM(p.vr_despesa_aluguel) AS valor_despesa_aluguel,
 	SUM(p.vr_prestacao_habitacional) AS valor_despesa_prestacao,
 	SUM(p.vr_despesa_alimentacao) AS valor_despesa_alimentacao,
 	SUM(p.vr_despesa_agua) AS valor_despesa_agua,
