@@ -123,9 +123,8 @@ class Indice extends AppModel {
             ),
         ),
     );
-    
     var $domicilio = array();
-    
+
     function contadorMembrosIdadeAtiva() {
 
         $idade_ativa = 0;
@@ -160,34 +159,34 @@ class Indice extends AppModel {
         $idosos = Indice::calculoComponenteIdosos();
         $dependencia = Indice::calculoComponenteDependencia();
         $vulnerabilidade = ($gestacao + $criancas + $idosos + $dependencia) / 4;
-        $this->domicilio['Domicilio']['Indice']['vulnerabilidade'] = $vulnerabilidade;
+        $this->domicilio['Indice']['vulnerabilidade'] = $vulnerabilidade;
 
         // Calculo para Dimensão - Conhecimento
         $analfabetismo = Indice::calculoComponenteAnalfabetismo();
         $escolaridade = Indice::calculoComponenteEscolaridade();
         $conhecimento = ($analfabetismo + $vulnerabilidade) / 2;
-        $this->domicilio['Domicilio']['Indice']['conhecimento'] = $conhecimento;
+        $this->domicilio['Indice']['conhecimento'] = $conhecimento;
 
         // Calculo para Dimensão - Trabalho
         $disponibilidade = Indice::calculoComponenteDisponibilidade();
         $qualidade = Indice::calculoComponenteQualidade();
         $remuneracao = Indice::calculoComponenteRemuneracao();
         $trabalho = ($disponibilidade + $qualidade + $remuneracao) / 3;
-        $this->domicilio['Domicilio']['Indice']['trabalho'] = $trabalho;
+        $this->domicilio['Indice']['trabalho'] = $trabalho;
 
         // Calculo para Dimensao - Recursos
         $extremaPobreza = Indice::calculoComponenteExtremaPobreza();
         $pobreza = Indice::calculoComponentePobreza();
         $capacidadeGeracao = Indice::calculoComponenteCapacidadeGeracao();
         $recursos = ($extremaPobreza + $pobreza + $capacidadeGeracao) / 3;
-        $this->domicilio['Domicilio']['Indice']['recursos'] = $recursos;
+        $this->domicilio['Indice']['recursos'] = $recursos;
 
         // Calculo para Dimensao - Desenvolvimento Infantil
         $trabalhoPrecoce = Indice::calculoComponenteTrabalhoPrecoce();
         $acessoEscola = Indice::calculoComponenteAcessoEscola();
         $progressoEscolar = Indice::calculoComponenteProgressoEscolar();
         $desenvolvimento = ($trabalhoPrecoce + $acessoEscola + $progressoEscolar) / 3;
-        $this->domicilio['Domicilio']['Indice']['desenvolvimento'] = $desenvolvimento;
+        $this->domicilio['Indice']['desenvolvimento'] = $desenvolvimento;
 
         // Calculo para Dimensao - Habitação
         $propriedade = Indice::calculoComponentePropriedade();
@@ -200,21 +199,20 @@ class Indice extends AppModel {
         $habitacao = ($propriedade + $deficit + $abrigalidade +
                 $acessoAgua + $acessoSaneamento +
                 $acessoColetaLixo + $acessoEletricidade) / 7;
-        $this->domicilio['Domicilio']['Indice']['habitacao'] = $habitacao;
+        $this->domicilio['Indice']['habitacao'] = $habitacao;
 
         // Calculo do IDF da Familia
         $idf = ($vulnerabilidade + $conhecimento + $trabalho +
                 $recursos + $desenvolvimento + $habitacao) / 6;
 
-        $this->domicilio['Domicilio']['Indice']['idf'] = $idf;
-        return $this->domicilio['Domicilio'];
+        $this->domicilio['Indice']['idf'] = $idf;
+        return $this->domicilio;
     }
 
     function calculoComponenteGestacao() {
-        
+
         // V.1 Ausencia de gestantes
         function v1($indice) {
-            xdebug_break();
             $retorno = 1;
             foreach ($indice->domicilio['Pessoa'] as $pessoa) {
                 if ($pessoa['mes_gestacao'] > 0) {
@@ -222,7 +220,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['v1'] = $retorno;
+            $indice->domicilio['Indice']['v1'] = $retorno;
             return $retorno;
         }
 
@@ -235,7 +233,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['v2'] = $retorno;
+            $indice->domicilio['Indice']['v2'] = $retorno;
             return $retorno;
         }
 
@@ -253,7 +251,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['v3'] = $retorno;
+            $indice->domicilio['Indice']['v3'] = $retorno;
             return $retorno;
         }
 
@@ -266,7 +264,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['v4'] = $retorno;
+            $indice->domicilio['Indice']['v4'] = $retorno;
             return $retorno;
         }
 
@@ -279,7 +277,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['v5'] = $retorno;
+            $indice->domicilio['Indice']['v5'] = $retorno;
             return $retorno;
         }
 
@@ -297,7 +295,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['v6'] = $retorno;
+            $indice->domicilio['Indice']['v6'] = $retorno;
             return $retorno;
         }
 
@@ -310,7 +308,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['v7'] = $retorno;
+            $indice->domicilio['Indice']['v7'] = $retorno;
             return $retorno;
         }
 
@@ -328,7 +326,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['v8'] = $retorno;
+            $indice->domicilio['Indice']['v8'] = $retorno;
             return $retorno;
         }
 
@@ -338,7 +336,7 @@ class Indice extends AppModel {
             if ($indice->domicilio['Domicilio']['quantidade_pessoas'] / 2 < $indice->contadorMembrosIdadeAtiva()) {
                 $retorno = 1;
             }
-            $indice->domicilio['Domicilio']['Indice']['v9'] = $retorno;
+            $indice->domicilio['Indice']['v9'] = $retorno;
             return $retorno;
         }
 
@@ -356,7 +354,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['c1'] = $retorno;
+            $indice->domicilio['Indice']['c1'] = $retorno;
             return $retorno;
         }
 
@@ -369,7 +367,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['c2'] = $retorno;
+            $indice->domicilio['Indice']['c2'] = $retorno;
             return $retorno;
         }
 
@@ -389,7 +387,7 @@ class Indice extends AppModel {
                     }
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['c3'] = $retorno;
+            $indice->domicilio['Indice']['c3'] = $retorno;
             return $retorno;
         }
 
@@ -404,7 +402,7 @@ class Indice extends AppModel {
                     }
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['c4'] = $retorno;
+            $indice->domicilio['Indice']['c4'] = $retorno;
             return $retorno;
         }
 
@@ -419,7 +417,7 @@ class Indice extends AppModel {
                     }
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['c5'] = $retorno;
+            $indice->domicilio['Indice']['c5'] = $retorno;
             return $retorno;
         }
 
@@ -434,10 +432,10 @@ class Indice extends AppModel {
             if ($indice->domicilio['Domicilio']['quantidade_pessoas'] / 2 < $indice->contadorMembrosIdadeAtivaOcupados()) {
                 $retorno = 1;
             }
-            $indice->domicilio['Domicilio']['Indice']['t1'] = $retorno;
+            $indice->domicilio['Indice']['t1'] = $retorno;
             return $retorno;
         }
-        
+
         return t1($this);
     }
 
@@ -453,7 +451,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['t2'] = $retorno;
+            $indice->domicilio['Indice']['t2'] = $retorno;
             return $retorno;
         }
 
@@ -469,7 +467,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['t3'] = $retorno;
+            $indice->domicilio['Indice']['t3'] = $retorno;
             return $retorno;
         }
 
@@ -489,7 +487,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['t4'] = $retorno;
+            $indice->domicilio['Indice']['t4'] = $retorno;
             return $retorno;
         }
 
@@ -504,7 +502,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['t5'] = $retorno;
+            $indice->domicilio['Indice']['t5'] = $retorno;
             return $retorno;
         }
 
@@ -519,7 +517,7 @@ class Indice extends AppModel {
             if ($indice->domicilio['Domicilio']['valor_despesa_familia'] / $indice->domicilio['Domicilio']['quantidade_pessoas'] >= 70) {
                 $retorno = 1;
             }
-            $indice->domicilio['Domicilio']['Indice']['r2'] = $retorno;
+            $indice->domicilio['Indice']['r2'] = $retorno;
             return $retorno;
         }
 
@@ -529,7 +527,7 @@ class Indice extends AppModel {
             if ($indice->domicilio['Domicilio']['valor_renda_familia'] / $indice->domicilio['Domicilio']['quantidade_pessoas'] >= 70) {
                 $retorno = 1;
             }
-            $indice->domicilio['Domicilio']['Indice']['r2'] = $retorno;
+            $indice->domicilio['Indice']['r2'] = $retorno;
             return $retorno;
         }
 
@@ -539,7 +537,7 @@ class Indice extends AppModel {
             if ($indice->domicilio['Domicilio']['valor_despesa_alimentacao'] >= 70) {
                 $retorno = 1;
             }
-            $indice->domicilio['Domicilio']['Indice']['r3'] = $retorno;
+            $indice->domicilio['Indice']['r3'] = $retorno;
             return $retorno;
         }
 
@@ -554,7 +552,7 @@ class Indice extends AppModel {
             if ($indice->domicilio['Domicilio']['valor_despesa_familia'] / $indice->domicilio['Domicilio']['quantidade_pessoas'] >= 140) {
                 $retorno = 1;
             }
-            $indice->domicilio['Domicilio']['Indice']['r4'] = $retorno;
+            $indice->domicilio['Indice']['r4'] = $retorno;
             return $retorno;
         }
 
@@ -564,7 +562,7 @@ class Indice extends AppModel {
             if ($indice->domicilio['Domicilio']['valor_renda_familia'] >= 140) {
                 $retorno = 1;
             }
-            $indice->domicilio['Domicilio']['Indice']['r5'] = $retorno;
+            $indice->domicilio['Indice']['r5'] = $retorno;
             return $retorno;
         }
 
@@ -579,7 +577,7 @@ class Indice extends AppModel {
             if ($indice->domicilio['Domicilio']['valor_renda_familia'] > $indice->domicilio['Domicilio']['valor_beneficio_familia']) {
                 $retorno = 1;
             }
-            $indice->domicilio['Domicilio']['Indice']['r6'] = $retorno;
+            $indice->domicilio['Indice']['r6'] = $retorno;
             return $retorno;
         }
 
@@ -599,7 +597,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['d1'] = $retorno;
+            $indice->domicilio['Indice']['d1'] = $retorno;
             return $retorno;
         }
 
@@ -614,7 +612,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['d2'] = $retorno;
+            $indice->domicilio['Indice']['d2'] = $retorno;
             return $retorno;
         }
 
@@ -633,7 +631,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['d3'] = $retorno;
+            $indice->domicilio['Indice']['d3'] = $retorno;
             return $retorno;
         }
 
@@ -647,7 +645,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['d4'] = $retorno;
+            $indice->domicilio['Indice']['d4'] = $retorno;
             return $retorno;
         }
 
@@ -661,7 +659,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['d5'] = $retorno;
+            $indice->domicilio['Indice']['d5'] = $retorno;
             return $retorno;
         }
 
@@ -679,7 +677,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['d6'] = $retorno;
+            $indice->domicilio['Indice']['d6'] = $retorno;
             return $retorno;
         }
 
@@ -693,7 +691,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['d7'] = $retorno;
+            $indice->domicilio['Indice']['d7'] = $retorno;
             return $retorno;
         }
 
@@ -707,7 +705,7 @@ class Indice extends AppModel {
                     break;
                 }
             }
-            $indice->domicilio['Domicilio']['Indice']['d8'] = $retorno;
+            $indice->domicilio['Indice']['d8'] = $retorno;
             return $retorno;
         }
 
@@ -722,19 +720,19 @@ class Indice extends AppModel {
             if ($indice->domicilio['situacao_domicilio'] != Domicilio::DOMICILIO_PROPRIO) {
                 $retorno = 0;
             }
-            $indice->domicilio['Domicilio']['Indice']['h1'] = $retorno;
+            $indice->domicilio['Indice']['h1'] = $retorno;
             return $retorno;
         }
 
         //H.2 Domicílio próprio, cedido ou invadido
-        function h1($indice) {
+        function h2($indice) {
             $retorno = 1;
             if ($indice->domicilio['situacao_domicilio'] != Domicilio::DOMICILIO_PROPRIO &&
                     $indice->domicilio['situacao_domicilio'] != Domicilio::DOMICILIO_CEDIDO &&
                     $indice->domicilio['situacao_domicilio'] != Domicilio::DOMICILIO_ALUGADO) {
                 $retorno = 0;
             }
-            $indice->domicilio['Domicilio']['Indice']['h1'] = $retorno;
+            $indice->domicilio['Indice']['h2'] = $retorno;
             return $retorno;
         }
 
@@ -749,7 +747,7 @@ class Indice extends AppModel {
             if ($indice->domicilio['quantidade_pessoas'] / $indice->domicilio['comodos'] > 2) {
                 $retorno = 0;
             }
-            $indice->domicilio['Domicilio']['Indice']['h3'] = $retorno;
+            $indice->domicilio['Indice']['h3'] = $retorno;
             return $retorno;
         }
 
@@ -764,7 +762,7 @@ class Indice extends AppModel {
             if ($indice->domicilio['tipo_construcao'] != Domicilio::CONSTRUCAO_TIJOLO_ALVENARIA) {
                 $retorno = 0;
             }
-            $indice->domicilio['Domicilio']['Indice']['h4'] = $retorno;
+            $indice->domicilio['Indice']['h4'] = $retorno;
             return $retorno;
         }
 
@@ -779,7 +777,7 @@ class Indice extends AppModel {
             if ($indice->domicilio['tipo_abastecimento'] != Domicilio::ABASTECIMENTO_REDE_PUBLICA) {
                 $retorno = 0;
             }
-            $indice->domicilio['Domicilio']['Indice']['h5'] = $retorno;
+            $indice->domicilio['Indice']['h5'] = $retorno;
             return $retorno;
         }
 
@@ -794,7 +792,7 @@ class Indice extends AppModel {
             if ($indice->domicilio['escoamento_sanitario'] != Domicilio::ESCOAMENTO_REDE_PUBLICA) {
                 $retorno = 0;
             }
-            $indice->domicilio['Domicilio']['Indice']['h6'] = $retorno;
+            $indice->domicilio['Indice']['h6'] = $retorno;
             return $retorno;
         }
 
@@ -809,7 +807,7 @@ class Indice extends AppModel {
             if ($indice->domicilio['destino_lixo'] != Domicilio::LIXO_COLETADO) {
                 $retorno = 0;
             }
-            $indice->domicilio['Domicilio']['Indice']['h7'] = $retorno;
+            $indice->domicilio['Indice']['h7'] = $retorno;
             return $retorno;
         }
 
@@ -825,7 +823,7 @@ class Indice extends AppModel {
                     $indice->domicilio['tipo_iluminacao'] != Domicilio::ILUMINACAO_RELOGIO_COMUNITARIO) {
                 $retorno = 0;
             }
-            $indice->domicilio['Domicilio']['Indice']['h8'] = $retorno;
+            $indice->domicilio['Indice']['h8'] = $retorno;
             return $retorno;
         }
 

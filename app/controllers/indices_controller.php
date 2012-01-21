@@ -163,9 +163,7 @@ class IndicesController extends AppController {
 
                     $this->Domicilio->id = $codigo_domiciliar;
                     $domicilio = array();
-                    $domicilio = $this->Domicilio->read();
-
-                    $this->Indice->calcularIndices($domicilio);
+                    $domicilio = $this->Indice->calcularIndices($this->Domicilio->read());
 
                     $this->data['Indice']['idf'] = $domicilio['Indice']['idf'];
                     $this->data['Indice']['codigo_domiciliar'] = $codigo_domiciliar;
