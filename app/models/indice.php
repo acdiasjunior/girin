@@ -126,19 +126,16 @@ class Indice extends AppModel {
     var $domicilio = array();
 
     function contadorMembrosIdadeAtiva() {
-
         $idade_ativa = 0;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
             //V.9 Mais da metade dos membros encontra-se em idade ativa
             if ($pessoa['idade'] >= Pessoa::IDADE_ADOLESCENTE)
                 $idade_ativa++;
         }
-
         return $idade_ativa;
     }
 
     function contadorMembrosIdadeAtivaOcupados() {
-
         $idade_ativa_ocupado = 0;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
             //T.1 Mais da metade dos membros em idade ativa encontram-se ocupados
@@ -147,7 +144,6 @@ class Indice extends AppModel {
                     && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA)
                 $idade_ativa_ocupado++;
         }
-
         return $idade_ativa_ocupado;
     }
 
@@ -197,8 +193,8 @@ class Indice extends AppModel {
         $acessoColetaLixo = Indice::calculoComponenteAcessoColetaLixo();
         $acessoEletricidade = Indice::calculoComponenteAcessoEletricidade();
         $habitacao = ($propriedade + $deficit + $abrigalidade +
-                $acessoAgua + $acessoSaneamento +
-                $acessoColetaLixo + $acessoEletricidade) / 7;
+                      $acessoAgua + $acessoSaneamento +
+                      $acessoColetaLixo + $acessoEletricidade) / 7;
         $this->domicilio['Indice']['habitacao'] = $habitacao;
 
         // Calculo do IDF da Familia
@@ -206,6 +202,7 @@ class Indice extends AppModel {
                 $recursos + $desenvolvimento + $habitacao) / 6;
 
         $this->domicilio['Indice']['idf'] = $idf;
+        $this->domicilio['Domicilio']['idf'] = $idf;
         return $this->domicilio;
     }
 
@@ -419,7 +416,6 @@ class Indice extends AppModel {
     }
 
     function calculoComponenteDisponibilidade() {
-
         return $this->t1();
     }
 
@@ -434,7 +430,6 @@ class Indice extends AppModel {
     }
 
     function calculoComponenteQualidade() {
-
         return ($this->t2() + $this->t3()) / 2;
     }
 
@@ -469,7 +464,6 @@ class Indice extends AppModel {
     }
 
     function calculoComponenteRemuneracao() {
-
         return ($this->t4() + $this->t5()) / 2;
     }
 
@@ -541,7 +535,7 @@ class Indice extends AppModel {
         return ($this->r4() + $this->r5()) / 2;
     }
 
-        //R.4 Despesa familiar per capita superior a linha de pobreza
+    //R.4 Despesa familiar per capita superior a linha de pobreza
     function r4() {
         $retorno = 0;
         if ($this->domicilio['Domicilio']['valor_despesa_familia'] / $this->domicilio['Domicilio']['quantidade_pessoas'] >= 140) {
@@ -562,7 +556,6 @@ class Indice extends AppModel {
     }
 
     function calculoComponenteCapacidadeGeracao() {
-
         return $this->r6();
     }
 
@@ -577,12 +570,12 @@ class Indice extends AppModel {
     }
 
     function calculoComponenteTrabalhoPrecoce() {
-
         return ($this->d1() + $this->d2()) / 2;
     }
 
     //D.1 Ausência de pelo menos uma criança de menos de 10 anos trabalhando
     function d1() {
+        xdebug_break();
         $retorno = 1;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
             if ($pessoa['idade'] < Pessoa::IDADE_ADOLESCENTE
@@ -612,7 +605,6 @@ class Indice extends AppModel {
     }
 
     function calculoComponenteAcessoEscola() {
-
         return ($this->d3() + $this->d4() + $this->d5()) / 3;
     }
 
@@ -659,7 +651,6 @@ class Indice extends AppModel {
     }
 
     function calculoComponenteProgressoEscolar() {
-
         return ($this->d6() + $this->d7() + $this->d8()) / 3;
     }
 
@@ -731,7 +722,6 @@ class Indice extends AppModel {
     }
 
     function calculoComponenteDeficit() {
-
         return $this->h3();
     }
 
@@ -746,7 +736,6 @@ class Indice extends AppModel {
     }
 
     function calculoComponenteAbrigalidade() {
-
         return $this->h4();
     }
 
@@ -761,7 +750,6 @@ class Indice extends AppModel {
     }
 
     function calculoComponenteAcessoAgua() {
-
         return $this->h5();
     }
 
@@ -776,7 +764,6 @@ class Indice extends AppModel {
     }
 
     function calculoComponenteAcessoSaneamento() {
-
         return $this->h6();
     }
 
@@ -791,7 +778,6 @@ class Indice extends AppModel {
     }
 
     function calculoComponenteAcessoColetaLixo() {
-
         return $this->h7();
     }
 
@@ -806,7 +792,6 @@ class Indice extends AppModel {
     }
 
     function calculoComponenteAcessoEletricidade() {
-
         return $this->h8();
     }
 
