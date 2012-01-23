@@ -5,7 +5,6 @@ class IndicesController extends AppController {
     var $name = 'Indices';
     var $helpers = array('Javascript', 'Js');
     var $components = array('RequestHandler');
-    var $quantidade_pessoas = '(SELECT COUNT(*) FROM pessoas WHERE pessoas.codigo_domiciliar = Domicilio.codigo_domiciliar)';
 
     function index() {
         $joins = array(
@@ -121,12 +120,12 @@ class IndicesController extends AppController {
         $retorno['status'] = 1;
         switch ($atualizar) {
             case 'total':
-                $retorno['total'] = $this->Domicilio->find('count', array('conditions' => array($this->quantidade_pessoas . ' > 0')));
+                $retorno['total'] = $this->Domicilio->find('count', array('conditions' => array('Domicilio.quantidade_pessoas > 0')));
                 break;
             case 'desatualizados':
                 $retorno['desatualizados'] = $this->Domicilio->find('count', array(
                     'conditions' => array(
-                        $this->quantidade_pessoas . ' > 0',
+                        'Domicilio.quantidade_pessoas > 0',
                         'OR' => array(
                             'Indice.modified <' => date('Y-m-d'),
                             'Indice.modified IS NULL',
@@ -149,7 +148,7 @@ class IndicesController extends AppController {
                         )
                     ),
                     'conditions' => array(
-                        $this->quantidade_pessoas . ' > 0',
+                        'Domicilio.quantidade_pessoas > 0',
                         'OR' => array(
                             'Indice.modified <' => date('Y-m-d'),
                             'Indice.modified IS NULL',
@@ -177,7 +176,7 @@ class IndicesController extends AppController {
         if ($atualizar != null) {
             $retorno['desatualizados'] = $this->Domicilio->find('count', array(
                 'conditions' => array(
-                    $this->quantidade_pessoas . ' > 0',
+                    'Domicilio.quantidade_pessoas > 0',
                     'OR' => array(
                         'Indice.modified <' => date('Y-m-d'),
                         'Indice.modified IS NULL',

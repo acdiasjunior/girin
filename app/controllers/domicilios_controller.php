@@ -5,7 +5,6 @@ class DomiciliosController extends AppController {
     var $name = 'Domicilios';
     var $helpers = array('Javascript', 'Js');
     var $components = array('RequestHandler');
-    var $quantidade_pessoas = '(SELECT COUNT(*) FROM pessoas WHERE `pessoas`.`codigo_domiciliar` = `Domicilio`.`codigo_domiciliar`)';
 
     function index() {
         $this->set('title_for_layout', 'Listagem de Domicílios');
@@ -16,7 +15,7 @@ class DomiciliosController extends AppController {
         $this->layout = 'ajax';
 
         $conditions = array(
-            $this->quantidade_pessoas . ' != 0',
+            'Domicilio.quantidade_pessoas != 0',
         );
 
         if ($this->params['form']['query'] != '')
@@ -56,7 +55,7 @@ class DomiciliosController extends AppController {
         $container = 'prontuarios.gerar.filtroDomicilios';
 
         $conditions = array(
-            $this->quantidade_pessoas . ' != 0',
+            'Domicilio.quantidade_pessoas != 0',
         );
 
         if ($this->Session->read("$container.Domicilio_codigo_domiciliar") != '')
