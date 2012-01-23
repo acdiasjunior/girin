@@ -8,30 +8,32 @@ SELECT
     d.ic_tipo_domicilio AS tipo_domicilio, d.ic_tipo_construcao AS tipo_construcao, d.ic_tipo_abastecimento_agua AS tipo_abastecimento, d.ic_tratamento_agua AS tratamento_agua,
     d.ic_tipo_iluminacao AS tipo_iluminacao, d.ic_escoamento_sanitario AS escoamento_sanitario, d.ic_destino_lixo AS destino_lixo, d.qt_pessoas AS quantidade_pessoas, d.qt_comodos AS comodos,
     -- Despesas
-    COALESCE(despesas.valor_despesa_aluguel,0), COALESCE(despesas.valor_despesa_prestacao,0), COALESCE(despesas.valor_despesa_alimentacao,0),
-    COALESCE(despesas.valor_despesa_agua,0), COALESCE(despesas.valor_despesa_luz,0),
-    COALESCE(despesas.valor_despesa_transporte,0), COALESCE(despesas.valor_despesa_medicamento,0), COALESCE(despesas.valor_despesa_gas,0),
-    COALESCE(despesas.valor_outras_despesas,0),
+    COALESCE(despesas.valor_despesa_aluguel,0) AS valor_despesa_aluguel, COALESCE(despesas.valor_despesa_prestacao,0) AS valor_despesa_prestacao,
+    COALESCE(despesas.valor_despesa_alimentacao,0) AS valor_despesa_alimentacao, COALESCE(despesas.valor_despesa_agua,0) AS valor_despesa_agua,
+    COALESCE(despesas.valor_despesa_luz,0) AS valor_despesa_luz, COALESCE(despesas.valor_despesa_transporte,0) AS valor_despesa_transporte,
+    COALESCE(despesas.valor_despesa_medicamento,0) AS valor_despesa_medicamento, COALESCE(despesas.valor_despesa_gas,0) AS valor_despesa_gas,
+    COALESCE(despesas.valor_outras_despesas,0) AS valor_outras_despesas,
     (COALESCE(valor_despesa_aluguel,0) + COALESCE(valor_despesa_prestacao,0) + COALESCE(valor_despesa_alimentacao,0) + COALESCE(valor_despesa_agua,0) +
     COALESCE(valor_despesa_luz,0) + COALESCE(valor_despesa_transporte,0) + COALESCE(valor_despesa_medicamento,0) + COALESCE(valor_despesa_gas,0) +
     COALESCE(valor_outras_despesas,0)) AS valor_despesa_familia,
     -- Rendas
-    COALESCE(rendas.valor_remuneracao,0), COALESCE(rendas.valor_aposentadoria_pensao,0), COALESCE(rendas.valor_seguro_desemprego,0), COALESCE(rendas.valor_pensao_alimenticia,0),
-    COALESCE(rendas.valor_outras_rendas,0),
+    COALESCE(rendas.valor_remuneracao,0) AS valor_remuneracao, COALESCE(rendas.valor_aposentadoria_pensao,0) AS valor_aposentadoria_pensao,
+    COALESCE(rendas.valor_seguro_desemprego,0) AS valor_seguro_desemprego, COALESCE(rendas.valor_pensao_alimenticia,0) AS valor_pensao_alimenticia,
+    COALESCE(rendas.valor_outras_rendas,0) AS valor_outras_rendas,
     (COALESCE(valor_remuneracao,0) + COALESCE(valor_aposentadoria_pensao,0) +
         COALESCE(valor_seguro_desemprego,0) + COALESCE(valor_pensao_alimenticia,0) +
         COALESCE(valor_outras_rendas,0)) AS valor_renda_familia,
     (CASE
-            WHEN d.dt_alteracao_domicilio = '1899-12-30' THEN NULL
-            ELSE d.dt_alteracao_domicilio
+            WHEN d.dt_alteracao_domicilio = '1899-12-30' THEN '0000-00-00'
+            ELSE to_char(d.dt_alteracao_domicilio, 'YYYY-MM-DD')
     END) AS data_atualizacao,
     (CASE
-            WHEN d.dt_inclusao_domicilio = '1899-12-30' THEN NULL
-            ELSE d.dt_inclusao_domicilio
+            WHEN d.dt_inclusao_domicilio = '1899-12-30' THEN '0000-00-00'
+            ELSE to_char(d.dt_inclusao_domicilio, 'YYYY-MM-DD')
     END) AS data_inclusao,
     (CASE
-            WHEN d.dt_pesquisa = '1899-12-30' THEN NULL
-            ELSE d.dt_pesquisa
+            WHEN d.dt_pesquisa = '1899-12-30' THEN '0000-00-00'
+            ELSE to_char(d.dt_pesquisa, 'YYYY-MM-DD')
     END) AS data_pesquisa
 FROM cubtb013_domicilio AS d
 INNER JOIN

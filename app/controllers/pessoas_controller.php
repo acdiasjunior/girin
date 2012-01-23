@@ -196,7 +196,7 @@ class PessoasController extends AppController {
                     $this->data = array();
 
                     foreach ($header as $key => $value) {
-                        $row[$key] = substr($value,0,4) == 'data' && empty($row[$key]) ? null : utf8_encode($row[$key]);
+                        $row[$key] = utf8_encode($row[$key]);
                         $this->data['Pessoa'][$value] = $row[$key];
                     }
 
