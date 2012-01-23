@@ -5,7 +5,7 @@ class DomiciliosController extends AppController {
     var $name = 'Domicilios';
     var $helpers = array('Javascript', 'Js');
     var $components = array('RequestHandler');
-    var $pessoa_count = '(SELECT COUNT(*) FROM pessoas WHERE `pessoas`.`codigo_domiciliar` = `Domicilio`.`codigo_domiciliar`)';
+    var $quantidade_pessoas = '(SELECT COUNT(*) FROM pessoas WHERE `pessoas`.`codigo_domiciliar` = `Domicilio`.`codigo_domiciliar`)';
 
     function index() {
         $this->set('title_for_layout', 'Listagem de Domicílios');
@@ -16,7 +16,7 @@ class DomiciliosController extends AppController {
         $this->layout = 'ajax';
 
         $conditions = array(
-            $this->pessoa_count . ' != 0',
+            $this->quantidade_pessoas . ' != 0',
         );
 
         if ($this->params['form']['query'] != '')
@@ -26,6 +26,17 @@ class DomiciliosController extends AppController {
                 $conditions[$this->params['form']['qtype'] . ' LIKE'] = '%' . str_replace(' ', '%', $this->params['form']['query']) . '%';
 
         $this->paginate = array(
+            'fields' => array(
+                'Domicilio.codigo_domiciliar',
+                'Responsavel.nome',
+                'Domicilio.logradouro',
+                'Domicilio.numero',
+                'Bairro.nome',
+                'Indice.idf',
+                'Domicilio.valor_renda_familia',
+                'Domicilio.quantidade_pessoas',
+                'Domicilio.renda_per_capita'
+            ),
             'page' => $this->params['form']['page'],
             'limit' => $this->params['form']['rp'],
             'order' => array(
@@ -45,7 +56,7 @@ class DomiciliosController extends AppController {
         $container = 'prontuarios.gerar.filtroDomicilios';
 
         $conditions = array(
-            $this->pessoa_count . ' != 0',
+            $this->quantidade_pessoas . ' != 0',
         );
 
         if ($this->Session->read("$container.Domicilio_codigo_domiciliar") != '')
@@ -141,6 +152,7 @@ class DomiciliosController extends AppController {
     }
 
     function importar($arquivo = null) {
+        
         if (empty($this->data)) {
             //Abre a tela de importação
         } else {
@@ -156,7 +168,7 @@ class DomiciliosController extends AppController {
                     $this->data = array();
 
                     foreach ($header as $key => $value) {
-                        $row[$key] = utf8_encode($row[$key]);
+                        $row[$key] = substr($value,0,4) == 'data' && empty($row[$key]) ? null : utf8_encode($row[$key]);
                         $this->data['Domicilio'][$value] = $row[$key];
                     }
 
@@ -168,14 +180,12 @@ class DomiciliosController extends AppController {
                     }
 
                     // save the row
-                    if ($this->data['Domicilio']['logradouro'] != '') {
-                        if (!$this->Domicilio->save($this->data, false)) {
-                            echo '<pre>' . var_dump($this->data) . '</pre><br>';
-                            die('Erro ao gravar o registro!');
-                        }
+                    if (!$this->Domicilio->save($this->data, false)) {
+                        echo '<pre>' . var_dump($this->data) . '</pre><br>';
+                        die('Erro ao gravar o registro!');
                     }
                 }
-
+                $this->Domicilio->query('UPDATE domicilios d SET bairro_id = (SELECT b.id FROM bairros b WHERE d.bairro_nome = b.nome)');
                 $this->Domicilio->query('UPDATE domicilios SET cras_id = (SELECT cras_id FROM bairros WHERE bairros.id = domicilios.bairro_id), regiao_id = (SELECT regiao_id FROM bairros WHERE bairros.id = domicilios.bairro_id)');
                 /*$this->Domicilio->query("UPDATE domicilios SET tipo_logradouro = 'RUA' WHERE tipo_logradouro = 'R';
                         UPDATE domicilios SET tipo_logradouro = 'AVENIDA' WHERE tipo_logradouro = 'AV';

@@ -16,8 +16,8 @@ foreach($domicilios as $domicilio)
             $domicilio['Domicilio']['numero'],
             $domicilio['Bairro']['nome'],
             round($domicilio['Indice']['idf'],2),
-            'R$ ' . number_format($domicilio['Domicilio']['renda_familiar'],2,',','.'),
-            $domicilio['Domicilio']['pessoa_count'],
+            'R$ ' . number_format($domicilio['Domicilio']['valor_renda_familia'],2,',','.'),
+            $domicilio['Domicilio']['quantidade_pessoas'],
             'R$ ' . number_format($domicilio['Domicilio']['renda_per_capita'],2,',','.'),
         )
     );

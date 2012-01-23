@@ -88,6 +88,16 @@ class DATABASE_CONFIG {
                 'database' => 'programacaolocal',
                 'encoding' => 'utf8'
             );
+        else if ($_SERVER['SERVER_NAME'] == 'juniordias.com.br' || $_SERVER['SERVER_NAME'] == 'www.juniordias.com.br')
+            $this->default = array(
+                'driver' => 'mysql',
+                'persistent' => false,
+                'host' => 'mysql.juniordias.com.br',
+                'login' => 'juniordias02',
+                'password' => 'system',
+                'database' => 'juniordias02',
+                'encoding' => 'utf8'
+            );
         else
             $this->default = array(
                 'driver' => 'mysql',

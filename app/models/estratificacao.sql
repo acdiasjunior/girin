@@ -7,7 +7,7 @@
 --LEFT JOIN
 --    domicilios AS Domicilio ON Domicilio.codigo_domiciliar = Pessoa.codigo_domiciliar
 --WHERE
---    Domicilio.pessoa_count > 0
+--    Domicilio.quantidade_pessoas > 0
 --GROUP BY
 --    Pessoa.genero,
 --    idade = 0,
@@ -52,6 +52,6 @@ faixas_etarias AS FaixasEtaria ON
 INNER JOIN
    domicilios AS Domicilio ON Domicilio.codigo_domiciliar = Pessoa.codigo_domiciliar
 WHERE
-   Domicilio.pessoa_count > 0
+   Domicilio.quantidade_pessoas > 0
 ORDER BY
    genero

@@ -142,7 +142,7 @@
                 text: 'Índice do Desenvolvimento Familiar por Dimensão'
             },
             subtitle: {
-                //text: 'Clique para ver por indicador. Clique novamente para ver por dimensão.'
+                text: 'Clique para ver por indicador. Clique novamente para ver por dimensão.'
             },
             xAxis: {
                 categories: categories							
@@ -156,17 +156,17 @@
             },
             plotOptions: {
                 column: {
-//                    cursor: 'pointer',
+                    cursor: 'pointer',
                     point: {
                         events: {
-//                            click: function() {
-//                                var drilldown = this.drilldown;
-//                                if (drilldown) { // drill down
-//                                    setChart(drilldown.name, drilldown.categories, drilldown.data, drilldown.color);
-//                                } else { // restore
-//                                    setChart(name, categories, data);
-//                                }
-//                            }
+                            click: function() {
+                                var drilldown = this.drilldown;
+                                if (drilldown) { // drill down
+                                    setChart(drilldown.name, drilldown.categories, drilldown.data, drilldown.color);
+                                } else { // restore
+                                    setChart(name, categories, data);
+                                }
+                            }
                         }
                     },
                     dataLabels: {

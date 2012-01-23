@@ -184,7 +184,6 @@ class PessoasController extends AppController {
         if (empty($this->data)) {
             //Abre a tela de importação
         } else {
-            
             if ($this->isUploadedFile($this->data['Pessoa']['arquivo'])) {
 
                 $handle = fopen($this->data['Pessoa']['arquivo']['tmp_name'], "r");
@@ -197,6 +196,7 @@ class PessoasController extends AppController {
                     $this->data = array();
 
                     foreach ($header as $key => $value) {
+                        $row[$key] = substr($value,0,4) == 'data' && empty($row[$key]) ? null : utf8_encode($row[$key]);
                         $this->data['Pessoa'][$value] = $row[$key];
                     }
 
@@ -304,7 +304,7 @@ class PessoasController extends AppController {
         $pessoas = $this->Pessoa->find('all', $options);
 
         $faixaEtaria['tempo'] = microtime(true) - $inicio;
-        $faixaEtaria['total'] = $this->Pessoa->find('count', array('conditions' => array('Domicilio.pessoa_count > 0')));
+        $faixaEtaria['total'] = $this->Pessoa->find('count', array('conditions' => array('Domicilio.quantidade_pessoas > 0')));
         foreach ($pessoas as $faixa) {
             $faixaEtaria[$faixa['FaixasEtaria']['descricao']][$faixa['Pessoa']['tipo_trabalho']] = $faixa[0]['total'];
         }

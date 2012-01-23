@@ -12,7 +12,7 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
                 {display: 'Responsavel', name : 'Responsavel.nome', width : 260, sortable : true, align: 'left'},
                 {display: 'Logradouro', name : 'Domicilio.logradouro', width : 220, sortable : true, align: 'left'},
                 {display: 'Número', name : 'Domicilio.numero', width : 40, sortable : true, align: 'center'},
-                {display: 'Pessoas', name : 'Domicilio.pessoa_count', width : 50, sortable : true, align: 'left'}
+                {display: 'Pessoas', name : 'Domicilio.quantidade_pessoas', width : 50, sortable : true, align: 'left'}
             ],
             buttons : [
                 {name: 'Incluir', bclass: 'add', onpress : actions},

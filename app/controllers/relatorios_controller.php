@@ -6,7 +6,7 @@ class RelatoriosController extends AppController {
     var $uses = array('Pessoa', 'Domicilio', 'Indice');
     var $helpers = array('Javascript', 'Js');
     var $components = array('RequestHandler');
-    var $pessoa_count = '(SELECT COUNT(*) FROM pessoas WHERE `pessoas`.`codigo_domiciliar` = `Domicilio`.`codigo_domiciliar`)';
+    var $quantidade_pessoas = '(SELECT COUNT(*) FROM pessoas WHERE `pessoas`.`codigo_domiciliar` = `Domicilio`.`codigo_domiciliar`)';
 
     function index() {
         $this->redirect(array('controller' => 'pages', 'action' => 'display'));
@@ -51,7 +51,7 @@ class RelatoriosController extends AppController {
                 $this->Domicilio->recursive = 0;
                 $domicilios = $this->Domicilio->find('all', array(
                     'conditions' => array(
-                        $this->pessoa_count . ' > 0',
+                        $this->quantidade_pessoas . ' > 0',
                     ),
                     'fields' => array(
                         'Domicilio.codigo_domiciliar',
@@ -211,7 +211,7 @@ class RelatoriosController extends AppController {
                 ),
             ),
             'conditions' => array(
-                $this->pessoa_count . ' > 0'
+                $this->quantidade_pessoas . ' > 0'
             ),
             'fields' => array(
                 'COUNT(FaixasEtaria.id) AS total',
@@ -233,21 +233,21 @@ class RelatoriosController extends AppController {
                 $options['fields'][] = 'Domicilio.regiao_id';
                 $options['conditions'] = array(
                     'Domicilio.regiao_id' => $this->data['Relatorio']['regiao_id'],
-                    $this->pessoa_count . ' > 0'
+                    $this->quantidade_pessoas . ' > 0'
                 );
                 break;
             case 'cras_id':
                 $options['fields'][] = 'Domicilio.cras_id';
                 $options['conditions'] = array(
                     'Domicilio.cras_id' => $this->data['Relatorio']['cras_id'],
-                    $this->pessoa_count . ' > 0'
+                    $this->quantidade_pessoas . ' > 0'
                 );
                 break;
             case 'bairro_id':
                 $options['fields'][] = 'Domicilio.bairro_id';
                 $options['conditions'] = array(
                     'Domicilio.bairro_id' => $this->data['Relatorio']['bairro_id'],
-                    $this->pessoa_count . ' > 0'
+                    $this->quantidade_pessoas . ' > 0'
                 );
                 break;
         }
@@ -368,7 +368,7 @@ class RelatoriosController extends AppController {
         $pessoas = $this->Pessoa->find('all', $options);
 
         $valorRenda['tempo'] = microtime(true) - $inicio;
-        $valorRenda['total'] = $this->Pessoa->find('count', array('conditions' => array($this->pessoa_count . ' > 0')));
+        $valorRenda['total'] = $this->Pessoa->find('count', array('conditions' => array($this->quantidade_pessoas . ' > 0')));
         foreach ($pessoas as $renda) {
             $valorRenda
                     [$renda['FaixasEtaria']['faixa']]
@@ -463,7 +463,7 @@ class RelatoriosController extends AppController {
         $pessoas = $this->Pessoa->find('all', $options);
 
         $educacaoFormal['tempo'] = microtime(true) - $inicio;
-        $educacaoFormal['total'] = $this->Pessoa->find('count', array('conditions' => array($this->pessoa_count . ' > 0',)));
+        $educacaoFormal['total'] = $this->Pessoa->find('count', array('conditions' => array($this->quantidade_pessoas . ' > 0',)));
         foreach ($pessoas as $educacao) {
             $educacaoFormal
                     [$educacao['FaixasEtaria']['faixa']]

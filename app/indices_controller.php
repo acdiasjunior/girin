@@ -5,7 +5,7 @@ class IndicesController extends AppController {
     var $name = 'Indices';
     var $helpers = array('Javascript', 'Js');
     var $components = array('RequestHandler');
-    var $pessoa_count = '(SELECT COUNT(*) FROM pessoas WHERE pessoas.codigo_domiciliar = Domicilio.codigo_domiciliar)';
+    var $quantidade_pessoas = '(SELECT COUNT(*) FROM pessoas WHERE pessoas.codigo_domiciliar = Domicilio.codigo_domiciliar)';
 
     function index() {
         //$indices = $this->Indice->query("SELECT AVG(idf) as media, MAX(idf) as maximo, MIN(idf) as minimo FROM indices;");
@@ -131,12 +131,12 @@ class IndicesController extends AppController {
         $retorno['status'] = 1;
         switch ($atualizar) {
             case 'total':
-                $retorno['total'] = $this->Domicilio->find('count', array('conditions' => array($this->pessoa_count . ' > 0')));
+                $retorno['total'] = $this->Domicilio->find('count', array('conditions' => array($this->quantidade_pessoas . ' > 0')));
                 break;
             case 'desatualizados':
                 $retorno['desatualizados'] = $this->Domicilio->find('count', array(
                     'conditions' => array(
-                        $this->pessoa_count . ' > 0',
+                        $this->quantidade_pessoas . ' > 0',
                         'OR' => array(
                             'Indice.modified <' => date('Y-m-d'),
                             'Indice.modified IS NULL',
@@ -159,7 +159,7 @@ class IndicesController extends AppController {
                         )
                     ),
                     'conditions' => array(
-                        $this->pessoa_count . ' > 0',
+                        $this->quantidade_pessoas . ' > 0',
                         'OR' => array(
                             'Indice.modified <' => date('Y-m-d'),
                             'Indice.modified IS NULL',
@@ -266,7 +266,7 @@ class IndicesController extends AppController {
         if ($atualizar != null) {
             $retorno['desatualizados'] = $this->Domicilio->find('count', array(
                 'conditions' => array(
-                    $this->pessoa_count . ' > 0',
+                    $this->quantidade_pessoas . ' > 0',
                     'OR' => array(
                         'Indice.modified <' => date('Y-m-d'),
                         'Indice.modified IS NULL',

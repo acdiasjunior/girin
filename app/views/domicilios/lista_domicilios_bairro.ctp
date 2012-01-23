@@ -14,7 +14,7 @@ foreach($domicilios as $domicilio)
             $domicilio['Responsavel']['nome'],
             $domicilio['Domicilio']['logradouro'],
             $domicilio['Domicilio']['numero'],
-            $domicilio['Domicilio']['pessoa_count'],
+            $domicilio['Domicilio']['quantidade_pessoas'],
         )
     );
 }

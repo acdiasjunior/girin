@@ -37,11 +37,8 @@ class Domicilio extends AppModel {
 
     public function __construct($id=false, $table=null, $ds=null) {
         parent::__construct($id, $table, $ds);
-        $pessoa_count = '(SELECT COUNT(*) FROM pessoas WHERE `pessoas`.`codigo_domiciliar` = `Domicilio`.`codigo_domiciliar`)';
         $this->virtualFields = array(
-            'renda_familiar' => "SELECT SUM(`pessoas`.`valor_renda` + `pessoas`.`valor_beneficio`) FROM `pessoas` WHERE `pessoas`.`codigo_domiciliar` = `Domicilio`.`codigo_domiciliar`",
-            'renda_per_capita' => "SELECT SUM((`pessoas`.`valor_renda` + `pessoas`.`valor_beneficio`) / $pessoa_count) FROM `pessoas` WHERE `pessoas`.`codigo_domiciliar` = `Domicilio`.`codigo_domiciliar`",
-            'pessoa_count' => $pessoa_count,
+            'renda_per_capita' => "(`Domicilio`.`valor_renda_familia` / `Domicilio`.`quantidade_pessoas`)"
         );
     }
 

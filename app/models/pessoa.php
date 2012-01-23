@@ -121,7 +121,7 @@ class Pessoa extends AppModel {
     const SERIE_JARDIM_I = 4;
     const SERIE_JARDIM_II = 5;
     const SERIE_JARDIM_III = 6;
-	const SERIE_CA_ALFABETIZACAO = 7;
+    const SERIE_CA_ALFABETIZACAO = 7;
     const SERIE_1_ENSINO_FUNDAMENTAL = 8; //6 anos
     const SERIE_2_ENSINO_FUNDAMENTAL = 9; //7 anos
     const SERIE_3_ENSINO_FUNDAMENTAL = 10; //8 anos
@@ -158,7 +158,7 @@ class Pessoa extends AppModel {
     const TRABALHO_AUTONOMO_COM_PREVIDENCIA = 4;
     const TRABALHO_AUTONOMO_SEM_PREVIDENCIA = 5;
     const TRABALHO_APOSENTADO_PENSIONISTA = 6;
-	const TRABALHO_TRABALHADOR_RURAL = 7;
+    const TRABALHO_TRABALHADOR_RURAL = 7;
     const TRABALHO_EMPREGADOR_RURAL = 8;
     const TRABALHO_NAO_TRABALHA = 9;
     const TRABALHO_OUTRA = 10;
@@ -177,7 +177,7 @@ class Pessoa extends AppModel {
 
     const COR_NAO_INFORMADO = 0;
     const COR_BRANCA = 1;
-	const COR_NEGRA = 2;
+    const COR_NEGRA = 2;
     const COR_PARDA = 3;
     const COR_AMARELA = 4;
     const COR_INDIGENA = 5;
@@ -211,7 +211,7 @@ class Pessoa extends AppModel {
     const ESCOLARIDADE_MEDIO_COMPLETO = 7;
     const ESCOLARIDADE_SUPERIOR_INCOMPLETO = 8;
     const ESCOLARIDADE_SUPERIOR_COMPLETO = 9;
-	const ESCOLARIDADE_ESPECIALIZACAO = 10;
+    const ESCOLARIDADE_ESPECIALIZACAO = 10;
     const ESCOLARIDADE_MESTRADO = 11;
     const ESCOLARIDADE_DOUTORADO = 12;
 
