@@ -2,11 +2,19 @@
 SELECT
 	p.co_nis AS nis, d.nu_domiciliar AS codigo_domiciliar, p.no_pessoa AS nome, p.dt_nascimento AS data_nascimento, p.co_cpf AS cpf,
         p.de_titulo_eleitor AS titulo_eleitor, p.de_zona_titulo_eleitor AS zona, p.de_secao_titulo_eleitor AS secao, o.de_ocupacao AS ocupacao,
-        p.nu_inep_escola AS inep, r.co_nis AS responsavel_nis, p.ic_parentesco_responsavel AS reponsavel_parentesco, p.vr_remuneracao AS valor_remuneracao,
-        p.vr_renda_aposentadoria AS valor_aposentadoria, p.vr_renda_seguro_desemprego AS valor_seguro_desemprego,
-	p.vr_renda_pensao AS valor_pensao, p.vr_outras_rendas AS valor_outras_rendas, p.ic_serie_escolar AS serie_escolar, p.ic_grau_instrucao AS grau_instrucao,
-	p.ic_tipo_escola AS tipo_escola, p.ic_sexo AS genero, p.ic_raca_cor AS raca_cor, p.ic_estado_civil AS estado_civil,
-	p.nu_mes_gestacao AS mes_gestacao, p.ic_amamentando AS amamentando, p.ic_cegueira AS cegueira, p.ic_mudez AS mudez, p.ic_surdez AS surdez,
+        p.nu_inep_escola AS inep, r.co_nis AS responsavel_nis, COALESCE(p.ic_parentesco_responsavel,20) AS reponsavel_parentesco,
+        COALESCE(p.vr_remuneracao,0) AS valor_remuneracao,
+        COALESCE(p.vr_renda_aposentadoria,0) AS valor_aposentadoria, COALESCE(p.vr_renda_seguro_desemprego,0) AS valor_seguro_desemprego,
+	COALESCE(p.vr_renda_pensao,0) AS valor_pensao, COALESCE(p.vr_outras_rendas,0) AS valor_outras_rendas,
+        COALESCE(p.ic_serie_escolar,0) AS serie_escolar, COALESCE(p.ic_grau_instrucao,0) AS grau_instrucao,
+	COALESCE(p.ic_tipo_escola,0) AS tipo_escola, p.ic_sexo AS genero, p.ic_raca_cor AS raca_cor, p.ic_estado_civil AS estado_civil,
+	COALESCE(p.nu_mes_gestacao,0) AS mes_gestacao,
+        (CASE
+            WHEN p.ic_amamentando IS NULL THEN 0
+            WHEN p.ic_amamentando = '2' THEN 0
+            ELSE 1
+        END) AS amamentando,
+        p.ic_cegueira AS cegueira, p.ic_mudez AS mudez, p.ic_surdez AS surdez,
         p.ic_deficiencia_mental AS deficiencia_mental, p.ic_deficiencia_fisica AS deficiencia_fisica, p.ic_outra_deficiencia AS outra_deficiencia,
         (CASE
             WHEN p.ic_sem_deficiencia = '0' THEN 1
@@ -56,19 +64,23 @@ WHERE
 -- DOMICILIOS
 -- bolsa_familia, `idf`, `data_pesquisa`, `data_inclusao`, `data_atualizacao`, `entrevistador`
 SELECT
-    DISTINCT ON (d.nu_domiciliar) d.nu_domiciliar AS codigo_domiciliar, (SELECT DISTINCT(p.co_nis) FROM cubfn002_recuperar_nu_ordem(p.nu_responsavel::bigint)) AS nis_responsavel,
+    DISTINCT ON (d.nu_domiciliar) d.nu_domiciliar AS codigo_domiciliar,
+    (SELECT DISTINCT(p.co_nis) FROM cubtb027_pessoa WHERE nu_pessoa = nu_responsavel AND co_domicilio = p.co_domicilio AND (dt_exclusao_pessoa IS NULL OR dt_exclusao_pessoa = '1899-12-30')) AS nis_responsavel,
     d.co_cep_domicilio AS cep, d.ic_tipo_logradouro AS tipo_logradouro, d.no_logradouro_domicilio AS logradouro, d.co_logradouro_domicilio AS numero, d.de_complemento_logradouro_domicilio AS complemento,
-    d.no_bairro_domicilio AS bairro, d.nu_ddd_domicilio AS ddd, d.nu_telefone_domicilio AS telefone, d.ic_tipo_localidade AS tipo_localidade, d.ic_situacao_domicilio AS situacao_domicilio,
+    d.no_bairro_domicilio AS bairro_nome, d.nu_ddd_domicilio AS ddd, d.nu_telefone_domicilio AS telefone, d.ic_tipo_localidade AS tipo_localidade, d.ic_situacao_domicilio AS situacao_domicilio,
     d.ic_tipo_domicilio AS tipo_domicilio, d.ic_tipo_construcao AS tipo_construcao, d.ic_tipo_abastecimento_agua AS tipo_abastecimento, d.ic_tratamento_agua AS tratamento_agua,
     d.ic_tipo_iluminacao AS tipo_iluminacao, d.ic_escoamento_sanitario AS escoamento_sanitario, d.ic_destino_lixo AS destino_lixo, d.qt_pessoas AS quantidade_pessoas, d.qt_comodos AS comodos,
     -- Despesas
-    despesas.valor_despesa_aluguel, despesas.valor_despesa_prestacao,	despesas.valor_despesa_alimentacao, despesas.valor_despesa_agua, despesas.valor_despesa_luz,
-    despesas.valor_despesa_transporte, despesas.valor_despesa_medicamento, despesas.valor_despesa_gas, despesas.valor_outras_despesas,
+    COALESCE(despesas.valor_despesa_aluguel,0), COALESCE(despesas.valor_despesa_prestacao,0), COALESCE(despesas.valor_despesa_alimentacao,0),
+    COALESCE(despesas.valor_despesa_agua,0), COALESCE(despesas.valor_despesa_luz,0),
+    COALESCE(despesas.valor_despesa_transporte,0), COALESCE(despesas.valor_despesa_medicamento,0), COALESCE(despesas.valor_despesa_gas,0),
+    COALESCE(despesas.valor_outras_despesas,0),
     (COALESCE(valor_despesa_aluguel,0) + COALESCE(valor_despesa_prestacao,0) + COALESCE(valor_despesa_alimentacao,0) + COALESCE(valor_despesa_agua,0) +
     COALESCE(valor_despesa_luz,0) + COALESCE(valor_despesa_transporte,0) + COALESCE(valor_despesa_medicamento,0) + COALESCE(valor_despesa_gas,0) +
     COALESCE(valor_outras_despesas,0)) AS valor_despesa_familia,
     -- Rendas
-    rendas.valor_remuneracao, rendas.valor_aposentadoria_pensao, rendas.valor_seguro_desemprego, rendas.valor_pensao_alimenticia, rendas.valor_outras_rendas,
+    COALESCE(rendas.valor_remuneracao,0), COALESCE(rendas.valor_aposentadoria_pensao,0), COALESCE(rendas.valor_seguro_desemprego,0), COALESCE(rendas.valor_pensao_alimenticia,0),
+    COALESCE(rendas.valor_outras_rendas,0),
     (COALESCE(valor_remuneracao,0) + COALESCE(valor_aposentadoria_pensao,0) +
         COALESCE(valor_seguro_desemprego,0) + COALESCE(valor_pensao_alimenticia,0) +
         COALESCE(valor_outras_rendas,0)) AS valor_renda_familia,
