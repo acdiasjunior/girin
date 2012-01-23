@@ -4,8 +4,8 @@ SELECT
     p.de_titulo_eleitor AS titulo_eleitor, p.de_zona_titulo_eleitor AS zona, p.de_secao_titulo_eleitor AS secao,
     o.de_ocupacao AS ocupacao, p.ic_situacao_mercado AS tipo_trabalho,
     (CASE
-        WHEN p.dt_nascimento = '1899-12-30' THEN '0000-00-00'
-        ELSE to_char(p.dt_nascimento, 'YYYY-MM-DD')
+        WHEN p.dt_nascimento = '1899-12-30' THEN '00/00/0000'
+        ELSE to_char(p.dt_nascimento, 'DD/MM/YYYY')
     END) AS data_nascimento,
     p.nu_inep_escola AS inep, r.co_nis AS responsavel_nis, COALESCE(p.ic_parentesco_responsavel,20) AS responsavel_parentesco,
     COALESCE(p.vr_remuneracao,0) AS valor_remuneracao,
@@ -26,12 +26,12 @@ SELECT
         ELSE 0
      END) AS portador_deficiencia,
     (CASE
-        WHEN p.dt_alteracao_pessoa = '1899-12-30' THEN '0000-00-00'
-        ELSE to_char(p.dt_alteracao_pessoa, 'YYYY-MM-DD')
+        WHEN p.dt_alteracao_pessoa = '1899-12-30' THEN '00/00/0000'
+        ELSE to_char(p.dt_alteracao_pessoa, 'DD/MM/YYYY')
     END) AS data_atualizacao,
     (CASE
-        WHEN p.dt_inclusao_pessoa = '1899-12-30' THEN '0000-00-00'
-        ELSE to_char(p.dt_inclusao_pessoa, 'YYYY-MM-DD')
+        WHEN p.dt_inclusao_pessoa = '1899-12-30' THEN '00/00/0000'
+        ELSE to_char(p.dt_inclusao_pessoa, 'DD/MM/YYYY')
     END) AS data_inclusao,
     (CASE
         WHEN p.nu_ordem_esposa_companheiro <> 99 THEN 1

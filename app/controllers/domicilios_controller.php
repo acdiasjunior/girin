@@ -166,19 +166,12 @@ class DomiciliosController extends AppController {
                     set_time_limit(1);
 
                     $this->data = array();
-
+                    
                     foreach ($header as $key => $value) {
                         $row[$key] = utf8_encode($row[$key]);
                         $this->data['Domicilio'][$value] = $row[$key];
                     }
-
-                    $this->Domicilio->create();
-                    $this->Domicilio->set($this->data);
-
-                    if (!$this->Domicilio->validates()) {
-                        die('erro na validacao de um registro');
-                    }
-
+                                        
                     // save the row
                     if (!$this->Domicilio->save($this->data, false)) {
                         echo '<pre>' . var_dump($this->data) . '</pre><br>';

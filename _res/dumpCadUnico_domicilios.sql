@@ -24,16 +24,16 @@ SELECT
         COALESCE(valor_seguro_desemprego,0) + COALESCE(valor_pensao_alimenticia,0) +
         COALESCE(valor_outras_rendas,0)) AS valor_renda_familia,
     (CASE
-            WHEN d.dt_alteracao_domicilio = '1899-12-30' THEN '0000-00-00'
-            ELSE to_char(d.dt_alteracao_domicilio, 'YYYY-MM-DD')
+            WHEN d.dt_alteracao_domicilio = '1899-12-30' THEN '00/00/0000'
+            ELSE to_char(d.dt_alteracao_domicilio, 'DD/MM/YYYY')
     END) AS data_atualizacao,
     (CASE
-            WHEN d.dt_inclusao_domicilio = '1899-12-30' THEN '0000-00-00'
-            ELSE to_char(d.dt_inclusao_domicilio, 'YYYY-MM-DD')
+            WHEN d.dt_inclusao_domicilio = '1899-12-30' THEN '00/00/0000'
+            ELSE to_char(d.dt_inclusao_domicilio, 'DD/MM/YYYY')
     END) AS data_inclusao,
     (CASE
-            WHEN d.dt_pesquisa = '1899-12-30' THEN '0000-00-00'
-            ELSE to_char(d.dt_pesquisa, 'YYYY-MM-DD')
+            WHEN d.dt_pesquisa = '1899-12-30' THEN '00/00/0000'
+            ELSE to_char(d.dt_pesquisa, 'DD/MM/YYYY')
     END) AS data_pesquisa
 FROM cubtb013_domicilio AS d
 INNER JOIN

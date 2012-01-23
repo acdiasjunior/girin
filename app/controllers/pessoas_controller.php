@@ -191,7 +191,7 @@ class PessoasController extends AppController {
 
                 while (($row = fgetcsv($handle, 0, ';')) !== FALSE) {
                     
-                    set_time_limit(1);
+                    set_time_limit(3);
 
                     $this->data = array();
 
@@ -200,12 +200,7 @@ class PessoasController extends AppController {
                         $this->data['Pessoa'][$value] = $row[$key];
                     }
 
-                    $this->Pessoa->create();
-                    $this->Pessoa->set($this->data);
-
-                    if (!$this->Pessoa->validates()) {
-                        echo 'Erro na validação de um registro!<br>Nis:' . $this->data['Pessoa']['nis'] . '<br>';
-                    } else if (!$this->Pessoa->save($this->data, false)) {
+                    if (!$this->Pessoa->save($this->data, false)) {
                         echo '<pre>';
                         print_r($this->data);
                         echo '</pre><br>';
