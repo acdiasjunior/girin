@@ -177,7 +177,7 @@ class RelatoriosController extends AppController {
         $pessoas = $this->Pessoa->find('all', $options);
 
         $faixaEtaria['tempo'] = microtime(true) - $inicio;
-        $faixaEtaria['total'] = $this->Pessoa->find('count');
+        $faixaEtaria['total'] = $this->Pessoa->find('count', $options);
         foreach ($pessoas as $faixa) {
             $faixaEtaria[$faixa['FaixasEtaria']['faixa']][$faixa['Pessoa']['tipo_trabalho']][$faixa['FaixasEtaria']['descricao']] = $faixa[0]['total'];
         }
@@ -329,7 +329,14 @@ class RelatoriosController extends AppController {
             ),
             'fields' => array(
                 'COUNT(FaixasEtaria.id) AS total',
-                '(CASE WHEN valor_remuneracao = 0 THEN "0 reais" WHEN valor_remuneracao BETWEEN 0.01 AND 70 THEN "ate 70 reais" WHEN valor_remuneracao BETWEEN 70.01 AND 140 THEN "70 a 140 reais" WHEN valor_remuneracao BETWEEN 140.01 AND 240 THEN "140 a 240 reais" WHEN valor_remuneracao BETWEEN 240.01 AND 545 THEN "240 a 545 reais" WHEN valor_remuneracao > 545 THEN "acima 545 reais" END) AS remuneracao',
+                '(CASE
+                    WHEN Pessoa.valor_remuneracao = 0 THEN "0 reais"
+                    WHEN Pessoa.valor_remuneracao BETWEEN 0.01 AND 70 THEN "ate 70 reais"
+                    WHEN Pessoa.valor_remuneracao BETWEEN 70.01 AND 140 THEN "70 a 140 reais"
+                    WHEN Pessoa.valor_remuneracao BETWEEN 140.01 AND 240 THEN "140 a 240 reais"
+                    WHEN Pessoa.valor_remuneracao BETWEEN 240.01 AND 545 THEN "240 a 545 reais"
+                    WHEN Pessoa.valor_remuneracao > 545 THEN "acima 545 reais"
+                 END) AS remuneracao',
                 'FaixasEtaria.descricao',
                 'FaixasEtaria.faixa',
             ),
@@ -367,7 +374,7 @@ class RelatoriosController extends AppController {
         $pessoas = $this->Pessoa->find('all', $options);
 
         $valorRemuneracao['tempo'] = microtime(true) - $inicio;
-        $valorRemuneracao['total'] = $this->Pessoa->find('count', array('conditions' => array('Domicilio.quantidade_pessoas > 0')));
+        $valorRemuneracao['total'] = $this->Pessoa->find('count', $options);
         foreach ($pessoas as $remuneracao) {
             $valorRemuneracao
                     [$remuneracao['FaixasEtaria']['faixa']]
