@@ -160,7 +160,7 @@ class Indice extends AppModel {
         // Calculo para Dimensão - Conhecimento
         $analfabetismo = Indice::calculoComponenteAnalfabetismo();
         $escolaridade = Indice::calculoComponenteEscolaridade();
-        $conhecimento = ($analfabetismo + $vulnerabilidade) / 2;
+        $conhecimento = ($analfabetismo + $escolaridade) / 2;
         $this->domicilio['Indice']['conhecimento'] = $conhecimento;
 
         // Calculo para Dimensão - Trabalho
