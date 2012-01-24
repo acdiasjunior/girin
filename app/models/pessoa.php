@@ -67,8 +67,8 @@ class Pessoa extends AppModel {
     }
 
     const GENERO_NAO_INFORMADO = '';
-    const GENERO_MASCULINO = 'M';
-    const GENERO_FEMININO = 'F';
+    const GENERO_MASCULINO = '1';
+    const GENERO_FEMININO = '2';
 
     static function estadoCivil($value = null) { // 212
         $options = array(
