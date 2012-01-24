@@ -473,7 +473,7 @@ class Indice extends AppModel {
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
             if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
                     && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
-                    && $pessoa['valor_renda'] > 545) {
+                    && $pessoa['valor_remuneracao'] > 545) {
                 $retorno = 1;
                 break;
             }
@@ -488,7 +488,7 @@ class Indice extends AppModel {
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
             if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
                     && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
-                    && $pessoa['valor_renda'] > (545 * 2)) {
+                    && $pessoa['valor_remuneracao'] > (545 * 2)) {
                 $retorno = 1;
                 break;
             }
