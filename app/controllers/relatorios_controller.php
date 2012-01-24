@@ -307,7 +307,7 @@ class RelatoriosController extends AppController {
         $this->set(compact('faixaEtaria', 'bairros', 'cras', 'regioes', 'domicilios'));
     }
 
-    function valorRenda() {
+    function valorRemuneracao() {
         $idade = "(YEAR(CURDATE())-YEAR(Pessoa.data_nascimento))-(RIGHT(CURDATE(),5)<RIGHT(Pessoa.data_nascimento,5))";
         $options = array(
             'recursive' => -1,
@@ -329,12 +329,12 @@ class RelatoriosController extends AppController {
             ),
             'fields' => array(
                 'COUNT(FaixasEtaria.id) AS total',
-                '(CASE WHEN valor_renda = 0 THEN "0 reais" WHEN valor_renda BETWEEN 0.01 AND 70 THEN "ate 70 reais" WHEN valor_renda BETWEEN 70.01 AND 140 THEN "70 a 140 reais" WHEN valor_renda BETWEEN 140.01 AND 240 THEN "140 a 240 reais" WHEN valor_renda BETWEEN 240.01 AND 545 THEN "240 a 545 reais" WHEN valor_renda > 545 THEN "acima 545 reais" END) AS renda',
+                '(CASE WHEN valor_remuneracao = 0 THEN "0 reais" WHEN valor_remuneracao BETWEEN 0.01 AND 70 THEN "ate 70 reais" WHEN valor_remuneracao BETWEEN 70.01 AND 140 THEN "70 a 140 reais" WHEN valor_remuneracao BETWEEN 140.01 AND 240 THEN "140 a 240 reais" WHEN valor_remuneracao BETWEEN 240.01 AND 545 THEN "240 a 545 reais" WHEN valor_remuneracao > 545 THEN "acima 545 reais" END) AS remuneracao',
                 'FaixasEtaria.descricao',
                 'FaixasEtaria.faixa',
             ),
             'group' => array(
-                'renda',
+                'remuneracao',
                 'FaixasEtaria.descricao',
             ),
             'order' => array(
@@ -366,13 +366,13 @@ class RelatoriosController extends AppController {
         $inicio = microtime(true);
         $pessoas = $this->Pessoa->find('all', $options);
 
-        $valorRenda['tempo'] = microtime(true) - $inicio;
-        $valorRenda['total'] = $this->Pessoa->find('count', array('conditions' => array('Domicilio.quantidade_pessoas > 0')));
-        foreach ($pessoas as $renda) {
-            $valorRenda
-                    [$renda['FaixasEtaria']['faixa']]
-                    [$renda[0]['renda']]
-                    [$renda['FaixasEtaria']['descricao']] = $renda[0]['total'];
+        $valorRemuneracao['tempo'] = microtime(true) - $inicio;
+        $valorRemuneracao['total'] = $this->Pessoa->find('count', array('conditions' => array('Domicilio.quantidade_pessoas > 0')));
+        foreach ($pessoas as $remuneracao) {
+            $valorRemuneracao
+                    [$remuneracao['FaixasEtaria']['faixa']]
+                    [$remuneracao[0]['remuneracao']]
+                    [$remuneracao['FaixasEtaria']['descricao']] = $remuneracao[0]['total'];
         }
 
         $bairros = $this->Domicilio->Bairro->find('list', array(
@@ -381,7 +381,7 @@ class RelatoriosController extends AppController {
         $cras = $this->Domicilio->Cras->find('list');
         $regioes = $this->Domicilio->Regiao->find('list');
 
-        $this->set(compact('valorRenda', 'bairros', 'cras', 'regioes'));
+        $this->set(compact('valorRemuneracao', 'bairros', 'cras', 'regioes'));
     }
 
     function educacaoFormal() {
