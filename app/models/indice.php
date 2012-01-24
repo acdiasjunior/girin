@@ -575,7 +575,6 @@ class Indice extends AppModel {
 
     //D.1 Ausência de pelo menos uma criança de menos de 10 anos trabalhando
     function d1() {
-        xdebug_break();
         $retorno = 1;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
             if ($pessoa['idade'] < Pessoa::IDADE_ADOLESCENTE
