@@ -30,10 +30,7 @@ class Pessoa extends AppModel {
     var $validate = array(
         'nis' => array(
             'rule' => 'isUnique'
-        ),
-        'cpf' => array(
-            'rule' => 'isUnique'
-        ),
+        )
     );
 
     public function __construct($id=false, $table=null, $ds=null) {
