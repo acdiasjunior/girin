@@ -48,19 +48,15 @@ LEFT JOIN
     cubtb038_ocupacao AS o
     ON p.co_ocupacao = o.co_ocupacao
 WHERE
-    p.dt_alteracao_pessoa > (now() - interval '2 YEAR') AND
-    p.co_nis IS NOT NULL AND
-    (p.dt_exclusao_pessoa = '1899-12-30' OR
-    p.dt_exclusao_pessoa IS NULL) AND
-    p.nu_pessoa IN (
-    SELECT DISTINCT ON (id) u.id FROM
-        ((SELECT
-            DISTINCT ON (c.co_cpf) c.nu_pessoa AS id
-            FROM cubtb027_pessoa AS c
-            ORDER BY c.co_cpf, c.dt_alteracao_pessoa DESC)
-        UNION
-        (SELECT
-            d.nu_pessoa AS id
-            FROM cubtb027_pessoa AS d
-            WHERE d.co_cpf IS NULL)) AS u
+    p.co_domicilio IN
+    (SELECT d.co_domicilio FROM cubtb013_domicilio AS d
+        WHERE d.dt_pesquisa > (now() - interval '2 YEAR')
+            AND (d.dt_exclusao_domicilio = '1899-12-30' OR d.dt_exclusao_domicilio IS NULL)
+            AND d.qt_pessoas > 0
+            AND d.ic_situacao_cadastral = 'A'
+            AND d.ic_domicilio_valido = 't'
+            AND TRIM(d.no_logradouro_domicilio) <> '' AND d.no_logradouro_domicilio IS NOT NULL
+            AND (SELECT COUNT(*) FROM cubtb027_pessoa p WHERE p.co_domicilio = d.co_domicilio) = d.qt_pessoas
     )
+    AND p.co_nis IS NOT NULL
+    AND (p.dt_exclusao_pessoa = '1899-12-30' OR p.dt_exclusao_pessoa IS NULL)

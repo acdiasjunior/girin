@@ -2,7 +2,12 @@
 -- bolsa_familia, `idf`, `data_pesquisa`, `data_inclusao`, `data_atualizacao`, `entrevistador`
 SELECT
     DISTINCT ON (d.nu_domiciliar) d.nu_domiciliar AS codigo_domiciliar,
-    (SELECT DISTINCT(p.co_nis) FROM cubtb027_pessoa WHERE nu_pessoa = nu_responsavel AND co_domicilio = p.co_domicilio AND (dt_exclusao_pessoa IS NULL OR dt_exclusao_pessoa = '1899-12-30')) AS nis_responsavel,
+    (SELECT DISTINCT(p.co_nis)
+        FROM cubtb027_pessoa
+        WHERE nu_pessoa = nu_responsavel
+            AND co_domicilio = p.co_domicilio
+            AND (dt_exclusao_pessoa IS NULL OR dt_exclusao_pessoa = '1899-12-30')
+    ) AS nis_responsavel,
     d.co_cep_domicilio AS cep, d.ic_tipo_logradouro AS tipo_logradouro, d.no_logradouro_domicilio AS logradouro, d.co_logradouro_domicilio AS numero, d.de_complemento_logradouro_domicilio AS complemento,
     d.no_bairro_domicilio AS bairro_nome, d.nu_ddd_domicilio AS ddd, d.nu_telefone_domicilio AS telefone, d.ic_tipo_localidade AS tipo_localidade, d.ic_situacao_domicilio AS situacao_domicilio,
     d.ic_tipo_domicilio AS tipo_domicilio, d.ic_tipo_construcao AS tipo_construcao, d.ic_tipo_abastecimento_agua AS tipo_abastecimento, d.ic_tratamento_agua AS tratamento_agua,
@@ -70,27 +75,11 @@ INNER JOIN
     GROUP BY
 	d.co_domicilio
 ) AS rendas ON rendas.co_domicilio = d.co_domicilio
-WHERE d.co_domicilio IN (SELECT
-                                d.co_domicilio
-                        FROM cubtb027_pessoa AS p
-                        INNER JOIN
-                                cubtb013_domicilio AS d
-                                ON p.co_domicilio = d.co_domicilio
-                        WHERE
-                            p.dt_alteracao_pessoa > (now() - interval '2 YEAR') AND
-                            p.co_nis IS NOT NULL AND
-                            (p.dt_exclusao_pessoa = '1899-12-30' OR
-                            p.dt_exclusao_pessoa IS NULL) AND
-                            p.nu_pessoa IN (
-                                SELECT DISTINCT ON (id) u.id FROM
-                                    ((SELECT
-                                        DISTINCT ON (c.co_cpf) c.nu_pessoa AS id
-                                        FROM cubtb027_pessoa AS c
-                                        ORDER BY c.co_cpf, c.dt_alteracao_pessoa DESC)
-                                    UNION
-                                    (SELECT
-                                        d.nu_pessoa AS id
-                                        FROM cubtb027_pessoa AS d
-                                        WHERE d.co_cpf IS NULL)) AS u
-                                )
-                        )
+WHERE
+    d.dt_pesquisa > (now() - interval '2 YEAR')
+    AND (d.dt_exclusao_domicilio = '1899-12-30' OR d.dt_exclusao_domicilio IS NULL)
+    AND d.qt_pessoas > 0
+    AND d.ic_situacao_cadastral = 'A'
+    AND d.ic_domicilio_valido = 't'
+    AND TRIM(d.no_logradouro_domicilio) <> '' AND d.no_logradouro_domicilio IS NOT NULL
+    AND (SELECT COUNT(*) FROM cubtb027_pessoa p WHERE p.co_domicilio = d.co_domicilio) = d.qt_pessoas
