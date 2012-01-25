@@ -200,12 +200,7 @@ class PessoasController extends AppController {
                         $this->data['Pessoa'][$value] = $row[$key];
                     }
 
-                    if (!$this->Pessoa->save($this->data, false)) {
-                        echo '<pre>';
-                        print_r($this->data);
-                        echo '</pre><br>';
-                        die('Erro ao gravar o registro!');
-                    }
+                    $this->Pessoa->save($this->data, false);
                 }
 
                 // close the file
