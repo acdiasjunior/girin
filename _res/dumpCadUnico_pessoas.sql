@@ -50,7 +50,7 @@ LEFT JOIN
 WHERE
     p.co_domicilio IN
     (SELECT d.co_domicilio FROM cubtb013_domicilio AS d
-        WHERE d.dt_pesquisa > (now() - interval '2 YEAR')
+        WHERE d.dt_pesquisa > ((now() - interval '2 YEAR') - interval '4 MONTH')
             AND (d.dt_exclusao_domicilio = '1899-12-30' OR d.dt_exclusao_domicilio IS NULL)
             AND d.qt_pessoas > 0
             AND d.ic_situacao_cadastral = 'A'
