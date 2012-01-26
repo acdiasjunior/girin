@@ -70,12 +70,12 @@ class Indice extends AppModel {
         ),
         'recursos' => array(
             'extremaPobreza' => array(
-                //'r1' => 1,
+                'r1' => 1,
                 'r2' => 1,
-            //'r3' => 1,
+                'r3' => 1,
             ),
             'pobreza' => array(
-                //'r4' => 1,
+                'r4' => 1,
                 'r5' => 1,
             ),
             'capacidadeGeracao' => array(
@@ -151,47 +151,69 @@ class Indice extends AppModel {
         $this->domicilio = $domicilio;
         // Calculo para Dimensão - Vulnerabilidade
         $gestacao = Indice::calculoComponenteGestacao();
+        $this->domicilio['Indice']['gestacao'] = $gestacao;
         $criancas = Indice::calculoComponenteCriancas();
+        $this->domicilio['Indice']['criancas'] = $criancas;
         $idosos = Indice::calculoComponenteIdosos();
+        $this->domicilio['Indice']['idosos'] = $idosos;
         $dependencia = Indice::calculoComponenteDependencia();
+        $this->domicilio['Indice']['dependencia'] = $dependencia;
         $vulnerabilidade = ($gestacao + $criancas + $idosos + $dependencia) / 4;
         $this->domicilio['Indice']['vulnerabilidade'] = $vulnerabilidade;
 
         // Calculo para Dimensão - Conhecimento
         $analfabetismo = Indice::calculoComponenteAnalfabetismo();
+        $this->domicilio['Indice']['analfabetismo'] = $analfabetismo;
         $escolaridade = Indice::calculoComponenteEscolaridade();
+        $this->domicilio['Indice']['escolaridade'] = $escolaridade;
         $conhecimento = ($analfabetismo + $escolaridade) / 2;
         $this->domicilio['Indice']['conhecimento'] = $conhecimento;
 
         // Calculo para Dimensão - Trabalho
         $disponibilidade = Indice::calculoComponenteDisponibilidade();
+        $this->domicilio['Indice']['disponibilidade'] = $disponibilidade;
         $qualidade = Indice::calculoComponenteQualidade();
+        $this->domicilio['Indice']['qualidade'] = $qualidade;
         $remuneracao = Indice::calculoComponenteRemuneracao();
+        $this->domicilio['Indice']['remuneracao'] = $remuneracao;
         $trabalho = ($disponibilidade + $qualidade + $remuneracao) / 3;
         $this->domicilio['Indice']['trabalho'] = $trabalho;
 
         // Calculo para Dimensao - Recursos
         $extremaPobreza = Indice::calculoComponenteExtremaPobreza();
+        $this->domicilio['Indice']['extremaPobreza'] = $extremaPobreza;
         $pobreza = Indice::calculoComponentePobreza();
+        $this->domicilio['Indice']['pobreza'] = $pobreza;
         $capacidadeGeracao = Indice::calculoComponenteCapacidadeGeracao();
+        $this->domicilio['Indice']['capacidadeGeracao'] = $capacidadeGeracao;
         $recursos = ($extremaPobreza + $pobreza + $capacidadeGeracao) / 3;
         $this->domicilio['Indice']['recursos'] = $recursos;
 
         // Calculo para Dimensao - Desenvolvimento Infantil
         $trabalhoPrecoce = Indice::calculoComponenteTrabalhoPrecoce();
+        $this->domicilio['Indice']['trabalhoPrecoce'] = $trabalhoPrecoce;
         $acessoEscola = Indice::calculoComponenteAcessoEscola();
+        $this->domicilio['Indice']['acessoEscola'] = $acessoEscola;
         $progressoEscolar = Indice::calculoComponenteProgressoEscolar();
+        $this->domicilio['Indice']['progressoEscolar'] = $progressoEscolar;
         $desenvolvimento = ($trabalhoPrecoce + $acessoEscola + $progressoEscolar) / 3;
         $this->domicilio['Indice']['desenvolvimento'] = $desenvolvimento;
 
         // Calculo para Dimensao - Habitação
         $propriedade = Indice::calculoComponentePropriedade();
+        $this->domicilio['Indice']['propriedade'] = $propriedade;
         $deficit = Indice::calculoComponenteDeficit();
+        $this->domicilio['Indice']['deficit'] = $deficit;
         $abrigalidade = Indice::calculoComponenteAbrigalidade();
+        $this->domicilio['Indice']['abrigalidade'] = $abrigalidade;
         $acessoAgua = Indice::calculoComponenteAcessoAgua();
+        $this->domicilio['Indice']['acessoAgua'] = $acessoAgua;
         $acessoSaneamento = Indice::calculoComponenteAcessoSaneamento();
+        $this->domicilio['Indice']['acessoSaneamento'] = $acessoSaneamento;
         $acessoColetaLixo = Indice::calculoComponenteAcessoColetaLixo();
+        $this->domicilio['Indice']['acessoColetaLixo'] = $acessoColetaLixo;
         $acessoEletricidade = Indice::calculoComponenteAcessoEletricidade();
+        $this->domicilio['Indice']['acessoEletricidade'] = $acessoEletricidade;
         $habitacao = ($propriedade + $deficit + $abrigalidade +
                       $acessoAgua + $acessoSaneamento +
                       $acessoColetaLixo + $acessoEletricidade) / 7;
