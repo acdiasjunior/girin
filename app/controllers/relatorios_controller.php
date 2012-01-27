@@ -219,10 +219,10 @@ class RelatoriosController extends AppController {
                     $linha[] = number_format($domicilio['Indice']['habitacao'], 2, ',', '.');
                     $linha[] = $domicilio['Responsavel']['nis'];
                     $linha[] = $domicilio['Responsavel']['nome'];
-                    $linha[] = $domicilio['Domicilio']['valor_renda_familia'];
+                    $linha[] = number_format($domicilio['Domicilio']['valor_renda_familia'], 2, ',', '.');
                     $linha[] = $domicilio['Domicilio']['quantidade_pessoas'];
-                    $linha[] = $domicilio['Domicilio']['valor_renda_familia'] / $domicilio['Domicilio']['quantidade_pessoas'];
-                    $linha[] = $domicilio['Domicilio']['valor_beneficio'];
+                    $linha[] = number_format(($domicilio['Domicilio']['valor_renda_familia'] / $domicilio['Domicilio']['quantidade_pessoas']), 2, ',', '.');
+                    $linha[] = number_format($domicilio['Domicilio']['valor_beneficio'], 2, ',', '.');
                     $linha[] = $domicilio['Domicilio']['tipo_logradouro'];
                     $linha[] = $domicilio['Domicilio']['logradouro'];
                     $linha[] = $domicilio['Domicilio']['numero'];
