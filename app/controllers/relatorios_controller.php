@@ -148,7 +148,7 @@ class RelatoriosController extends AppController {
                     $linha = array();
 
                     $linha[] = $domicilio['Domicilio']['codigo_domiciliar'];
-                    $linha[] = number_format($domicilio['Indice']['idf'], 2, ',', '.');
+                    $linha[] = number_format($domicilio['Indice']['idf'], 5, ',', '.');
                     $linha[] = $domicilio['Indice']['v1'];
                     $linha[] = $domicilio['Indice']['v2'];
                     $linha[] = number_format($domicilio['Indice']['gestacao'], 2, ',', '.');
