@@ -115,29 +115,32 @@ class RelatoriosController extends AppController {
                 $size = fputcsv($fw, $linha, ';');
 
                 $this->loadModel('Domicilio');
-                $this->Domicilio->recursive = 0;
-                $domicilios = $this->Domicilio->find('all', array(
-                    'conditions' => array(
-                        'Domicilio.quantidade_pessoas > 0',
-                    ),
-                    'fields' => array(
-                        'Domicilio.codigo_domiciliar',
-                        'Indice.*',
-                        'Responsavel.nome',
-                        'Responsavel.nis',
-                        'Domicilio.valor_renda_familia',
-                        'Domicilio.quantidade_pessoas',
-                        'Domicilio.valor_beneficio',
-                        'Domicilio.tipo_logradouro',
-                        'Domicilio.logradouro',
-                        'Domicilio.numero',
-                        'Domicilio.complemento',
-                        'Bairro.nome',
-                    ),
+                $domicilios = $this->Domicilio->find('list', array(
+                        'conditions' => array(
+                            'Domicilio.quantidade_pessoas > 0'
                         )
+                    )
                 );
-                
-                foreach ($domicilios as $domicilio) {
+
+                foreach ($domicilios as $codigo) {
+
+                    $domicilio = $this->Domicilio->read(
+                            array(
+                                'Domicilio.codigo_domiciliar',
+                                'Indice.*',
+                                'Responsavel.nome',
+                                'Responsavel.nis',
+                                'Domicilio.valor_renda_familia',
+                                'Domicilio.quantidade_pessoas',
+                                'Domicilio.valor_beneficio',
+                                'Domicilio.tipo_logradouro',
+                                'Domicilio.logradouro',
+                                'Domicilio.numero',
+                                'Domicilio.complemento',
+                                'Bairro.nome',
+                            ),
+                            $codigo
+                    );
 
                     print fread($fr, $size);
                     flush();
@@ -146,70 +149,70 @@ class RelatoriosController extends AppController {
 
                     $linha[] = $domicilio['Domicilio']['codigo_domiciliar'];
                     $linha[] = number_format($domicilio['Indice']['idf'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['v1'];
-                    $linha[] = $domicilio['Domicilio']['v2'];
+                    $linha[] = $domicilio['Indice']['v1'];
+                    $linha[] = $domicilio['Indice']['v2'];
                     $linha[] = number_format($domicilio['Indice']['gestacao'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['v3'];
-                    $linha[] = $domicilio['Domicilio']['v4'];
-                    $linha[] = $domicilio['Domicilio']['v5'];
+                    $linha[] = $domicilio['Indice']['v3'];
+                    $linha[] = $domicilio['Indice']['v4'];
+                    $linha[] = $domicilio['Indice']['v5'];
                     $linha[] = number_format($domicilio['Indice']['criancas'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['v6'];
-                    $linha[] = $domicilio['Domicilio']['v7'];
+                    $linha[] = $domicilio['Indice']['v6'];
+                    $linha[] = $domicilio['Indice']['v7'];
                     $linha[] = number_format($domicilio['Indice']['idosos'], 2, ',', '.');
                     $linha[] = number_format($domicilio['Indice']['vulnerabilidade'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['c1'];
-                    $linha[] = $domicilio['Domicilio']['c2'];
+                    $linha[] = $domicilio['Indice']['c1'];
+                    $linha[] = $domicilio['Indice']['c2'];
                     $linha[] = number_format($domicilio['Indice']['analfabetismo'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['c3'];
-                    $linha[] = $domicilio['Domicilio']['c4'];
-                    $linha[] = $domicilio['Domicilio']['c5'];
+                    $linha[] = $domicilio['Indice']['c3'];
+                    $linha[] = $domicilio['Indice']['c4'];
+                    $linha[] = $domicilio['Indice']['c5'];
                     $linha[] = number_format($domicilio['Indice']['escolaridade'], 2, ',', '.');
                     $linha[] = number_format($domicilio['Indice']['conhecimento'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['t1'];
+                    $linha[] = $domicilio['Indice']['t1'];
                     $linha[] = number_format($domicilio['Indice']['disponibilidade'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['t2'];
-                    $linha[] = $domicilio['Domicilio']['t3'];
+                    $linha[] = $domicilio['Indice']['t2'];
+                    $linha[] = $domicilio['Indice']['t3'];
                     $linha[] = number_format($domicilio['Indice']['qualidade'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['t4'];
-                    $linha[] = $domicilio['Domicilio']['t5'];
+                    $linha[] = $domicilio['Indice']['t4'];
+                    $linha[] = $domicilio['Indice']['t5'];
                     $linha[] = number_format($domicilio['Indice']['remuneracao'], 2, ',', '.');
                     $linha[] = number_format($domicilio['Indice']['trabalho'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['r1'];
-                    $linha[] = $domicilio['Domicilio']['r2'];
-                    $linha[] = $domicilio['Domicilio']['r3'];
+                    $linha[] = $domicilio['Indice']['r1'];
+                    $linha[] = $domicilio['Indice']['r2'];
+                    $linha[] = $domicilio['Indice']['r3'];
                     $linha[] = number_format($domicilio['Indice']['extremaPobreza'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['r4'];
-                    $linha[] = $domicilio['Domicilio']['r5'];
+                    $linha[] = $domicilio['Indice']['r4'];
+                    $linha[] = $domicilio['Indice']['r5'];
                     $linha[] = number_format($domicilio['Indice']['pobreza'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['r6'];
+                    $linha[] = $domicilio['Indice']['r6'];
                     $linha[] = number_format($domicilio['Indice']['capacidadeGeracao'], 2, ',', '.');
                     $linha[] = number_format($domicilio['Indice']['recursos'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['d1'];
-                    $linha[] = $domicilio['Domicilio']['d2'];
+                    $linha[] = $domicilio['Indice']['d1'];
+                    $linha[] = $domicilio['Indice']['d2'];
                     $linha[] = number_format($domicilio['Indice']['trabalhoPrecoce'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['d3'];
-                    $linha[] = $domicilio['Domicilio']['d4'];
-                    $linha[] = $domicilio['Domicilio']['d5'];
+                    $linha[] = $domicilio['Indice']['d3'];
+                    $linha[] = $domicilio['Indice']['d4'];
+                    $linha[] = $domicilio['Indice']['d5'];
                     $linha[] = number_format($domicilio['Indice']['acessoEscola'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['d6'];
-                    $linha[] = $domicilio['Domicilio']['d7'];
-                    $linha[] = $domicilio['Domicilio']['d8'];
+                    $linha[] = $domicilio['Indice']['d6'];
+                    $linha[] = $domicilio['Indice']['d7'];
+                    $linha[] = $domicilio['Indice']['d8'];
                     $linha[] = number_format($domicilio['Indice']['progressoEscolar'], 2, ',', '.');
                     $linha[] = number_format($domicilio['Indice']['desenvolvimento'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['h1'];
-                    $linha[] = $domicilio['Domicilio']['h2'];
+                    $linha[] = $domicilio['Indice']['h1'];
+                    $linha[] = $domicilio['Indice']['h2'];
                     $linha[] = number_format($domicilio['Indice']['propriedade'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['h3'];
+                    $linha[] = $domicilio['Indice']['h3'];
                     $linha[] = number_format($domicilio['Indice']['deficit'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['h4'];
+                    $linha[] = $domicilio['Indice']['h4'];
                     $linha[] = number_format($domicilio['Indice']['abrigalidade'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['h5'];
+                    $linha[] = $domicilio['Indice']['h5'];
                     $linha[] = number_format($domicilio['Indice']['acessoAgua'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['h6'];
+                    $linha[] = $domicilio['Indice']['h6'];
                     $linha[] = number_format($domicilio['Indice']['acessoSaneamento'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['h7'];
+                    $linha[] = $domicilio['Indice']['h7'];
                     $linha[] = number_format($domicilio['Indice']['acessoColetaLixo'], 2, ',', '.');
-                    $linha[] = $domicilio['Domicilio']['h8'];
+                    $linha[] = $domicilio['Indice']['h8'];
                     $linha[] = number_format($domicilio['Indice']['acessoEletricidade'], 2, ',', '.');
                     $linha[] = number_format($domicilio['Indice']['habitacao'], 2, ',', '.');
                     $linha[] = $domicilio['Responsavel']['nis'];
@@ -223,7 +226,7 @@ class RelatoriosController extends AppController {
                     $linha[] = $domicilio['Domicilio']['numero'];
                     $linha[] = $domicilio['Domicilio']['complemento'];
                     $linha[] = $domicilio['Bairro']['nome'];
-                    
+
                     $size = fputcsv($fw, $linha, ';');
                 }
 
