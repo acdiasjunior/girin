@@ -39,7 +39,6 @@ class RelatoriosController extends AppController {
                 $linha[] = 'CRI_ADOL_JOV';
                 $linha[] = 'V6';
                 $linha[] = 'V7';
-                $linha[] = 'V7';
                 $linha[] = 'IDOSO_DEFI';
                 $linha[] = 'V8';
                 $linha[] = 'V9';
@@ -159,6 +158,9 @@ class RelatoriosController extends AppController {
                     $linha[] = $domicilio['Indice']['v6'];
                     $linha[] = $domicilio['Indice']['v7'];
                     $linha[] = number_format($domicilio['Indice']['idosos'], 2, ',', '.');
+                    $linha[] = $domicilio['Indice']['v8'];
+                    $linha[] = $domicilio['Indice']['v9'];
+                    $linha[] = number_format($domicilio['Indice']['dependencia'], 2, ',', '.');
                     $linha[] = number_format($domicilio['Indice']['vulnerabilidade'], 2, ',', '.');
                     $linha[] = $domicilio['Indice']['c1'];
                     $linha[] = $domicilio['Indice']['c2'];
