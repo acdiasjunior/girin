@@ -221,7 +221,7 @@ class RelatoriosController extends AppController {
                     $linha[] = $domicilio['Responsavel']['nome'];
                     $linha[] = $domicilio['Domicilio']['valor_renda_familia'];
                     $linha[] = $domicilio['Domicilio']['quantidade_pessoas'];
-                    $linha[] = $domicilio['Domicilio']['valor_renda_familia'] / $linha[] = $domicilio['Domicilio']['quantidade_pessoas'];
+                    $linha[] = $domicilio['Domicilio']['valor_renda_familia'] / $domicilio['Domicilio']['quantidade_pessoas'];
                     $linha[] = $domicilio['Domicilio']['valor_beneficio'];
                     $linha[] = $domicilio['Domicilio']['tipo_logradouro'];
                     $linha[] = $domicilio['Domicilio']['logradouro'];
