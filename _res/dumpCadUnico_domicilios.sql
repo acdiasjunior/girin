@@ -2,12 +2,8 @@
 -- bolsa_familia, `idf`, `data_pesquisa`, `data_inclusao`, `data_atualizacao`, `entrevistador`
 SELECT
     DISTINCT ON (d.nu_domiciliar) d.nu_domiciliar AS codigo_domiciliar,
-    (SELECT DISTINCT(p.co_nis)
-        FROM cubtb027_pessoa
-        WHERE nu_pessoa = nu_responsavel
-            AND co_domicilio = p.co_domicilio
-            AND (dt_exclusao_pessoa IS NULL OR dt_exclusao_pessoa = '1899-12-30')
-    ) AS nis_responsavel,
+    (SELECT DISTINCT(pp.co_nis) FROM cubtb027_pessoa pp INNER JOIN cubtb013_domicilio dd ON dd.co_domicilio = pp.co_domicilio
+        WHERE pp.nu_responsavel = pp.nu_pessoa AND dd.nu_domiciliar = d.nu_domiciliar AND (dt_exclusao_pessoa IS NULL OR dt_exclusao_pessoa = '1899-12-30') LIMIT 1) AS nis_responsavel,
     d.co_cep_domicilio AS cep, d.ic_tipo_logradouro AS tipo_logradouro, d.no_logradouro_domicilio AS logradouro, d.co_logradouro_domicilio AS numero, d.de_complemento_logradouro_domicilio AS complemento,
     d.no_bairro_domicilio AS bairro_nome, d.nu_ddd_domicilio AS ddd, d.nu_telefone_domicilio AS telefone, d.ic_tipo_localidade AS tipo_localidade, d.ic_situacao_domicilio AS situacao_domicilio,
     d.ic_tipo_domicilio AS tipo_domicilio, d.ic_tipo_construcao AS tipo_construcao, d.ic_tipo_abastecimento_agua AS tipo_abastecimento, d.ic_tratamento_agua AS tratamento_agua,
@@ -76,7 +72,7 @@ INNER JOIN
 	d.co_domicilio
 ) AS rendas ON rendas.co_domicilio = d.co_domicilio
 WHERE
-    d.dt_pesquisa > ((now() - interval '2 YEAR') - interval '4 MONTH')
+    d.dt_pesquisa > '2009-09-01'
     AND (d.dt_exclusao_domicilio = '1899-12-30' OR d.dt_exclusao_domicilio IS NULL)
     AND d.qt_pessoas > 0
     AND d.ic_situacao_cadastral = 'A'
