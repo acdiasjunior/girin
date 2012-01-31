@@ -583,9 +583,9 @@ class Indice extends AppModel {
 
     //R.6 Maior parte da renda familiar não advém de transferências
     function r6() {
-        $retorno = 0;
-        if ($this->domicilio['Domicilio']['valor_renda_familia'] > $this->domicilio['Domicilio']['valor_beneficio']) {
-            $retorno = 1;
+        $retorno = 1;
+        if ($this->domicilio['Domicilio']['valor_beneficio'] > $this->domicilio['Domicilio']['valor_renda_familia']) {
+            $retorno = 0;
         }
         $this->domicilio['Indice']['r6'] = $retorno;
         return $retorno;
