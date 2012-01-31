@@ -533,7 +533,7 @@ class Indice extends AppModel {
         return $retorno;
     }
 
-    //R.2 Renda familiar per capita superior a linha de  pobreza
+    //R.2 Renda familiar per capita superior a linha de extrema pobreza
     function r2() {
         $retorno = 0;
         if ($this->domicilio['Domicilio']['valor_renda_familia'] / $this->domicilio['Domicilio']['quantidade_pessoas'] >= 70) {
@@ -570,7 +570,7 @@ class Indice extends AppModel {
     //R.5 Renda familiar per capita superior a linha de pobreza
     function r5() {
         $retorno = 0;
-        if ($this->domicilio['Domicilio']['valor_renda_familia'] >= 140) {
+        if ($this->domicilio['Domicilio']['valor_renda_familia'] / $this->domicilio['Domicilio']['quantidade_pessoas'] >= 140) {
             $retorno = 1;
         }
         $this->domicilio['Indice']['r5'] = $retorno;
