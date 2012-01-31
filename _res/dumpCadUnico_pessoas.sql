@@ -40,7 +40,7 @@ SELECT
 FROM cubtb027_pessoa AS p
 LEFT JOIN
     cubtb027_pessoa AS r
-    ON p.nu_pessoa = r.nu_pessoa
+    ON p.nu_responsavel = r.nu_pessoa
 INNER JOIN
     cubtb013_domicilio AS d
     ON p.co_domicilio = d.co_domicilio
