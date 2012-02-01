@@ -122,7 +122,8 @@ class PessoasController extends AppController {
         if (empty($this->data)) {
             $this->data = $this->Pessoa->read();
             $responsavel = count($this->data['Membro']);
-            $this->set(compact('responsavel'));
+            $portador_deficiencia = $this->data['Pessoa']['portador_deficiencia'];
+            $this->set(compact('responsavel', 'portador_deficiencia'));
         } else {
             $id = $this->data['Pessoa']['id'];
             $this->Pessoa->id = $this->data['Pessoa']['id'];
