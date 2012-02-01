@@ -86,6 +86,53 @@ class Pessoa extends AppModel {
     const ESTADO_CIVIL_SEPARADO = 4;
     const ESTADO_CIVIL_VIUVO = 5;
 
+    static function grauParentesco($value = null) { // 212
+        $options = array(
+            self::PARENTESCO_MAE => __('Mãe/responsável legal', true),
+            self::PARENTESCO_ESPOSO => __('Esposo(a)', true),
+            self::PARENTESCO_COMPANHEIRO => __('Companheiro(a)', true),
+            self::PARENTESCO_FILHO => __('Filho(a)', true),
+            self::PARENTESCO_PAI => __('Pai', true),
+            self::PARENTESCO_AVO => __('Avô/Avó', true),
+            self::PARENTESCO_IRMAO => __('Irmão/Irmã', true),
+            self::PARENTESCO_CUNHADO => __('Cunhado(a)', true),
+            self::PARENTESCO_GENRO => __('Genro/Nora', true),
+            self::PARENTESCO_SOBRINHO => __('Sobrinho(a)', true),
+            self::PARENTESCO_PRIMO => __('Primo(a)', true),
+            self::PARENTESCO_SOGRO => __('Sogro(a)', true),
+            self::PARENTESCO_NETO => __('Neto(a)', true),
+            self::PARENTESCO_TIO => __('Tio(a)', true),
+            self::PARENTESCO_ADOTIVO => __('Adotivo(a)', true),
+            self::PARENTESCO_PADRASTO => __('Padrasto/Madrasta', true),
+            self::PARENTESCO_ENTEADO => __('Enteado(a)', true),
+            self::PARENTESCO_BISNETO => __('Bisneto(a)', true),
+            self::PARENTESCO_SEM_PARENTESCO => __('Sem parentesco', true),
+            self::PARENTESCO_OUTRO => __('Outro', true),
+        );
+        return parent::enum($value, $options);
+    }
+
+    const PARENTESCO_MAE = 1;
+    const PARENTESCO_ESPOSO = 2;
+    const PARENTESCO_COMPANHEIRO = 3;
+    const PARENTESCO_FILHO = 4;
+    const PARENTESCO_PAI = 5;
+    const PARENTESCO_AVO = 6;
+    const PARENTESCO_IRMAO = 7;
+    const PARENTESCO_CUNHADO = 8;
+    const PARENTESCO_GENRO = 9;
+    const PARENTESCO_SOBRINHO = 10;
+    const PARENTESCO_PRIMO = 11;
+    const PARENTESCO_SOGRO = 12;
+    const PARENTESCO_NETO = 13;
+    const PARENTESCO_TIO = 14;
+    const PARENTESCO_ADOTIVO = 15;
+    const PARENTESCO_PADRASTO = 16;
+    const PARENTESCO_ENTEADO = 17;
+    const PARENTESCO_BISNETO = 18;
+    const PARENTESCO_SEM_PARENTESCO = 19;
+    const PARENTESCO_OUTRO = 20;
+
     static function serieEscolar($value = null) { // 239
         $options = array(
             self::SERIE_NAO_INFORMADO => __('Não Informado', true),
@@ -231,7 +278,7 @@ class Pessoa extends AppModel {
     const ESCOLA_PUBLICA_FEDERAL = 3;
     const ESCOLA_PARTICULAR = 4;
     const ESCOLA_OUTRA = 5;
-	const ESCOLA_NAO_FREQUENTA = 6;
+    const ESCOLA_NAO_FREQUENTA = 6;
 
     static function faixaEtaria($value = null) {
         $options = array(
