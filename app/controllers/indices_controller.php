@@ -84,8 +84,8 @@ class IndicesController extends AppController {
         $fields = array(
             'COUNT(*) AS total',
             '(CASE
-                    WHEN Indice.idf <= 0.6 THEN "ate06"
-                    WHEN Indice.idf > 0.6 AND Indice.idf <= 0.7 THEN "de06a07"
+                    WHEN Indice.idf <= 0.62 THEN "ate06"
+                    WHEN Indice.idf > 0.62 AND Indice.idf <= 0.7 THEN "de06a07"
                     WHEN Indice.idf > 0.7 AND Indice.idf <= 0.8 THEN "de07a08"
                     WHEN Indice.idf > 0.8 AND Indice.idf <= 0.9 THEN "de08a09"
                     WHEN Indice.idf > 0.9 THEN "maior09"
