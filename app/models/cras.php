@@ -7,6 +7,7 @@ class Cras extends AppModel {
     var $order = 'Cras.descricao';
     var $hasMany = array('Bairro', 'Domicilio');
     var $belongsTo = array('Bairro', 'Regiao');
+    var $hasAndBelongsToMany = array('Usuario');
     var $recursive = 0;
 
 }

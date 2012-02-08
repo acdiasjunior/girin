@@ -19,6 +19,11 @@ if(!isset($this->data['Usuario']))
     echo $this->Form->input('password', array('label' => 'Senha'));
 echo $this->Html->tag('/fieldset', null);
 
+echo $this->Html->tag('fieldset', null);
+echo $this->Html->tag('legend', 'Acesso a Dados');
+echo $this->Form->input('Cras', array('multiple' => 'checkbox'));
+echo $this->Html->tag('/fieldset', null);
+
 echo $this->Form->button('Fechar', array(
     'type' => 'button',
     'onClick' => "window.location.href = '" . $this->Html->url(array('controller' => 'usuarios', 'action' => 'index')) . "';"
