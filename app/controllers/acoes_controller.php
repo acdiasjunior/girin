@@ -47,6 +47,16 @@ class AcoesController extends AppController {
             }
         }
     }
+    
+    function excluir($id) {
+        if (!empty($id)) {
+            $this->Acao->delete($id);
+            $this->Session->setFlash('A ação com código: ' . $id . ' foi excluída.');
+        } else {
+            $this->Session->setFlash('Erro ao tentar excluir: id inexistente!');
+        }
+        $this->redirect(array('action' => 'index'));
+    }
 
     function autoComplete($campo = null) {
         $this->layout = 'ajax';
