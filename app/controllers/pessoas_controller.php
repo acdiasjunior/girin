@@ -7,7 +7,7 @@ class PessoasController extends AppController {
     var $components = array('RequestHandler');
 
     function index() {
-
+        
     }
 
     function lista() {
@@ -160,28 +160,16 @@ class PessoasController extends AppController {
 
     function excluir($id) {
         if (!empty($id)) {
-            if ($this->Pessoa->Locacao->findAllByPessoaId($id)) {
-
-                $this->Session->setFlash('Não foi possível excluir o cliente.<br />Existem pedidos associados.');
-            } else {
-
-                $this->Pessoa->delete($id);
-
-                App::import('Model', 'Condutor');
-                $this->Condutor = new Condutor();
-                $this->Condutor->delete($id);
-
-                $this->Session->setFlash('O cliente com código: ' . $id . ' foi excluído.');
-            }
-            $this->redirect(array('action' => 'index'));
+            $this->Pessoa->delete($id);
+            $this->Session->setFlash('A pessoa com nis: ' . $id . ' foi excluído.');
         } else {
-            $this->Session->setFlash('Erro ao tentar excluir: código inexistente!');
-            $this->redirect(array('action' => 'index'));
+            $this->Session->setFlash('Erro ao tentar excluir: nis inexistente!');
         }
+        $this->redirect(array('action' => 'index'));
     }
 
     function importar($arquivo = null) {
-        
+
         if (empty($this->data)) {
             //Abre a tela de importação
         } else {
@@ -191,7 +179,7 @@ class PessoasController extends AppController {
                 $header = fgetcsv($handle, 0, ';');
 
                 while (($row = fgetcsv($handle, 0, ';')) !== FALSE) {
-                    
+
                     set_time_limit(3);
 
                     $this->data = array();
@@ -214,8 +202,6 @@ class PessoasController extends AppController {
             }
         }
     }
-
-    
 
 //    function listaPersonalizada() {
 //        $options = array(
