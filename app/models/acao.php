@@ -15,41 +15,47 @@ class Acao extends AppModel {
 
     static function responsavel($value = null) {
         $options = array(
-            self::RESPONSAVEL_AGENTE_SOCIAL => __('Agente Social', true),
+            self::RESPONSAVEL_AGENTE_LOCAL_DA_FAMILIA => __('Agente Local da Família', true),
             self::RESPONSAVEL_EQUIPE_CRAS => __('Equipe CRAS', true),
             self::RESPONSAVEL_TECNICO_CRAS => __('Técnico CRAS', true),
         );
         return parent::enum($value, $options);
     }
 
-    const RESPONSAVEL_AGENTE_SOCIAL = 1;
+    const RESPONSAVEL_AGENTE_LOCAL_DA_FAMILIA = 1;
     const RESPONSAVEL_EQUIPE_CRAS = 2;
     const RESPONSAVEL_TECNICO_CRAS = 3;
 
     static function atividade($value = null) {
         $options = array(
-            self::ATIVIDADE_ACOMPANHAMENTO_SOCIOFAMILIAR => __('Acompamhamento Sociofamiliar', true),
+            self::ATIVIDADE_AGENDA_CASA => __('Agenda em Casa', true),
             self::ATIVIDADE_ACOMPANHAMENTO_REDE => __('Acompanhamento Rede', true),
+            self::ATIVIDADE_ACOMPANHAMENTO_SOCIOFAMILIAR => __('Acompamhamento Sociofamiliar', true),
             self::ATIVIDADE_ARTICULACAO_COM_A_REDE => __('Articulação com a rede', true),
             self::ATIVIDADE_ATENDIMENTO_INDIVIDUAL => __('Atendimento Individual', true),
             self::ATIVIDADE_BUSCA_ATIVA => __('Busca Ativa', true),
+            self::ATIVIDADE_CADASTRAMENTO => __('Cadastramento', true),
             self::ATIVIDADE_CADASTRAMENTO_NO_SISTEMA => __('Cadastramento no Sistema', true),
             self::ATIVIDADE_ENCAMINHAMENTO_REDE => __('Encaminhamento Rede', true),
             self::ATIVIDADE_GRUPO_SOCIOEDUCATIVO => __('Grupo socioeducativo', true),
+            self::ATIVIDADE_LEVANTAMENTO_SISTEMA => __('Levantamento no Sistema', true),
             self::ATIVIDADE_VISITA_DOMICILIAR => __('Visita Domiciliar', true),
         );
         return parent::enum($value, $options);
     }
 
-    const ATIVIDADE_ACOMPANHAMENTO_SOCIOFAMILIAR = 1;
+    const ATIVIDADE_AGENDA_CASA = 1;
     const ATIVIDADE_ACOMPANHAMENTO_REDE = 2;
-    const ATIVIDADE_ARTICULACAO_COM_A_REDE = 3;
-    const ATIVIDADE_ATENDIMENTO_INDIVIDUAL = 4;
-    const ATIVIDADE_BUSCA_ATIVA = 5;
-    const ATIVIDADE_CADASTRAMENTO_NO_SISTEMA = 6;
-    const ATIVIDADE_ENCAMINHAMENTO_REDE = 7;
-    const ATIVIDADE_GRUPO_SOCIOEDUCATIVO = 8;
-    const ATIVIDADE_VISITA_DOMICILIAR = 9;
+    const ATIVIDADE_ACOMPANHAMENTO_SOCIOFAMILIAR = 3;
+    const ATIVIDADE_ARTICULACAO_COM_A_REDE = 4;
+    const ATIVIDADE_ATENDIMENTO_INDIVIDUAL = 5;
+    const ATIVIDADE_BUSCA_ATIVA = 6;
+    const ATIVIDADE_CADASTRAMENTO = 7;
+    const ATIVIDADE_CADASTRAMENTO_NO_SISTEMA = 8;
+    const ATIVIDADE_ENCAMINHAMENTO_REDE = 9;
+    const ATIVIDADE_GRUPO_SOCIOEDUCATIVO = 10;
+    const ATIVIDADE_LEVANTAMENTO_SISTEMA = 11;
+    const ATIVIDADE_VISITA_DOMICILIAR = 12;
 
     static function usuarios($value = null) {
         $options = array(
@@ -94,26 +100,32 @@ class Acao extends AppModel {
             //self::REDE_ENSINO => __('Esino', true),
             //self::REDE_MEDIDAS_SOCIOEDUCATIVAS => __('Medidas Socioeducativas', true), // REENQUADRAR AÇÕES NESSA REDE
             //self::REDE_PROTECAO => __('Proteção', true),
-            self::REDE_PROTECAO_CRIANCA_ADOLESCENTE => __('Proteção à Criança e Adolescente', true),
             self::REDE_PROTECAO_ABUSO_DROGAS => __('Proteção ao abuso de drogas', true),
-            self::REDE_PROTECAO_TRABALHO => __('Proteção trabalho, emprego e renda', true),
-            self::REDE_PROTECAO_DEFICIENCIA_IDOSOS => __('Proteção às pessoas com deficiência e idosos', true),
-            self::REDE_PROTECAO_SOCIOHABITACIONAL => __('Proteção Sociohabitacional', true),
+            self::REDE_PROTECAO_ATENDIMENTO => __('Rede de Atendimento', true),
+            self::REDE_PROTECAO_CRIANCA_ADOLESCENTE => __('Proteção à Criança e Adolescente', true),
+            self::REDE_PROTECAO_DEFICIENCIA => __('Proteção às pessoas com deficiência', true),
+            self::REDE_PROTECAO_IDOSOS => __('Proteção às pessoas idosas', true),
+            self::REDE_PROTECAO_JURIDICA => __('Proteção Juridica', true),
             self::REDE_PROTECAO_SOCIOASSISTENCIAL => __('Proteção Socioassistencial', true),
+            self::REDE_PROTECAO_SOCIOHABITACIONAL => __('Proteção Sociohabitacional', true),
+            self::REDE_PROTECAO_TRABALHO => __('Proteção trabalho, emprego e renda', true),
         );
         return parent::enum($value, $options);
     }
 
     //const REDE_EDUCACAO = 1;
     //const REDE_ENSINO = 2;
-    const REDE_MEDIDAS_SOCIOEDUCATIVAS = 1; // REENQUADRAR AÇÕES NESSA REDE
+    //const REDE_MEDIDAS_SOCIOEDUCATIVAS = ; // REENQUADRAR AÇÕES NESSA REDE
     //const REDE_PROTECAO = 2;  // PASSAR PARA REDE DE PROTEÇÃO SOCIOASSISTENCIAL (FEITO)
-    const REDE_PROTECAO_CRIANCA_ADOLESCENTE = 2;
-    const REDE_PROTECAO_ABUSO_DROGAS = 3;
-    const REDE_PROTECAO_TRABALHO = 4;
-    const REDE_PROTECAO_DEFICIENCIA_IDOSOS = 5;
-    const REDE_PROTECAO_SOCIOHABITACIONAL = 6;
+    const REDE_ATENDIMENTO = 1;
+    const REDE_PROTECAO_ABUSO_DROGAS = 2;
+    const REDE_PROTECAO_CRIANCA_ADOLESCENTE = 3;
+    const REDE_PROTECAO_DEFICIENCIA = 4;
+    const REDE_PROTECAO_IDOSOS = 5;
+    const REDE_PROTECAO_JURIDICA = 6;
     const REDE_PROTECAO_SOCIOASSISTENCIAL = 7;
+    const REDE_PROTECAO_SOCIOHABITACIONAL = 8;
+    const REDE_PROTECAO_TRABALHO = 9;
 
     static function pontoSocioassistencial($value = null) {
         $options = array(
@@ -169,5 +181,4 @@ class Acao extends AppModel {
     const SISTEMA_LOGISTICO_CADUNICO = 1;
     const SISTEMA_LOGISTICO_PROGRAMACAO_LOCAL = 2;
     const SISTEMA_LOGISTICO_VEICULO = 3;
-
 }
