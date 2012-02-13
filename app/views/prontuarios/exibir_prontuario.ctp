@@ -489,7 +489,7 @@ function classificaIDF($indice) {
             <tr>
                 <td>Atividade:</td>
                 <td>Encaminhamento:</td>
-                <td>Prazo máximo:</td>
+                <td>Prazo:</td>
             </tr>
             <?php
             foreach ($estrategia['Acao'] as $acao) {
@@ -521,25 +521,6 @@ function classificaIDF($indice) {
         <tbody>
             <?php
             for ($i = 0; $i < 8; $i++) {
-                ?>
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <?php
-            }
-            ?>
-        </tbody>
-    </table>
-    <p><!-- SEPARADOR --></p>
-    <table>
-        <thead>
-            <tr>
-                <td align="center">Análise Final (preenchido pelo técnico do Cras)</td>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            for ($i = 0; $i < 5; $i++) {
                 ?>
                 <tr>
                     <td>&nbsp;</td>
