@@ -22,3 +22,15 @@ echo $this->Html->tag('/fieldset', null);
 echo $this->Form->end();
 ?>
 <span>Selecione os filtros para os domícilios.</span>
+<script type="text/javascript">
+
+    $('.filtro').parent().hide();
+    if($('#ProntuarioFiltro').val() != '')
+        $('.' + $('#ProntuarioFiltro').val()).parent().show();
+        
+    $('#ProntuarioFiltro').change(function(){
+        $('.filtro').val('').parent().hide();
+        $('.' + $(this).val()).parent().show();
+    });
+        
+</script>

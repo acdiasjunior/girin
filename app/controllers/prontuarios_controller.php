@@ -34,7 +34,10 @@ class ProntuariosController extends AppController {
     }
     
     function gerar() {
-        
+//        $filtros = $this->Session->read('prontuarios.gerar.filtroDomicilios');
+//        var_dump($filtros); die();
+//        foreach($filtros as $nome)
+//            var_dump($nome);
     }
     
     function filtro() {

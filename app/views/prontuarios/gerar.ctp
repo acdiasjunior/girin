@@ -7,16 +7,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
 <script type="text/javascript">
 
     $(function() {
-        
-        $('.filtro').parent().hide();
-        if($('#ProntuarioFiltro').val() != '')
-            $('.' + $('#ProntuarioFiltro').val()).parent().show();
-        
-        $('#ProntuarioFiltro').change(function(){
-            $('.filtro').val('').parent().hide();
-            $('.' + $(this).val()).parent().show();
-        });
-        
+                
         $("#filtrarDomicilios").dialog({
             resizable: false,
             width: 600,
@@ -119,7 +110,6 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'domicilios', 'action' => 'cadastro')); ?>/' + id);
     });
-    //}).disableSelection();
 
     function actions(com, grid) {
         var id = $('.trSelected', grid).find('td[abbr="Domicilio.codigo_domiciliar"]').text();
