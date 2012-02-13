@@ -162,16 +162,16 @@ function classificaIDF($indice) {
         </thead>
         <tbody>
             <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td>Visita 1: ______/______/___________</td>
+                <td>Visita 2: ______/______/___________</td>
+                <td>Visita 3: ______/______/___________</td>
+                <td>Visita 4: ______/______/___________</td>
             </tr>
             <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td>Agente:</td>
+                <td>Agente:</td>
+                <td>Agente:</td>
+                <td>Agente:</td>
             </tr>
         </tbody>
     </table>
