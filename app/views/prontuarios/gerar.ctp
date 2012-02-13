@@ -18,9 +18,6 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
                     $( this ).dialog( "close" );
                     gravaFiltro();
                     $('#flex').flexReload();
-                },
-                "Cancelar": function() {
-                    $( this ).dialog( "close" );
                 }
             }
         });
@@ -76,14 +73,6 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             {separator: true},
             {name: 'Filtrar', bclass: 'prontuario', onpress : actions},
             {separator: true}
-        ],
-        searchitems : [
-            {display: 'Cód. Domiciliar', name : 'Domicilio.codigo_domiciliar', isdefault: true},
-            {display: 'Responsável', name : 'Responsavel.nome'},
-            {display: 'IDF <=', name : 'Domicilio.idf'},
-            {display: 'Logradouro', name : 'Domicilio.logradouro'},
-            {display: 'Bairro', name : 'Bairro.nome'},
-            {display: 'Cidade', name : 'Domicilio.cidade'}
         ],
         sortname: 'Domicilio.codigo_domiciliar',
         sortorder: 'asc',

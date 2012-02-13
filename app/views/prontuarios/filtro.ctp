@@ -16,7 +16,7 @@ echo $this->Html->div('', '', array('style' => 'clear: both;'));
 echo $this->Form->input('responsavel_nome', array('label' => 'Nome Responsável Legal', 'class' => 'edit30'));
 echo $this->Html->div('', '', array('style' => 'clear: both;'));
 echo $this->Form->input('domicilio_idf', array('label' => 'IDF'));
-echo $this->Form->input('tipo_busca', array('label' => 'Tipo de busca', 'options' => array('<=' => 'Menor ou Igual que', '=' => 'Exatamente', '>' => 'Acima de')));
+echo $this->Form->input('tipo_busca', array('label' => 'Tipo de busca', 'options' => array('menor' => 'Menor ou Igual que', 'exatamente' => 'Exatamente', 'maior' => 'Acima de')));
 echo $this->Html->tag('/fieldset', null);
 
 echo $this->Form->end();

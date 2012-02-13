@@ -82,14 +82,23 @@ class DomiciliosController extends AppController {
             $conditions['Responsavel.cpf'] = $this->Session->read("$container.Domicilio_responsavel_cpf");
         if ($this->Session->read("$container.Domicilio_responsavel_nome") != '')
             $conditions['Responsavel.nome'] = $this->Session->read("$container.Domicilio_responsavel_nome");
-        if ($this->Session->read("$container.Domicilio_idf") != '')
-            $conditions['Domicilio.idf ' . $this->Session->read("$container.TipoBusca")] = $this->Session->read("$container.Domicilio_idf");
-
-        if ($this->params['form']['query'] != '')
-            if ($this->params['form']['qtype'] == 'Domicilio.idf')
-                $conditions['Domicilio.idf <='] = $this->params['form']['query'];
-            else
-                $conditions[$this->params['form']['qtype'] . ' LIKE'] = '%' . str_replace(' ', '%', $this->params['form']['query']) . '%';
+        if ($this->Session->read("$container.Domicilio_idf") != '') {
+            switch($this->Session->read("$container.TipoBusca"))
+            {
+                case 'menor':
+                    $tipo_busca = '<=';
+                    break;
+                case 'exatamente':
+                    $tipo_busca = '=';
+                    break;
+                case 'maior':
+                    $tipo_busca = '>';
+                    break;
+                default:
+                    return;
+            }
+            $conditions['Indice.idf ' . $tipo_busca] = $this->Session->read("$container.Domicilio_idf");
+        }
 
         $this->paginate = array(
             'page' => $this->params['form']['page'],
