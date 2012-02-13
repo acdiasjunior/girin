@@ -34,14 +34,16 @@ class ProntuariosController extends AppController {
     }
     
     function gerar() {
+        
+    }
+    
+    function filtro() {
+        $this->layout = 'ajax';
         $this->loadModel('Domicilio');
         $bairros = $this->Domicilio->Bairro->find('list', array('order' => 'Bairro.nome'));
         $cras = $this->Domicilio->Cras->find('list');
         $regioes = $this->Domicilio->Regiao->find('list');
         $this->set(compact('bairros', 'cras', 'regioes'));
-        foreach($this->Session->read('prontuarios.gerar.filtroDomicilios') as $key => $value) {
-            $this->data[$key] = $value;
-        }
     }
 
     function gerarProntuario($codigo_domiciliar = null) {
