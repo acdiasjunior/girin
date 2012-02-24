@@ -78,33 +78,23 @@ class DATABASE_CONFIG {
     var $default;
 
     function __construct() {
-        if ($_SERVER['SERVER_NAME'] == 'localhost')
+        if ($_SERVER['SERVER_NAME'] == 'juniordias.com.br' || $_SERVER['SERVER_NAME'] == 'www.juniordias.com.br')
             $this->default = array(
-                'driver' => 'mysql',
+                'driver' => 'postgres',
                 'persistent' => false,
-                'host' => 'localhost',
-                'login' => 'root',
-                'password' => '',
-                'database' => 'programacaolocal',
-                'encoding' => 'utf8'
-            );
-        else if ($_SERVER['SERVER_NAME'] == 'juniordias.com.br' || $_SERVER['SERVER_NAME'] == 'www.juniordias.com.br')
-            $this->default = array(
-                'driver' => 'mysql',
-                'persistent' => false,
-                'host' => 'mysql.juniordias.com.br',
-                'login' => 'juniordias02',
+                'host' => 'pgsql.juniordias.com.br',
+                'login' => 'juniordias',
                 'password' => 'system',
-                'database' => 'juniordias02',
+                'database' => 'juniordias',
                 'encoding' => 'utf8'
             );
         else
             $this->default = array(
-                'driver' => 'mysql',
+                'driver' => 'postgres',
                 'persistent' => false,
-                'host' => 'localhost',
-                'login' => 'root',
-                'password' => '',
+                'host' => '127.0.0.1',
+                'login' => 'programacaolocal',
+                'password' => 'sistema',
                 'database' => 'programacaolocal',
                 'encoding' => 'utf8'
             );

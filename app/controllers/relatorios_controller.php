@@ -249,7 +249,7 @@ class RelatoriosController extends AppController {
     }
 
     function trabalhoEmprego() {
-        $idade = "(YEAR(CURDATE())-YEAR(Pessoa.data_nascimento))-(RIGHT(CURDATE(),5)<RIGHT(Pessoa.data_nascimento,5))";
+        $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."data_nascimento")))';
         $options = array(
             'recursive' => -1,
             'joins' => array(
@@ -279,9 +279,10 @@ class RelatoriosController extends AppController {
             'group' => array(
                 'Pessoa.tipo_trabalho',
                 'FaixasEtaria.descricao',
+                'FaixasEtaria.faixa',
             ),
             'order' => array(
-                'FaixasEtaria.idade',
+                'FaixasEtaria.faixa',
             ),
         );
 
@@ -324,7 +325,7 @@ class RelatoriosController extends AppController {
     }
 
     function faixasEtarias() {
-        $idade = "(YEAR(CURDATE())-YEAR(Pessoa.data_nascimento))-(RIGHT(CURDATE(),5)<RIGHT(Pessoa.data_nascimento,5))";
+        $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."data_nascimento")))';
         $options = array(
             'recursive' => -1,
             'joins' => array(
@@ -332,7 +333,7 @@ class RelatoriosController extends AppController {
                     'alias' => 'FaixasEtaria',
                     'type' => 'INNER',
                     'conditions' => array(
-                        'CASE WHEN ' . $idade . ' > 80 THEN FaixasEtaria.idade = 80 ELSE FaixasEtaria.idade = ' . $idade . 'END',
+                        'CASE WHEN ' . $idade . ' > 80 THEN "FaixasEtaria"."idade" = 80 ELSE "FaixasEtaria"."idade" = ' . $idade . 'END',
                     )
                 ),
                 array('table' => 'domicilios',
@@ -355,9 +356,10 @@ class RelatoriosController extends AppController {
             'group' => array(
                 'Pessoa.genero',
                 'FaixasEtaria.descricao',
+                'FaixasEtaria.faixa',
             ),
             'order' => array(
-                'FaixasEtaria.idade',
+                'FaixasEtaria.faixa',
             ),
         );
 
@@ -442,7 +444,7 @@ class RelatoriosController extends AppController {
     }
 
     function valorRemuneracao() {
-        $idade = "(YEAR(CURDATE())-YEAR(Pessoa.data_nascimento))-(RIGHT(CURDATE(),5)<RIGHT(Pessoa.data_nascimento,5))";
+        $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."data_nascimento")))';
         $options = array(
             'recursive' => -1,
             'joins' => array(
@@ -457,29 +459,30 @@ class RelatoriosController extends AppController {
                     'alias' => 'Domicilio',
                     'type' => 'INNER',
                     'conditions' => array(
-                        'Pessoa.codigo_domiciliar = Domicilio.codigo_domiciliar',
+                        '"Pessoa"."codigo_domiciliar" = "Domicilio"."codigo_domiciliar"',
                     )
                 ),
             ),
             'fields' => array(
-                'COUNT(FaixasEtaria.id) AS total',
+                'COUNT("FaixasEtaria"."id") AS total',
                 '(CASE
-                    WHEN Pessoa.valor_remuneracao = 0 THEN "0 reais"
-                    WHEN Pessoa.valor_remuneracao BETWEEN 0.01 AND 70 THEN "ate 70 reais"
-                    WHEN Pessoa.valor_remuneracao BETWEEN 70.01 AND 140 THEN "70 a 140 reais"
-                    WHEN Pessoa.valor_remuneracao BETWEEN 140.01 AND 240 THEN "140 a 240 reais"
-                    WHEN Pessoa.valor_remuneracao BETWEEN 240.01 AND 545 THEN "240 a 545 reais"
-                    WHEN Pessoa.valor_remuneracao > 545 THEN "acima 545 reais"
+                    WHEN "Pessoa"."valor_remuneracao" = 0 THEN \'0 reais\'
+                    WHEN "Pessoa"."valor_remuneracao" BETWEEN 0.01 AND 70 THEN \'ate 70 reais\'
+                    WHEN "Pessoa"."valor_remuneracao" BETWEEN 70.01 AND 140 THEN \'70 a 140 reais\'
+                    WHEN "Pessoa"."valor_remuneracao" BETWEEN 140.01 AND 240 THEN \'140 a 240 reais\'
+                    WHEN "Pessoa"."valor_remuneracao" BETWEEN 240.01 AND 545 THEN \'240 a 545 reais\'
+                    WHEN "Pessoa"."valor_remuneracao" > 545 THEN \'acima 545 reais\'
                  END) AS remuneracao',
                 'FaixasEtaria.descricao',
                 'FaixasEtaria.faixa',
             ),
             'group' => array(
                 'remuneracao',
-                'FaixasEtaria.descricao',
+                '"FaixasEtaria"."descricao"',
+                '"FaixasEtaria"."faixa"',
             ),
             'order' => array(
-                'FaixasEtaria.idade',
+                'FaixasEtaria.faixa',
             ),
         );
 
@@ -528,22 +531,22 @@ class RelatoriosController extends AppController {
     function educacaoFormal() {
 
         $serie_escolar = '(CASE';
-        $serie_escolar .= ' WHEN grau_instrucao = ' . Pessoa::ESCOLARIDADE_ANALFABETO . ' THEN "analfabeto"';
-        $serie_escolar .= ' WHEN serie_escolar = ' . Pessoa::SERIE_CA_ALFABETIZACAO . ' THEN "alfabetizacao"';
-        $serie_escolar .= ' WHEN serie_escolar BETWEEN ' . Pessoa::SERIE_MATERNAL_I . ' AND ' . Pessoa::SERIE_MATERNAL_III . ' THEN "maternal"';
-        $serie_escolar .= ' WHEN serie_escolar BETWEEN ' . Pessoa::SERIE_JARDIM_I . ' AND ' . Pessoa::SERIE_JARDIM_III . ' THEN "jardim"';
-        $serie_escolar .= ' WHEN serie_escolar BETWEEN ' . Pessoa::SERIE_1_ENSINO_FUNDAMENTAL . ' AND ' . Pessoa::SERIE_2_ENSINO_FUNDAMENTAL . ' THEN "1 a 2 ano"';
-        $serie_escolar .= ' WHEN serie_escolar BETWEEN ' . Pessoa::SERIE_3_ENSINO_FUNDAMENTAL . ' AND ' . Pessoa::SERIE_4_ENSINO_FUNDAMENTAL . ' THEN "3 a 4 ano"';
-        $serie_escolar .= ' WHEN serie_escolar BETWEEN ' . Pessoa::SERIE_5_ENSINO_FUNDAMENTAL . ' AND ' . Pessoa::SERIE_6_ENSINO_FUNDAMENTAL . ' THEN "5 a 6 ano"';
-        $serie_escolar .= ' WHEN serie_escolar BETWEEN ' . Pessoa::SERIE_7_ENSINO_FUNDAMENTAL . ' AND ' . Pessoa::SERIE_8_ENSINO_FUNDAMENTAL . ' THEN "7 a 8 ano"';
-        $serie_escolar .= ' WHEN serie_escolar = ' . Pessoa::SERIE_1_ENSINO_MEDIO . ' THEN "1 ano medio"';
-        $serie_escolar .= ' WHEN serie_escolar = ' . Pessoa::SERIE_2_ENSINO_MEDIO . ' THEN "2 ano medio"';
-        $serie_escolar .= ' WHEN serie_escolar = ' . Pessoa::SERIE_3_ENSINO_MEDIO . ' THEN "3 ano medio"';
-        $serie_escolar .= ' WHEN grau_instrucao >= ' . Pessoa::ESCOLARIDADE_SUPERIOR_INCOMPLETO . ' THEN "ensino superior"';
-        $serie_escolar .= ' WHEN serie_escolar = ' . Pessoa::SERIE_NAO_INFORMADO . ' THEN "nao informado"';
+        $serie_escolar .= ' WHEN grau_instrucao = ' . Pessoa::ESCOLARIDADE_ANALFABETO . ' THEN \'analfabeto\'';
+        $serie_escolar .= ' WHEN serie_escolar = ' . Pessoa::SERIE_CA_ALFABETIZACAO . ' THEN \'alfabetizacao\'';
+        $serie_escolar .= ' WHEN serie_escolar BETWEEN ' . Pessoa::SERIE_MATERNAL_I . ' AND ' . Pessoa::SERIE_MATERNAL_III . ' THEN \'maternal\'';
+        $serie_escolar .= ' WHEN serie_escolar BETWEEN ' . Pessoa::SERIE_JARDIM_I . ' AND ' . Pessoa::SERIE_JARDIM_III . ' THEN \'jardim\'';
+        $serie_escolar .= ' WHEN serie_escolar BETWEEN ' . Pessoa::SERIE_1_ENSINO_FUNDAMENTAL . ' AND ' . Pessoa::SERIE_2_ENSINO_FUNDAMENTAL . ' THEN \'1 a 2 ano\'';
+        $serie_escolar .= ' WHEN serie_escolar BETWEEN ' . Pessoa::SERIE_3_ENSINO_FUNDAMENTAL . ' AND ' . Pessoa::SERIE_4_ENSINO_FUNDAMENTAL . ' THEN \'3 a 4 ano\'';
+        $serie_escolar .= ' WHEN serie_escolar BETWEEN ' . Pessoa::SERIE_5_ENSINO_FUNDAMENTAL . ' AND ' . Pessoa::SERIE_6_ENSINO_FUNDAMENTAL . ' THEN \'5 a 6 ano\'';
+        $serie_escolar .= ' WHEN serie_escolar BETWEEN ' . Pessoa::SERIE_7_ENSINO_FUNDAMENTAL . ' AND ' . Pessoa::SERIE_8_ENSINO_FUNDAMENTAL . ' THEN \'7 a 8 ano\'';
+        $serie_escolar .= ' WHEN serie_escolar = ' . Pessoa::SERIE_1_ENSINO_MEDIO . ' THEN \'1 ano medio\'';
+        $serie_escolar .= ' WHEN serie_escolar = ' . Pessoa::SERIE_2_ENSINO_MEDIO . ' THEN \'2 ano medio\'';
+        $serie_escolar .= ' WHEN serie_escolar = ' . Pessoa::SERIE_3_ENSINO_MEDIO . ' THEN \'3 ano medio\'';
+        $serie_escolar .= ' WHEN grau_instrucao >= ' . Pessoa::ESCOLARIDADE_SUPERIOR_INCOMPLETO . ' THEN \'ensino superior\'';
+        $serie_escolar .= ' WHEN serie_escolar = ' . Pessoa::SERIE_NAO_INFORMADO . ' THEN \'nao informado\'';
         $serie_escolar .= ' END) AS educacao_formal';
 
-        $idade = "(YEAR(CURDATE())-YEAR(Pessoa.data_nascimento))-(RIGHT(CURDATE(),5)<RIGHT(Pessoa.data_nascimento,5))";
+        $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."data_nascimento")))';
 
         $options = array(
             'recursive' => -1,
@@ -572,9 +575,10 @@ class RelatoriosController extends AppController {
             'group' => array(
                 'educacao_formal',
                 'FaixasEtaria.descricao',
+                'FaixasEtaria.faixa',
             ),
             'order' => array(
-                'FaixasEtaria.idade',
+                'FaixasEtaria.faixa',
             ),
             'conditions' => array(
 //            'grau_instrucao >= ' => Pessoa::ESCOLARIDADE_SUPERIOR_INCOMPLETO,

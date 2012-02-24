@@ -38,7 +38,7 @@ class Domicilio extends AppModel {
     public function __construct($id=false, $table=null, $ds=null) {
         parent::__construct($id, $table, $ds);
         $this->virtualFields = array(
-            'renda_per_capita' => "(`Domicilio`.`valor_renda_familia` / `Domicilio`.`quantidade_pessoas`)"
+            'renda_per_capita' => "(Domicilio.valor_renda_familia / Domicilio.quantidade_pessoas)"
         );
     }
 

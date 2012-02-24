@@ -35,15 +35,9 @@ class Pessoa extends AppModel {
 
     public function __construct($id=false, $table=null, $ds=null) {
         parent::__construct($id, $table, $ds);
-
-        $sql_meses = "(MONTH(CURDATE()) - MONTH(`{$this->alias}`.`data_nascimento`))";
-        $sql_meses .= "+ IF(((MONTH(CURDATE()) <= MONTH(`{$this->alias}`.`data_nascimento`)) AND (DAY(CURDATE()) <  DAY(`{$this->alias}`.`data_nascimento`))),11,0)";
-        $sql_meses .= "+ IF(((MONTH(CURDATE()) <  MONTH(`{$this->alias}`.`data_nascimento`)) AND (DAY(CURDATE()) >= DAY(`{$this->alias}`.`data_nascimento`))),12,0)";
-        $sql_meses .= "+ IF(((MONTH(CURDATE()) >  MONTH(`{$this->alias}`.`data_nascimento`)) AND (DAY(CURDATE()) <  DAY(`{$this->alias}`.`data_nascimento`))),-1,0)";
-
         $this->virtualFields = array(
-            'idade' => "(YEAR(CURDATE())-YEAR(`{$this->alias}`.`data_nascimento`))-(RIGHT(CURDATE(),5)<RIGHT(`{$this->alias}`.`data_nascimento`,5))",
-            'meses' => $sql_meses
+            'idade' => "(SELECT EXTRACT(year from AGE(NOW(), {$this->alias}.data_nascimento)))",
+            'meses' => "(SELECT EXTRACT(month from AGE(NOW(), {$this->alias}.data_nascimento)))"
         );
     }
 
