@@ -96,12 +96,8 @@ class Acao extends AppModel {
 
     static function rede($value = null) {
         $options = array(
-            //self::REDE_EDUCACAO => __('Educação', true),
-            //self::REDE_ENSINO => __('Esino', true),
-            //self::REDE_MEDIDAS_SOCIOEDUCATIVAS => __('Medidas Socioeducativas', true), // REENQUADRAR AÇÕES NESSA REDE
-            //self::REDE_PROTECAO => __('Proteção', true),
-            self::REDE_PROTECAO_ABUSO_DROGAS => __('Proteção ao abuso de drogas', true),
             self::REDE_PROTECAO_ATENDIMENTO => __('Rede de Atendimento', true),
+            self::REDE_PROTECAO_ABUSO_DROGAS => __('Proteção ao abuso de drogas', true),
             self::REDE_PROTECAO_CRIANCA_ADOLESCENTE => __('Proteção à Criança e Adolescente', true),
             self::REDE_PROTECAO_DEFICIENCIA => __('Proteção às pessoas com deficiência', true),
             self::REDE_PROTECAO_IDOSOS => __('Proteção às pessoas idosas', true),
@@ -113,11 +109,7 @@ class Acao extends AppModel {
         return parent::enum($value, $options);
     }
 
-    //const REDE_EDUCACAO = 1;
-    //const REDE_ENSINO = 2;
-    //const REDE_MEDIDAS_SOCIOEDUCATIVAS = ; // REENQUADRAR AÇÕES NESSA REDE
-    //const REDE_PROTECAO = 2;  // PASSAR PARA REDE DE PROTEÇÃO SOCIOASSISTENCIAL (FEITO)
-    const REDE_ATENDIMENTO = 1;
+    const REDE_PROTECAO_ATENDIMENTO = 1;
     const REDE_PROTECAO_ABUSO_DROGAS = 2;
     const REDE_PROTECAO_CRIANCA_ADOLESCENTE = 3;
     const REDE_PROTECAO_DEFICIENCIA = 4;
