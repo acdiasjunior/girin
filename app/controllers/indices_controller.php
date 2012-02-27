@@ -84,14 +84,14 @@ class IndicesController extends AppController {
         $fields = array(
             'COUNT(*) AS total',
             '(CASE
-                    WHEN Indice.idf <= 0.62 THEN "ate06"
-                    WHEN Indice.idf > 0.62 AND Indice.idf <= 0.7 THEN "de06a07"
-                    WHEN Indice.idf > 0.7 AND Indice.idf <= 0.8 THEN "de07a08"
-                    WHEN Indice.idf > 0.8 AND Indice.idf <= 0.9 THEN "de08a09"
-                    WHEN Indice.idf > 0.9 THEN "maior09"
-                 END) AS idf',
+                    WHEN "Indice"."idf" <= 0.62 THEN \'ate06\'
+                    WHEN "Indice"."idf" > 0.62 AND "Indice"."idf" <= 0.7 THEN \'de06a07\'
+                    WHEN "Indice"."idf" > 0.7 AND "Indice"."idf" <= 0.8 THEN \'de07a08\'
+                    WHEN "Indice"."idf" > 0.8 AND "Indice"."idf" <= 0.9 THEN \'de08a09\'
+                    WHEN "Indice"."idf" > 0.9 THEN \'maior09\'
+                 END) AS indice',
         );
-        $group = array('idf');
+        $group = array('indice');
 
         $options = array(
             'recursive' => -1,
@@ -106,7 +106,7 @@ class IndicesController extends AppController {
         );
 
         foreach ($this->Indice->find('all', $options) as $total) {
-            $totais[$total[0]['idf']] = $total[0]['total'];
+            $totais[$total[0]['indice']] = $total[0]['total'];
             $totais['total'] += $total[0]['total'];
         }
 
