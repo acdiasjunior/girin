@@ -258,14 +258,14 @@ echo $this->element('filtro');
     </tr>
     <tr>
         <td style="background-color: orange;"></td>
-        <td style="background-color: #fff;">0.61 a 0.70</td>
+        <td style="background-color: #fff;">0.63 a 0.70</td>
         <td style="background-color: #fff;"><?php echo $totais['de06a07'] ?></td>
         <td width="94" style="text-align: center; background-color: #fff;"><?php echo round(($totais['de06a07'] * 100) / $totais['total'], 2) ?> %</td>
         <td colspan="10" style="background-color: #fff;"><div style="background-color: orange; width: <?php echo round((($totais['de06a07'] * 100) / $totais['total']) * 330 / 100) ?>px; height: 10px;"></div></td>
     </tr>
     <tr>
         <td style="background-color: red;"></td>
-        <td style="background-color: #fff;">0 a 0.60</td>
+        <td style="background-color: #fff;">0 a 0.62</td>
         <td style="background-color: #fff;"><?php echo $totais['ate06'] ?></td>
         <td width="94" style="text-align: center; background-color: #fff;"><?php echo round(($totais['ate06'] * 100) / $totais['total'], 2) ?> %</td>
         <td colspan="10" style="background-color: #fff;"><div style="background-color: red; width: <?php echo round((($totais['ate06'] * 100) / $totais['total']) * 330 / 100) ?>px; height: 10px;"></div></td>
