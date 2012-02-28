@@ -6,5 +6,6 @@ class Estrategia extends AppModel {
     var $displayField = array("%s - %s", "{n}.Estrategia.codigo", "{n}.Estrategia.descricao");
     var $hasMany = array('Acao');
     var $hasAndBelongsToMany = array('Indicador', 'Prontuario');
+    var $order = array('Estrategia.codigo');
 
 }
