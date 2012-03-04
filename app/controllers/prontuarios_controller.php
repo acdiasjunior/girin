@@ -104,15 +104,9 @@ class ProntuariosController extends AppController {
         $this->layout = 'ajax';
         $this->Prontuario->recursive = 2;
         $this->data = $this->Prontuario->read();
-    }
-
-    function exibirDados($id) {
-        $this->layout = 'ajax';
-        $this->autoRender = false;
-        $this->Prontuario->recursive = 2;
-        echo '<pre>';
-        echo print_r($this->Prontuario->read());
-        echo '</pre>';
+        $this->loadModel('Estrategia');
+        $total_estrategias = $this->Estrategia->find('count');
+        $this->set(compact('total_estrategias'));
     }
 
     function cadastro($id = null) {
