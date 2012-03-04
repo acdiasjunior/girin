@@ -532,7 +532,7 @@ function classificaIDF($indice) {
         </tbody>
     </table>
     <p><!-- SEPARADOR --></p>
-    <p class="titulo">5. Análise do Plano de Desenvolvimento Familiar (a ser preenchido pelo Técnico do CRAS)</p>
+    <p class="titulo">5. Análise do Plano de Desenvolvimento Familiar (preenchido pelo Técnico do CRAS)</p>
     <table>
         <tbody>
             <?php
