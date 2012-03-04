@@ -69,7 +69,7 @@ class ProntuariosController extends AppController {
             'usuario_id' => $this->Session->read('Auth.Usuario.id'),
             'numero_prontuario' => (int) $this->Prontuario->field('MAX(numero_prontuario)', array('codigo_domiciliar' => $codigo_domiciliar)) + 1,
         );
-
+        
         foreach ($indices['Indice'] as $key => $value) {
             if ($value == '0' && array_search($key, $indicadores) !== false) {
                 $list[array_search($key, $indicadores)] = $key;
@@ -88,12 +88,11 @@ class ProntuariosController extends AppController {
         );
 
         foreach ($estrategias as $estrategia) {
-            $this->data['Estrategia']['Estrategia'][] = $estrategia['EstrategiaIndicador']['estrategia_id'];
+            $this->data['Estrategia']['Estrategia'][] = $estrategia[0]['estrategia_id'];
         }
 
         if ($this->Prontuario->save($this->data)) {
             $this->redirect(array('controller' => 'prontuarios', 'action' => 'gerarPDF', $this->Prontuario->id));
-            //$this->redirect(array('controller' => 'prontuarios', 'action' => 'exibirProntuario', $this->Prontuario->id));
         } else {
             $this->Session->setFlash('Ocorreu um erro ao gravar o prontuário!');
             $this->redirect(array('controller' => 'prontuarios', 'action' => 'index'));
