@@ -123,12 +123,14 @@ function classificaIDF($indice) {
             </thead>
             <tbody>
                 <tr>
-                    <td><?php echo $this->data['Domicilio']['Responsavel']['nome'] ?>
+                    <td valign="top"><?php echo $this->data['Domicilio']['Responsavel']['nome'] ?>
                         <br />Idade: <?php echo $this->data['Domicilio']['Responsavel']['idade'] ?>
-                        - NIS: <?php echo $this->data['Domicilio']['Responsavel']['nis'] ?></td>
-                    <td><?php echo Pessoa::estadoCivil($this->data['Domicilio']['Responsavel']['estado_civil']) ?></td>
-                    <td><?php echo Pessoa::serieEscolar($this->data['Domicilio']['Responsavel']['serie_escolar']) ?> - <?php echo Pessoa::tipoEscola($this->data['Domicilio']['Responsavel']['tipo_escola']) ?></td>
-                    <td><?php echo Pessoa::tipoTrabalho($this->data['Domicilio']['Responsavel']['tipo_trabalho']) ?></td>
+                        - NIS: <?php echo $this->data['Domicilio']['Responsavel']['nis'] ?>
+                        <br />&nbsp;
+                    </td>
+                    <td valign="top"><?php echo Pessoa::estadoCivil($this->data['Domicilio']['Responsavel']['estado_civil']) ?></td>
+                    <td valign="top"><?php echo Pessoa::serieEscolar($this->data['Domicilio']['Responsavel']['serie_escolar']) ?> - <?php echo Pessoa::tipoEscola($this->data['Domicilio']['Responsavel']['tipo_escola']) ?></td>
+                    <td valign="top"><?php echo Pessoa::tipoTrabalho($this->data['Domicilio']['Responsavel']['tipo_trabalho']) ?></td>
                 </tr>
             </tbody>
             <tbody>
@@ -137,12 +139,14 @@ function classificaIDF($indice) {
                     if ($membro['nis'] != $this->data['Domicilio']['Responsavel']['nis']) {
                         ?>
                         <tr>
-                            <td><?php echo $membro['nome'] ?>
+                            <td valign="top"><?php echo $membro['nome'] ?>
                                 <br />Idade: <?php echo $membro['idade'] ?>
-                                - NIS: <?php echo $membro['nis'] ?></td>
-                            <td><?php echo Pessoa::estadoCivil($membro['estado_civil']) ?></td>
-                            <td><?php echo Pessoa::serieEscolar($membro['serie_escolar']) ?> - <?php echo Pessoa::tipoEscola($membro['tipo_escola']) ?></td>
-                            <td><?php echo Pessoa::tipoTrabalho($membro['tipo_trabalho']) ?></td>
+                                - NIS: <?php echo $membro['nis'] ?>
+                                <br />&nbsp;
+                            </td>
+                            <td valign="top"><?php echo Pessoa::estadoCivil($membro['estado_civil']) ?></td>
+                            <td valign="top"><?php echo Pessoa::serieEscolar($membro['serie_escolar']) ?> - <?php echo Pessoa::tipoEscola($membro['tipo_escola']) ?></td>
+                            <td valign="top"><?php echo Pessoa::tipoTrabalho($membro['tipo_trabalho']) ?></td>
                         </tr>
                         <?php
                     } //end if
