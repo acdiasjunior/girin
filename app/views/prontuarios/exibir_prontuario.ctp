@@ -63,7 +63,6 @@ function classificaIDF($indice) {
         border-right: 0.3mm solid #000;
     }
     .content {
-        page-break-after: always;
         width: 100%;
     }
     .header {
@@ -180,7 +179,6 @@ function classificaIDF($indice) {
         </tbody>
     </table>
 </div>
-<pagebreak />
 <div class="content">
     <p class="titulo">2. Situação do Desenvolvimento da Família</p>
     <?php
@@ -480,7 +478,6 @@ function classificaIDF($indice) {
         </tbody>
     </table>
 </div>
-<pagebreak />
 <div class="content">
     <p class="titulo">3. Estratégia de Enfrentamento</p>
     <?php
@@ -520,11 +517,11 @@ function classificaIDF($indice) {
 </div>
 <pagebreak />
 <div class="content">
-    <p class="titulo">4. Observações Gerais (preenchido pelo agente social)</p>
+    <p class="titulo">4. Observações Gerais (preenchido pelo Agente Local da Família)</p>
     <table>
         <tbody>
             <?php
-            for ($i = 0; $i < 8; $i++) {
+            for ($i = 0; $i < 14; $i++) {
                 ?>
                 <tr>
                     <td>&nbsp;</td>
@@ -535,11 +532,11 @@ function classificaIDF($indice) {
         </tbody>
     </table>
     <p><!-- SEPARADOR --></p>
-    <p class="titulo">5. Análise do Plano de Desenvolvimento Familiar (a ser preenchido pelo técnico do Cras)</p>
+    <p class="titulo">5. Análise do Plano de Desenvolvimento Familiar (a ser preenchido pelo Técnico do CRAS)</p>
     <table>
         <tbody>
             <?php
-            for ($i = 0; $i < 10; $i++) {
+            for ($i = 0; $i < 14; $i++) {
                 ?>
                 <tr>
                     <td>&nbsp;</td>
