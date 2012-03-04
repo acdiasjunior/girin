@@ -13,19 +13,10 @@ class DomiciliosController extends AppController {
     function lista() {
 
         $this->layout = 'ajax';
-
-        $this->loadModel('Usuario');
-        $this->Usuario->id = $this->Session->read('Auth.Usuario.id');
-        $usuario = $this->Usuario->read();
-        
-        $cras_usuario = '';
-        foreach($usuario['Cras'] as $cras)
-            $cras_usuario .= $cras['id'] . ',';
-        $cras_usuario = substr($cras_usuario,0,strlen($cras_usuario) -1);
         
         $conditions = array(
             'Domicilio.quantidade_pessoas != 0',
-            'Domicilio.cras_id IN(' . $cras_usuario .')',
+            'Domicilio.cras_id IN(' . Usuario::crasUsuario() . ')',
         );
 
         if ($this->params['form']['query'] != '')
