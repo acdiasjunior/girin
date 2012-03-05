@@ -225,11 +225,6 @@ echo $this->element('filtro');
             <td style="width: 100px;">100 %</td>
         </tr>
     </tbody>
-        <tr style="font-weight: bold;">
-            <td>Total de Familias Referenciadas</td>
-            <td colspan="4"><?php echo $domicilios ?></td>
-        </tr>
-    </tbody>
 </table>
 <br />
 Tempo de processamento: <?php echo $faixaEtaria['tempo'] ?> segundos.

@@ -7,7 +7,7 @@ $logado = $this->Session->check('Auth.Usuario');
     <head>
         <?php echo $this->Html->charset(); ?>
         <title>
-            ..:: Secretaria de Assistência Social ::.. <?php echo $title_for_layout; ?>
+            SAS - Programação Local
         </title>
         <?php
         echo $this->Html->meta('icon');

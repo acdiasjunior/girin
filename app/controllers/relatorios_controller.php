@@ -115,30 +115,29 @@ class RelatoriosController extends AppController {
 
                 $this->loadModel('Domicilio');
                 $domicilios = $this->Domicilio->find('list', array(
-                        'conditions' => array(
-                            'Domicilio.quantidade_pessoas > 0'
-                        )
+                    'conditions' => array(
+                        'Domicilio.quantidade_pessoas > 0'
                     )
+                        )
                 );
 
                 foreach ($domicilios as $codigo) {
 
                     $domicilio = $this->Domicilio->read(
                             array(
-                                'Domicilio.codigo_domiciliar',
-                                'Indice.*',
-                                'Responsavel.nome',
-                                'Responsavel.nis',
-                                'Domicilio.valor_renda_familia',
-                                'Domicilio.quantidade_pessoas',
-                                'Domicilio.valor_beneficio',
-                                'Domicilio.tipo_logradouro',
-                                'Domicilio.logradouro',
-                                'Domicilio.numero',
-                                'Domicilio.complemento',
-                                'Bairro.nome',
-                            ),
-                            $codigo
+                        'Domicilio.codigo_domiciliar',
+                        'Indice.*',
+                        'Responsavel.nome',
+                        'Responsavel.nis',
+                        'Domicilio.valor_renda_familia',
+                        'Domicilio.quantidade_pessoas',
+                        'Domicilio.valor_beneficio',
+                        'Domicilio.tipo_logradouro',
+                        'Domicilio.logradouro',
+                        'Domicilio.numero',
+                        'Domicilio.complemento',
+                        'Bairro.nome',
+                            ), $codigo
                     );
 
                     print fread($fr, $size);
@@ -370,6 +369,7 @@ class RelatoriosController extends AppController {
                     'Domicilio.regiao_id' => $this->data['Relatorio']['regiao_id'],
                     'Domicilio.quantidade_pessoas > 0'
                 );
+                $options['group'][] = 'Domicilio.regiao_id';
                 break;
             case 'cras_id':
                 $options['fields'][] = 'Domicilio.cras_id';
@@ -377,6 +377,7 @@ class RelatoriosController extends AppController {
                     'Domicilio.cras_id' => $this->data['Relatorio']['cras_id'],
                     'Domicilio.quantidade_pessoas > 0'
                 );
+                $options['group'][] = 'Domicilio.cras_id';
                 break;
             case 'bairro_id':
                 $options['fields'][] = 'Domicilio.bairro_id';
@@ -384,22 +385,17 @@ class RelatoriosController extends AppController {
                     'Domicilio.bairro_id' => $this->data['Relatorio']['bairro_id'],
                     'Domicilio.quantidade_pessoas > 0'
                 );
+                $options['group'][] = 'Domicilio.bairro_id';
                 break;
         }
 
         $inicio = microtime(true);
         $pessoas = $this->Pessoa->find('all', $options);
 
-        unset($options['order']);
-        unset($options['group']);
-        unset($options['fields']);
-
-        $faixaEtaria['total'] = $this->Pessoa->find('count', $options);
-
-        $faixaEtaria['tempo'] = microtime(true) - $inicio;
-
+        $faixaEtaria['total'] = 0;
+        
         foreach ($pessoas as $faixa) {
-            $faixaEtaria
+            $faixaEtaria['total'] += $faixaEtaria
                     [$faixa['FaixasEtaria']['faixa']]
                     [$faixa['Pessoa']['genero']]
                     [$faixa['FaixasEtaria']['descricao']] = $faixa[0]['total'];
@@ -428,19 +424,16 @@ class RelatoriosController extends AppController {
             else
                 $faixaEtaria[$faixa['Pessoa']['genero']] += $faixa[0]['total'];
         }
-
+        
+        $faixaEtaria['tempo'] = microtime(true) - $inicio;
+        
         $bairros = $this->Domicilio->Bairro->find('list', array(
             'order' => 'Bairro.nome'
                 ));
         $cras = $this->Domicilio->Cras->find('list');
         $regioes = $this->Domicilio->Regiao->find('list');
 
-//        $this->loadModel('Domicilio');
-//        $options['fields'] = array();
-        $domicilios = $this->Domicilio->find('count', array($options));
-//        var_dump($domicilios); die();
-
-        $this->set(compact('faixaEtaria', 'bairros', 'cras', 'regioes', 'domicilios'));
+        $this->set(compact('faixaEtaria', 'bairros', 'cras', 'regioes'));
     }
 
     function valorRemuneracao() {
