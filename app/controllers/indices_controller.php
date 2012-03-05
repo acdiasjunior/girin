@@ -167,6 +167,7 @@ class IndicesController extends AppController {
 
                     $this->data['Indice'] = $domicilio['Indice'];
                     $this->data['Indice']['codigo_domiciliar'] = $codigo_domiciliar;
+                    $this->data['Indice']['modified'] = date("Y-m-d H:i:s");
 
                     if (!$this->Indice->save($this->data)) {
                         $retorno['status'] = 0;
