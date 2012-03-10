@@ -13,10 +13,10 @@ class DomiciliosController extends AppController {
     function lista() {
 
         $this->layout = 'ajax';
-        
+
         $conditions = array(
             'Domicilio.quantidade_pessoas != 0',
-            'Domicilio.cras_id IN(' . Usuario::crasUsuario() . ')',
+            'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
         );
 
         if ($this->params['form']['query'] != '')
@@ -74,8 +74,7 @@ class DomiciliosController extends AppController {
         if ($this->Session->read("$container.Domicilio_responsavel_nome") != '')
             $conditions['Responsavel.nome'] = $this->Session->read("$container.Domicilio_responsavel_nome");
         if ($this->Session->read("$container.Domicilio_idf") != '') {
-            switch($this->Session->read("$container.TipoBusca"))
-            {
+            switch ($this->Session->read("$container.TipoBusca")) {
                 case 'menor':
                     $tipo_busca = '<=';
                     break;
@@ -217,6 +216,24 @@ class DomiciliosController extends AppController {
                 $this->Session->setFlash("Upload do arquivo falhou!");
             }
         }
+    }
+
+    private function crasUsuario() {
+        $this->loadModel('Usuario');
+        $this->Usuario->id = $this->Session->read('Auth.Usuario.id');
+        $cras_usuario = array();
+
+        if ($this->Usuario->id == 1) {
+            $this->loadModel('Cras');
+            $cras_usuario = array_keys($this->Cras->find('list'));
+        } else {
+            $usuario = $this->Usuario->read();
+            if (count($usuario['Cras']) > 0)
+                foreach ($usuario['Cras'] as $cras)
+                    $cras_usuario[] = $cras['id'];
+        }
+
+        return implode(',', $cras_usuario);
     }
 
 }
