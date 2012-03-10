@@ -67,12 +67,12 @@ class DomiciliosController extends AppController {
             $conditions['Domicilio.cras_id'] = $this->Session->read("$container.Domicilio_cras_id");
         if ($this->Session->read("$container.Domicilio_bairro_id") != '')
             $conditions['Domicilio.bairro_id'] = $this->Session->read("$container.Domicilio_bairro_id");
-        if ($this->Session->read("$container.Domicilio_responsavel_nis") != '')
-            $conditions['Responsavel.nis'] = $this->Session->read("$container.Domicilio_responsavel_nis");
-        if ($this->Session->read("$container.Domicilio_responsavel_cpf") != '')
-            $conditions['Responsavel.cpf'] = $this->Session->read("$container.Domicilio_responsavel_cpf");
-        if ($this->Session->read("$container.Domicilio_responsavel_nome") != '')
-            $conditions['Responsavel.nome'] = $this->Session->read("$container.Domicilio_responsavel_nome");
+        if ($this->Session->read("$container.Responsavel_nis") != '')
+            $conditions['Responsavel.nis'] = $this->Session->read("$container.Responsavel_nis");
+        if ($this->Session->read("$container.Responsavel_cpf") != '')
+            $conditions['Responsavel.cpf'] = $this->Session->read("$container.Responsavel_cpf");
+        if ($this->Session->read("$container.Responsavel_nome") != '')
+            $conditions['Responsavel.nome'] = $this->Session->read("$container.Responsavel_nome");
         if ($this->Session->read("$container.Domicilio_idf") != '') {
             switch ($this->Session->read("$container.TipoBusca")) {
                 case 'menor':
@@ -89,6 +89,8 @@ class DomiciliosController extends AppController {
             }
             $conditions['Indice.idf ' . $tipo_busca] = $this->Session->read("$container.Domicilio_idf");
         }
+        
+        print_r($conditions); die();
 
         $this->paginate = array(
             'page' => $this->params['form']['page'],
