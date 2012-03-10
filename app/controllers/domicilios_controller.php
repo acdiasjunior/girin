@@ -72,7 +72,7 @@ class DomiciliosController extends AppController {
         if ($this->Session->read("$container.Responsavel_cpf") != '')
             $conditions['Responsavel.cpf'] = $this->Session->read("$container.Responsavel_cpf");
         if ($this->Session->read("$container.Responsavel_nome") != '')
-            $conditions['Responsavel.nome'] = $this->Session->read("$container.Responsavel_nome");
+            $conditions['Responsavel.nome LIKE '] = '%' . $this->Session->read("$container.Responsavel_nome") . '%';
         if ($this->Session->read("$container.Domicilio_idf") != '') {
             switch ($this->Session->read("$container.TipoBusca")) {
                 case 'menor':
@@ -90,8 +90,6 @@ class DomiciliosController extends AppController {
             $conditions['Indice.idf ' . $tipo_busca] = $this->Session->read("$container.Domicilio_idf");
         }
         
-        print_r($conditions); die();
-
         $this->paginate = array(
             'page' => $this->params['form']['page'],
             'limit' => $this->params['form']['rp'],
