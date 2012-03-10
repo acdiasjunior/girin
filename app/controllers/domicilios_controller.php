@@ -70,7 +70,7 @@ class DomiciliosController extends AppController {
         if ($this->Session->read("$container.Responsavel_nis") != '')
             $conditions['Responsavel.nis'] = $this->Session->read("$container.Responsavel_nis");
         if ($this->Session->read("$container.Responsavel_cpf") != '')
-            $conditions['Responsavel.cpf'] = $this->Session->read("$container.Responsavel_cpf");
+            $conditions['Responsavel.cpf'] = str_replace(array('.','-'), '', $this->Session->read("$container.Responsavel_cpf"));
         if ($this->Session->read("$container.Responsavel_nome") != '')
             $conditions['Responsavel.nome LIKE '] = '%' . $this->Session->read("$container.Responsavel_nome") . '%';
         if ($this->Session->read("$container.Domicilio_idf") != '') {
