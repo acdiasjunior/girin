@@ -188,24 +188,6 @@ class DomiciliosController extends AppController {
                 }
                 $this->Domicilio->query('UPDATE domicilios d SET bairro_id = (SELECT b.id FROM bairros b WHERE d.bairro_nome = b.nome)');
                 $this->Domicilio->query('UPDATE domicilios SET cras_id = (SELECT cras_id FROM bairros WHERE bairros.id = domicilios.bairro_id), regiao_id = (SELECT regiao_id FROM bairros WHERE bairros.id = domicilios.bairro_id)');
-                /* $this->Domicilio->query("UPDATE domicilios SET tipo_logradouro = 'RUA' WHERE tipo_logradouro = 'R';
-                  UPDATE domicilios SET tipo_logradouro = 'AVENIDA' WHERE tipo_logradouro = 'AV';
-                  UPDATE domicilios SET tipo_logradouro = 'TRAVESSA' WHERE tipo_logradouro = 'TV';
-                  UPDATE domicilios SET tipo_logradouro = 'ESTRADA' WHERE tipo_logradouro = 'EST';
-                  UPDATE domicilios SET tipo_logradouro = 'FAZENDA' WHERE tipo_logradouro = 'FAZ';
-                  UPDATE domicilios SET tipo_logradouro = 'SITIO' WHERE tipo_logradouro = 'SIT';
-                  UPDATE domicilios SET tipo_logradouro = 'PC' WHERE tipo_logradouro = 'PC';
-                  UPDATE domicilios SET tipo_logradouro = 'ALAMEDA' WHERE tipo_logradouro = 'AL';
-                  UPDATE domicilios SET tipo_logradouro = 'QTS' WHERE tipo_logradouro = 'QTS';
-                  UPDATE domicilios SET tipo_logradouro = 'RODOVIA' WHERE tipo_logradouro = 'ROD';
-                  UPDATE domicilios SET tipo_logradouro = 'R L' WHERE tipo_logradouro = 'R L';
-                  UPDATE domicilios SET tipo_logradouro = 'TRAVESSA' WHERE tipo_logradouro = 'TR';
-                  UPDATE domicilios SET tipo_logradouro = 'LD' WHERE tipo_logradouro = 'LD';
-                  UPDATE domicilios SET tipo_logradouro = 'VILA' WHERE tipo_logradouro = 'VL';
-                  UPDATE domicilios SET tipo_logradouro = 'GALERIA' WHERE tipo_logradouro = 'GAL';
-                  UPDATE domicilios SET tipo_logradouro = 'AVENIDA' WHERE tipo_logradouro = 'A';
-                  UPDATE domicilios SET tipo_logradouro = 'TRAVESSA' WHERE tipo_logradouro = 'TRV';
-                  UPDATE domicilios SET tipo_logradouro = 'CONJUNTO' WHERE tipo_logradouro = 'CJ';"); */
 
                 // close the file
                 fclose($handle);

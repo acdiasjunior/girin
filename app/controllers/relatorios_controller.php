@@ -114,12 +114,7 @@ class RelatoriosController extends AppController {
                 $size = fputcsv($fw, $linha, ';');
 
                 $this->loadModel('Domicilio');
-                $domicilios = $this->Domicilio->find('list', array(
-                    'conditions' => array(
-                        'Domicilio.quantidade_pessoas > 0'
-                    )
-                        )
-                );
+                $domicilios = $this->Domicilio->find('list');
 
                 foreach ($domicilios as $codigo) {
 
