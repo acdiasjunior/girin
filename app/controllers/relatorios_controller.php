@@ -285,20 +285,26 @@ class RelatoriosController extends AppController {
             case 'regiao_id':
                 $options['fields'][] = 'Domicilio.regiao_id';
                 $options['conditions'] = array(
-                    'Domicilio.regiao_id' => $this->data['Relatorio']['regiao_id']
+                    'Domicilio.regiao_id' => $this->data['Relatorio']['regiao_id'],
+                    'Domicilio.quantidade_pessoas > 0'
                 );
+                $options['group'][] = 'Domicilio.regiao_id';
                 break;
             case 'cras_id':
                 $options['fields'][] = 'Domicilio.cras_id';
                 $options['conditions'] = array(
-                    'Domicilio.cras_id' => $this->data['Relatorio']['cras_id']
+                    'Domicilio.cras_id' => $this->data['Relatorio']['cras_id'],
+                    'Domicilio.quantidade_pessoas > 0'
                 );
+                $options['group'][] = 'Domicilio.cras_id';
                 break;
             case 'bairro_id':
                 $options['fields'][] = 'Domicilio.bairro_id';
                 $options['conditions'] = array(
-                    'Domicilio.bairro_id' => $this->data['Relatorio']['bairro_id']
+                    'Domicilio.bairro_id' => $this->data['Relatorio']['bairro_id'],
+                    'Domicilio.quantidade_pessoas > 0'
                 );
+                $options['group'][] = 'Domicilio.bairro_id';
                 break;
         }
 
@@ -479,20 +485,26 @@ class RelatoriosController extends AppController {
             case 'regiao_id':
                 $options['fields'][] = 'Domicilio.regiao_id';
                 $options['conditions'] = array(
-                    'Domicilio.regiao_id' => $this->data['Relatorio']['regiao_id']
+                    'Domicilio.regiao_id' => $this->data['Relatorio']['regiao_id'],
+                    'Domicilio.quantidade_pessoas > 0'
                 );
+                $options['group'][] = 'Domicilio.regiao_id';
                 break;
             case 'cras_id':
                 $options['fields'][] = 'Domicilio.cras_id';
                 $options['conditions'] = array(
-                    'Domicilio.cras_id' => $this->data['Relatorio']['cras_id']
+                    'Domicilio.cras_id' => $this->data['Relatorio']['cras_id'],
+                    'Domicilio.quantidade_pessoas > 0'
                 );
+                $options['group'][] = 'Domicilio.cras_id';
                 break;
             case 'bairro_id':
                 $options['fields'][] = 'Domicilio.bairro_id';
                 $options['conditions'] = array(
-                    'Domicilio.bairro_id' => $this->data['Relatorio']['bairro_id']
+                    'Domicilio.bairro_id' => $this->data['Relatorio']['bairro_id'],
+                    'Domicilio.quantidade_pessoas > 0'
                 );
+                $options['group'][] = 'Domicilio.bairro_id';
                 break;
         }
 
@@ -576,19 +588,28 @@ class RelatoriosController extends AppController {
 
         switch ($this->data['Relatorio']['filtro']) {
             case 'regiao_id':
-                $conditions = array(
-                    'Domicilio.regiao_id' => $this->data['Relatorio']['regiao_id']
+                $options['fields'][] = 'Domicilio.regiao_id';
+                $options['conditions'] = array(
+                    'Domicilio.regiao_id' => $this->data['Relatorio']['regiao_id'],
+                    'Domicilio.quantidade_pessoas > 0'
                 );
+                $options['group'][] = 'Domicilio.regiao_id';
                 break;
             case 'cras_id':
-                $conditions = array(
-                    'Domicilio.cras_id' => $this->data['Relatorio']['cras_id']
+                $options['fields'][] = 'Domicilio.cras_id';
+                $options['conditions'] = array(
+                    'Domicilio.cras_id' => $this->data['Relatorio']['cras_id'],
+                    'Domicilio.quantidade_pessoas > 0'
                 );
+                $options['group'][] = 'Domicilio.cras_id';
                 break;
             case 'bairro_id':
-                $conditions = array(
-                    'Domicilio.bairro_id' => $this->data['Relatorio']['bairro_id']
+                $options['fields'][] = 'Domicilio.bairro_id';
+                $options['conditions'] = array(
+                    'Domicilio.bairro_id' => $this->data['Relatorio']['bairro_id'],
+                    'Domicilio.quantidade_pessoas > 0'
                 );
+                $options['group'][] = 'Domicilio.bairro_id';
                 break;
         }
 
