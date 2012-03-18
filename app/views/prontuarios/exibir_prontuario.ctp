@@ -498,7 +498,7 @@ function classificaIDF($indice) {
                 <tr>
                     <td><?php echo Acao::atividade($acao['atividade']) ?></td>
                     <td><?php echo $acao['encaminhamento'] ?></td>
-                    <td><?php echo $acao['prazo_maximo'] ?> dias</td>
+                    <td><?php echo ($acao['prazo_maximo'] == 0) ? "" : $acao['prazo_maximo'] . " dias"; ?></td>
                 </tr>
                 <?php
             }
