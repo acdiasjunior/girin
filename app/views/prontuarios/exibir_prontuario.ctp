@@ -77,6 +77,7 @@ function classificaIDF($indice) {
     .subtitulo {
         font-size: 12pt;
         font-weight: bold;
+        text-align: center;
     }
 </style>
 <div class="content">
@@ -106,7 +107,7 @@ function classificaIDF($indice) {
         </tr>
     </table>
     <p><!-- SEPARADOR --></p>
-    <strong>Membros:</strong>
+    <strong>Composição Familiar:</strong>
     <?php
     if ($this->data['Domicilio']['Pessoa'] > 0) {
         ?>
@@ -165,7 +166,7 @@ function classificaIDF($indice) {
         </thead>
         <tbody>
             <tr>
-                <td>Visita 1: ______/______/___________</td>
+                <td>Agenda em Casa: ______/______/___________</td>
                 <td>Visita 2: ______/______/___________</td>
                 <td>Visita 3: ______/______/___________</td>
                 <td>Visita 4: ______/______/___________</td>
@@ -517,7 +518,9 @@ function classificaIDF($indice) {
 </div>
 <pagebreak />
 <div class="content">
-    <p class="subtitulo">4. Observações Gerais (preenchido pelo Agente Local da Família)</p>
+    <p class="subtitulo">4. Observações Gerais
+        <br/> <span style="font-size: 8pt;">(preenchido pelo Agente Local da Família - datado e assinado)</span>
+    </p>
     <table>
         <tbody>
             <?php
@@ -532,7 +535,9 @@ function classificaIDF($indice) {
         </tbody>
     </table>
     <p><!-- SEPARADOR --></p>
-    <p class="subtitulo">5. Análise do Plano de Desenvolvimento Familiar (preenchido pelo Técnico do CRAS)</p>
+    <p class="subtitulo">5. Análise do Plano de Desenvolvimento da Família
+        <br/> <span style="font-size: 8pt;">(preenchido pelo Técnico do CRAS - datado e assinado)</span>
+    </p>
     <table>
         <tbody>
             <?php
