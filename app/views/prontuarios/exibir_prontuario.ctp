@@ -180,7 +180,7 @@ function classificaIDF($indice) {
     </table>
 </div>
 <div class="content">
-    <p class="titulo">2. Situação do Desenvolvimento da Família</p>
+    <p class="subtitulo">2. Situação do Desenvolvimento da Família</p>
     <?php
     if ($this->data['Indice']['vulnerabilidade'] != 1) {
         ?>
@@ -479,7 +479,7 @@ function classificaIDF($indice) {
     </table>
 </div>
 <div class="content">
-    <p class="titulo">3. Estratégia de Enfrentamento</p>
+    <p class="subtitulo">3. Estratégias de Enfrentamento</p>
     <?php
     foreach ($this->data['Estrategia'] as $estrategia) {
         ?>
@@ -517,7 +517,7 @@ function classificaIDF($indice) {
 </div>
 <pagebreak />
 <div class="content">
-    <p class="titulo">4. Observações Gerais (preenchido pelo Agente Local da Família)</p>
+    <p class="subtitulo">4. Observações Gerais (preenchido pelo Agente Local da Família)</p>
     <table>
         <tbody>
             <?php
@@ -532,7 +532,7 @@ function classificaIDF($indice) {
         </tbody>
     </table>
     <p><!-- SEPARADOR --></p>
-    <p class="titulo">5. Análise do Plano de Desenvolvimento Familiar (preenchido pelo Técnico do CRAS)</p>
+    <p class="subtitulo">5. Análise do Plano de Desenvolvimento Familiar (preenchido pelo Técnico do CRAS)</p>
     <table>
         <tbody>
             <?php
