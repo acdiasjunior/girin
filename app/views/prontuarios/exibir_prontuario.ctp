@@ -488,9 +488,9 @@ function classificaIDF($indice) {
                 <td colspan="3"><strong><?php echo $estrategia['codigo'] ?></strong> - <?php echo $estrategia['descricao'] ?></td>
             </tr>
             <tr>
-                <td>Atividade:</td>
+                <td style="width: 5cm;">Atividade:</td>
                 <td>Encaminhamento:</td>
-                <td>Prazo:</td>
+                <td style="width: 3cm;">Prazo:</td>
             </tr>
             <?php
             foreach ($estrategia['Acao'] as $acao) {
