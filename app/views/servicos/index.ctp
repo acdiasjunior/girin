@@ -23,11 +23,12 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
         searchitems : [
             {display: 'Nome', name : 'Servico.nome', isdefault: true}
         ],
-        sortname: "Servico.descricao",
-        sortorder: "asc",
+        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Servico.descricao'; ?>',
+        sortorder: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortorder') : 'asc'; ?>',
         usepager: true,
         useRp: true,
-        rp: 15,
+        rp: <?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.rp') : '15'; ?>,
+        newp: <?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.page') : 1; ?>,
         rpOptions: [15,30,50,100],
         title: 'Serviços',
         width: 920,
@@ -74,4 +75,20 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
                 break;
             }
         }
+        
+        window.onbeforeunload = function() {
+            $.ajax({
+                url: '<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'gravaParametros', 'flexigrid')) ?>',
+                type: 'POST',
+                async: false,
+                data: {
+                    controller: '<?php echo $this->params['controller'] ?>',
+                    action: '<?php echo $this->params['action'] ?>',
+                    rp: $(".flexigrid .pGroup select").val(),
+                    page: $('.flexigrid .pcontrol :input').val(),
+                    sortname: $('.flexigrid .sorted').attr('abbr'),
+                    sortorder: $('.flexigrid .sorted div').attr('class').substr(1,5)
+                }
+            });
+        };
 </script>
