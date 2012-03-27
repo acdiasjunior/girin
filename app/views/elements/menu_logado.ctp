@@ -14,9 +14,6 @@
                         <a href="<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'index')); ?>">Lista</a>
                     </li>
                     <li>
-                        <a href="<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'cadastro')); ?>">Cadastro</a>
-                    </li>
-                    <li>
                         <a href="<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'importar')); ?>">Importar</a>
                     </li>
                 </ul>
@@ -26,9 +23,6 @@
                 <ul>
                     <li>
                         <a href="<?php echo $this->Html->url(array('controller' => 'domicilios', 'action' => 'index')); ?>">Lista</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo $this->Html->url(array('controller' => 'domicilios', 'action' => 'cadastro')); ?>">Cadastro</a>
                     </li>
                     <li>
                         <a href="<?php echo $this->Html->url(array('controller' => 'domicilios', 'action' => 'importar')); ?>">Importar</a>
