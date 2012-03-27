@@ -167,9 +167,9 @@ function classificaIDF($indice) {
         <tbody>
             <tr>
                 <td>Agenda em Casa: ______/______/___________</td>
-                <td>Visita 2: ______/______/___________</td>
-                <td>Visita 3: ______/______/___________</td>
-                <td>Visita 4: ______/______/___________</td>
+                <td>Agenda em Casa: ______/______/___________</td>
+                <td>Agenda em Casa: ______/______/___________</td>
+                <td>Agenda em Casa: ______/______/___________</td>
             </tr>
             <tr>
                 <td>Agente:</td>
@@ -458,25 +458,6 @@ function classificaIDF($indice) {
                 <td align="center" colspan="3">Classificação - <?php echo classificaIDF($this->data['Indice']['idf']) ?></td>
             </tr>
         </tfoot>
-    </table>
-    <p><!-- SEPARADOR --></p>
-    <table>
-        <thead>
-            <tr>
-                <td align="center">Análise da Situação do Desenvolvimento Familiar (a ser preenchido pelo técnico do Cras)</td>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            for ($i = 0; $i < 3; $i++) {
-                ?>
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <?php
-            }
-            ?>
-        </tbody>
     </table>
 </div>
 <div class="content">
