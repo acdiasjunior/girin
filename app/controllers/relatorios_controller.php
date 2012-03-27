@@ -42,8 +42,10 @@ class RelatoriosController extends AppController {
 
                 $this->loadModel('Domicilio');
                 $quant = $this->Domicilio->find('count');
+                
+                $cache = 200;
 
-                for ($i = 1; $i <= ceil($quant / 50); $i++) {
+                for ($i = 1; $i <= ceil($quant / $cache); $i++) {
                     $this->paginate = array(
                         'fields' => array(
                             'Domicilio.codigo_domiciliar',
@@ -60,7 +62,7 @@ class RelatoriosController extends AppController {
                             'Bairro.nome',
                         ),
                         'page' => $i,
-                        'limit' => 50,
+                        'limit' => $cache,
                         'order' => array(
                             'Domicilio.codigo_domiciliar' => 'asc'
                         )
