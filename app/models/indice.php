@@ -350,7 +350,7 @@ class Indice extends AppModel {
     //V.9 Mais da metade dos membros encontra-se em idade ativa
     function v9() {
         $retorno = 0;
-        if ($this->domicilio['Domicilio']['quantidade_pessoas'] / 2 > $this->contadorMembrosIdadeAtiva()) {
+        if ($this->domicilio['Domicilio']['quantidade_pessoas'] / 2 < $this->contadorMembrosIdadeAtiva()) {
             $retorno = 1;
         }
         $this->domicilio['Indice']['v9'] = $retorno;
