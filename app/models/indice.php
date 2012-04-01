@@ -138,7 +138,6 @@ class Indice extends AppModel {
     function contadorMembrosIdadeAtivaOcupados() {
         $idade_ativa_ocupado = 0;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
-            //T.1 Mais da metade dos membros em idade ativa encontram-se ocupados
             if ($pessoa['idade'] >= Pessoa::IDADE_ADOLESCENTE &&
                     $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
                     && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA)
@@ -351,7 +350,7 @@ class Indice extends AppModel {
     //V.9 Mais da metade dos membros encontra-se em idade ativa
     function v9() {
         $retorno = 0;
-        if ($this->domicilio['Domicilio']['quantidade_pessoas'] / 2 < $this->contadorMembrosIdadeAtiva()) {
+        if ($this->domicilio['Domicilio']['quantidade_pessoas'] / 2 > $this->contadorMembrosIdadeAtiva()) {
             $retorno = 1;
         }
         $this->domicilio['Indice']['v9'] = $retorno;
