@@ -219,8 +219,8 @@ class Indice extends AppModel {
         $this->domicilio['Indice']['habitacao'] = $habitacao;
 
         // Calculo do IDF da Familia
-        $idf = ($vulnerabilidade + $conhecimento + $trabalho +
-                $recursos + $desenvolvimento + $habitacao) / 6;
+        $idf = round(($vulnerabilidade + $conhecimento + $trabalho +
+                $recursos + $desenvolvimento + $habitacao) / 6, 2);
 
         $this->domicilio['Indice']['idf'] = $idf;
         $this->domicilio['Domicilio']['idf'] = $idf;
