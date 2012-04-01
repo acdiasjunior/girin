@@ -18,11 +18,14 @@ class RelatoriosController extends AppController {
 
         $file['name'] = 'mapaIDF.csv';
         $file['tmp'] = TMP . substr(md5(microtime()), 0, 10);
-
+        
+        $this->loadModel('Domicilio');
+        $quant = $this->Domicilio->find('count');
+        
         header('Content-type: text/csv');
         header('Content-Disposition: attachment;filename="' . $file['name'] . '"');
         header('Cache-Control: max-age=0');
-        header("Content-length: " . count($domicilios) * 360);
+        header("Content-length: " . $quant * 360);
         flush();
 
         $fw = fopen($file['tmp'], 'w');
@@ -39,9 +42,6 @@ class RelatoriosController extends AppController {
                     'BOLSA_FAMILIA', 'TIPO_LOGRADOURO', 'LOGRADOURO', 'NUMERO', 'COMPLEMENTO', 'BAIRRO');
 
                 $size = fputcsv($fw, $linha, ';');
-
-                $this->loadModel('Domicilio');
-                $quant = $this->Domicilio->find('count');
                 
                 $cache = 200;
 
