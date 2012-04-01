@@ -1,9 +1,9 @@
 <?php
 
 function corBarra($indice) {
-    if ($indice <= 0.6) {
+    if ($indice <= 0.61) {
         $cor = 'red';
-    } else if ($indice > 0.6 && $indice <= 0.7) {
+    } else if ($indice > 0.61 && $indice <= 0.7) {
         $cor = 'orange';
     } else if ($indice > 0.7 && $indice <= 0.8) {
         $cor = 'yellow';
@@ -16,9 +16,9 @@ function corBarra($indice) {
 }
 
 function classificaIDF($indice) {
-    if ($indice <= 0.6) {
+    if ($indice <= 0.61) {
         $classificacao = 'D5';
-    } else if ($indice > 0.6 && $indice <= 0.7) {
+    } else if ($indice > 0.61 && $indice <= 0.7) {
         $classificacao = 'D4';
     } else if ($indice > 0.7 && $indice <= 0.8) {
         $classificacao = 'D3';
