@@ -18,14 +18,14 @@ class RelatoriosController extends AppController {
 
         $file['name'] = 'mapaIDF.csv';
         $file['tmp'] = TMP . substr(md5(microtime()), 0, 10);
-        
+
         $this->loadModel('Domicilio');
         $quant = $this->Domicilio->find('count');
-        
+
         header('Content-type: text/csv');
         header('Content-Disposition: attachment;filename="' . $file['name'] . '"');
         header('Cache-Control: max-age=0');
-        header("Content-length: " . $quant * 360);
+        header("Content-length: " . $quant * 380);
         flush();
 
         $fw = fopen($file['tmp'], 'w');
@@ -39,10 +39,10 @@ class RelatoriosController extends AppController {
                     'D4', 'D5', 'ACESSO_ESCOLA', 'D6', 'D7', 'D8', 'PROGR_ESC', 'DESENV_INFANTIL', 'H1', 'H2', 'PROPRIO', 'H3',
                     'DEFICIT_HAB', 'H4', 'ABRIGO', 'H5', 'ACESSO_AGUA', 'H6', 'SANEAMENTO', 'H7', 'LIXO', 'H8', 'ELETRICIDADE',
                     'COND_HABIT', 'NIS_RESP_LEGAL', 'NOME_RESPONSAVEL_LEGAL', 'RENDA_FAMILIAR', 'QUANT_PESSOAS', 'RENDA_PER_CAPITA',
-                    'BOLSA_FAMILIA', 'TIPO_LOGRADOURO', 'LOGRADOURO', 'NUMERO', 'COMPLEMENTO', 'BAIRRO');
+                    'BOLSA_FAMILIA', 'TIPO_LOGRADOURO', 'LOGRADOURO', 'NUMERO', 'COMPLEMENTO', 'BAIRRO', 'CRAS', 'REGIAO');
 
                 $size = fputcsv($fw, $linha, ';');
-                
+
                 $cache = 200;
 
                 for ($i = 1; $i <= ceil($quant / $cache); $i++) {
@@ -60,6 +60,8 @@ class RelatoriosController extends AppController {
                             'Domicilio.numero',
                             'Domicilio.complemento',
                             'Bairro.nome',
+                            'Cras.descricao',
+                            'Regiao.descricao'
                         ),
                         'page' => $i,
                         'limit' => $cache,
@@ -70,7 +72,7 @@ class RelatoriosController extends AppController {
                     $domicilios = $this->paginate('Domicilio');
 
                     foreach ($domicilios as $domicilio) {
-                        
+
                         print fread($fr, $size);
                         flush();
 
@@ -157,6 +159,8 @@ class RelatoriosController extends AppController {
                         $linha[] = $domicilio['Domicilio']['numero'];
                         $linha[] = $domicilio['Domicilio']['complemento'];
                         $linha[] = $domicilio['Bairro']['nome'];
+                        $linha[] = $domicilio['Cras']['descricao'];
+                        $linha[] = $domicilio['Regiao']['descricao'];
 
                         $size = fputcsv($fw, $linha, ';');
                     }
