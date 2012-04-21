@@ -20,11 +20,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             {display: 'Renda per Cap.', name : 'Domicilio.renda_per_capita', width : 70, sortable : true, align: 'center'}
         ],
         buttons : [
-            {name: 'Incluir', bclass: 'add', onpress : actions},
-            {separator: true},
             {name: 'Editar', bclass: 'edit', onpress : actions},
-            {separator: true},
-            {name: 'Excluir', bclass: 'delete', onpress : actions},
             {separator: true},
             {name: 'Prontuario', bclass: 'prontuario', onpress : actions},
             {separator: true}

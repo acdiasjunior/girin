@@ -16,11 +16,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             {display: 'NIS Responsável', name : 'Responsavel.nis', width : 80, sortable : true, align: 'center'}
         ],
         buttons : [
-            {name: 'Incluir', bclass: 'add', onpress : actions},
-            {separator: true},
             {name: 'Editar', bclass: 'edit', onpress : actions},
-            {separator: true},
-            {name: 'Excluir', bclass: 'delete', onpress : actions},
             {separator: true}
         ],
         searchitems : [

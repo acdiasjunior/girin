@@ -116,7 +116,7 @@ echo $this->Form->button('Fechar', array(
     'type' => 'button',
     'onClick' => "window.location.href = '" . $this->Html->url(array('controller' => 'domicilios', 'action' => 'index')) . "';"
 ));
-//echo $this->Form->button('Salvar', array('type' => 'submit'));
+echo $this->Form->button('Salvar', array('type' => 'submit'));
 echo $this->Form->end();
 
 if ($this->data) {
