@@ -44,10 +44,10 @@
                 <a href="#" class="hide">Território »</a>
                 <ul>
                     <li>
-                        <a href="<?php echo $this->Html->url(array('controller' => 'cras', 'action' => 'index')); ?>">CRAS</a>
+                        <a href="<?php echo $this->Html->url(array('controller' => 'bairros', 'action' => 'index')); ?>">Bairros</a>
                     </li>
                     <li>
-                        <a href="<?php echo $this->Html->url(array('controller' => 'bairros', 'action' => 'index')); ?>">Bairros</a>
+                        <a href="<?php echo $this->Html->url(array('controller' => 'cras', 'action' => 'index')); ?>">CRAS</a>
                     </li>
                     <li>
                         <a href="<?php echo $this->Html->url(array('controller' => 'regioes', 'action' => 'index')); ?>">Regiões</a>
