@@ -11,7 +11,7 @@
                 <a href="#" class="hide">Pessoas »</a>
                 <ul>
                     <li>
-                        <a href="<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'index')); ?>">Lista</a>
+                        <a href="<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'index')); ?>">Listar</a>
                     </li>
                     <li>
                         <a href="<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'importar')); ?>">Importar</a>
@@ -22,7 +22,7 @@
                 <a href="#" class="hide">Domicílios »</a>
                 <ul>
                     <li>
-                        <a href="<?php echo $this->Html->url(array('controller' => 'domicilios', 'action' => 'index')); ?>">Lista</a>
+                        <a href="<?php echo $this->Html->url(array('controller' => 'domicilios', 'action' => 'index')); ?>">Listar</a>
                     </li>
                     <li>
                         <a href="<?php echo $this->Html->url(array('controller' => 'domicilios', 'action' => 'importar')); ?>">Importar</a>
@@ -33,7 +33,7 @@
                 <a href="#" class="hide">Serviços »</a>
                 <ul>
                     <li>
-                        <a href="<?php echo $this->Html->url(array('controller' => 'servicos', 'action' => 'index')); ?>">Lista</a>
+                        <a href="<?php echo $this->Html->url(array('controller' => 'servicos', 'action' => 'index')); ?>">Listar</a>
                     </li>
                     <li>
                         <a href="<?php echo $this->Html->url(array('controller' => 'servicos', 'action' => 'cadastro')); ?>">Cadastro</a>
@@ -80,7 +80,7 @@
                 <a href="#" class="hide">Paginas »</a>
                 <ul>
                     <li>
-                        <a href="<?php echo $this->Html->url(array('controller' => 'paginas', 'action' => 'index')); ?>">Lista</a>
+                        <a href="<?php echo $this->Html->url(array('controller' => 'paginas', 'action' => 'index')); ?>">Listar</a>
                     </li>
                     <?php
                     foreach ($paginas as $pagina) {
