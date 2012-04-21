@@ -58,10 +58,10 @@
                 <a href="#" class="hide">Agenda »</a>
                 <ul>
                     <li>
-                        <a href="<?php echo $this->Html->url(array('controller' => 'estrategias', 'action' => 'index')); ?>">Estratégias</a>
+                        <a href="<?php echo $this->Html->url(array('controller' => 'acoes', 'action' => 'index')); ?>">Ações</a>
                     </li>
                     <li>
-                        <a href="<?php echo $this->Html->url(array('controller' => 'acoes', 'action' => 'index')); ?>">Ações</a>
+                        <a href="<?php echo $this->Html->url(array('controller' => 'estrategias', 'action' => 'index')); ?>">Estratégias</a>
                     </li>
                 </ul>
             </li>
