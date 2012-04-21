@@ -17,6 +17,8 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
         buttons : [
             {name: 'Incluir', bclass: 'add', onpress : actions},
             {separator: true},
+            {name: 'Editar', bclass: 'edit', onpress : actions},
+            {separator: true},
             {name: 'Excluir', bclass: 'delete', onpress : actions},
             {separator: true}
         ],
