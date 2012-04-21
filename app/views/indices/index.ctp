@@ -54,7 +54,7 @@
         
         var colors = Highcharts.getOptions().colors,
         categories = [
-            'Vulnerabilidade Familiar',
+            'Vulnerabilidade das Famílias',
             'Acesso ao Conhecimento',
             'Acesso ao Trabalho',
             'Disponibilidade de Recursos',
