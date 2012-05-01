@@ -72,6 +72,20 @@ class UsuariosController extends AppController {
         }
     }
     
+    // Usado para mudar senha pelo proprio usuario
+    function mudarSenha() {
+        if (!empty($this->data['Usuario']['nova_senha'])) {
+            $this->Usuario->id = $this->Session->read('Auth.Usuario.id');
+            $this->Usuario->set('password', $this->Auth->password($this->data['Usuario']['nova_senha']));
+            if ($this->Usuario->save($this->data))
+                $this->Session->setFlash('Senha alterada!');
+            else
+                $this->Session->setFlash('Erro ao gravar a nova senha!');
+            $this->redirect('/');
+        }
+    }
+    
+    // Usado pelo admin para mudar senha do usuario
     function mudarSenhaUsuario() {
         if (!empty($this->data)) {
             $this->Usuario->set('password', $this->Auth->password($this->data['Usuario']['nova_senha']));

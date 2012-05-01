@@ -71,9 +71,9 @@
                     <li>
                         <a href="<?php echo $this->Html->url(array('controller' => 'indicadores', 'action' => 'index')); ?>">Indicadores</a>
                     </li>
-<!--                    <li>
-                        <a href="<?php echo $this->Html->url(array('controller' => 'dimensoes', 'action' => 'index')); ?>">Dimensões</a>
-                    </li>-->
+                    <!--                    <li>
+                                            <a href="<?php echo $this->Html->url(array('controller' => 'dimensoes', 'action' => 'index')); ?>">Dimensões</a>
+                                        </li>-->
                 </ul>
             </li>
             <li>
@@ -115,17 +115,17 @@
     </li>
     <li><a href="#" class="hide pai">Classificação</a>
         <ul>
-<!--            <li>
-                <a href="#" class="hide">Índices »</a>
-                <ul>
-                    <li>
-                        <a href="<?php echo $this->Html->url(array('controller' => 'indices', 'action' => 'atualizarIndices')); ?>">Atualizar Índices</a>
-                    </li>
-                </ul>
-            </li>-->
-<!--            <li>
-                <a href="<?php echo $this->Html->url(array('controller' => 'relatorios', 'action' => 'idf')); ?>">Selecionar Famílias</a>
-            </li>-->
+            <!--            <li>
+                            <a href="#" class="hide">Índices »</a>
+                            <ul>
+                                <li>
+                                    <a href="<?php echo $this->Html->url(array('controller' => 'indices', 'action' => 'atualizarIndices')); ?>">Atualizar Índices</a>
+                                </li>
+                            </ul>
+                        </li>-->
+            <!--            <li>
+                            <a href="<?php echo $this->Html->url(array('controller' => 'relatorios', 'action' => 'idf')); ?>">Selecionar Famílias</a>
+                        </li>-->
             <li>
                 <a href="<?php echo $this->Html->url(array('controller' => 'indices', 'action' => 'index')); ?>">Mapa Social</a>
             </li>
@@ -155,6 +155,9 @@
                 <?php
             } else {
                 ?>
+                <li>
+                    <a href="<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'mudarSenha')); ?>" class="hide">Mudar Senha</a>
+                </li>
                 <li>
                     <a href="<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'cadastro', $this->Session->read('Auth.Usuario.id'))); ?>" class="hide">Alterar Dados</a>
                 </li>
