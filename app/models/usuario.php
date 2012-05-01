@@ -15,4 +15,26 @@ class Usuario extends AppModel {
     );
     var $hasAndBelongsToMany = array('Cras');
 
+    //////////////////////////// COMBOS BOXES
+
+    /*
+     * static enum: Model::function()
+     * @access static
+     */
+
+    static function grupoUsuario($value = null) {
+        $options = array(
+            self::GRUPO_ADMINISTRADOR => __('Administrador', true),
+            self::GRUPO_TECNICO_SAS => __('Técnico SAS', true),
+            self::GRUPO_COORDENADOR_CRAS => __('Coordenador CRAS', true),
+            self::GRUPO_TECNICO_CRAS => __('Técnico CRAS', true),
+        );
+        return parent::enum($value, $options);
+    }
+
+    const GRUPO_ADMINISTRADOR = 0;
+    const GRUPO_TECNICO_SAS = 1;
+    const GRUPO_COORDENADOR_CRAS = 2;
+    const GRUPO_TECNICO_CRAS = 3;
+
 }
