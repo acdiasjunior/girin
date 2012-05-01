@@ -2,6 +2,15 @@
 echo $this->Html->css(array('flexigrid'));
 echo $javascript->link(array('flexigrid.pack', 'button'));
 ?>
+<div id="alterarSenha" title="Alterar Senha do Usuário" style="display: none;">
+    <?php
+    echo $this->Form->create('Usuario', array('action' => 'mudarSenhaUsuario'));
+    echo $this->Form->hidden('id');
+    echo $this->Form->input('nova_senha', array('label' => 'Senha', 'value' => '', 'type' => 'password'));
+    echo $this->Form->end();
+    ?>
+    <span>Insira a nova senha para o usuário.</span>
+</div>
 <h1>Cadastro de Usuários</h1>
 <table id="flex" style="display: none"></table> 
 <script type="text/javascript">
@@ -17,7 +26,8 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
             {name: 'Incluir', bclass: 'add', onpress : actions},
             {name: 'Editar', bclass: 'edit', onpress : actions},
             {name: 'Excluir', bclass: 'delete', onpress : actions},
-            {separator: true}
+            {separator: true},
+            {name: 'Senha', bclass: 'edit', onpress : actions}
         ],
         sortname: "nome",
         sortorder: "asc",
@@ -48,6 +58,31 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
                 }else
                     alert('Selecione um registro primeiro!');
                 break;
+            case "Senha":
+                if(id != '')
+                {
+                    $("#UsuarioId").val(id);
+                    $("#alterarSenha").dialog("open");
+                }
+                else
+                    alert('Selecione um registro primeiro!');
+                break;
             }
         }
+        
+        $(function() {
+            $("#alterarSenha").dialog({
+                resizable: false,
+                modal: true,
+                autoOpen: false,
+                buttons: {
+                    "Alterar Senha": function() {
+                        $('#UsuarioMudarSenhaUsuarioForm').submit();
+                    },
+                    "Cancelar": function() {
+                        $(this).dialog( "close" );
+                    }
+                }
+            });
+        });
 </script>

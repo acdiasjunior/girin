@@ -71,14 +71,25 @@ class UsuariosController extends AppController {
             $this->redirect($this->Auth->redirect());
         }
     }
+    
+    function mudarSenhaUsuario() {
+        if (!empty($this->data)) {
+            $this->Usuario->set('password', $this->Auth->password($this->data['Usuario']['nova_senha']));
+            if ($this->Usuario->save($this->data)) {
+                $this->Session->setFlash('Senha alterada com sucesso!');
+            } else {
+                $this->Session->setFlash('Erro ao alterar senha do usuário!');
+            }
+            $this->redirect(array('controller' => $this->name, 'action' => 'index'));
+        }
+        $this->render('admin_index');
+    }
 
     function logout() {
         $this->redirect($this->Auth->logout());
     }
     
     function gravaParametros($container) {
-//        if($_SERVER['SERVER_NAME'] == 'localhost')
-//            xdebug_break();
         $this->autoRender = false;
         $controller = array_shift($this->params['form']);
         $action = array_shift($this->params['form']);
