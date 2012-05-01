@@ -1,6 +1,8 @@
 <?php
 echo $this->Html->css(array('flexigrid'));
 echo $javascript->link(array('flexigrid.pack', 'button'));
+
+$flexigridSession = $this->params['controller'] . '.' . $this->params['action'] . '.flexigrid';
 ?>
 <div id="alterarSenha" title="Alterar Senha do Usuário" style="display: none;">
     <?php

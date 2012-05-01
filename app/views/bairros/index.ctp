@@ -1,6 +1,8 @@
 <?php
 echo $this->Html->css(array('flexigrid'));
 echo $javascript->link(array('flexigrid.pack', 'button'));
+
+$flexigridSession = $this->params['controller'] . '.' . $this->params['action'] . '.flexigrid';
 ?>
 <div id="excluirBairro" title="Excluir Bairro" style="display: none;">
     <h3>Deseja realmente excluir o bairro?</h3>

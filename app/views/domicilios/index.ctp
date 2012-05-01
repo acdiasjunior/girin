@@ -1,6 +1,7 @@
 <?php
 echo $this->Html->css(array('flexigrid'));
 echo $javascript->link(array('flexigrid.pack', 'button'));
+
 $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] . '.flexigrid';
 ?>
 <table id="flex" style="display: none"></table>
