@@ -64,9 +64,9 @@ class UsuariosController extends AppController {
     function login() {
         if (!(empty($this->data)) && $this->Auth->user()) {
             $this->Usuario->Acesso->create();
-            $this->Usuario->Acesso->set('usuario_id', $this->Session->read('Auth.Usuario.id'));
-            $this->Usuario->Acesso->set('login', date('Y-m-d H:i:s'));
-            $this->Usuario->Acesso->set('ip', $this->RequestHandler->getClientIP());
+            $this->Usuario->Acesso->set('id_usuario', $this->Session->read('Auth.Usuario.id'));
+            $this->Usuario->Acesso->set('dt_login', date('Y-m-d H:i:s'));
+            $this->Usuario->Acesso->set('cod_ip', $this->RequestHandler->getClientIP());
             $this->Usuario->Acesso->save();
             $this->redirect($this->Auth->redirect());
         }

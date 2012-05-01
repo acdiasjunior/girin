@@ -3,6 +3,11 @@
 class Acesso extends AppModel {
 
     var $name = 'Acesso';
-    var $hasMany = array('Usuario');
-    
+    var $primaryKey = 'id_acesso';
+    var $belongsTo = array(
+        'Usuario' => array(
+            'foreignKey' => 'id_usuario'
+        )
+    );
+
 }
