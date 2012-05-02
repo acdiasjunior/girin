@@ -17,34 +17,34 @@
             v6: 'V.6 Ausência de portadores de deficiência',
             v7: 'V.7 Ausência de idosos',
             v8: 'V.8 Presença de cônjuge',
-            v9: 'V.9 Mais da metade dos membros encontra-se em idade ativa',
+            v9: 'V.9 Mais da metade dos membros encontra-se <br />em idade ativa',
             c1: 'C.1 Ausência de adultos analfabetos',
             c2: 'C.2 Ausência de adultos analfabetos funcionais',
-            c3: 'C.3 Presença de pelo menos um adulto com fundamental completo',
-            c4: 'C.4 Presença de pelo menos um adulto com secundário completo',
-            c5: 'C.5 Presença de pelo menos um adulto com alguma educação superior',
-            t1: 'T.1 Mais da metade dos membros em idade ativa encontram-se ocupados',
-            t2: 'T.2 Presença de pelo menos um ocupado no setor formal',
-            t3: 'T.3 Presença de pelo menos um ocupado em atividade não agrícola',
-            t4: 'T.4 Presença de pelo menos um ocupado com rendimento superior a 1 salário mínimo',
-            t5: 'T.5 Presença de pelo menos um ocupado com rendimento superior a 2 salários mínimos',
-            r1: 'R.1 Despesa familiar per capita superior a linha de extema pobreza(>1/4 SM)',
-            r2: 'R.2 Renda familiar per capita superior a linha de extema pobreza(>1/4 SM)',
-            r3: 'R.3 Despesa com alimentos superior a linha de extema pobreza',
-            r4: 'R.4 Despesa familiar per capita superior a linha de pobreza(>1/2 SM)',
-            r5: 'R.5 Renda familiar per capita superior a linha de pobreza(>1/2 SM)',
-            r6: 'R.6 Maior parte da renda familiar não advém de transferências',
-            d1: 'D.1 Ausência de pelo menos uma criança de menos de 10 anos trabalhando',
-            d2: 'D.2 Ausência de pelo menos uma criança de menos de 16 anos trabalhando',
-            d3: 'D.3 Ausência de pelo menos uma criança de 0-6 anos fora da escola',
-            d4: 'D.4 Ausência de pelo menos uma criança de 7-14 anos fora da escola',
-            d5: 'D.5 Ausência de pelo menos uma criança de 7-17 anos fora da escola',
-            d6: 'D.6 Ausência de pelo menos uma criança com até 14 anos com mais de 2 anos de atraso',
-            d7: 'D.7 Ausência de pelo menos um adolescente de 10 a 14 anos analfabeto',
-            d8: 'D.8 Ausência de pelo menos um jovem de 15 a 17 anos analfabeto',
+            c3: 'C.3 Presença de pelo menos um adulto<br />com fundamental completo',
+            c4: 'C.4 Presença de pelo menos um adulto<br />com secundário completo',
+            c5: 'C.5 Presença de pelo menos um adulto<br />com alguma educação superior',
+            t1: 'T.1 Mais da metade dos membros em<br />idade ativa encontram-se ocupados',
+            t2: 'T.2 Presença de pelo menos um ocupado<br />no setor formal',
+            t3: 'T.3 Presença de pelo menos um ocupado<br />em atividade não agrícola',
+            t4: 'T.4 Presença de pelo menos um ocupado<br />com rendimento superior a 1 salário mínimo',
+            t5: 'T.5 Presença de pelo menos um ocupado<br />com rendimento superior a 2 salários mínimos',
+            r1: 'R.1 Despesa familiar per capita superior a<br />linha de extrema pobreza(>1/4 SM)',
+            r2: 'R.2 Renda familiar per capita superior a<br />linha de extrema pobreza(>1/4 SM)',
+            r3: 'R.3 Despesa com alimentos superior a linha<br />de extrema pobreza',
+            r4: 'R.4 Despesa familiar per capita superior a<br />linha de pobreza(>1/2 SM)',
+            r5: 'R.5 Renda familiar per capita superior a<br />linha de pobreza(>1/2 SM)',
+            r6: 'R.6 Maior parte da renda familiar não<br />advém de transferências',
+            d1: 'D.1 Ausência de pelo menos uma criança<br />de menos de 10 anos trabalhando',
+            d2: 'D.2 Ausência de pelo menos uma criança<br />de menos de 16 anos trabalhando',
+            d3: 'D.3 Ausência de pelo menos uma criança<br />de 0-6 anos fora da escola',
+            d4: 'D.4 Ausência de pelo menos uma criança<br />de 7-14 anos fora da escola',
+            d5: 'D.5 Ausência de pelo menos uma criança<br />de 7-17 anos fora da escola',
+            d6: 'D.6 Ausência de pelo menos uma criança<br />com até 14 anos com mais de 2 anos de atraso',
+            d7: 'D.7 Ausência de pelo menos um adolescente<br />de 10 a 14 anos analfabeto',
+            d8: 'D.8 Ausência de pelo menos um jovem<br />de 15 a 17 anos analfabeto',
             h1: 'H.1 Domicílio próprio',
             h2: 'H.2 Domicílio próprio, cedido ou invadido',
-            h3: 'H.3 Densidade de até 2 moradores por dormitório',
+            h3: 'H.3 Densidade de até 2 moradores por<br />dormitório',
             h4: 'H.4 Material de construção permanente',
             h5: 'H.5 Acesso adequado à água',
             h6: 'H.6 Esgotamento sanitário adequado',
@@ -69,15 +69,15 @@
                     name: 'Vulnerabilidade Familiar',
                     categories: ['v1', 'v2', 'v3', 'v4', 'v5', 'v6', 'v7', 'v8', 'v9'],
                     data: [
-                        <?php echo round($indices[0][0]['v1'], 2) ?>,
-                        <?php echo round($indices[0][0]['v2'], 2) ?>,
-                        <?php echo round($indices[0][0]['v3'], 2) ?>,
-                        <?php echo round($indices[0][0]['v4'], 2) ?>,
-                        <?php echo round($indices[0][0]['v5'], 2) ?>,
-                        <?php echo round($indices[0][0]['v6'], 2) ?>,
-                        <?php echo round($indices[0][0]['v7'], 2) ?>,
-                        <?php echo round($indices[0][0]['v8'], 2) ?>,
-                        <?php echo round($indices[0][0]['v9'], 2) ?>
+<?php echo round($indices[0][0]['v1'], 2) ?>,
+<?php echo round($indices[0][0]['v2'], 2) ?>,
+<?php echo round($indices[0][0]['v3'], 2) ?>,
+<?php echo round($indices[0][0]['v4'], 2) ?>,
+<?php echo round($indices[0][0]['v5'], 2) ?>,
+<?php echo round($indices[0][0]['v6'], 2) ?>,
+<?php echo round($indices[0][0]['v7'], 2) ?>,
+<?php echo round($indices[0][0]['v8'], 2) ?>,
+<?php echo round($indices[0][0]['v9'], 2) ?>
                     ],
                     color: colors[0]
                 }
@@ -88,11 +88,11 @@
                     name: 'Acesso ao Conhecimento',
                     categories: ['c1', 'c2', 'c3', 'c4', 'c5'],
                     data: [
-                        <?php echo round($indices[0][0]['c1'], 2) ?>,
-                        <?php echo round($indices[0][0]['c2'], 2) ?>,
-                        <?php echo round($indices[0][0]['c3'], 2) ?>,
-                        <?php echo round($indices[0][0]['c4'], 2) ?>,
-                        <?php echo round($indices[0][0]['c5'], 2) ?>
+<?php echo round($indices[0][0]['c1'], 2) ?>,
+<?php echo round($indices[0][0]['c2'], 2) ?>,
+<?php echo round($indices[0][0]['c3'], 2) ?>,
+<?php echo round($indices[0][0]['c4'], 2) ?>,
+<?php echo round($indices[0][0]['c5'], 2) ?>
                     ],
                     color: colors[1]
                 }
@@ -103,11 +103,11 @@
                     name: 'Acesso ao Trabalho',
                     categories: ['t1', 't2', 't3', 't4', 't5'],
                     data: [
-                        <?php echo round($indices[0][0]['t1'], 2) ?>,
-                        <?php echo round($indices[0][0]['t2'], 2) ?>,
-                        <?php echo round($indices[0][0]['t3'], 2) ?>,
-                        <?php echo round($indices[0][0]['t4'], 2) ?>,
-                        <?php echo round($indices[0][0]['t5'], 2) ?>
+<?php echo round($indices[0][0]['t1'], 2) ?>,
+<?php echo round($indices[0][0]['t2'], 2) ?>,
+<?php echo round($indices[0][0]['t3'], 2) ?>,
+<?php echo round($indices[0][0]['t4'], 2) ?>,
+<?php echo round($indices[0][0]['t5'], 2) ?>
                     ],
                     color: colors[2]
                 }
@@ -118,12 +118,12 @@
                     name: 'Disponibilidade de Recursos',
                     categories: ['r1', 'r2', 'r3', 'r4', 'r5', 'r6'],
                     data: [
-                        <?php echo round($indices[0][0]['r1'], 2) ?>,
-                        <?php echo round($indices[0][0]['r2'], 2) ?>,
-                        <?php echo round($indices[0][0]['r3'], 2) ?>,
-                        <?php echo round($indices[0][0]['r4'], 2) ?>,
-                        <?php echo round($indices[0][0]['r5'], 2) ?>,
-                        <?php echo round($indices[0][0]['r6'], 2) ?>
+<?php echo round($indices[0][0]['r1'], 2) ?>,
+<?php echo round($indices[0][0]['r2'], 2) ?>,
+<?php echo round($indices[0][0]['r3'], 2) ?>,
+<?php echo round($indices[0][0]['r4'], 2) ?>,
+<?php echo round($indices[0][0]['r5'], 2) ?>,
+<?php echo round($indices[0][0]['r6'], 2) ?>
                     ],
                     color: colors[3]
                 }
@@ -134,14 +134,14 @@
                     name: 'Desenvolvimento Infantil',
                     categories: ['d1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8'],
                     data: [
-                        <?php echo round($indices[0][0]['d1'], 2) ?>,
-                        <?php echo round($indices[0][0]['d2'], 2) ?>,
-                        <?php echo round($indices[0][0]['d3'], 2) ?>,
-                        <?php echo round($indices[0][0]['d4'], 2) ?>,
-                        <?php echo round($indices[0][0]['d5'], 2) ?>,
-                        <?php echo round($indices[0][0]['d6'], 2) ?>,
-                        <?php echo round($indices[0][0]['d7'], 2) ?>,
-                        <?php echo round($indices[0][0]['d8'], 2) ?>
+<?php echo round($indices[0][0]['d1'], 2) ?>,
+<?php echo round($indices[0][0]['d2'], 2) ?>,
+<?php echo round($indices[0][0]['d3'], 2) ?>,
+<?php echo round($indices[0][0]['d4'], 2) ?>,
+<?php echo round($indices[0][0]['d5'], 2) ?>,
+<?php echo round($indices[0][0]['d6'], 2) ?>,
+<?php echo round($indices[0][0]['d7'], 2) ?>,
+<?php echo round($indices[0][0]['d8'], 2) ?>
                     ],
                     color: '#F4FA58'
                 }
@@ -152,14 +152,14 @@
                     name: 'Condições Habitacionais',
                     categories: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'h7', 'h8'],
                     data: [
-                        <?php echo round($indices[0][0]['h1'], 2) ?>,
-                        <?php echo round($indices[0][0]['h2'], 2) ?>,
-                        <?php echo round($indices[0][0]['h3'], 2) ?>,
-                        <?php echo round($indices[0][0]['h4'], 2) ?>,
-                        <?php echo round($indices[0][0]['h5'], 2) ?>,
-                        <?php echo round($indices[0][0]['h6'], 2) ?>,
-                        <?php echo round($indices[0][0]['h7'], 2) ?>,
-                        <?php echo round($indices[0][0]['h8'], 2) ?>
+<?php echo round($indices[0][0]['h1'], 2) ?>,
+<?php echo round($indices[0][0]['h2'], 2) ?>,
+<?php echo round($indices[0][0]['h3'], 2) ?>,
+<?php echo round($indices[0][0]['h4'], 2) ?>,
+<?php echo round($indices[0][0]['h5'], 2) ?>,
+<?php echo round($indices[0][0]['h6'], 2) ?>,
+<?php echo round($indices[0][0]['h7'], 2) ?>,
+<?php echo round($indices[0][0]['h8'], 2) ?>
                     ],
                     color: '#FE9A2E'
                 }
