@@ -109,7 +109,7 @@
                 <a href="<?php echo $this->Html->url(array('controller' => 'relatorios', 'action' => 'trabalhoEmprego')); ?>">Trabalho / Emprego</a>
             </li>
             <li>
-                <a href="<?php echo $this->Html->url(array('controller' => 'relatorios', 'action' => 'valorRemuneracao')); ?>">Valor Remuneração</a>
+                <a href="<?php echo $this->Html->url(array('controller' => 'relatorios', 'action' => 'valorRenda')); ?>">Valor Renda</a>
             </li>
         </ul>
     </li>

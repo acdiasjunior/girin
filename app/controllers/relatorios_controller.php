@@ -108,7 +108,7 @@ class RelatoriosController extends AppController {
                         $linha[] = number_format($domicilio['Indice']['qualidade'], 2, ',', '.');
                         $linha[] = $domicilio['Indice']['t4'];
                         $linha[] = $domicilio['Indice']['t5'];
-                        $linha[] = number_format($domicilio['Indice']['remuneracao'], 2, ',', '.');
+                        $linha[] = number_format($domicilio['Indice']['renda'], 2, ',', '.');
                         $linha[] = number_format($domicilio['Indice']['trabalho'], 2, ',', '.');
                         $linha[] = $domicilio['Indice']['r1'];
                         $linha[] = $domicilio['Indice']['r2'];
@@ -377,7 +377,7 @@ class RelatoriosController extends AppController {
         $this->set(compact('faixaEtaria', 'bairros', 'cras', 'regioes'));
     }
 
-    function valorRemuneracao() {
+    function valorRenda() {
         $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."data_nascimento")))';
         $options = array(
             'recursive' => -1,
@@ -450,13 +450,13 @@ class RelatoriosController extends AppController {
         $inicio = microtime(true);
         $pessoas = $this->Pessoa->find('all', $options);
 
-        $valorRemuneracao['tempo'] = microtime(true) - $inicio;
-        $valorRemuneracao['total'] = $this->Pessoa->find('count', $options);
-        foreach ($pessoas as $remuneracao) {
-            $valorRemuneracao
-                    [$remuneracao['FaixasEtaria']['faixa']]
-                    [$remuneracao[0]['remuneracao']]
-                    [$remuneracao['FaixasEtaria']['descricao']] = $remuneracao[0]['total'];
+        $valorRenda['tempo'] = microtime(true) - $inicio;
+        $valorRenda['total'] = $this->Pessoa->find('count', $options);
+        foreach ($pessoas as $renda) {
+            $valorRenda
+                    [$renda['FaixasEtaria']['faixa']]
+                    [$renda[0]['remuneracao']]
+                    [$renda['FaixasEtaria']['descricao']] = $renda[0]['total'];
         }
 
         $bairros = $this->Domicilio->Bairro->find('list', array(
@@ -465,7 +465,7 @@ class RelatoriosController extends AppController {
         $cras = $this->Domicilio->Cras->find('list');
         $regioes = $this->Domicilio->Regiao->find('list');
 
-        $this->set(compact('valorRemuneracao', 'bairros', 'cras', 'regioes'));
+        $this->set(compact('valorRenda', 'bairros', 'cras', 'regioes'));
     }
 
     function educacaoFormal() {
