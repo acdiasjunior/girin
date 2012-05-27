@@ -21,8 +21,9 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         dataType: 'json',
         colModel : [
             {display: 'Codigo', name : 'id', width : 50, sortable : true, align: 'center'}, //, hide: true},
-            {display: 'Nome', name : 'nome', width : 270, sortable : true, align: 'left'},
-            {display: 'Login', name : 'username', width : 230, sortable : true, align: 'left'}
+            {display: 'Nome', name : 'nome', width : 160, sortable : true, align: 'left'},
+            {display: 'Login', name : 'username', width : 160, sortable : true, align: 'left'},
+            {display: 'Grupo', name : 'id_grupo', width : 160, sortable : true, align: 'left'}
         ],
         buttons : [
             {name: 'Incluir', bclass: 'add', onpress : actions},
@@ -43,7 +44,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         var id = $('.trSelected', grid).find('td[abbr="id"]').text();
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'cadastro')); ?>/' + id);
-    });
+    }).disableSelection();
     
     function actions(com, grid) {
         var id = $('.trSelected', grid).find('td[abbr="id"]').text();

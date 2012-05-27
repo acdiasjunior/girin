@@ -7,7 +7,7 @@ echo $javascript->link(array('jquery.ui.datepicker-pt-BR', 'jquery.maskedinput-1
 echo $this->Form->create('Permissao');
 
 echo $this->Html->tag('fieldset', null);
-echo $this->Html->tag('legend', 'Identificação');
+echo $this->Html->tag('legend', 'Permissões da Tela');
 echo $this->Form->hidden('Permissao.id_permissao');
 echo $this->Form->input('Permissao.nome_controller', array('label' => 'Controlador', 'readonly' => 'readonly'));
 echo $this->Form->input('Permissao.nome_action', array('label' => 'Ação', 'readonly' => 'readonly'));

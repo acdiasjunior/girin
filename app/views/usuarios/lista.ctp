@@ -9,7 +9,8 @@ foreach($usuarios as $usuario)
         'cell' => array(
             $usuario['Usuario']['id'],
             $usuario['Usuario']['nome'],
-            $usuario['Usuario']['username']
+            $usuario['Usuario']['username'],
+            Usuario::grupoUsuario($usuario['Usuario']['id_grupo']),
         )
     );
     $i++;

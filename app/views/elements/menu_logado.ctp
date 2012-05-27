@@ -152,6 +152,9 @@
                 <li>
                     <a href="<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'index')); ?>" class="hide">Cadastro</a>
                 </li>
+                <li>
+                    <a href="<?php echo $this->Html->url(array('controller' => 'permissoes', 'action' => 'index')); ?>" class="hide">Permissões</a>
+                </li>
                 <?php
             } else {
                 ?>

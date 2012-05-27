@@ -20,17 +20,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         ],
         buttons : [
             {name: 'Editar', bclass: 'edit', onpress : actions},
-            {separator: true},
-            {name: 'Prontuario', bclass: 'prontuario', onpress : actions},
             {separator: true}
-        ],
-        searchitems : [
-            {display: 'Cód. Domiciliar', name : 'Domicilio.codigo_domiciliar', isdefault: true},
-            {display: 'Responsável', name : 'Responsavel.nome'},
-            {display: 'IDF <=', name : 'Domicilio.idf'},
-            {display: 'Logradouro', name : 'Domicilio.logradouro'},
-            {display: 'Bairro', name : 'Bairro.nome'},
-            {display: 'Cidade', name : 'Domicilio.cidade'}
         ],
         sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Permissao.nome_controller'; ?>',
         sortorder: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortorder') : 'asc'; ?>',
@@ -53,38 +43,18 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
     });
 
     $('#flex').dblclick( function(){
-        var id = $('.trSelected').find('td[abbr="Domicilio.codigo_domiciliar"]').text();
+        var id = $('.trSelected').find('td[abbr="Permissao.id_permissao"]').text();
         if(id != '')
-            $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'domicilios', 'action' => 'cadastro')); ?>/' + id);
-    });
-    //}).disableSelection();
+            $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'permissoes', 'action' => 'gerenciar')); ?>/' + id);
+    }).disableSelection();
 
     function actions(com, grid) {
-        var id = $('.trSelected', grid).find('td[abbr="Domicilio.codigo_domiciliar"]').text();
-        var nome = $('.trSelected', grid).find('td[abbr="Responsavel.nome"]').text();
+        var id = $('.trSelected').find('td[abbr="Permissao.id_permissao"]').text();
         switch(com)
         {
-            case "Incluir":
-                $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'domicilios', 'action' => 'cadastro')); ?>');
-                break;
             case "Editar":
                 if(id != '')
-                    $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'domicilios', 'action' => 'cadastro')); ?>/' + id);
-                else
-                    alert('Selecione um registro primeiro!');
-                break;
-            case "Excluir":
-                if(id != '')
-                {
-                    if(confirm('Deseja realmente excluir?\nResponsável Legal: ' + nome))
-                        $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'domicilios', 'action' => 'excluir')); ?>/' + id);
-                }
-                else
-                    alert('Selecione um registro primeiro!');
-                break;
-            case "Prontuario":
-                if(id != '')
-                    $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'gerarProntuario')); ?>/' + id);
+                    $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'permissoes', 'action' => 'cadastro')); ?>/' + id);
                 else
                     alert('Selecione um registro primeiro!');
                 break;
