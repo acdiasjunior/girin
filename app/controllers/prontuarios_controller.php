@@ -108,17 +108,6 @@ class ProntuariosController extends AppController {
         $this->set(compact('total_estrategias'));
     }
 
-    function cadastro($id = null) {
-        if (empty($this->data)) {
-            $this->data = $this->Prontuario->read();
-        } else {
-            if ($this->Prontuario->save($this->data)) {
-                $this->Session->setFlash('Cadastro salvo.');
-                $this->redirect(array('controller' => $this->name, 'action' => 'index'));
-            }
-        }
-    }
-
     function gerarPDF($id) {
         $this->autoRender = false;
         $codigo_domiciliar = $this->Prontuario->field('codigo_domiciliar');
