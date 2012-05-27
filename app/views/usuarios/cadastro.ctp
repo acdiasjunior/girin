@@ -21,7 +21,7 @@ if (!isset($this->data['Usuario']))
     echo $this->Form->input('password', array('label' => 'Senha'));
 echo $this->Html->tag('/fieldset', null);
 
-if ($this->Session->read('Auth.Usuario.id') == 1) {
+if ($this->Session->read('Auth.Usuario.id_grupo') == Usuario::GRUPO_ADMINISTRADOR) {
     echo $this->Html->tag('fieldset', null);
     echo $this->Html->tag('legend', 'Acesso a Dados');
     echo $this->Form->input('Cras', array('multiple' => 'checkbox'));

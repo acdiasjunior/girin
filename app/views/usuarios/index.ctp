@@ -39,6 +39,12 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         singleSelect: true
     });
     
+    $('#flex').dblclick( function(){
+        var id = $('.trSelected', grid).find('td[abbr="id"]').text();
+        if(id != '')
+            $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'cadastro')); ?>/' + id);
+    });
+    
     function actions(com, grid) {
         var id = $('.trSelected', grid).find('td[abbr="id"]').text();
         var nome = $('.trSelected', grid).find('td[abbr="nome"]').text();

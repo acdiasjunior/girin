@@ -1,22 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/C:/Projetos/PHP/prefeitura/app/controllers/relatorios_controller.php</file>
-        <file>file:/C:/Projetos/PHP/prefeitura/app/controllers/pessoas_controller.php</file>
-        <file>file:/C:/Projetos/PHP/prefeitura/app/models/pessoa.php</file>
-        <file>file:/C:/Projetos/PHP/prefeitura/app/models/domicilio.php</file>
-        <file>file:/C:/Projetos/PHP/prefeitura/app/controllers/domicilios_controller.php</file>
-        <file>file:/C:/Projetos/PHP/prefeitura/app/views/elements/menu_logado.ctp</file>
-        <file>file:/C:/Projetos/PHP/prefeitura/app/views/pessoas/index.ctp</file>
-        <file>file:/C:/Projetos/PHP/prefeitura/app/views/domicilios/index.ctp</file>
-        <file>file:/C:/Projetos/PHP/prefeitura/app/views/domicilios/cadastro.ctp</file>
-        <file>file:/C:/Projetos/PHP/prefeitura/app/views/pessoas/cadastro.ctp</file>
-        <file>file:/C:/Projetos/PHP/prefeitura/app/views/servicos/index.ctp</file>
-        <file>file:/C:/Projetos/PHP/prefeitura/app/views/indicadores/index.ctp</file>
-        <file>file:/C:/Projetos/PHP/prefeitura/app/views/indicadores/lista.ctp</file>
-        <file>file:/C:/Projetos/PHP/prefeitura/app/views/indices/index.ctp</file>
-        <file>file:/C:/Projetos/PHP/prefeitura/app/models/indice.php</file>
-        <file>file:/C:/Projetos/PHP/prefeitura/app/webroot/js/highcharts/highcharts.js</file>
-    </open-files>
 </project-private>

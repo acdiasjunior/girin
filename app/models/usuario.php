@@ -32,9 +32,9 @@ class Usuario extends AppModel {
         return parent::enum($value, $options);
     }
 
-    const GRUPO_ADMINISTRADOR = 0;
-    const GRUPO_TECNICO_SAS = 1;
-    const GRUPO_COORDENADOR_CRAS = 2;
-    const GRUPO_TECNICO_CRAS = 3;
+    const GRUPO_ADMINISTRADOR = 1;
+    const GRUPO_TECNICO_SAS = 2;
+    const GRUPO_COORDENADOR_CRAS = 3;
+    const GRUPO_TECNICO_CRAS = 4;
 
 }

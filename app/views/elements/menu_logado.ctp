@@ -147,7 +147,7 @@
     <li><a href="#" class="hide pai">Usuário</a>
         <ul>
             <?php
-            if ($this->Session->read('Auth.Usuario.id') == 1) {
+            if ($this->Session->read('Auth.Usuario.id_grupo') == 1) {
                 ?>
                 <li>
                     <a href="<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'index')); ?>" class="hide">Cadastro</a>

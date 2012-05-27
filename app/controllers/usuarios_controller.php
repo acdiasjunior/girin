@@ -5,8 +5,8 @@ class UsuariosController extends AppController {
     var $name = 'Usuarios';
 
     function index() {
-        if ($this->Session->read('Auth.Usuario.id') != 1) {
-            $this->Session->setFlash('Somente o Administrador pode<br />cadastrar usuários!');
+        if ($this->Session->read('Auth.Usuario.id_grupo') != Usuario::GRUPO_ADMINISTRADOR) {
+            $this->Session->setFlash('Somente administradores podem<br />cadastrar usuários!');
             $this->redirect(array('controller' => 'pages'));
         }
     }
@@ -28,8 +28,8 @@ class UsuariosController extends AppController {
                 $this->Session->setFlash('Alteração do Usuário Admistrador desabilitada!');
                 $this->redirect(array('controller' => 'pages'));
             }
-            if ($id != $this->Session->read('Auth.Usuario.id') && $this->Session->read('Auth.Usuario.id') != 1) {
-                $this->Session->setFlash('Somente o Administrador pode alterar os outros cadastros.');
+            if ($id != $this->Session->read('Auth.Usuario.id') && $this->Session->read('Auth.Usuario.id_grupo') != Usuario::GRUPO_ADMINISTRADOR) {
+                $this->Session->setFlash('Somente administradores podem alterar os outros cadastros.');
                 $this->redirect(array('controller' => 'pages'));
             }
             $this->Usuario->id = $id;
@@ -37,7 +37,7 @@ class UsuariosController extends AppController {
         } else {
             $this->beforeSave();
             if ($this->Usuario->save($this->data)) {
-                if ($this->Session->read('Auth.Usuario.id') == 1)
+                if ($this->Session->read('Auth.Usuario.id_grupo') == Usuario::GRUPO_ADMINISTRADOR)
                     $this->redirect(array('controller' => $this->name, 'action' => 'index'));
                 else
                     $this->redirect(array('controller' => 'pages'));
@@ -46,8 +46,8 @@ class UsuariosController extends AppController {
     }
 
     function excluir($id) {
-        if ($this->Session->read('Auth.Usuario.id') != 1) {
-            $this->Session->setFlash('Somente o Administrador pode<br />excluir usuários!');
+        if ($this->Session->read('Auth.Usuario.id_grupo') != Usuario::GRUPO_ADMINISTRADOR) {
+            $this->Session->setFlash('Somente administradores podem<br />excluir usuários!');
             $this->redirect(array('controller' => 'pages'));
         } else {
             if (!empty($id)) {
