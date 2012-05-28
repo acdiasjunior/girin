@@ -14,13 +14,13 @@ class PessoasController extends AppController {
         $this->layout = 'ajax';
 
         $this->Pessoa->recursive = 0;
+        
+        $conditions = array(
+            'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
+        );
 
         if ($this->params['form']['query'] != '')
-            $conditions = array(
-                $this->params['form']['qtype'] . ' LIKE' => '%' . str_replace(' ', '%', $this->params['form']['query']) . '%'
-            );
-        else
-            $conditions = array();
+            $conditions[$this->params['form']['qtype'] . ' LIKE'] = '%' . str_replace(' ', '%', $this->params['form']['query']) . '%';
 
         $this->paginate = array(
             'page' => $this->params['form']['page'],
@@ -280,5 +280,22 @@ class PessoasController extends AppController {
 //        }
         die();
     }
+    
+    private function crasUsuario() {
+        $this->loadModel('Usuario');
+        $this->Usuario->id = $this->Session->read('Auth.Usuario.id');
+        $cras_usuario = array();
 
+        if ($this->Usuario->id == 1) {
+            $this->loadModel('Cras');
+            $cras_usuario = array_keys($this->Cras->find('list'));
+        } else {
+            $usuario = $this->Usuario->read();
+            if (count($usuario['Cras']) > 0)
+                foreach ($usuario['Cras'] as $cras)
+                    $cras_usuario[] = $cras['id'];
+        }
+
+        return implode(',', $cras_usuario);
+    }
 }

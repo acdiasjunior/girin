@@ -54,7 +54,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         {
             case "Editar":
                 if(id != '')
-                    $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'permissoes', 'action' => 'cadastro')); ?>/' + id);
+                    $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'permissoes', 'action' => 'gerenciar')); ?>/' + id);
                 else
                     alert('Selecione um registro primeiro!');
                 break;

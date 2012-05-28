@@ -22,7 +22,6 @@ class UsuariosController extends AppController {
     }
 
     function cadastro($id = null) {
-        parent::temAcesso();
         if (empty($this->data)) {
             if ($id == null && $this->Session->read('Auth.Usuario.id') != 1)
                 $id = $this->Session->read('Auth.Usuario.id');

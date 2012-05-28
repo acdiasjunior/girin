@@ -41,6 +41,10 @@ class ProntuariosController extends AppController {
         $regioes = $this->Domicilio->Regiao->find('list');
         $this->set(compact('bairros', 'cras', 'regioes'));
     }
+    
+    function gerar() {
+        parent::temAcesso();
+    }
 
     function gerarProntuario($codigo_domiciliar = null) {
         parent::temAcesso();
