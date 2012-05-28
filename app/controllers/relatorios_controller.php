@@ -212,6 +212,8 @@ class RelatoriosController extends AppController {
                 'FaixasEtaria.faixa',
             ),
             'conditions' => array(
+                'Domicilio.quantidade_pessoas > 0',
+                'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
             ),
             'group' => array(
                 'Pessoa.tipo_trabalho',
@@ -228,28 +230,20 @@ class RelatoriosController extends AppController {
                 $options['fields'][] = 'Domicilio.regiao_id';
                 $options['conditions'] = array(
                     'Domicilio.regiao_id' => $this->data['Relatorio']['regiao_id'],
-                    'Domicilio.quantidade_pessoas > 0'
                 );
                 $options['group'][] = 'Domicilio.regiao_id';
                 break;
             case 'cras_id':
                 $options['fields'][] = 'Domicilio.cras_id';
-                $options['conditions'] = array(
-                    'Domicilio.cras_id' => $this->data['Relatorio']['cras_id'],
-                    'Domicilio.quantidade_pessoas > 0'
-                );
+                $options['conditions']['Domicilio.cras_id'] = $this->data['Relatorio']['cras_id'];
                 $options['group'][] = 'Domicilio.cras_id';
                 break;
             case 'bairro_id':
                 $options['fields'][] = 'Domicilio.bairro_id';
-                $options['conditions'] = array(
-                    'Domicilio.bairro_id' => $this->data['Relatorio']['bairro_id'],
-                    'Domicilio.quantidade_pessoas > 0'
-                );
+                $options['conditions']['Domicilio.bairro_id'] = $this->data['Relatorio']['bairro_id'];
                 $options['group'][] = 'Domicilio.bairro_id';
                 break;
         }
-
 
         $inicio = microtime(true);
         $pessoas = $this->Pessoa->find('all', $options);
@@ -289,7 +283,8 @@ class RelatoriosController extends AppController {
                 ),
             ),
             'conditions' => array(
-                'Domicilio.quantidade_pessoas > 0'
+                'Domicilio.quantidade_pessoas > 0',
+                'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
             ),
             'fields' => array(
                 'COUNT(FaixasEtaria.id) AS total',
@@ -312,24 +307,17 @@ class RelatoriosController extends AppController {
                 $options['fields'][] = 'Domicilio.regiao_id';
                 $options['conditions'] = array(
                     'Domicilio.regiao_id' => $this->data['Relatorio']['regiao_id'],
-                    'Domicilio.quantidade_pessoas > 0'
                 );
                 $options['group'][] = 'Domicilio.regiao_id';
                 break;
             case 'cras_id':
                 $options['fields'][] = 'Domicilio.cras_id';
-                $options['conditions'] = array(
-                    'Domicilio.cras_id' => $this->data['Relatorio']['cras_id'],
-                    'Domicilio.quantidade_pessoas > 0'
-                );
+                $options['conditions']['Domicilio.cras_id'] = $this->data['Relatorio']['cras_id'];
                 $options['group'][] = 'Domicilio.cras_id';
                 break;
             case 'bairro_id':
                 $options['fields'][] = 'Domicilio.bairro_id';
-                $options['conditions'] = array(
-                    'Domicilio.bairro_id' => $this->data['Relatorio']['bairro_id'],
-                    'Domicilio.quantidade_pessoas > 0'
-                );
+                $options['conditions']['Domicilio.bairro_id'] = $this->data['Relatorio']['bairro_id'];
                 $options['group'][] = 'Domicilio.bairro_id';
                 break;
         }
@@ -415,6 +403,10 @@ class RelatoriosController extends AppController {
                 'FaixasEtaria.descricao',
                 'FaixasEtaria.faixa',
             ),
+            'conditions' => array(
+                'Domicilio.quantidade_pessoas > 0',
+                'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
+            ),
             'group' => array(
                 'remuneracao',
                 '"FaixasEtaria"."descricao"',
@@ -430,24 +422,17 @@ class RelatoriosController extends AppController {
                 $options['fields'][] = 'Domicilio.regiao_id';
                 $options['conditions'] = array(
                     'Domicilio.regiao_id' => $this->data['Relatorio']['regiao_id'],
-                    'Domicilio.quantidade_pessoas > 0'
                 );
                 $options['group'][] = 'Domicilio.regiao_id';
                 break;
             case 'cras_id':
                 $options['fields'][] = 'Domicilio.cras_id';
-                $options['conditions'] = array(
-                    'Domicilio.cras_id' => $this->data['Relatorio']['cras_id'],
-                    'Domicilio.quantidade_pessoas > 0'
-                );
+                $options['conditions']['Domicilio.cras_id'] = $this->data['Relatorio']['cras_id'];
                 $options['group'][] = 'Domicilio.cras_id';
                 break;
             case 'bairro_id':
                 $options['fields'][] = 'Domicilio.bairro_id';
-                $options['conditions'] = array(
-                    'Domicilio.bairro_id' => $this->data['Relatorio']['bairro_id'],
-                    'Domicilio.quantidade_pessoas > 0'
-                );
+                $options['conditions']['Domicilio.bairro_id'] = $this->data['Relatorio']['bairro_id'];
                 $options['group'][] = 'Domicilio.bairro_id';
                 break;
         }
@@ -475,7 +460,7 @@ class RelatoriosController extends AppController {
 
     function educacaoFormal() {
         parent::temAcesso();
-        
+
         $serie_escolar = '(CASE';
         $serie_escolar .= ' WHEN grau_instrucao = ' . Pessoa::ESCOLARIDADE_ANALFABETO . ' THEN \'analfabeto\'';
         $serie_escolar .= ' WHEN serie_escolar = ' . Pessoa::SERIE_CA_ALFABETIZACAO . ' THEN \'alfabetizacao\'';
@@ -523,12 +508,13 @@ class RelatoriosController extends AppController {
                 'FaixasEtaria.descricao',
                 'FaixasEtaria.faixa',
             ),
+            'conditions' => array(
+                'Domicilio.quantidade_pessoas > 0',
+                'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
+            ),
             'order' => array(
                 'FaixasEtaria.faixa',
             ),
-            'conditions' => array(
-//            'grau_instrucao >= ' => Pessoa::ESCOLARIDADE_SUPERIOR_INCOMPLETO,
-            )
         );
 
         switch ($this->data['Relatorio']['filtro']) {
@@ -536,24 +522,17 @@ class RelatoriosController extends AppController {
                 $options['fields'][] = 'Domicilio.regiao_id';
                 $options['conditions'] = array(
                     'Domicilio.regiao_id' => $this->data['Relatorio']['regiao_id'],
-                    'Domicilio.quantidade_pessoas > 0'
                 );
                 $options['group'][] = 'Domicilio.regiao_id';
                 break;
             case 'cras_id':
                 $options['fields'][] = 'Domicilio.cras_id';
-                $options['conditions'] = array(
-                    'Domicilio.cras_id' => $this->data['Relatorio']['cras_id'],
-                    'Domicilio.quantidade_pessoas > 0'
-                );
+                $options['conditions']['Domicilio.cras_id'] = $this->data['Relatorio']['cras_id'];
                 $options['group'][] = 'Domicilio.cras_id';
                 break;
             case 'bairro_id':
                 $options['fields'][] = 'Domicilio.bairro_id';
-                $options['conditions'] = array(
-                    'Domicilio.bairro_id' => $this->data['Relatorio']['bairro_id'],
-                    'Domicilio.quantidade_pessoas > 0'
-                );
+                $options['conditions']['Domicilio.bairro_id'] = $this->data['Relatorio']['bairro_id'];
                 $options['group'][] = 'Domicilio.bairro_id';
                 break;
         }
@@ -578,6 +557,24 @@ class RelatoriosController extends AppController {
         $regioes = $this->Domicilio->Regiao->find('list');
 
         $this->set(compact('educacaoFormal', 'bairros', 'cras', 'regioes'));
+    }
+
+    private function crasUsuario() {
+        $this->loadModel('Usuario');
+        $this->Usuario->id = $this->Session->read('Auth.Usuario.id');
+        $cras_usuario = array();
+
+        if ($this->Usuario->id == 1) {
+            $this->loadModel('Cras');
+            $cras_usuario = array_keys($this->Cras->find('list'));
+        } else {
+            $usuario = $this->Usuario->read();
+            if (count($usuario['Cras']) > 0)
+                foreach ($usuario['Cras'] as $cras)
+                    $cras_usuario[] = $cras['id'];
+        }
+
+        return implode(',', $cras_usuario);
     }
 
 }

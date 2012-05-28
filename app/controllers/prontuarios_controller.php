@@ -11,12 +11,12 @@ class ProntuariosController extends AppController {
     function lista() {
         $this->layout = 'ajax';
 
+        $conditions = array(
+            'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
+        );
+
         if ($this->params['form']['query'] != '')
-            $conditions = array(
-                $this->params['form']['qtype'] . ' LIKE' => '%' . str_replace(' ', '%', $this->params['form']['query']) . '%'
-            );
-        else
-            $conditions = array();
+            $conditions[$this->params['form']['qtype'] . ' LIKE'] = '%' . str_replace(' ', '%', $this->params['form']['query']) . '%';
 
         $this->paginate = array(
             'page' => $this->params['form']['page'],

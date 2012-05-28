@@ -53,22 +53,21 @@ class IndicesController extends AppController {
 
         foreach ($this->Indice->indicadores as $indicador)
             $fields[] = "AVG($indicador) AS $indicador";
+        
+        $conditions = array(
+            'Domicilio.quantidade_pessoas != 0',
+            'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
+        );
 
         switch ($this->data['Relatorio']['filtro']) {
             case 'regiao_id':
-                $conditions = array(
-                    'Domicilio.regiao_id' => $this->data['Relatorio']['regiao_id']
-                );
+                $conditions['Domicilio.regiao_id'] = $this->data['Relatorio']['regiao_id'];
                 break;
             case 'cras_id':
-                $conditions = array(
-                    'Domicilio.cras_id' => $this->data['Relatorio']['cras_id']
-                );
+                $conditions['Domicilio.cras_id'] = $this->data['Relatorio']['cras_id'];
                 break;
             case 'bairro_id':
-                $conditions = array(
-                    'Domicilio.bairro_id' => $this->data['Relatorio']['bairro_id']
-                );
+                $conditions['Domicilio.bairro_id'] = $this->data['Relatorio']['bairro_id'];
                 break;
         }
 
@@ -208,5 +207,23 @@ class IndicesController extends AppController {
         // adicione ao método allow as actions que quer permitir sem o usuário estar logado
         $this->Auth->allow(array('atualizarIndices'));
     }
+    
+    private function crasUsuario() {
+        $this->loadModel('Usuario');
+        $this->Usuario->id = $this->Session->read('Auth.Usuario.id');
+        $cras_usuario = array();
 
+        if ($this->Usuario->id == 1) {
+            $this->loadModel('Cras');
+            $cras_usuario = array_keys($this->Cras->find('list'));
+        } else {
+            $usuario = $this->Usuario->read();
+            if (count($usuario['Cras']) > 0)
+                foreach ($usuario['Cras'] as $cras)
+                    $cras_usuario[] = $cras['id'];
+        }
+
+        return implode(',', $cras_usuario);
+    }
+    
 }

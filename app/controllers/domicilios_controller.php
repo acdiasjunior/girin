@@ -58,6 +58,7 @@ class DomiciliosController extends AppController {
 
         $conditions = array(
             'Domicilio.quantidade_pessoas != 0',
+            'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
         );
 
         if ($this->Session->read("$container.Domicilio_codigo_domiciliar") != '')
