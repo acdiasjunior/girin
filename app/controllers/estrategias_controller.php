@@ -5,7 +5,7 @@ class EstrategiasController extends AppController {
     var $name = 'Estrategias';
 
     function index() {
-
+        parent::temAcesso();
     }
 
     function lista() {
@@ -34,6 +34,7 @@ class EstrategiasController extends AppController {
     }
 
     function cadastro($id = null) {
+        parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Estrategia->read();
             $this->Estrategia->Indicador->displayField = array("%s - %s", "{n}.Indicador.codigo", "{n}.Indicador.label");

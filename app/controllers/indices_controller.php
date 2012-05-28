@@ -7,6 +7,7 @@ class IndicesController extends AppController {
     var $components = array('RequestHandler');
 
     function index() {
+        parent::temAcesso();
         $joins = array(
             array('table' => 'domicilios',
                 'alias' => 'Domicilio',

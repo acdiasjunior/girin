@@ -5,7 +5,7 @@ class IndicadoresController extends AppController {
     var $name = 'Indicadores';
     
     function index() {
-        
+        parent::temAcesso();
     }
     
     function lista() {
@@ -34,6 +34,7 @@ class IndicadoresController extends AppController {
     }
     
     function cadastro($id = null) {
+        parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Indicador->read();
         } else {

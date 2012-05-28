@@ -5,6 +5,7 @@ class BairrosController extends AppController {
     var $name = 'Bairros';
 
     function index() {
+        parent::temAcesso();
         $bairros = $this->Bairro->find('list');
         $this->set(compact('bairros'));
     }
@@ -35,6 +36,7 @@ class BairrosController extends AppController {
     }
 
     function cadastro($id = null) {
+        parent::temAcesso();
         verificaPermissao();
         if (empty($this->data)) {
             $this->data = $this->Bairro->read();
@@ -81,6 +83,7 @@ class BairrosController extends AppController {
     }
 
     function excluir($id, $novo_bairro = null) {
+        parent::temAcesso();
         if (!empty($id)) {
             $this->Bairro->delete($id);
             $this->Session->setFlash('O bairro com código: ' . $id . ' foi excluído.');

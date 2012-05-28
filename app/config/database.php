@@ -92,12 +92,21 @@ class DATABASE_CONFIG {
             $this->default = array(
                 'driver' => 'postgres',
                 'persistent' => false,
-                'host' => '127.0.0.1',
-                'login' => 'programacaolocal',
-                'password' => 'sistema',
-                'database' => 'programacaolocal',
+                'host' => 'pgsql.juniordias.com.br',
+                'login' => 'juniordias',
+                'password' => 'system',
+                'database' => 'juniordias',
                 'encoding' => 'utf8'
             );
+//            $this->default = array(
+//                'driver' => 'postgres',
+//                'persistent' => false,
+//                'host' => '127.0.0.1',
+//                'login' => 'programacaolocal',
+//                'password' => 'sistema',
+//                'database' => 'programacaolocal',
+//                'encoding' => 'utf8'
+//            );
     }
 
 }

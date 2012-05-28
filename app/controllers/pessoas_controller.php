@@ -7,7 +7,7 @@ class PessoasController extends AppController {
     var $components = array('RequestHandler');
 
     function index() {
-        
+        parent::temAcesso();
     }
 
     function lista() {
@@ -119,6 +119,7 @@ class PessoasController extends AppController {
     }
 
     function cadastro($id = null) {
+        parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Pessoa->read();
         } else {
@@ -130,6 +131,7 @@ class PessoasController extends AppController {
     }
 
     function excluir($id) {
+        parent::temAcesso();
         if (!empty($id)) {
             $this->Pessoa->delete($id);
             $this->Session->setFlash('A pessoa com nis: ' . $id . ' foi excluído.');
@@ -140,7 +142,7 @@ class PessoasController extends AppController {
     }
 
     function importar($arquivo = null) {
-
+        parent::temAcesso();
         if (empty($this->data)) {
             //Abre a tela de importação
         } else {

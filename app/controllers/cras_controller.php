@@ -5,7 +5,7 @@ class CrasController extends AppController {
     var $name = 'Cras';
 
     function index() {
-        
+        parent::temAcesso();
     }
 
     function lista() {
@@ -34,6 +34,7 @@ class CrasController extends AppController {
     }
     
     function cadastro($id = null) {
+        parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Cras->read();
         } else {

@@ -5,6 +5,7 @@ class UsuariosController extends AppController {
     var $name = 'Usuarios';
 
     function index() {
+        parent::temAcesso();
         if ($this->Session->read('Auth.Usuario.id_grupo') != Usuario::GRUPO_ADMINISTRADOR) {
             $this->Session->setFlash('Somente administradores podem<br />cadastrar usuários!');
             $this->redirect(array('controller' => 'pages'));
@@ -21,6 +22,7 @@ class UsuariosController extends AppController {
     }
 
     function cadastro($id = null) {
+        parent::temAcesso();
         if (empty($this->data)) {
             if ($id == null && $this->Session->read('Auth.Usuario.id') != 1)
                 $id = $this->Session->read('Auth.Usuario.id');
@@ -46,6 +48,7 @@ class UsuariosController extends AppController {
     }
 
     function excluir($id) {
+        parent::temAcesso();
         if ($this->Session->read('Auth.Usuario.id_grupo') != Usuario::GRUPO_ADMINISTRADOR) {
             $this->Session->setFlash('Somente administradores podem<br />excluir usuários!');
             $this->redirect(array('controller' => 'pages'));

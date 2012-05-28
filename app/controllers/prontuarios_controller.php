@@ -5,7 +5,7 @@ class ProntuariosController extends AppController {
     var $name = 'Prontuarios';
 
     function index() {
-        
+        parent::temAcesso();
     }
 
     function lista() {
@@ -33,13 +33,6 @@ class ProntuariosController extends AppController {
         $this->set(compact('prontuarios', 'page', 'total'));
     }
     
-    function gerar() {
-//        $filtros = $this->Session->read('prontuarios.gerar.filtroDomicilios');
-//        var_dump($filtros); die();
-//        foreach($filtros as $nome)
-//            var_dump($nome);
-    }
-    
     function filtro() {
         $this->layout = 'ajax';
         $this->loadModel('Domicilio');
@@ -50,6 +43,7 @@ class ProntuariosController extends AppController {
     }
 
     function gerarProntuario($codigo_domiciliar = null) {
+        parent::temAcesso();
         if ($codigo_domiciliar == null) 
             $this->redirect(array('action' => 'index'));
 
@@ -100,6 +94,7 @@ class ProntuariosController extends AppController {
     }
 
     function exibirProntuario($id) {
+        parent::temAcesso();
         $this->layout = 'ajax';
         $this->Prontuario->recursive = 2;
         $this->data = $this->Prontuario->read();

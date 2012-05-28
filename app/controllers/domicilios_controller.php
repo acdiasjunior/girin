@@ -7,6 +7,7 @@ class DomiciliosController extends AppController {
     var $components = array('RequestHandler');
 
     function index() {
+        parent::temAcesso();
         $this->set('title_for_layout', 'Listagem de Domicílios');
     }
 
@@ -106,6 +107,7 @@ class DomiciliosController extends AppController {
     }
 
     function cadastro($id = null) {
+        parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Domicilio->read();
         } else {
@@ -117,6 +119,7 @@ class DomiciliosController extends AppController {
     }
 
     function excluir($id) {
+        parent::temAcesso();
         if (!empty($id)) {
             if ($this->Domicilio->Pessoa->findAllByDomicilioId($id)) {
 
@@ -160,7 +163,7 @@ class DomiciliosController extends AppController {
     }
 
     function importar($arquivo = null) {
-
+        parent::temAcesso();
         if (empty($this->data)) {
             //Abre a tela de importação
         } else {

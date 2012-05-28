@@ -8,10 +8,12 @@ class RelatoriosController extends AppController {
     var $components = array('RequestHandler');
 
     function index() {
+        parent::temAcesso();
         $this->redirect(array('controller' => 'pages', 'action' => 'display'));
     }
 
     function mapaIdfCsv() {
+        parent::temAcesso();
         set_time_limit(0);
 
         $this->autoRender = false;
@@ -183,6 +185,7 @@ class RelatoriosController extends AppController {
     }
 
     function trabalhoEmprego() {
+        parent::temAcesso();
         $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."data_nascimento")))';
         $options = array(
             'recursive' => -1,
@@ -265,6 +268,7 @@ class RelatoriosController extends AppController {
     }
 
     function faixasEtarias() {
+        parent::temAcesso();
         $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."data_nascimento")))';
         $options = array(
             'recursive' => -1,
@@ -378,6 +382,7 @@ class RelatoriosController extends AppController {
     }
 
     function valorRenda() {
+        parent::temAcesso();
         $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."data_nascimento")))';
         $options = array(
             'recursive' => -1,
@@ -469,7 +474,8 @@ class RelatoriosController extends AppController {
     }
 
     function educacaoFormal() {
-
+        parent::temAcesso();
+        
         $serie_escolar = '(CASE';
         $serie_escolar .= ' WHEN grau_instrucao = ' . Pessoa::ESCOLARIDADE_ANALFABETO . ' THEN \'analfabeto\'';
         $serie_escolar .= ' WHEN serie_escolar = ' . Pessoa::SERIE_CA_ALFABETIZACAO . ' THEN \'alfabetizacao\'';

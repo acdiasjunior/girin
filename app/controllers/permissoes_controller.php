@@ -5,7 +5,7 @@ class PermissoesController extends AppController {
     var $name = 'Permissoes';
 
     function index() {
-        
+        parent::temAcesso();
     }
 
     function lista() {
@@ -34,6 +34,7 @@ class PermissoesController extends AppController {
     }
     
     function gerenciar($id = null) {
+        parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Permissao->read();
         } else {

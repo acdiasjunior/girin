@@ -5,7 +5,7 @@ class ServicosController extends AppController {
     var $name = 'Servicos';
 
     function index() {
-        
+        parent::temAcesso();
     }
 
     function lista() {
@@ -34,6 +34,7 @@ class ServicosController extends AppController {
     }
 
     function cadastro($id = null) {
+        parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Servico->read();
         } else {
@@ -78,6 +79,7 @@ class ServicosController extends AppController {
     }
 
     function excluir($id, $novo_servico = null) {
+        parent::temAcesso();
         if (!empty($id)) {
             $this->Servico->delete($id);
             $this->Session->setFlash('O servico com código: ' . $id . ' foi excluído.');

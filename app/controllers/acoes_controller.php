@@ -5,7 +5,7 @@ class AcoesController extends AppController {
     var $name = 'Acoes';
 
     function index() {
-
+        parent::temAcesso();
     }
 
     function lista() {
@@ -38,6 +38,7 @@ class AcoesController extends AppController {
     }
 
     function cadastro($id = null) {
+        parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Acao->read();
         } else {
@@ -49,6 +50,7 @@ class AcoesController extends AppController {
     }
     
     function excluir($id) {
+        parent::temAcesso();
         if (!empty($id)) {
             $this->Acao->delete($id);
             $this->Session->setFlash('A ação com código: ' . $id . ' foi excluída.');

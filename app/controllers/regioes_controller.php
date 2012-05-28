@@ -5,7 +5,7 @@ class RegioesController extends AppController {
     var $name = 'Regioes';
     
     function index() {
-        
+        parent::temAcesso();
     }
     
     function lista() {
@@ -34,6 +34,7 @@ class RegioesController extends AppController {
     }
     
     function cadastro($id = null) {
+        parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Regiao->read();
         } else {
