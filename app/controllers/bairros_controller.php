@@ -35,6 +35,7 @@ class BairrosController extends AppController {
     }
 
     function cadastro($id = null) {
+        verificaPermissao();
         if (empty($this->data)) {
             $this->data = $this->Bairro->read();
         } else {

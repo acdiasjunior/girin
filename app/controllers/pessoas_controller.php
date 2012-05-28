@@ -121,37 +121,8 @@ class PessoasController extends AppController {
     function cadastro($id = null) {
         if (empty($this->data)) {
             $this->data = $this->Pessoa->read();
-            $responsavel = count($this->data['Membro']);
-            $portador_deficiencia = $this->data['Pessoa']['portador_deficiencia'];
-            $this->set(compact('responsavel', 'portador_deficiencia'));
         } else {
-            $id = $this->data['Pessoa']['id'];
-            $this->Pessoa->id = $this->data['Pessoa']['id'];
-            $conjuge_id = $this->Pessoa->field('conjuge_id');
-            if ($id != null && $conjuge_id != null) {
-                $this->Pessoa->save(array(
-                    'Pessoa' => array(
-                        'id' => $conjuge_id,
-                        'conjuge_id' => null,
-                        'estado_civil' => Pessoa::ESTADO_CIVIL_SOLTEIRO
-                    )
-                ));
-            }
             if ($this->Pessoa->save($this->data)) {
-                if ($this->data['Profissao']['descricao'] != null) {
-                    $this->loadModel('Profissao');
-                    $this->Profissao->save(array(
-                        'id' => $this->data['Pessoa']['profissao_id'],
-                        'descricao' => $this->data['Profissao']['descricao']
-                    ));
-                }
-                if ($this->data['Pessoa']['conjuge_id'] != null) {
-                    $this->Pessoa->save(array(
-                        'id' => $this->data['Pessoa']['conjuge_id'],
-                        'conjuge_id' => $this->Pessoa->id,
-                        'estado_civil' => $this->data['Pessoa']['estado_civil']
-                    ));
-                }
                 $this->Session->setFlash('Cadastro salvo.');
                 $this->redirect(array('controller' => $this->name, 'action' => 'index'));
             }

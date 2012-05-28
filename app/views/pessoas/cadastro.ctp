@@ -5,7 +5,7 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
 <script type="text/javascript">
     $(function() {        
         $("#flex").flexigrid({
-            url: '/prefeitura/pessoas/listaMembros/<?php echo $this->data['Pessoa']['nis'] ?>',
+            url: '/prefeitura/pessoas/listaPessoasDomicilio/<?php echo $this->data['Pessoa']['codigo_domiciliar'] ?>',
             dataType: 'json',
             colModel : [
                 {display: 'NIS', name : 'Pessoa.nis', width : 80, sortable : true, align: 'center', hide: false},
@@ -50,7 +50,7 @@ echo $this->Html->tag('legend', 'Identificação');
 echo $this->Form->input('Pessoa.nis', array('label' => 'NIS', 'type' => 'text', 'class' => 'edit14'));
 echo $this->Form->input('Pessoa.nome', array('label' => 'Nome', 'class' => 'edit40'));
 echo $this->Form->hidden('Pessoa.responsavel_nis');
-if (!$responsavel) {
+if (!$this->data['Pessoa']['portador_deficiencia']) {
     echo $this->Form->input('Responsavel.nome', array('label' => 'Responsável Legal', 'class' => 'nomeResponsavelAutocomplete edit40'));
     echo $this->Form->input('Pessoa.responsavel_parentesco', array('label' => 'Parentesco', 'type' => 'select', 'options' => Pessoa::grauParentesco()));
 }
@@ -71,14 +71,14 @@ echo $this->Html->tag('/fieldset', null);
 
 echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Informações Pessoais');
-echo $this->Form->input('Pessoa.estado_civil', array('options' => Pessoa::estadoCivil(),'label' => 'Estado Civil'));
-echo $this->Form->input('Pessoa.raca_cor', array('options' => Pessoa::cor(),'label' => 'Cor'));
+echo $this->Form->input('Pessoa.estado_civil', array('options' => Pessoa::estadoCivil(), 'label' => 'Estado Civil'));
+echo $this->Form->input('Pessoa.raca_cor', array('options' => Pessoa::cor(), 'label' => 'Cor'));
 echo $this->Html->div('', '', array('style' => 'clear: both;'));
-echo $this->Form->input('Pessoa.grau_instrucao', array('options' => Pessoa::grauInstrucao(),'label' => 'Grau de instrução'));
-echo $this->Form->input('Pessoa.serie_escolar', array('options' => Pessoa::serieEscolar(),'label' => 'Série Escolar'));
-echo $this->Form->input('Pessoa.tipo_escola', array('options' => Pessoa::tipoEscola(),'label' => 'Tipo de Escola'));
+echo $this->Form->input('Pessoa.grau_instrucao', array('options' => Pessoa::grauInstrucao(), 'label' => 'Grau de instrução'));
+echo $this->Form->input('Pessoa.serie_escolar', array('options' => Pessoa::serieEscolar(), 'label' => 'Série Escolar'));
+echo $this->Form->input('Pessoa.tipo_escola', array('options' => Pessoa::tipoEscola(), 'label' => 'Tipo de Escola'));
 echo $this->Html->div('', '', array('style' => 'clear: both;'));
-echo $this->Form->input('Pessoa.tipo_trabalho', array('options' => Pessoa::tipoTrabalho(),'label' => 'Tipo de Trabalho'));
+echo $this->Form->input('Pessoa.tipo_trabalho', array('options' => Pessoa::tipoTrabalho(), 'label' => 'Tipo de Trabalho'));
 echo $this->Form->input('Pessoa.ocupacao', array('label' => 'Ocupação'));
 echo $this->Form->input('Pessoa.valor_remuneracao', array('label' => 'Remuneração Mensal'));
 echo $this->Form->input('Pessoa.valor_aposentadoria', array('label' => 'Valor Aposentadoria'));
@@ -107,7 +107,7 @@ echo $this->Form->input('Pessoa.mes_gestacao', array('label' => 'Mês de Gestaç
 echo $this->Form->input('Pessoa.amamentando', array('label' => 'Amamentando'));
 echo $this->Form->input('Pessoa.esposa_companheiro', array('label' => 'Presença de esposa ou companheiro?'));
 echo $this->Form->input('Pessoa.portador_deficiencia', array('label' => 'Portador deficiência?'));
-if ($portador_deficiencia) {
+if ($this->data['Pessoa']['portador_deficiencia']) {
     echo $this->Form->input('Pessoa.cegueira', array('label' => 'Cegueira'));
     echo $this->Form->input('Pessoa.surdez', array('label' => 'Surdez'));
     echo $this->Form->input('Pessoa.mudez', array('label' => 'Mudez'));
@@ -144,10 +144,8 @@ echo $this->Form->button('Fechar', array(
 echo $this->Form->button('Salvar', array('type' => 'submit'));
 echo $this->Form->end();
 
-if ($responsavel) {
-    echo $this->Html->tag('div', '', array('style' => 'height: 20px;'));
-    echo $this->Html->tag('fieldset', null);
-    echo $this->Html->tag('legend', 'Pessoa - Membros');
-    echo '<table id="flex" style="display: none"></table>';
-    echo $this->Html->tag('/fieldset', null);
-}
+echo $this->Html->tag('div', '', array('style' => 'height: 20px;'));
+echo $this->Html->tag('fieldset', null);
+echo $this->Html->tag('legend', 'Pessoa - Membros');
+echo '<table id="flex" style="display: none"></table>';
+echo $this->Html->tag('/fieldset', null);

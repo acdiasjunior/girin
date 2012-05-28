@@ -12,12 +12,6 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
                 {display: 'Nome', name : 'Pessoa.nome', width : 250, sortable : true, align: 'left'},
                 {display: 'Idade', name : 'Pessoa.idade', width : 80, sortable : true, align: 'center'}
             ],
-            buttons : [
-                {name: 'Incluir', bclass: 'add', onpress : actions},
-                {separator: true},
-                {name: 'Excluir', bclass: 'delete', onpress : actions},
-                {separator: true}
-            ],
             searchitems : [
                 {display: 'Nome', name : 'Pessoa.nome', isdefault: true}
             ],
@@ -45,27 +39,7 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
             if(id != '')
                 $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'cadastro')); ?>/' + id);
         }).disableSelection();
-    
-        function actions(com, grid) {
-            var id = $('.trSelected', grid).find('td[abbr="Pessoa.nis"]').text();
-            var nome = $('.trSelected', grid).find('td[abbr="Pessoa.nome"]').text();
-            switch(com)
-            {
-                case "Incluir":
-                    $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'cadastro')); ?>');
-                    break;
-                case "Excluir":
-                    if(id != '')
-                    {
-                        if(confirm('Deseja realmente excluir?\nCliente: ' + nome))
-                            $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'excluir')); ?>/' + id);
-                    }
-                    else
-                        alert('Selecione um registro primeiro!');
-                    break;
-                }
-            }
-        });
+    });
 </script>
 <?php
 $javascript->link(array('jquery.ui.datepicker-pt-BR', 'jquery.maskedinput-1.2.2.min', 'errormessage', 'maskinput', 'datepicker', 'autocomplete', 'consultacep'), false);
@@ -89,16 +63,16 @@ echo $this->Html->tag('/fieldset', null);
 
 echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Informações do Domicílio');
-echo $this->Form->input('Domicilio.tipo_localidade', array('options' => Domicilio::tipoLocalidade(),'label' => 'Tipo de Localidade'));
-echo $this->Form->input('Domicilio.situacao_domicilio', array('options' => Domicilio::situacaoDomicilio(),'label' => 'Situação do Domicílio'));
-echo $this->Form->input('Domicilio.tipo_domicilio', array('options' => Domicilio::tipoDomicilio(),'label' => 'Tipo de Domicílio'));
-echo $this->Form->input('Domicilio.tipo_construcao', array('options' => Domicilio::tipoConstrucao(),'label' => 'Tipo de Construção'));
-echo $this->Form->input('Domicilio.tipo_abastecimento', array('options' => Domicilio::tipoAbastecimentoAgua(),'label' => 'Tipo de abastecimento de água'));
-echo $this->Form->input('Domicilio.tratamento_agua', array('options' => Domicilio::tratamentoAgua(),'label' => 'Tratamento da água'));
-echo $this->Form->input('Domicilio.tipo_iluminacao', array('options' => Domicilio::tipoIluminacao(),'label' => 'Tipo de iluminação'));
-echo $this->Form->input('Domicilio.escoamento_sanitario', array('options' => Domicilio::escoamentoSanitario(),'label' => 'Escoamento Sanitário'));
-echo $this->Form->input('Domicilio.destino_lixo', array('options' => Domicilio::destinoLixo(),'label' => 'Destino do Lixo'));
-echo $this->Form->input('Domicilio.bolsa_familia', array('options' => Domicilio::bolsaFamilia(),'label' => 'Bolsa Família'));
+echo $this->Form->input('Domicilio.tipo_localidade', array('options' => Domicilio::tipoLocalidade(), 'label' => 'Tipo de Localidade'));
+echo $this->Form->input('Domicilio.situacao_domicilio', array('options' => Domicilio::situacaoDomicilio(), 'label' => 'Situação do Domicílio'));
+echo $this->Form->input('Domicilio.tipo_domicilio', array('options' => Domicilio::tipoDomicilio(), 'label' => 'Tipo de Domicílio'));
+echo $this->Form->input('Domicilio.tipo_construcao', array('options' => Domicilio::tipoConstrucao(), 'label' => 'Tipo de Construção'));
+echo $this->Form->input('Domicilio.tipo_abastecimento', array('options' => Domicilio::tipoAbastecimentoAgua(), 'label' => 'Tipo de abastecimento de água'));
+echo $this->Form->input('Domicilio.tratamento_agua', array('options' => Domicilio::tratamentoAgua(), 'label' => 'Tratamento da água'));
+echo $this->Form->input('Domicilio.tipo_iluminacao', array('options' => Domicilio::tipoIluminacao(), 'label' => 'Tipo de iluminação'));
+echo $this->Form->input('Domicilio.escoamento_sanitario', array('options' => Domicilio::escoamentoSanitario(), 'label' => 'Escoamento Sanitário'));
+echo $this->Form->input('Domicilio.destino_lixo', array('options' => Domicilio::destinoLixo(), 'label' => 'Destino do Lixo'));
+echo $this->Form->input('Domicilio.bolsa_familia', array('options' => Domicilio::bolsaFamilia(), 'label' => 'Bolsa Família'));
 echo $this->Form->input('Domicilio.comodos', array('label' => 'Cômodos', 'class' => 'edit4'));
 echo $this->Html->tag('/fieldset', null);
 
@@ -119,10 +93,8 @@ echo $this->Form->button('Fechar', array(
 echo $this->Form->button('Salvar', array('type' => 'submit'));
 echo $this->Form->end();
 
-if ($this->data) {
-    echo $this->Html->tag('div', '', array('style' => 'height: 20px;'));
-    echo $this->Html->tag('fieldset', null);
-    echo $this->Html->tag('legend', 'Domicílio - Pessoas');
-    echo '<table id="flex" style="display: none"></table>';
-    echo $this->Html->tag('/fieldset', null);
-}
+echo $this->Html->tag('div', '', array('style' => 'height: 20px;'));
+echo $this->Html->tag('fieldset', null);
+echo $this->Html->tag('legend', 'Domicílio - Pessoas');
+echo '<table id="flex" style="display: none"></table>';
+echo $this->Html->tag('/fieldset', null);
