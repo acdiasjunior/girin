@@ -10,6 +10,8 @@ class ProntuariosController extends AppController {
 
     function lista() {
         $this->layout = 'ajax';
+        
+        $this->Prontuario->recursive = 2;
 
         $conditions = array(
             'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
@@ -26,7 +28,7 @@ class ProntuariosController extends AppController {
             ),
             'conditions' => $conditions
         );
-
+        
         $prontuarios = $this->paginate('Prontuario');
         $page = $this->params['form']['page'];
         $total = $this->Prontuario->find('count', array('conditions' => $conditions));
@@ -131,6 +133,24 @@ class ProntuariosController extends AppController {
     </table>');
         $pdf->WriteHTML($html);
         $pdf->Output('Prontuario_' . $codigo_domiciliar . '_' . str_pad($numero_prontuario, 4, "0", STR_PAD_LEFT) . '.pdf', 'D');
+    }
+    
+    private function crasUsuario() {
+        $this->loadModel('Usuario');
+        $this->Usuario->id = $this->Session->read('Auth.Usuario.id');
+        $cras_usuario = array();
+
+        if ($this->Usuario->id == 1) {
+            $this->loadModel('Cras');
+            $cras_usuario = array_keys($this->Cras->find('list'));
+        } else {
+            $usuario = $this->Usuario->read();
+            if (count($usuario['Cras']) > 0)
+                foreach ($usuario['Cras'] as $cras)
+                    $cras_usuario[] = $cras['id'];
+        }
+
+        return implode(',', $cras_usuario);
     }
 
 }

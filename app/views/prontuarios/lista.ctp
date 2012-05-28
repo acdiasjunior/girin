@@ -13,6 +13,7 @@ foreach($prontuarios as $prontuario)
             $prontuario['Prontuario']['id'],
             str_pad($prontuario['Prontuario']['numero_prontuario'], 4, '0', STR_PAD_LEFT),
             $prontuario['Domicilio']['codigo_domiciliar'],
+            $prontuario['Domicilio']['Cras']['descricao'],
             round($prontuario['Indice']['idf'],2),
             $prontuario['Usuario']['nome'],
             date('d/m/Y H:i:s', strtotime($prontuario['Prontuario']['created'])),
