@@ -34,6 +34,7 @@ class Domicilio extends AppModel {
         ),
     );
     var $actsAs = array('DateFormatter');
+	var $sequence = 'seq_domicilio';
 
     public function __construct($id=false, $table=null, $ds=null) {
         parent::__construct($id, $table, $ds);

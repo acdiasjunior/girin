@@ -11,5 +11,6 @@ class Acesso extends AppModel {
             'foreignKey' => 'id_usuario'
         )
     );
+	var $sequence = 'seq_acesso';
 
 }

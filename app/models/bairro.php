@@ -7,6 +7,7 @@ class Bairro extends AppModel {
     var $order = 'nome';
     var $hasMany = array('Domicilio', 'Cras');
     var $belongsTo = array('Cras', 'Regiao');
+	var $sequence = 'seq_bairro';
     
     public function __construct($id=false, $table=null, $ds=null) {
         parent::__construct($id, $table, $ds);

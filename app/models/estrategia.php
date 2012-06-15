@@ -7,5 +7,6 @@ class Estrategia extends AppModel {
     var $hasMany = array('Acao');
     var $hasAndBelongsToMany = array('Indicador', 'Prontuario');
     var $order = array('Estrategia.codigo');
+	var $sequence = 'seq_estrategia';
 
 }

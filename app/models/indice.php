@@ -124,6 +124,7 @@ class Indice extends AppModel {
         ),
     );
     var $domicilio = array();
+	var $sequence = 'seq_indice';
 
     function contadorMembrosIdadeAtiva() {
         $idade_ativa = 0;

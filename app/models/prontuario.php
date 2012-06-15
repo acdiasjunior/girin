@@ -15,5 +15,6 @@ class Prontuario extends AppModel {
     );
     var $hasAndBelongsToMany = array('Estrategia', 'Indicador');
     var $actsAs = array('DateFormatter');
+	var $sequence = 'seq_prontuario';
 
 }

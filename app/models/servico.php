@@ -10,6 +10,7 @@ class Servico extends AppModel {
             'associationForeignKey' => 'pessoa_nis',
         ),
     );
+	var $sequence = 'seq_servico';
 
     //////////////////////////// COMBOS BOXES
 

@@ -6,6 +6,7 @@ class Acao extends AppModel {
     var $displayField = 'descricao';
     var $belongsTo = array('Estrategia');
     var $order = array('Acao.codigo');
+	var $sequence = 'seq_acao';
 
     //////////////////////////// COMBOS BOXES
 

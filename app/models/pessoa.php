@@ -32,6 +32,7 @@ class Pessoa extends AppModel {
             'rule' => 'isUnique'
         )
     );
+	var $sequence = 'seq_pessoa';
 
     public function __construct($id=false, $table=null, $ds=null) {
         parent::__construct($id, $table, $ds);

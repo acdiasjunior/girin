@@ -6,5 +6,6 @@ class Indicador extends AppModel {
     var $displayField = array("%s - %s", "{n}.Indicador.codigo", "{n}.Indicador.descricao");
     var $belongsTo = array('Dimensao');
     var $hasAndBelongsToMany = array('Estrategia', 'Prontuario');
+	var $sequence = 'seq_indicador';
     
 }

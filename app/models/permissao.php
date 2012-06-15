@@ -6,6 +6,7 @@ class Permissao extends AppModel {
     var $primaryKey = 'id_permissao';
     var $useTable = 'permissao';
     var $tablePrefix = 'tb_';
+	var $sequence = 'seq_permissao';
     
     //////////////////////////// COMBOS BOXES
 

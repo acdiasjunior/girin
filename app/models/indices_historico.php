@@ -8,5 +8,6 @@ class IndicesHistorico extends AppModel {
             'foreignKey' => 'codigo_domiciliar',
         )
     );
+	var $sequence = 'seq_indice_historico';
 
 }

@@ -6,5 +6,6 @@ class Situacao extends AppModel {
     var $displayField = 'descricao';
     //var $hasAndBelongsToMany = array('Pessoa');
     var $actsAs = array('DateFormatter');
+	var $sequence = 'seq_situacao';
 
 }

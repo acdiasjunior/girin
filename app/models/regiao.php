@@ -7,5 +7,6 @@ class Regiao extends AppModel {
     var $order = 'descricao';
     var $hasMany = array('Bairro', 'Domicilio');
     var $recursive = 0;
+	var $sequence = 'seq_regiao';
 
 }
