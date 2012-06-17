@@ -8,6 +8,8 @@ class DomiciliosController extends AppController {
 
     function index() {
         parent::temAcesso();
+		$temAcessoExclusao = parent::temAcessoExclusao();
+		$this->set(compact('temAcessoExclusao'));
         $this->set('title_for_layout', 'Listagem de Domicílios');
     }
 

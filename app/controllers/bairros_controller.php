@@ -7,7 +7,8 @@ class BairrosController extends AppController {
     function index() {
         parent::temAcesso();
         $bairros = $this->Bairro->find('list');
-        $this->set(compact('bairros'));
+		$temAcessoExclusao = parent::temAcessoExclusao();
+		$this->set(compact('temAcessoExclusao', 'bairros'));
     }
 
     function lista() {

@@ -24,7 +24,13 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             {name: 'Editar', bclass: 'edit', onpress : actions},
             {separator: true},
             {name: 'Prontuario', bclass: 'prontuario', onpress : actions},
-            {separator: true}
+            {separator: true},
+			<?php
+			if($temAcessoExclusao) {
+				echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
+				echo " {separator: true}";
+			}
+			?>
         ],
         searchitems : [
             {display: 'Cód. Domiciliar', name : 'Domicilio.codigo_domiciliar', isdefault: true},

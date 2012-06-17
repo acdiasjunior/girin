@@ -10,6 +10,8 @@ class UsuariosController extends AppController {
             $this->Session->setFlash('Somente administradores podem<br />cadastrar usuários!');
             $this->redirect(array('controller' => 'pages'));
         }
+		$temAcessoExclusao = parent::temAcessoExclusao();
+		$this->set(compact('temAcessoExclusao'));
     }
 
     function lista() {

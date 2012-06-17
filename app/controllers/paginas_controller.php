@@ -6,7 +6,8 @@ class PaginasController extends AppController {
     var $uses = array('Page');
 
     function index() {
-        
+        $temAcessoExclusao = parent::temAcessoExclusao();
+		$this->set(compact('temAcessoExclusao'));
     }
 
     function lista() {

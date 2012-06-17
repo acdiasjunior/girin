@@ -28,7 +28,11 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         buttons : [
             {name: 'Incluir', bclass: 'add', onpress : actions},
             {name: 'Editar', bclass: 'edit', onpress : actions},
-            {name: 'Excluir', bclass: 'delete', onpress : actions},
+            <?php
+			if($temAcessoExclusao) {
+				echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
+			}
+			?>
             {separator: true},
             {name: 'Senha', bclass: 'edit', onpress : actions}
         ],

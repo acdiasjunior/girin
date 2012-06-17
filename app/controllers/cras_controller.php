@@ -6,6 +6,8 @@ class CrasController extends AppController {
 
     function index() {
         parent::temAcesso();
+		$temAcessoExclusao = parent::temAcessoExclusao();
+		$this->set(compact('temAcessoExclusao'));
     }
 
     function lista() {
