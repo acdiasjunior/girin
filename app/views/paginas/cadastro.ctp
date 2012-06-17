@@ -33,6 +33,20 @@ echo $this->Form->button('Fechar', array(
     'type' => 'button',
     'onClick' => "window.location.href = '" . $this->Html->url(array('controller' => 'paginas', 'action' => 'index')) . "';"
 ));
-if ($temAcessoEscrita)
+if ($temAcessoEscrita) {
 	echo $this->Form->button('Salvar', array('type' => 'submit'));
+} else {
+	?>
+	<script type="text/javascript">
+		$(document).ready(function () 
+		{
+			$('select').attr('disabled','disabled');
+			$('input, textarea').attr('readonly','readonly').click(function() {
+				return false;
+			});
+		});
+	</script>
+	<?php
+
+}
 echo $this->Form->end();
