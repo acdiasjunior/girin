@@ -37,6 +37,8 @@ class ServicosController extends AppController {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Servico->read();
+			$temAcessoEscrita = parent::temAcessoEscrita();
+			$this->set(compact('temAcessoEscrita'));
         } else {
             if ($this->Servico->save($this->data)) {
                 $this->Session->setFlash('Cadastro salvo.');

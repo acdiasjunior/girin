@@ -111,6 +111,8 @@ class DomiciliosController extends AppController {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Domicilio->read();
+			$temAcessoEscrita = parent::temAcessoEscrita();
+			$this->set(compact('temAcessoEscrita'));
         } else {
             if ($this->Domicilio->save($this->data)) {
                 $this->Session->setFlash('Cadastro salvo.');

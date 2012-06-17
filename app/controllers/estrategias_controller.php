@@ -37,6 +37,8 @@ class EstrategiasController extends AppController {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Estrategia->read();
+			$temAcessoEscrita = parent::temAcessoEscrita();
+			$this->set(compact('temAcessoEscrita'));
             $this->Estrategia->Indicador->displayField = array("%s - %s", "{n}.Indicador.codigo", "{n}.Indicador.label");
         } else {
             if ($this->Estrategia->save($this->data)) {

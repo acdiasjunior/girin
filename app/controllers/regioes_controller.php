@@ -37,6 +37,8 @@ class RegioesController extends AppController {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Regiao->read();
+			$temAcessoEscrita = parent::temAcessoEscrita();
+			$this->set(compact('temAcessoEscrita'));
         } else {
             if ($this->Regiao->save($this->data)) {
                 $this->Session->setFlash('Cadastro salvo.');

@@ -41,6 +41,8 @@ class AcoesController extends AppController {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Acao->read();
+			$temAcessoEscrita = parent::temAcessoEscrita();
+			$this->set(compact('temAcessoEscrita'));
         } else {
             if ($this->Acao->save($this->data)) {
                 $this->Session->setFlash('Cadastro salvo.');

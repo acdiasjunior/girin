@@ -40,6 +40,8 @@ class BairrosController extends AppController {
         verificaPermissao();
         if (empty($this->data)) {
             $this->data = $this->Bairro->read();
+			$temAcessoEscrita = parent::temAcessoEscrita();
+			$this->set(compact('temAcessoEscrita'));
         } else {
             if ($this->Bairro->save($this->data)) {
                 $this->Bairro->query('UPDATE domicilios SET cras_id = (SELECT cras_id FROM bairros WHERE bairros.id = domicilios.bairro_id), regiao_id = (SELECT regiao_id FROM bairros WHERE bairros.id = domicilios.bairro_id)');

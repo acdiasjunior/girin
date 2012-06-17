@@ -35,6 +35,35 @@ class AppController extends Controller {
         $this->Session->setFlash('Acesso negado!');
         $this->redirect('/');
     }
+	
+	function temAcessoEscrita() {
+		$this->loadModel('Permissao');
+        $permissoes = $this->Permissao->find('first', array(
+            'conditions' => array(
+                'Permissao.nome_controller' => $this->params['controller'],
+                'Permissao.nome_action' => $this->params['action'],
+                ))
+        );
+        $id_grupo = $this->Session->read('Auth.Usuario.id_grupo');
+        switch ($id_grupo) {
+            case Usuario::GRUPO_ADMINISTRADOR:
+                return true;
+                break;
+            case Usuario::GRUPO_TECNICO_SAS:
+                if ($permissoes['Permissao']['tp_acesso_tecnico_sas'] == Permissao::PERMISSAO_ESCRITA)
+                    return true;
+                break;
+            case Usuario::GRUPO_COORDENADOR_CRAS:
+                if ($permissoes['Permissao']['tp_acesso_coordenador_cras'] == Permissao::PERMISSAO_ESCRITA)
+                    return true;
+                break;
+            case Usuario::GRUPO_TECNICO_CRAS:
+                if ($permissoes['Permissao']['tp_acesso_tecnico_cras'] == Permissao::PERMISSAO_ESCRITA)
+                    return true;
+                break;
+        }
+		return false;
+	}
 
     function _populateLookups($models = array()) {
         if (empty($models)) {

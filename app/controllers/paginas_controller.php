@@ -38,6 +38,8 @@ class PaginasController extends AppController {
         if (empty($this->data)) {
             $this->Page->id = $id;
             $this->data = $this->Page->read();
+			$temAcessoEscrita = parent::temAcessoEscrita();
+			$this->set(compact('temAcessoEscrita'));
         } else {
             if ($this->Page->save($this->data)) {
                 $this->Session->setFlash('Cadastro salvo.');

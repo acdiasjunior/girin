@@ -90,7 +90,8 @@ echo $this->Form->button('Fechar', array(
     'type' => 'button',
     'onClick' => "window.location.href = '" . $this->Html->url(array('controller' => 'domicilios', 'action' => 'index')) . "';"
 ));
-echo $this->Form->button('Salvar', array('type' => 'submit'));
+if ($temAcessoEscrita)
+	echo $this->Form->button('Salvar', array('type' => 'submit'));
 echo $this->Form->end();
 
 echo $this->Html->tag('div', '', array('style' => 'height: 20px;'));

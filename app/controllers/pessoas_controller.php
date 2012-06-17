@@ -122,6 +122,8 @@ class PessoasController extends AppController {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Pessoa->read();
+			$temAcessoEscrita = parent::temAcessoEscrita();
+			$this->set(compact('temAcessoEscrita'));
         } else {
             if ($this->Pessoa->save($this->data)) {
                 $this->Session->setFlash('Cadastro salvo.');

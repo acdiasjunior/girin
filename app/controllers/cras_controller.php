@@ -37,6 +37,8 @@ class CrasController extends AppController {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Cras->read();
+			$temAcessoEscrita = parent::temAcessoEscrita();
+			$this->set(compact('temAcessoEscrita'));
         } else {
             if ($this->Cras->save($this->data)) {
                 $this->Session->setFlash('Cadastro salvo.');
