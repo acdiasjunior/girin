@@ -27,4 +27,15 @@ class Permissao extends AppModel {
     const PERMISSAO_NENHUMA = 0;
     const PERMISSAO_LEITURA = 1;
     const PERMISSAO_ESCRITA = 2;
+	
+	static function permissaoAcessoSimples($value = null) {
+        $options = array(
+            self::PERMISSAO_NAO => __('Não', true),
+            self::PERMISSAO_SIM => __('Sim', true),
+        );
+        return parent::enum($value, $options);
+    }
+
+    const PERMISSAO_NAO = 0;
+    const PERMISSAO_SIM = 1;
 }
