@@ -37,6 +37,8 @@ class UsuariosController extends AppController {
             }
             $this->Usuario->id = $id;
             $this->data = $this->Usuario->read();
+			$temAcessoEscrita = parent::temAcessoEscrita();
+			$this->set(compact('temAcessoEscrita'));
         } else {
             $this->beforeSave();
             if ($this->Usuario->save($this->data)) {
