@@ -80,7 +80,7 @@ echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Informações de Contato');
 echo $this->Form->hidden('Domicilio.responsavel_id');
 echo $this->Form->input('Responsavel.nome', array('label' => 'Pessoa Responsável', 'class' => 'nomesAutocomplete edit40'));
-echo $this->Html->div('input text', $this->Form->button('?', array('type' => 'button', 'onClick' => "$('.nomesAutocomplete').autocomplete({minLength: 0}).autocomplete('search', '').autocomplete({minLength: 2});")), array('style' => 'padding: 15px 2px 5px;'));
+//echo $this->Html->div('input text', $this->Form->button('?', array('type' => 'button', 'onClick' => "$('.nomesAutocomplete').autocomplete({minLength: 0}).autocomplete('search', '').autocomplete({minLength: 2});")), array('style' => 'padding: 15px 2px 5px;'));
 echo $this->Html->div('', '', array('style' => 'clear: both;'));
 echo $this->Form->input('Domicilio.ddd', array('label' => 'DDD'));
 echo $this->Form->input('Domicilio.telefone', array('label' => 'Telefone'));
