@@ -38,7 +38,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             {display: 'IDF <=', name : 'Domicilio.idf'},
             {display: 'Logradouro', name : 'Domicilio.logradouro'},
             {display: 'Bairro', name : 'Bairro.nome'},
-            {display: 'Cidade', name : 'Domicilio.cidade'}
+            {display: 'Data Nascimento Resp.', name : 'Responsavel.data_nascimento'}
         ],
         sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Domicilio.codigo_domiciliar'; ?>',
         sortorder: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortorder') : 'asc'; ?>',

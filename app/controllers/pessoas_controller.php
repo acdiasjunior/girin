@@ -8,21 +8,28 @@ class PessoasController extends AppController {
 
     function index() {
         parent::temAcesso();
-		$temAcessoExclusao = parent::temAcessoExclusao();
-		$this->set(compact('temAcessoExclusao'));
+        $temAcessoExclusao = parent::temAcessoExclusao();
+        $this->set(compact('temAcessoExclusao'));
     }
 
     function lista() {
         $this->layout = 'ajax';
 
         $this->Pessoa->recursive = 0;
-        
+
         $conditions = array(
             'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
         );
 
         if ($this->params['form']['query'] != '')
-            $conditions[$this->params['form']['qtype'] . ' LIKE'] = '%' . str_replace(' ', '%', $this->params['form']['query']) . '%';
+            switch ($this->params['form']['qtype']) {
+                case 'Pessoa.data_nascimento':
+                    $conditions['Pessoa.data_nascimento ='] = parent::converteData($this->params['form']['query'], 1);
+                    break;
+                default:
+                    $conditions[$this->params['form']['qtype'] . ' LIKE'] = '%' . str_replace(' ', '%', $this->params['form']['query']) . '%';
+            }
+
 
         $this->paginate = array(
             'page' => $this->params['form']['page'],
@@ -124,8 +131,8 @@ class PessoasController extends AppController {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Pessoa->read();
-			$temAcessoEscrita = parent::temAcessoEscrita();
-			$this->set(compact('temAcessoEscrita'));
+            $temAcessoEscrita = parent::temAcessoEscrita();
+            $this->set(compact('temAcessoEscrita'));
         } else {
             if ($this->Pessoa->save($this->data)) {
                 $this->Session->setFlash('Cadastro salvo.');
@@ -284,7 +291,7 @@ class PessoasController extends AppController {
 //        }
         die();
     }
-    
+
     private function crasUsuario() {
         $this->loadModel('Usuario');
         $this->Usuario->id = $this->Session->read('Auth.Usuario.id');
@@ -302,4 +309,5 @@ class PessoasController extends AppController {
 
         return implode(',', $cras_usuario);
     }
+
 }

@@ -29,6 +29,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         searchitems : [
             {display: 'NIS', name : 'Pessoa.nis'},
             {display: 'Nome', name : 'Pessoa.nome', isdefault: true},
+            {display: 'Data Nascimento', name : 'Pessoa.data_nascimento'},
             {display: 'Responsável', name : 'Responsavel.nome'},
             {display: 'NIS Responsável', name : 'Responsavel.nis'}
         ],

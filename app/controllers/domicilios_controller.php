@@ -8,8 +8,8 @@ class DomiciliosController extends AppController {
 
     function index() {
         parent::temAcesso();
-		$temAcessoExclusao = parent::temAcessoExclusao();
-		$this->set(compact('temAcessoExclusao'));
+        $temAcessoExclusao = parent::temAcessoExclusao();
+        $this->set(compact('temAcessoExclusao'));
         $this->set('title_for_layout', 'Listagem de Domicílios');
     }
 
@@ -23,10 +23,16 @@ class DomiciliosController extends AppController {
         );
 
         if ($this->params['form']['query'] != '')
-            if ($this->params['form']['qtype'] == 'Domicilio.idf')
-                $conditions['Domicilio.idf <='] = $this->params['form']['query'];
-            else
-                $conditions[$this->params['form']['qtype'] . ' LIKE'] = '%' . str_replace(' ', '%', $this->params['form']['query']) . '%';
+            switch ($this->params['form']['qtype']) {
+                case 'Domicilio.idf':
+                    $conditions['Domicilio.idf <='] = $this->params['form']['query'];
+                    break;
+                case 'Responsavel.data_nascimento':
+                    $conditions['Responsavel.data_nascimento ='] = parent::converteData($this->params['form']['query'], 1);
+                    break;
+                default:
+                    $conditions[$this->params['form']['qtype'] . ' LIKE'] = '%' . str_replace(' ', '%', $this->params['form']['query']) . '%';
+            }
 
         $this->paginate = array(
             'fields' => array(
@@ -74,7 +80,7 @@ class DomiciliosController extends AppController {
         if ($this->Session->read("$container.Responsavel_nis") != '')
             $conditions['Responsavel.nis'] = $this->Session->read("$container.Responsavel_nis");
         if ($this->Session->read("$container.Responsavel_cpf") != '')
-            $conditions['Responsavel.cpf'] = str_replace(array('.','-'), '', $this->Session->read("$container.Responsavel_cpf"));
+            $conditions['Responsavel.cpf'] = str_replace(array('.', '-'), '', $this->Session->read("$container.Responsavel_cpf"));
         if ($this->Session->read("$container.Responsavel_nome") != '')
             $conditions['Responsavel.nome LIKE '] = '%' . $this->Session->read("$container.Responsavel_nome") . '%';
         if ($this->Session->read("$container.Domicilio_idf") != '') {
@@ -93,7 +99,7 @@ class DomiciliosController extends AppController {
             }
             $conditions['Indice.idf ' . $tipo_busca] = $this->Session->read("$container.Domicilio_idf");
         }
-        
+
         $this->paginate = array(
             'page' => $this->params['form']['page'],
             'limit' => $this->params['form']['rp'],
@@ -113,8 +119,8 @@ class DomiciliosController extends AppController {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Domicilio->read();
-			$temAcessoEscrita = parent::temAcessoEscrita();
-			$this->set(compact('temAcessoEscrita'));
+            $temAcessoEscrita = parent::temAcessoEscrita();
+            $this->set(compact('temAcessoEscrita'));
         } else {
             if ($this->Domicilio->save($this->data)) {
                 $this->Session->setFlash('Cadastro salvo.');

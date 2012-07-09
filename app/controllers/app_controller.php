@@ -31,13 +31,13 @@ class AppController extends Controller {
                     return;
                 break;
         }
-        
+
         $this->Session->setFlash('Acesso negado!');
         $this->redirect('/');
     }
-	
-	function temAcessoEscrita() {
-		$this->loadModel('Permissao');
+
+    function temAcessoEscrita() {
+        $this->loadModel('Permissao');
         $permissoes = $this->Permissao->find('first', array(
             'conditions' => array(
                 'Permissao.nome_controller' => $this->params['controller'],
@@ -62,11 +62,11 @@ class AppController extends Controller {
                     return true;
                 break;
         }
-		return false;
-	}
-	
-	function temAcessoExclusao() {
-		$this->loadModel('Permissao');
+        return false;
+    }
+
+    function temAcessoExclusao() {
+        $this->loadModel('Permissao');
         $permissoes = $this->Permissao->find('first', array(
             'conditions' => array(
                 'Permissao.nome_controller' => $this->params['controller'],
@@ -91,8 +91,23 @@ class AppController extends Controller {
                     return true;
                 break;
         }
-		return false;
-	}
+        return false;
+    }
+
+    /**
+     * Converte data para e do banco
+     * @param $data Data a ser convertida
+     * @param $formato Formato de entrada (1: d/m/Y, 2: Y-m-d)
+     */
+    function converteData($data, $formato) {
+        if($formato == 1) {
+            list($dia, $mes, $ano) = explode('/', $data);
+            return sprintf("%s-%s-%s", $ano, $mes, $dia);
+        } else {
+            list($ano, $mes, $dia) = explode('-', $data);
+            return sprintf("%s/%s/%s", $dia, $mes, $ano);
+        }
+    }
 
     function _populateLookups($models = array()) {
         if (empty($models)) {
