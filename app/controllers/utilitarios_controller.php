@@ -27,7 +27,7 @@ class UtilitariosController extends AppController {
 
         App::import('Vendor', 'pg_backup_restore');
         $pgBackup = new pgBackupRestore($db_host, $db_user, $db_pass, $source_db);
-        $pgBackup->UseDropTable = false;
+        $pgBackup->UseDropTable = true;
         $file['size'] = $pgBackup->Backup($file['tmp']);
 
         $this->autoRender = false;
