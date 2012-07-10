@@ -12,7 +12,7 @@ class UtilitariosController extends AppController {
     }
 
     function backup() {
-        $file['name'] = sprintf("bkp_programacao_local_%s-%s-%s_%s-%s.bz2", date('Y'), date('m'), date('d'), date('H'), date('i'));
+        $file['name'] = sprintf("bkp_programacao_local_%s-%s-%s_%s-%s.sql.bz2", date('Y'), date('m'), date('d'), date('H'), date('i'));
         $file['tmp'] = TMP . 'bkp_banco_' . substr(md5(microtime()), 0, 10);
         $file['tmpbz2'] = TMP . 'bkp_banco_bz2_' . substr(md5(microtime()), 0, 10);
 
