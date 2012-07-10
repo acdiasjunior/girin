@@ -1,78 +1,66 @@
 <?php
 
-class AcoesController extends AppController {
+class UtilitariosController extends AppController {
 
-    var $name = 'Acoes';
+    var $name = 'Utilitarios';
+    var $uses = '';
 
     function index() {
         parent::temAcesso();
-		$temAcessoExclusao = parent::temAcessoExclusao();
-		$this->set(compact('temAcessoExclusao'));
+        $temAcessoExclusao = parent::temAcessoExclusao();
+        $this->set(compact('temAcessoExclusao'));
     }
 
-    function lista() {
-        $this->layout = 'ajax';
+    function backup() {
+        $file['name'] = sprintf("bkp_programacao_local_%s-%s-%s_%s-%s.bz2", date('Y'), date('m'), date('d'), date('H'), date('i'));
+        $file['tmp'] = TMP . 'bkp_banco_' . substr(md5(microtime()), 0, 10);
+        $file['tmpbz2'] = TMP . 'bkp_banco_bz2_' . substr(md5(microtime()), 0, 10);
 
-        if ($this->params['form']['query'] != '')
-            $conditions = array(
-                $this->params['form']['qtype'] . ' LIKE' => '%' . str_replace(' ', '%', $this->params['form']['query']) . '%'
-            );
-        else
-            $conditions = array();
+        App::import('Core', 'ConnectionManager');
+        $dataSource = ConnectionManager::getDataSource('default');
+        $username = $dataSource->config['login'];
 
-        $this->paginate = array(
-            'page' => $this->params['form']['page'],
-            'limit' => $this->params['form']['rp'],
-            'order' => array(
-                $this->params['form']['sortname'] => $this->params['form']['sortorder']
-            ),
-            'conditions' => $conditions
-        );
+        $db_host = $dataSource->config['host'];
+        $db_user = $dataSource->config['login'];
+        $db_pass = $dataSource->config['password'];
+        $source_db = $dataSource->config['database'];
 
-        $acoes = $this->paginate('Acao');
-        $page = $this->params['form']['page'];
-        $total = $this->Acao->find('count', array('conditions' => $conditions));
-        $this->set(compact('acoes', 'page', 'total'));
-    }
+        App::import('Vendor', 'pg_backup_restore');
+        $pgBackup = new pgBackupRestore($db_host, $db_user, $db_pass, $source_db);
+        $pgBackup->UseDropTable = false;
+        $file['size'] = $pgBackup->Backup($file['tmp']);
 
-    function listaAcoes() {
-        $this->data = $this->Acao->find('all');
-    }
+        $this->autoRender = false;
 
-    function cadastro($id = null) {
-        parent::temAcesso();
-        if (empty($this->data)) {
-            $this->data = $this->Acao->read();
-			$temAcessoEscrita = parent::temAcessoEscrita();
-			$this->set(compact('temAcessoEscrita'));
-        } else {
-            if ($this->Acao->save($this->data)) {
-                $this->Session->setFlash('Cadastro salvo.');
-                $this->redirect(array('controller' => $this->name, 'action' => 'index'));
+        if ($file['size'] > 0) {
+
+            $fileBz = bzopen($file['tmpbz2'], 'w');
+            $fileTmp = fopen($file['tmp'], "r");
+            while (!feof($fileTmp)) {
+                set_time_limit(2);
+                $buffer = fread($fileTmp, 2048);
+                bzwrite($fileBz, $buffer);
             }
-        }
-    }
-    
-    function excluir($id) {
-        parent::temAcesso();
-        if (!empty($id)) {
-            $this->Acao->delete($id);
-            $this->Session->setFlash('A ação com código: ' . $id . ' foi excluída.');
-        } else {
-            $this->Session->setFlash('Erro ao tentar excluir: id inexistente!');
-        }
-        $this->redirect(array('action' => 'index'));
-    }
+            bzclose($fileBz);
+            bzclose($fileTmp);
 
-    function autoComplete($campo = null) {
-        $this->layout = 'ajax';
-        if ($campo != null) {
-            $this->Acao->displayField = $campo;
-            $nomes = $this->Acao->find('list', array('conditions' => array('Acao.' . $campo . ' LIKE ' => '%' . str_replace(' ', '%', $this->params['form']['term']) . '%'), 'group' => array($campo)));
+            header('Content-type: text/plain');
+            header('Content-Disposition: attachment;filename="' . $file['name'] . '"');
+            header('Cache-Control: max-age=0');
+            header("Content-length: " . $file['size']);
+
+            $fd = fopen($file['tmpbz2'], "r");
+            while (!feof($fd)) {
+                set_time_limit(2);
+                $buffer = fread($fd, 2048);
+                echo $buffer;
+            }
         } else {
-            $nomes = array();
+            echo "Erro ao gerar backup do banco!";
         }
-        $this->set(compact('nomes'));
+
+        unlink($file['tmp']);
+        unlink($file['tmpbz2']);
     }
 
 }
