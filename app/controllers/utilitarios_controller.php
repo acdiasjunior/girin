@@ -44,7 +44,7 @@ class UtilitariosController extends AppController {
             bzclose($fileBz);
             bzclose($fileTmp);
 
-            header('Content-type: text/plain');
+            header('Content-Type: application/x-bzip2');
             header('Content-Disposition: attachment;filename="' . $file['name'] . '"');
             header('Cache-Control: max-age=0');
             header("Content-length: " . $file['size']);
