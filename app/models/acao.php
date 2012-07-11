@@ -3,10 +3,17 @@
 class Acao extends AppModel {
 
     var $name = 'Acao';
-    var $displayField = 'descricao';
-    var $belongsTo = array('Estrategia');
-    var $order = array('Acao.codigo');
-	var $sequence = 'seq_acao';
+    var $primaryKey = 'id_acao';
+    var $displayField = 'desc_acao';
+    var $useTable = 'acao';
+    var $tablePrefix = 'tb_';
+    var $order = array('Acao.cod_acao');
+    var $sequence = 'seq_acao';
+    var $belongsTo = array(
+        'Estrategia' => array(
+            'foreignKey' => 'id_estrategia'
+        )
+    );
 
     //////////////////////////// COMBOS BOXES
 
@@ -175,4 +182,5 @@ class Acao extends AppModel {
     const SISTEMA_LOGISTICO_CADUNICO = 1;
     const SISTEMA_LOGISTICO_PROGRAMACAO_LOCAL = 2;
     const SISTEMA_LOGISTICO_VEICULO = 3;
+
 }
