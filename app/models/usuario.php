@@ -14,7 +14,7 @@ class Usuario extends AppModel {
         'ParametrosUsuario'
     );
     var $hasAndBelongsToMany = array('Cras');
-	var $sequence = 'seq_usuario';
+    var $sequence = 'seq_usuario';
 
     //////////////////////////// COMBOS BOXES
 

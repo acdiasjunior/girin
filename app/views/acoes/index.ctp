@@ -10,26 +10,26 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         url: '<?php echo $this->Html->url(array('controller' => 'acoes', 'action' => 'lista')); ?>',
         dataType: 'json',
         colModel : [
-            {display: 'ID', name : 'Acao.id', width : 50, sortable : true, align: 'center', hide: true},
-            {display: 'Codigo', name : 'Acao.codigo', width : 50, sortable : true, align: 'center'},
-            {display: 'Meta', name : 'Acao.descricao', width : 800, sortable : true, align: 'left'}
+            {display: 'ID', name : 'Acao.id_acao', width : 50, sortable : true, align: 'center', hide: true},
+            {display: 'Codigo', name : 'Acao.cod_acao', width : 50, sortable : true, align: 'center'},
+            {display: 'Meta', name : 'Acao.desc_acao', width : 800, sortable : true, align: 'left'}
         ],
         buttons : [
             {name: 'Incluir', bclass: 'add', onpress : actions},
             {separator: true},
             {name: 'Editar', bclass: 'edit', onpress : actions},
             {separator: true},
-            <?php
-			if($temAcessoExclusao) {
-				echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
-				echo " {separator: true}";
-			}
-			?>
+<?php
+if ($temAcessoExclusao) {
+    echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
+    echo " {separator: true}";
+}
+?>
         ],
         searchitems : [
-            {display: 'Ação', name : 'Acao.descricao', isdefault: true}
+            {display: 'Ação', name : 'Acao.desc_acao', isdefault: true}
         ],
-        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Acao.codigo'; ?>',
+        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Acao.cod_acao'; ?>',
         sortorder: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortorder') : 'asc'; ?>',
         usepager: true,
         useRp: true,
@@ -50,15 +50,15 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
     });
     
     $('#flex').dblclick( function(){
-        var id = $('.trSelected').find('td[abbr="Acao.id"]').text();
+        var id = $('.trSelected').find('td[abbr="Acao.id_acao"]').text();
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'acoes', 'action' => 'cadastro')); ?>/' + id);
     });
     //}).disableSelection();
     
     function actions(com, grid) {
-        var id = $('.trSelected', grid).find('td[abbr="Acao.id"]').text();
-        var meta = $('.trSelected', grid).find('td[abbr="Acao.descricao"]').text();
+        var id = $('.trSelected', grid).find('td[abbr="Acao.id_acao"]').text();
+        var meta = $('.trSelected', grid).find('td[abbr="Acao.desc_acao"]').text();
         switch(com)
         {
             case "Incluir":
