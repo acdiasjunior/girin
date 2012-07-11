@@ -3,16 +3,35 @@
 class Bairro extends AppModel {
 
     var $name = 'Bairro';
-    var $displayField = 'nome';
-    var $order = 'nome';
-    var $hasMany = array('Domicilio', 'Cras');
-    var $belongsTo = array('Cras', 'Regiao');
-	var $sequence = 'seq_bairro';
-    
-    public function __construct($id=false, $table=null, $ds=null) {
+    var $primaryKey = 'id_bairro';
+    var $useTable = 'bairro';
+    var $tablePrefix = 'tb_';
+    var $displayField = 'nome_bairro';
+    var $order = 'nome_bairro';
+    var $hasMany = array(
+        'Domicilio' => array(
+            'foreignKey' => 'id_bairro',
+            'dependent' => true
+        ),
+        'Cras' => array(
+            'foreignKey' => 'id_bairro',
+            'dependent' => true
+        )
+    );
+    var $belongsTo = array(
+        'Cras' => array(
+            'foreignKey' => 'id_cras'
+        ),
+        'Regiao' => array(
+            'foreignKey' => 'id_regiao'
+        )
+    );
+    var $sequence = 'seq_bairro';
+
+    public function __construct($id = false, $table = null, $ds = null) {
         parent::__construct($id, $table, $ds);
         $this->virtualFields = array(
-            'domicilio_count' => 'SELECT COUNT(*) FROM domicilios WHERE domicilios.bairro_id = Bairro.id'
+            'domicilio_count' => 'SELECT COUNT(*) FROM domicilios WHERE domicilios.id_bairro = Bairro.id_bairro'
         );
     }
 

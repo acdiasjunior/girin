@@ -40,7 +40,7 @@ class DomiciliosController extends AppController {
                 'Responsavel.nome',
                 'Domicilio.logradouro',
                 'Domicilio.numero',
-                'Bairro.nome',
+                'Bairro.nome_bairro',
                 'Indice.idf',
                 'Domicilio.valor_renda_familia',
                 'Domicilio.quantidade_pessoas',
@@ -75,8 +75,8 @@ class DomiciliosController extends AppController {
             $conditions['Domicilio.regiao_id'] = $this->Session->read("$container.Domicilio_regiao_id");
         if ($this->Session->read("$container.Domicilio_cras_id") != '')
             $conditions['Domicilio.cras_id'] = $this->Session->read("$container.Domicilio_cras_id");
-        if ($this->Session->read("$container.Domicilio_bairro_id") != '')
-            $conditions['Domicilio.bairro_id'] = $this->Session->read("$container.Domicilio_bairro_id");
+        if ($this->Session->read("$container.Domicilio_id_bairro") != '')
+            $conditions['Domicilio.id_bairro'] = $this->Session->read("$container.Domicilio_id_bairro");
         if ($this->Session->read("$container.Responsavel_nis") != '')
             $conditions['Responsavel.nis'] = $this->Session->read("$container.Responsavel_nis");
         if ($this->Session->read("$container.Responsavel_cpf") != '')
@@ -152,10 +152,10 @@ class DomiciliosController extends AppController {
         }
     }
 
-    function listaDomiciliosBairro($bairro_id) {
+    function listaDomiciliosBairro($id_bairro) {
         $this->layout = 'ajax';
 
-        $conditions = array('Domicilio.bairro_id =' => $bairro_id);
+        $conditions = array('Domicilio.id_bairro =' => $id_bairro);
         if ($this->params['form']['query'] != '')
             $conditions[] = array($this->params['form']['qtype'] . ' LIKE' => '%' . str_replace(' ', '%', $this->params['form']['query']) . '%');
 
@@ -200,8 +200,8 @@ class DomiciliosController extends AppController {
                         die('Erro ao gravar o registro!');
                     }
                 }
-                $this->Domicilio->query('UPDATE domicilios d SET bairro_id = (SELECT b.id FROM bairros b WHERE d.bairro_nome = b.nome)');
-                $this->Domicilio->query('UPDATE domicilios SET cras_id = (SELECT cras_id FROM bairros WHERE bairros.id = domicilios.bairro_id), regiao_id = (SELECT regiao_id FROM bairros WHERE bairros.id = domicilios.bairro_id)');
+                $this->Domicilio->query('UPDATE domicilios d SET id_bairro = (SELECT b.id FROM bairros b WHERE d.bairro_nome = b.nome)');
+                $this->Domicilio->query('UPDATE domicilios SET cras_id = (SELECT cras_id FROM bairros WHERE bairros.id = domicilios.id_bairro), regiao_id = (SELECT regiao_id FROM bairros WHERE bairros.id = domicilios.id_bairro)');
 
                 // close the file
                 fclose($handle);

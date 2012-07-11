@@ -8,8 +8,8 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
             url: '/prefeitura/bairros/listaBairrosCras/<?php echo $this->data['Cras']['id'] ?>',
             dataType: 'json',
             colModel : [
-                {display: 'Cód.', name : 'Bairro.id', width : 80, sortable : true, align: 'center', hide: false},
-                {display: 'Nome', name : 'Bairro.nome', width : 350, sortable : true, align: 'left'},
+                {display: 'Cód.', name : 'Bairro.id_bairro', width : 80, sortable : true, align: 'center', hide: false},
+                {display: 'Nome', name : 'Bairro.nome_bairro', width : 350, sortable : true, align: 'left'},
                 {display: 'Domicílios', name : 'Bairro.domicilio_count', width : 40, sortable : true, align: 'center'},
             ],
             buttons : [
@@ -21,7 +21,7 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
             searchitems : [
                 {display: 'Nome', name : 'Bairro.nome', isdefault: true}
             ],
-            sortname: "Bairro.nome",
+            sortname: "Bairro.nome_bairro",
             sortorder: "asc",
             usepager: true,
             useRp: true,
@@ -41,14 +41,14 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
         });
         
         $('#flex').dblclick( function(){
-            var id = $('.trSelected').find('td[abbr="Bairro.id"]').text();
+            var id = $('.trSelected').find('td[abbr="Bairro.id_bairro"]').text();
             if(id != '')
                 $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'bairros', 'action' => 'cadastro')); ?>/' + id);
         }).disableSelection();
     
         function actions(com, grid) {
-            var id = $('.trSelected', grid).find('td[abbr="Bairro.id"]').text();
-            var nome = $('.trSelected', grid).find('td[abbr="Bairro.nome"]').text();
+            var id = $('.trSelected', grid).find('td[abbr="Bairro.id_bairro"]').text();
+            var nome = $('.trSelected', grid).find('td[abbr="Bairro.nome_bairro"]').text();
             switch(com)
             {
                 case "Incluir":
@@ -80,7 +80,7 @@ echo $this->Form->input('tipo_logradouro', array('label' => 'Tipo'));
 echo $this->Form->input('logradouro', array('label' => 'Logradouro'));
 echo $this->Form->input('numero', array('label' => 'Número'));
 echo $this->Form->input('complemento', array('label' => 'Complemento'));
-echo $this->Form->input('bairro_id', array('label' => 'Bairro'));
+echo $this->Form->input('id_bairro', array('label' => 'Bairro'));
 echo $this->Form->input('regiao_id', array('label' => 'Região'));
 echo $this->Form->input('cidade', array('label' => 'Cidade'));
 echo $this->Form->input('uf', array('label' => 'UF', 'size' => '2'));

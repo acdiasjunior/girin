@@ -40,7 +40,7 @@ class ProntuariosController extends AppController {
     function filtro() {
         $this->layout = 'ajax';
         $this->loadModel('Domicilio');
-        $bairros = $this->Domicilio->Bairro->find('list', array('order' => 'Bairro.nome'));
+        $bairros = $this->Domicilio->Bairro->find('list', array('order' => 'Bairro.nome_bairro'));
         $cras = $this->Domicilio->Cras->find('list');
         $regioes = $this->Domicilio->Regiao->find('list');
         $this->set(compact('bairros', 'cras', 'regioes'));
