@@ -8,9 +8,9 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
     <h3>Deseja realmente excluir o bairro?</h3>
     <?php
     echo $this->Form->create('Bairro');
-    echo $this->Form->input('id', array('label' => 'Cód.', 'readonly' => 'readonly'));
-    echo $this->Form->input('nome', array('label' => 'Nome', 'readonly' => 'readonly', 'class' => 'edit25'));
-    echo $this->Form->input('novo_bairro', array('options' => $bairros,'label' => 'Novo Bairro'));
+    echo $this->Form->input('Bairro.id_bairro', array('label' => 'Cód.', 'readonly' => 'readonly'));
+    echo $this->Form->input('Bairro.nome_bairro', array('label' => 'Nome', 'readonly' => 'readonly', 'class' => 'edit25'));
+    echo $this->Form->input('novo_bairro', array('options' => $bairros, 'label' => 'Novo Bairro'));
     echo $this->Form->end();
     ?>
     <span>É necessário realocar os domícilios para outro bairro.</span>
@@ -21,8 +21,8 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         url: '<?php echo $this->Html->url(array('controller' => 'bairros', 'action' => 'lista')); ?>',
         dataType: 'json',
         colModel : [
-            {display: 'Cód.', name : 'Bairro.id', width : 50, sortable : true, align: 'center', hide: true},
-            {display: 'Bairro', name : 'Bairro.nome', width : 200, sortable : true, align: 'left'},
+            {display: 'Cód.', name : 'Bairro.id_bairro', width : 50, sortable : true, align: 'center', hide: true},
+            {display: 'Bairro', name : 'Bairro.nome_bairro', width : 200, sortable : true, align: 'left'},
             {display: 'Cras', name : 'Cras.descricao', width : 180, sortable : true, align: 'left'},
             {display: 'Região', name : 'Regiao.descricao', width : 120, sortable : true, align: 'left'},
             {display: 'Domicílios', name : 'Bairro.domicilio_count', width : 100, sortable : true, align: 'center'}
@@ -32,17 +32,17 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             {separator: true},
             {name: 'Editar', bclass: 'edit', onpress : actions},
             {separator: true},
-            <?php
-			if($temAcessoExclusao) {
-				echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
-				echo " {separator: true}";
-			}
-			?>
+<?php
+if ($temAcessoExclusao) {
+    echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
+    echo " {separator: true}";
+}
+?>
         ],
         searchitems : [
-            {display: 'Bairro', name : 'Bairro.nome', isdefault: true}
+            {display: 'Bairro', name : 'Bairro.nome_bairro', isdefault: true}
         ],
-        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Bairro.nome'; ?>',
+        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Bairro.nome_bairro'; ?>',
         sortorder: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortorder') : 'asc'; ?>',
         usepager: true,
         useRp: true,
@@ -63,15 +63,15 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
     });
     
     $('#flex').dblclick( function(){
-        var id = $('.trSelected').find('td[abbr="Bairro.id"]').text();
+        var id = $('.trSelected').find('td[abbr="Bairro.id_bairro"]').text();
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'bairros', 'action' => 'cadastro')); ?>/' + id);
     });
     //}).disableSelection();
     
     function actions(com, grid) {
-        var id = $('.trSelected', grid).find('td[abbr="Bairro.id"]').text();
-        var nome = $('.trSelected', grid).find('td[abbr="Bairro.nome"]').text();
+        var id = $('.trSelected', grid).find('td[abbr="Bairro.id_bairro"]').text();
+        var nome = $('.trSelected', grid).find('td[abbr="Bairro.nome_bairro"]').text();
         switch(com)
         {
             case "Incluir":
@@ -86,8 +86,8 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             case "Excluir":
                 if(id != '')
                 {
-                    $("#BairroId").val(id);
-                    $("#BairroNome").val(nome);
+                    $("#BairroIdBairro").val(id);
+                    $("#BairroNomeBairro").val(nome);
                     $("#excluirBairro").dialog("open");
                 }
                 else
@@ -99,12 +99,12 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         $(function() {
             $("#excluirBairro").dialog({
                 resizable: false,
-//                height:140,
+                //                height:140,
                 modal: true,
                 autoOpen: false,
                 buttons: {
                     "Excluir Bairro": function() {
-                        $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'bairros', 'action' => 'excluir')); ?>/' + $("#BairroId").val() + '/' + $("#BairroNovoBairro").val());
+                        $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'bairros', 'action' => 'excluir')); ?>/' + $("#BairroIdBairro").val() + '/' + $("#BairroNovoBairro").val());
                     },
                     "Cancelar": function() {
                         $( this ).dialog( "close" );

@@ -27,7 +27,7 @@ class IndicesController extends AppController {
                 'alias' => 'Bairro',
                 'type' => 'LEFT',
                 'conditions' => array(
-                    'Bairro.id = Domicilio.bairro_id',
+                    'Bairro.id_bairro = Domicilio.id_bairro',
                 )
             ),
             array('table' => 'cras',
@@ -66,8 +66,8 @@ class IndicesController extends AppController {
             case 'cras_id':
                 $conditions['Domicilio.cras_id'] = $this->data['Relatorio']['cras_id'];
                 break;
-            case 'bairro_id':
-                $conditions['Domicilio.bairro_id'] = $this->data['Relatorio']['bairro_id'];
+            case 'id_bairro':
+                $conditions['Domicilio.id_bairro'] = $this->data['Relatorio']['id_bairro'];
                 break;
         }
 
@@ -195,7 +195,7 @@ class IndicesController extends AppController {
         $this->loadModel('Bairro');
         $this->loadModel('Cras');
         $this->loadModel('Regiao');
-        $bairros = $this->Bairro->find('list', array('order' => 'Bairro.nome'));
+        $bairros = $this->Bairro->find('list', array('order' => 'Bairro.nome_bairro'));
         $cras = $this->Cras->find('list');
         $regioes = $this->Regiao->find('list');
         $this->set(compact('bairros', 'cras', 'regioes'));

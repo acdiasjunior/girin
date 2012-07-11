@@ -14,7 +14,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             {display: 'Responsável', name : 'Responsavel.nome', width : 210, sortable : true, align: 'left'},
             {display: 'Logradouro', name : 'Domicilio.logradouro', width : 190, sortable : true, align: 'left'},
             {display: 'Numero', name : 'Domicilio.numero', width : 40, sortable : true, align: 'center'},
-            {display: 'Bairro', name : 'Bairro.nome', width : 105, sortable : true, align: 'left'},
+            {display: 'Bairro', name : 'Bairro.nome_bairro', width : 105, sortable : true, align: 'left'},
             {display: 'IDF', name : 'Indice.idf', width : 30, sortable : true, align: 'center'},
             {display: 'Renda Familiar', name : 'Domicilio.valor_renda_familia', width : 70, sortable : true, align: 'center'},
             {display: 'Qtd.', name : 'Domicilio.quantidade_pessoas', width : 20, sortable : true, align: 'center'},
@@ -37,7 +37,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             {display: 'Responsável', name : 'Responsavel.nome'},
             {display: 'IDF <=', name : 'Domicilio.idf'},
             {display: 'Logradouro', name : 'Domicilio.logradouro'},
-            {display: 'Bairro', name : 'Bairro.nome'},
+            {display: 'Bairro', name : 'Bairro.nome_bairro'},
             {display: 'Data Nascimento Resp.', name : 'Responsavel.data_nascimento'}
         ],
         sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Domicilio.codigo_domiciliar'; ?>',

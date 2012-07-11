@@ -7,8 +7,8 @@ class BairrosController extends AppController {
     function index() {
         parent::temAcesso();
         $bairros = $this->Bairro->find('list');
-		$temAcessoExclusao = parent::temAcessoExclusao();
-		$this->set(compact('temAcessoExclusao', 'bairros'));
+        $temAcessoExclusao = parent::temAcessoExclusao();
+        $this->set(compact('temAcessoExclusao', 'bairros'));
     }
 
     function lista() {
@@ -38,14 +38,13 @@ class BairrosController extends AppController {
 
     function cadastro($id = null) {
         parent::temAcesso();
-        verificaPermissao();
         if (empty($this->data)) {
             $this->data = $this->Bairro->read();
-			$temAcessoEscrita = parent::temAcessoEscrita();
-			$this->set(compact('temAcessoEscrita'));
+            $temAcessoEscrita = parent::temAcessoEscrita();
+            $this->set(compact('temAcessoEscrita'));
         } else {
             if ($this->Bairro->save($this->data)) {
-                $this->Bairro->query('UPDATE domicilios SET cras_id = (SELECT cras_id FROM bairros WHERE bairros.id = domicilios.bairro_id), regiao_id = (SELECT regiao_id FROM bairros WHERE bairros.id = domicilios.bairro_id)');
+                $this->Bairro->query('UPDATE tb_domicilio SET id_cras = (SELECT id_cras FROM tb_bairro WHERE tb_bairro.id_bairro = tb_domicilio.id_bairro), id_regiao = (SELECT id_regiao FROM tb_bairro WHERE tb_bairro.id_bairro = tb_domicilio.id_bairro)');
                 $this->Session->setFlash('Cadastro salvo.');
                 $this->redirect(array('controller' => $this->name, 'action' => 'index'));
             }
@@ -55,7 +54,7 @@ class BairrosController extends AppController {
     function listaBairrosCras($cras_id) {
         $this->layout = 'ajax';
 
-        $conditions = array('Bairro.cras_id =' => $cras_id);
+        $conditions = array('Bairro.id_cras =' => $cras_id);
         if ($this->params['form']['query'] != '')
             $conditions[] = array($this->params['form']['qtype'] . ' LIKE' => '%' . str_replace(' ', '%', $this->params['form']['query']) . '%');
 
@@ -79,7 +78,7 @@ class BairrosController extends AppController {
         if ($cras_id == null)
             $cras = $this->Bairro->find('list');
         else
-            $cras = $this->Bairro->find('list', array('conditions' => array('Bairro.cras_id' => $cras_id)));
+            $cras = $this->Bairro->find('list', array('conditions' => array('Bairro.id_cras' => $cras_id)));
         echo '<option value="">Selecione o Bairro</option>';
         foreach ($cras as $key => $value)
             echo '<option value="' . $key . '">' . $value . '</option>';
@@ -91,11 +90,10 @@ class BairrosController extends AppController {
             $this->Bairro->delete($id);
             $this->Session->setFlash('O bairro com código: ' . $id . ' foi excluído.');
             $this->redirect(array('controller' => $this->name, 'action' => 'index'));
-            if($novo_bairro != null)
-            {
+            if ($novo_bairro != null) {
                 $this->loadModel('Domicilio');
-                $this->Domicilio->updateAll(array('Domicilio.bairro_id' => $novo_bairro), array('Domicilio.bairro_id' => $id));
-                $this->Domicilio->query('UPDATE domicilios SET cras_id = (SELECT cras_id FROM bairros WHERE bairros.id = domicilios.bairro_id), regiao_id = (SELECT regiao_id FROM bairros WHERE bairros.id = domicilios.bairro_id)');
+                $this->Domicilio->updateAll(array('Domicilio.id_bairro' => $novo_bairro), array('Domicilio.id_bairro' => $id));
+                $this->Domicilio->query('UPDATE tb_domicilio SET cras_id = (SELECT id_cras FROM tb_bairro WHERE tb_bairro.id_bairro = tb_domicilio.id_bairro), id_regiao = (SELECT id_regiao FROM tb_bairro WHERE tb_bairro.id_bairro = tb_domicilio.id_bairro)');
             }
         } else {
             $this->Session->setFlash('Erro ao tentar excluir: código inexistente!');

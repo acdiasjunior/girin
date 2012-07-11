@@ -61,7 +61,7 @@ class RelatoriosController extends AppController {
                             'Domicilio.logradouro',
                             'Domicilio.numero',
                             'Domicilio.complemento',
-                            'Bairro.nome',
+                            'Bairro.nome_bairro',
                             'Cras.descricao',
                             'Regiao.descricao'
                         ),
@@ -229,10 +229,10 @@ class RelatoriosController extends AppController {
                 $options['conditions']['Domicilio.cras_id'] = $this->data['Relatorio']['cras_id'];
                 $options['group'][] = 'Domicilio.cras_id';
                 break;
-            case 'bairro_id':
-                $options['fields'][] = 'Domicilio.bairro_id';
-                $options['conditions']['Domicilio.bairro_id'] = $this->data['Relatorio']['bairro_id'];
-                $options['group'][] = 'Domicilio.bairro_id';
+            case 'id_bairro':
+                $options['fields'][] = 'Domicilio.id_bairro';
+                $options['conditions']['Domicilio.id_bairro'] = $this->data['Relatorio']['id_bairro'];
+                $options['group'][] = 'Domicilio.id_bairro';
                 break;
         }
 
@@ -260,8 +260,7 @@ class RelatoriosController extends AppController {
         }
 
         $faixaEtaria['tempo'] = microtime(true) - $inicio;
-
-        $bairros = $this->Domicilio->Bairro->find('list', array('order' => 'Bairro.nome'));
+        $bairros = $this->Domicilio->Bairro->find('list', array('order' => 'Bairro.nome_bairro'));
         $cras = $this->Domicilio->Cras->find('list');
         $regioes = $this->Domicilio->Regiao->find('list');
 
@@ -313,10 +312,10 @@ class RelatoriosController extends AppController {
                 $options['conditions']['Domicilio.cras_id'] = $this->data['Relatorio']['cras_id'];
                 $options['group'][] = 'Domicilio.cras_id';
                 break;
-            case 'bairro_id':
-                $options['fields'][] = 'Domicilio.bairro_id';
-                $options['conditions']['Domicilio.bairro_id'] = $this->data['Relatorio']['bairro_id'];
-                $options['group'][] = 'Domicilio.bairro_id';
+            case 'id_bairro':
+                $options['fields'][] = 'Domicilio.id_bairro';
+                $options['conditions']['Domicilio.id_bairro'] = $this->data['Relatorio']['id_bairro'];
+                $options['group'][] = 'Domicilio.id_bairro';
                 break;
         }
 
@@ -371,7 +370,7 @@ class RelatoriosController extends AppController {
         $faixaEtaria['tempo'] = microtime(true) - $inicio;
 
         $bairros = $this->Domicilio->Bairro->find('list', array(
-            'order' => 'Bairro.nome'
+            'order' => 'Bairro.nome_bairro'
                 ));
         $cras = $this->Domicilio->Cras->find('list');
         $regioes = $this->Domicilio->Regiao->find('list');
@@ -431,10 +430,10 @@ class RelatoriosController extends AppController {
                 $options['conditions']['Domicilio.cras_id'] = $this->data['Relatorio']['cras_id'];
                 $options['group'][] = 'Domicilio.cras_id';
                 break;
-            case 'bairro_id':
-                $options['fields'][] = 'Domicilio.bairro_id';
-                $options['conditions']['Domicilio.bairro_id'] = $this->data['Relatorio']['bairro_id'];
-                $options['group'][] = 'Domicilio.bairro_id';
+            case 'id_bairro':
+                $options['fields'][] = 'Domicilio.id_bairro';
+                $options['conditions']['Domicilio.id_bairro'] = $this->data['Relatorio']['id_bairro'];
+                $options['group'][] = 'Domicilio.id_bairro';
                 break;
         }
 
@@ -466,7 +465,7 @@ class RelatoriosController extends AppController {
         $valorRenda['tempo'] = microtime(true) - $inicio;
 
         $bairros = $this->Domicilio->Bairro->find('list', array(
-            'order' => 'Bairro.nome'
+            'order' => 'Bairro.nome_bairro'
                 ));
         $cras = $this->Domicilio->Cras->find('list');
         $regioes = $this->Domicilio->Regiao->find('list');
@@ -546,10 +545,10 @@ class RelatoriosController extends AppController {
                 $options['conditions']['Domicilio.cras_id'] = $this->data['Relatorio']['cras_id'];
                 $options['group'][] = 'Domicilio.cras_id';
                 break;
-            case 'bairro_id':
-                $options['fields'][] = 'Domicilio.bairro_id';
-                $options['conditions']['Domicilio.bairro_id'] = $this->data['Relatorio']['bairro_id'];
-                $options['group'][] = 'Domicilio.bairro_id';
+            case 'id_bairro':
+                $options['fields'][] = 'Domicilio.id_bairro';
+                $options['conditions']['Domicilio.id_bairro'] = $this->data['Relatorio']['id_bairro'];
+                $options['group'][] = 'Domicilio.id_bairro';
                 break;
         }
 
@@ -568,7 +567,7 @@ class RelatoriosController extends AppController {
         $educacaoFormal['tempo'] = microtime(true) - $inicio;
 
         $bairros = $this->Domicilio->Bairro->find('list', array(
-            'order' => 'Bairro.nome'
+            'order' => 'Bairro.nome_bairro'
                 ));
         $cras = $this->Domicilio->Cras->find('list');
         $regioes = $this->Domicilio->Regiao->find('list');
