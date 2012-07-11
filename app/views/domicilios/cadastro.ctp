@@ -56,7 +56,7 @@ echo $this->Form->input('Domicilio.numero', array('label' => 'Número'));
 echo $this->Form->input('Domicilio.complemento', array('label' => 'Complemento'));
 echo $this->Form->input('Domicilio.regiao_id', array('label' => 'Região'));
 echo $this->Form->input('Domicilio.cras_id', array('label' => 'CRAS'));
-echo $this->Form->input('Domicilio.bairro_id', array('label' => 'Bairro'));
+echo $this->Form->input('Domicilio.id_bairro', array('label' => 'Bairro'));
 echo $this->Form->input('Domicilio.cidade', array('label' => 'Cidade'));
 echo $this->Form->input('Domicilio.uf', array('label' => 'UF', 'size' => '2'));
 echo $this->Html->tag('/fieldset', null);

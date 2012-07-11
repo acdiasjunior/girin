@@ -42,7 +42,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             {display: 'Cód. Domiciliar', name : 'Domicilio.codigo_domiciliar', isdefault: true},
             {display: 'Responsável', name : 'Responsavel.nome'},
             {display: 'Logradouro', name : 'Domicilio.logradouro'},
-            {display: 'Bairro', name : 'Bairro.nome'},
+            {display: 'Bairro', name : 'Bairro.nome_bairro'},
             {display: 'Cidade', name : 'Domicilio.cidade'}
         ],
         sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Domicilio.codigo_domiciliar'; ?>',

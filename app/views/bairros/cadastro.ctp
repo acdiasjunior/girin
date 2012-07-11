@@ -5,7 +5,7 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
 <script type="text/javascript">
     $(function() {        
         $("#flex").flexigrid({
-            url: '/prefeitura/domicilios/listaDomiciliosBairro/<?php echo $this->data['Bairro']['id'] ?>',
+            url: '/prefeitura/domicilios/listaDomiciliosBairro/<?php echo $this->data['Bairro']['id_bairro'] ?>',
             dataType: 'json',
             colModel : [
                 {display: 'Cód. Domiciliar', name : 'Domicilio.codigo_domiciliar', width : 80, sortable : true, align: 'center', hide: false},
@@ -21,9 +21,9 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
                 {separator: true}
             ],
             searchitems : [
-                {display: 'Nome', name : 'Bairro.nome', isdefault: true}
+                {display: 'Nome', name : 'Bairro.nome_bairro', isdefault: true}
             ],
-            sortname: "Bairro.nome",
+            sortname: "Bairro.nome_bairro",
             sortorder: "asc",
             usepager: true,
             useRp: true,
@@ -76,10 +76,10 @@ echo $this->Form->create('Bairro');
 
 echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Endereço');
-echo $this->Form->input('id', array('label' => 'Cód.'));
-echo $this->Form->input('nome', array('label' => 'Nome'));
-echo $this->Form->input('regiao_id', array('label' => 'Região'));
-echo $this->Form->input('cras_id', array('label' => 'CRAS'));
+echo $this->Form->input('Bairro.id_bairro', array('label' => 'Cód.'));
+echo $this->Form->input('Bairro.nome_bairro', array('label' => 'Nome'));
+echo $this->Form->input('Bairro.id_regiao', array('type' => 'select', 'options' => $regioes, 'label' => 'Região'));
+echo $this->Form->input('Bairro.id_cras', array('type' => 'select', 'options' => $cras, 'label' => 'CRAS'));
 echo $this->Html->tag('/fieldset', null);
 
 echo $this->Form->button('Fechar', array(
@@ -87,20 +87,19 @@ echo $this->Form->button('Fechar', array(
     'onClick' => "window.location.href = '" . $this->Html->url(array('controller' => 'bairros', 'action' => 'index')) . "';"
 ));
 if ($temAcessoEscrita) {
-	echo $this->Form->button('Salvar', array('type' => 'submit'));
+    echo $this->Form->button('Salvar', array('type' => 'submit'));
 } else {
-	?>
-	<script type="text/javascript">
-		$(document).ready(function () 
-		{
-			$('select').attr('disabled','disabled');
-			$('input, textarea').attr('readonly','readonly').click(function() {
-				return false;
-			});
-		});
-	</script>
-	<?php
-
+    ?>
+    <script type="text/javascript">
+            $(document).ready(function () 
+            {
+                $('select').attr('disabled','disabled');
+                $('input, textarea').attr('readonly','readonly').click(function() {
+                    return false;
+                });
+            });
+    </script>
+    <?php
 }
 echo $this->Form->end();
 

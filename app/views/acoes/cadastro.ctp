@@ -30,7 +30,7 @@ echo $this->Html->tag('/fieldset', null);
 
 echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Estratégia');
-echo $this->Form->input('id_estrategia', array('type' => 'select', 'options' => $estrategias, 'label' => 'Estratégia', 'style' => 'width: 800px;'));
+echo $this->Form->input('Acao.id_estrategia', array('type' => 'select', 'options' => $estrategias, 'label' => 'Estratégia', 'style' => 'width: 800px;'));
 echo $this->Html->tag('/fieldset', null);
 
 echo $this->Form->button('Fechar', array(

@@ -14,7 +14,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             {display: 'Descrição', name : 'Cras.descricao', width : 190, sortable : true, align: 'left'},
             {display: 'Logradouro', name : 'Cras.logradouro', width : 190, sortable : true, align: 'left'},
             {display: 'Numero', name : 'Cras.numero', width : 40, sortable : true, align: 'center'},
-            {display: 'Bairro', name : 'Bairro.nome', width : 105, sortable : true, align: 'left'},
+            {display: 'Bairro', name : 'Bairro.nome_bairro', width : 105, sortable : true, align: 'left'},
             {display: 'Cidade', name : 'Cras.cidade', width : 105, sortable : true, align: 'left'},
             {display: 'UF', name : 'Cras.uf', width : 30, sortable : true, align: 'left'},
             {display: 'Região', name : 'Regiao.descricao', width : 70, sortable : true, align: 'center'}
@@ -34,7 +34,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         searchitems : [
             {display: 'Descrição', name : 'Cras.descricao', isdefault: true},
             {display: 'Logradouro', name : 'Cras.logradouro'},
-            {display: 'Bairro', name : 'Bairro.nome'},
+            {display: 'Bairro', name : 'Bairro.nome_bairro'},
             {display: 'Cidade', name : 'Cras.cidade'}
         ],
         sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Cras.descricao'; ?>',
