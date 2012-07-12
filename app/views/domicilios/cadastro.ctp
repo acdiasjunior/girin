@@ -55,7 +55,7 @@ echo $this->Form->input('Domicilio.logradouro', array('label' => 'Logradouro'));
 echo $this->Form->input('Domicilio.numero', array('label' => 'Número'));
 echo $this->Form->input('Domicilio.complemento', array('label' => 'Complemento'));
 echo $this->Form->input('Domicilio.regiao_id', array('label' => 'Região'));
-echo $this->Form->input('Domicilio.cras_id', array('label' => 'CRAS'));
+echo $this->Form->input('Domicilio.id_cras', array('label' => 'CRAS'));
 echo $this->Form->input('Domicilio.id_bairro', array('label' => 'Bairro'));
 echo $this->Form->input('Domicilio.cidade', array('label' => 'Cidade'));
 echo $this->Form->input('Domicilio.uf', array('label' => 'UF', 'size' => '2'));
@@ -91,20 +91,19 @@ echo $this->Form->button('Fechar', array(
     'onClick' => "window.location.href = '" . $this->Html->url(array('controller' => 'domicilios', 'action' => 'index')) . "';"
 ));
 if ($temAcessoEscrita) {
-	echo $this->Form->button('Salvar', array('type' => 'submit'));
+    echo $this->Form->button('Salvar', array('type' => 'submit'));
 } else {
-	?>
-	<script type="text/javascript">
-		$(document).ready(function () 
-		{
-			$('select').attr('disabled','disabled');
-			$('input, textarea').attr('readonly','readonly').click(function() {
-				return false;
-			});
-		});
-	</script>
-	<?php
-
+    ?>
+    <script type="text/javascript">
+        $(document).ready(function () 
+        {
+            $('select').attr('disabled','disabled');
+            $('input, textarea').attr('readonly','readonly').click(function() {
+                return false;
+            });
+        });
+    </script>
+    <?php
 }
 echo $this->Form->end();
 

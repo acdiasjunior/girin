@@ -25,7 +25,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
     
     $(function() {
         $.ajaxSetup({ async: false });
-        $("#filtrarDomicilios").load("<?php echo $this->Html->url(array('controller' => $this->params['controller'],'action' => 'filtro')) ?>");
+        $("#filtrarDomicilios").load("<?php echo $this->Html->url(array('controller' => $this->params['controller'], 'action' => 'filtro')) ?>");
         $("#filtrarDomicilios").dialog("open");
         $.ajaxSetup({ async: true });
     });
@@ -40,7 +40,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
                 action: '<?php echo $this->params['action'] ?>',
                 'Domicilio.codigo_domiciliar': $('input[id$="DomicilioCodigoDomiciliar"]').val(),
                 'Domicilio.regiao_id': $('select[id$="DomicilioRegiaoId"]').val(),
-                'Domicilio.cras_id': $('select[id$="DomicilioCrasId"]').val(),
+                'Domicilio.id_cras': $('select[id$="DomicilioCrasId"]').val(),
                 'Domicilio.id_bairro': $('select[id$="DomicilioBairroId"]').val(),
                 'Responsavel.nis': $('input[id$="ResponsavelNis"]').val(),
                 'Responsavel.cpf': $('input[id$="ResponsavelCpf"]').val(),

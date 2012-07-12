@@ -23,7 +23,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         colModel : [
             {display: 'Cód.', name : 'Bairro.id_bairro', width : 50, sortable : true, align: 'center', hide: true},
             {display: 'Bairro', name : 'Bairro.nome_bairro', width : 200, sortable : true, align: 'left'},
-            {display: 'Cras', name : 'Cras.descricao', width : 180, sortable : true, align: 'left'},
+            {display: 'Cras', name : 'Cras.desc_cras', width : 180, sortable : true, align: 'left'},
             {display: 'Região', name : 'Regiao.descricao', width : 120, sortable : true, align: 'left'},
             {display: 'Domicílios', name : 'Bairro.domicilio_count', width : 100, sortable : true, align: 'center'}
         ],

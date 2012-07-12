@@ -30,11 +30,11 @@ class IndicesController extends AppController {
                     'Bairro.id_bairro = Domicilio.id_bairro',
                 )
             ),
-            array('table' => 'cras',
+            array('table' => 'tb_cras',
                 'alias' => 'Cras',
                 'type' => 'LEFT',
                 'conditions' => array(
-                    'Cras.id = Domicilio.cras_id',
+                    'Cras.id_cras = Domicilio.id_cras',
                 )
             ),
         );
@@ -56,15 +56,15 @@ class IndicesController extends AppController {
         
         $conditions = array(
             'Domicilio.quantidade_pessoas != 0',
-            'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
+            'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
         );
 
         switch ($this->data['Relatorio']['filtro']) {
             case 'regiao_id':
                 $conditions['Domicilio.regiao_id'] = $this->data['Relatorio']['regiao_id'];
                 break;
-            case 'cras_id':
-                $conditions['Domicilio.cras_id'] = $this->data['Relatorio']['cras_id'];
+            case 'id_cras':
+                $conditions['Domicilio.id_cras'] = $this->data['Relatorio']['id_cras'];
                 break;
             case 'id_bairro':
                 $conditions['Domicilio.id_bairro'] = $this->data['Relatorio']['id_bairro'];
