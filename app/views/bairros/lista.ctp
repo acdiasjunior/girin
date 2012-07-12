@@ -11,7 +11,7 @@ foreach ($bairros as $bairro) {
         'cell' => array(
             $bairro['Bairro']['id_bairro'],
             $bairro['Bairro']['nome_bairro'],
-            $bairro['Cras']['descricao'],
+            $bairro['Cras']['desc_cras'],
             $bairro['Regiao']['descricao'],
             $bairro['Bairro']['domicilio_count'],
         )
