@@ -23,7 +23,7 @@ class IndicesController extends AppController {
                     'Regiao.id = Domicilio.regiao_id',
                 )
             ),
-            array('table' => 'bairros',
+            array('table' => 'tb_bairro',
                 'alias' => 'Bairro',
                 'type' => 'LEFT',
                 'conditions' => array(
