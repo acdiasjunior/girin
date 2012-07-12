@@ -220,7 +220,7 @@ class IndicesController extends AppController {
             $usuario = $this->Usuario->read();
             if (count($usuario['Cras']) > 0)
                 foreach ($usuario['Cras'] as $cras)
-                    $cras_usuario[] = $cras['id'];
+                    $cras_usuario[] = $cras['id_cras'];
         }
 
         return implode(',', $cras_usuario);
