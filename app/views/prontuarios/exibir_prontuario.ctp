@@ -87,8 +87,8 @@ function classificaIDF($indice) {
         <tr>
             <td>
                 <strong>Código Domiciliar:</strong> <?php echo $this->data['Domicilio']['codigo_domiciliar'] ?>
-                <strong>CRAS:</strong> <?php echo $this->data['Domicilio']['Cras']['descricao'] ?>
-                <strong>Bairro:</strong> <?php echo $this->data['Domicilio']['Bairro']['nome'] ?>
+                <strong>CRAS:</strong> <?php echo $this->data['Domicilio']['Cras']['desc_cras'] ?>
+                <strong>Bairro:</strong> <?php echo $this->data['Domicilio']['Bairro']['nome_bairro'] ?>
                 <br />
                 <strong>Endereço: </strong>
                 <?php

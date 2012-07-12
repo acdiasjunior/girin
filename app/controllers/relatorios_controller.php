@@ -160,8 +160,8 @@ class RelatoriosController extends AppController {
                         $linha[] = $domicilio['Domicilio']['logradouro'];
                         $linha[] = $domicilio['Domicilio']['numero'];
                         $linha[] = $domicilio['Domicilio']['complemento'];
-                        $linha[] = $domicilio['Bairro']['nome'];
-                        $linha[] = $domicilio['Cras']['descricao'];
+                        $linha[] = $domicilio['Bairro']['nome_bairro'];
+                        $linha[] = $domicilio['Cras']['desc_cras'];
                         $linha[] = $domicilio['Regiao']['descricao'];
 
                         $size = fputcsv($fw, $linha, ';');
