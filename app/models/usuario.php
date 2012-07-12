@@ -13,7 +13,13 @@ class Usuario extends AppModel {
         'Visita',
         'ParametrosUsuario'
     );
-    var $hasAndBelongsToMany = array('Cras');
+    var $hasAndBelongsToMany = array(
+        'Cras' => array(
+            'joinTable' => 'tb_cras_usuario',
+            'foreignKey' => 'id_cras',
+            'associationForeignKey' => 'id_usuario',
+        )
+    );
     var $sequence = 'seq_usuario';
 
     //////////////////////////// COMBOS BOXES
