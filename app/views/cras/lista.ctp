@@ -5,18 +5,17 @@ $data['page'] = $page;
 $data['total'] = $total;
 $data['rows'] = array();
 
-foreach($cras as $cra)
-{
+foreach ($cras as $cra) {
     $data['rows'][] = array(
-        'id' => $cra['Cras']['id'],
+        'id_cras' => $cra['Cras']['id_cras'],
         'cell' => array(
-            $cra['Cras']['id'],
-            $cra['Cras']['descricao'],
-            $cra['Cras']['logradouro'],
-            $cra['Cras']['numero'],
-            $cra['Bairro']['nome'],
-            $cra['Cras']['cidade'],
-            $cra['Cras']['uf'],
+            $cra['Cras']['id_cras'],
+            $cra['Cras']['desc_cras'],
+            $cra['Cras']['end_logradouro'],
+            $cra['Cras']['end_num'],
+            $cra['Bairro']['nome_bairro'],
+            $cra['Cras']['end_cidade'],
+            $cra['Cras']['end_estado'],
             $cra['Regiao']['descricao'],
         )
     );

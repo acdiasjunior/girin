@@ -5,7 +5,7 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
 <script type="text/javascript">
     $(function() {        
         $("#flex").flexigrid({
-            url: '/prefeitura/bairros/listaBairrosCras/<?php echo $this->data['Cras']['id'] ?>',
+            url: '/prefeitura/bairros/listaBairrosCras/<?php echo $this->data['Cras']['id_cras'] ?>',
             dataType: 'json',
             colModel : [
                 {display: 'Cód.', name : 'Bairro.id_bairro', width : 80, sortable : true, align: 'center', hide: false},
@@ -19,7 +19,7 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
                 {separator: true}
             ],
             searchitems : [
-                {display: 'Nome', name : 'Bairro.nome', isdefault: true}
+                {display: 'Nome', name : 'Bairro.nome_bairro', isdefault: true}
             ],
             sortname: "Bairro.nome_bairro",
             sortorder: "asc",
@@ -74,16 +74,18 @@ echo $this->Form->create('Cras');
 
 echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Endereço');
-echo $this->Form->input('id', array('label' => 'Cód.'));
-echo $this->Form->input('descricao', array('label' => 'Descrição'));
-echo $this->Form->input('tipo_logradouro', array('label' => 'Tipo'));
-echo $this->Form->input('logradouro', array('label' => 'Logradouro'));
-echo $this->Form->input('numero', array('label' => 'Número'));
-echo $this->Form->input('complemento', array('label' => 'Complemento'));
-echo $this->Form->input('id_bairro', array('label' => 'Bairro'));
-echo $this->Form->input('regiao_id', array('label' => 'Região'));
-echo $this->Form->input('cidade', array('label' => 'Cidade'));
-echo $this->Form->input('uf', array('label' => 'UF', 'size' => '2'));
+echo $this->Form->input('Cras.id_cras', array('label' => 'Cód.'));
+echo $this->Form->input('Cras.desc_cras', array('label' => 'Descrição'));
+echo $this->Form->input('Cras.end_tipo', array('label' => 'Tipo'));
+echo $this->Form->input('Cras.end_logradouro', array('label' => 'Logradouro'));
+echo $this->Form->input('Cras.end_num', array('label' => 'Número'));
+echo $this->Form->input('Cras.end_compl', array('label' => 'Complemento'));
+echo $this->Form->input('Cras.id_bairro', array('type' => 'select', 'options' => $bairros, 'label' => 'Bairro'));
+echo $this->Form->input('Cras.id_regiao', array('type' => 'select', 'options' => $regioes, 'label' => 'Região'));
+echo $this->Form->input('Cras.id_regiao', array('label' => 'Região'));
+echo $this->Form->input('Cras.end_cidade', array('label' => 'Cidade'));
+echo $this->Form->input('Cras.end_estado', array('label' => 'UF', 'size' => '2'));
+echo $this->Form->input('Cras.tel_num', array('label' => 'Telefone'));
 echo $this->Html->tag('/fieldset', null);
 
 echo $this->Form->button('Fechar', array(
@@ -91,20 +93,19 @@ echo $this->Form->button('Fechar', array(
     'onClick' => "window.location.href = '" . $this->Html->url(array('controller' => 'cras', 'action' => 'index')) . "';"
 ));
 if ($temAcessoEscrita) {
-	echo $this->Form->button('Salvar', array('type' => 'submit'));
+    echo $this->Form->button('Salvar', array('type' => 'submit'));
 } else {
-	?>
-	<script type="text/javascript">
-		$(document).ready(function () 
-		{
-			$('select').attr('disabled','disabled');
-			$('input, textarea').attr('readonly','readonly').click(function() {
-				return false;
-			});
-		});
-	</script>
-	<?php
-
+    ?>
+    <script type="text/javascript">
+            $(document).ready(function () 
+            {
+                $('select').attr('disabled','disabled');
+                $('input, textarea').attr('readonly','readonly').click(function() {
+                    return false;
+                });
+            });
+    </script>
+    <?php
 }
 echo $this->Form->end();
 

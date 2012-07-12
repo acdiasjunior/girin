@@ -8,10 +8,10 @@ $data['rows'] = array();
 foreach($bairros as $bairro)
 {
     $data['rows'][] = array(
-        'id' => $bairro['Bairro']['id'],
+        'id_bairro' => $bairro['Bairro']['id_bairro'],
         'cell' => array(
-            $bairro['Bairro']['id'],
-            $bairro['Bairro']['nome'],
+            $bairro['Bairro']['id_bairro'],
+            $bairro['Bairro']['nome_bairro'],
             $bairro['Bairro']['domicilio_count'],
         )
     );

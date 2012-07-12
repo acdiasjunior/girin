@@ -4,10 +4,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  * * região, cras ou bairro
-* codigo domiciliar
-* responsavel legal
-* cpf
-* idf familiar (opções: exatamente, até, entre ou acima) > exibir balão com autopreenchimento com níveis D1 a D5.
+ * codigo domiciliar
+ * responsavel legal
+ * cpf
+ * idf familiar (opções: exatamente, até, entre ou acima) > exibir balão com autopreenchimento com níveis D1 a D5.
  */
 ?>
 <script type="text/javascript">
@@ -26,13 +26,14 @@
 
 </script>
 <?php
+
 echo $this->Form->create('Prontuario', array('url' => array('controller' => $this->params['controller'], 'action' => $this->params['action'])));
 
 echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Selecione o filtro para busca');
-echo $this->Form->input('filtro', array('options' => array('regiao_id' => 'Região', 'cras_id' => 'Cras', 'id_bairro' => 'Bairro'), 'empty' => 'Selecione o tipo de filtro'));
+echo $this->Form->input('filtro', array('options' => array('regiao_id' => 'Região', 'id_cras' => 'Cras', 'id_bairro' => 'Bairro'), 'empty' => 'Selecione o tipo de filtro'));
 echo $this->Form->input('regiao_id', array('options' => $regioes, 'empty' => 'Selecione a Região', 'class' => 'filtro regiao_id'));
-echo $this->Form->input('cras_id', array('options' => $cras, 'empty' => 'Selecione o CRAS', 'class' => 'filtro cras_id'));
+echo $this->Form->input('id_cras', array('options' => $cras, 'empty' => 'Selecione o CRAS', 'class' => 'filtro id_cras'));
 echo $this->Form->input('id_bairro', array('options' => $bairros, 'empty' => 'Selecione o bairro', 'class' => 'filtro id_bairro'));
 echo $this->Html->div('', '', array('style' => 'clear: both;'));
 echo $this->Form->input('codigo_domiciliar', array('label' => 'Código Domicíliar'));

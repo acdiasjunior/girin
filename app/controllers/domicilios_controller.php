@@ -19,7 +19,7 @@ class DomiciliosController extends AppController {
 
         $conditions = array(
             'Domicilio.quantidade_pessoas != 0',
-            'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
+            'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
         );
 
         if ($this->params['form']['query'] != '')
@@ -66,15 +66,15 @@ class DomiciliosController extends AppController {
 
         $conditions = array(
             'Domicilio.quantidade_pessoas != 0',
-            'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
+            'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
         );
 
         if ($this->Session->read("$container.Domicilio_codigo_domiciliar") != '')
             $conditions['Domicilio.codigo_domiciliar'] = $this->Session->read("$container.Domicilio_codigo_domiciliar");
         if ($this->Session->read("$container.Domicilio_regiao_id") != '')
             $conditions['Domicilio.regiao_id'] = $this->Session->read("$container.Domicilio_regiao_id");
-        if ($this->Session->read("$container.Domicilio_cras_id") != '')
-            $conditions['Domicilio.cras_id'] = $this->Session->read("$container.Domicilio_cras_id");
+        if ($this->Session->read("$container.Domicilio_id_cras") != '')
+            $conditions['Domicilio.id_cras'] = $this->Session->read("$container.Domicilio_id_cras");
         if ($this->Session->read("$container.Domicilio_id_bairro") != '')
             $conditions['Domicilio.id_bairro'] = $this->Session->read("$container.Domicilio_id_bairro");
         if ($this->Session->read("$container.Responsavel_nis") != '')
@@ -201,7 +201,7 @@ class DomiciliosController extends AppController {
                     }
                 }
                 $this->Domicilio->query('UPDATE domicilios d SET id_bairro = (SELECT b.id FROM bairros b WHERE d.bairro_nome = b.nome)');
-                $this->Domicilio->query('UPDATE domicilios SET cras_id = (SELECT cras_id FROM bairros WHERE bairros.id = domicilios.id_bairro), regiao_id = (SELECT regiao_id FROM bairros WHERE bairros.id = domicilios.id_bairro)');
+                $this->Domicilio->query('UPDATE domicilios SET id_cras = (SELECT id_cras FROM bairros WHERE bairros.id = domicilios.id_bairro), regiao_id = (SELECT regiao_id FROM bairros WHERE bairros.id = domicilios.id_bairro)');
 
                 // close the file
                 fclose($handle);

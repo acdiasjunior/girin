@@ -13,18 +13,10 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             {display: 'ID', name : 'Prontuario.id', width : 40, sortable : true, align: 'center'}, //, hide: true},
             {display: 'Núm.', name : 'Prontuario.numero_prontuario', width : 60, sortable : true, align: 'center'},
             {display: 'Cód. Domiciliar', name : 'Domicilio.codigo_domiciliar', width : 80, sortable : true, align: 'center'},
-            {display: 'Cras', name : 'Cras.nome', width : 160, sortable : true, align: 'left'},
+            {display: 'Cras', name : 'Cras.desc_cras', width : 160, sortable : true, align: 'left'},
             {display: 'IDF', name : 'Indice.indice', width : 40, sortable : true, align: 'center'},
             {display: 'Usuário', name : 'Usuario.nome', width : 220, sortable : true, align: 'left'},
             {display: 'Data', name : 'Prontuario.created', width : 110, sortable : true, align: 'center'}
-            /*
-             * $prontuario['Prontuario']['id'],
-            $prontuario['Prontuario']['numero'],
-            $prontuario['Domicilio']['codigo_domiciliar'],
-            round($prontuario['Indice']['idf'],2),
-            $prontuario['Usuario']['nome'],
-            $prontuario['Prontuario']['created'],
-             */
         ],
         buttons : [
             {name: 'Exibir', bclass: 'show', onpress : actions},
