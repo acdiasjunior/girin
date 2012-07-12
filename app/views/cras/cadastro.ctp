@@ -82,7 +82,6 @@ echo $this->Form->input('Cras.end_num', array('label' => 'Número'));
 echo $this->Form->input('Cras.end_compl', array('label' => 'Complemento'));
 echo $this->Form->input('Cras.id_bairro', array('type' => 'select', 'options' => $bairros, 'label' => 'Bairro'));
 echo $this->Form->input('Cras.id_regiao', array('type' => 'select', 'options' => $regioes, 'label' => 'Região'));
-echo $this->Form->input('Cras.id_regiao', array('label' => 'Região'));
 echo $this->Form->input('Cras.end_cidade', array('label' => 'Cidade'));
 echo $this->Form->input('Cras.end_estado', array('label' => 'UF', 'size' => '2'));
 echo $this->Form->input('Cras.tel_num', array('label' => 'Telefone'));
