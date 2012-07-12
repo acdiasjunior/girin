@@ -10,13 +10,13 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         url: '<?php echo $this->Html->url(array('controller' => 'cras', 'action' => 'lista')); ?>',
         dataType: 'json',
         colModel : [
-            {display: 'Cód.', name : 'Cras.id', width : 30, sortable : true, align: 'center', hide: true},
-            {display: 'Descrição', name : 'Cras.descricao', width : 190, sortable : true, align: 'left'},
-            {display: 'Logradouro', name : 'Cras.logradouro', width : 190, sortable : true, align: 'left'},
-            {display: 'Numero', name : 'Cras.numero', width : 40, sortable : true, align: 'center'},
+            {display: 'Cód.', name : 'Cras.id_cras', width : 30, sortable : true, align: 'center', hide: true},
+            {display: 'Descrição', name : 'Cras.desc_cras', width : 190, sortable : true, align: 'left'},
+            {display: 'Logradouro', name : 'Cras.end_logradouro', width : 190, sortable : true, align: 'left'},
+            {display: 'Numero', name : 'Cras.end_num', width : 40, sortable : true, align: 'center'},
             {display: 'Bairro', name : 'Bairro.nome_bairro', width : 105, sortable : true, align: 'left'},
-            {display: 'Cidade', name : 'Cras.cidade', width : 105, sortable : true, align: 'left'},
-            {display: 'UF', name : 'Cras.uf', width : 30, sortable : true, align: 'left'},
+            {display: 'Cidade', name : 'Cras.end_cidade', width : 105, sortable : true, align: 'left'},
+            {display: 'UF', name : 'Cras.end_estado', width : 30, sortable : true, align: 'left'},
             {display: 'Região', name : 'Regiao.descricao', width : 70, sortable : true, align: 'center'}
         ],
         buttons : [
@@ -24,20 +24,20 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             {separator: true},
             {name: 'Editar', bclass: 'edit', onpress : actions},
             {separator: true},
-            <?php
-			if($temAcessoExclusao) {
-				echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
-				echo " {separator: true}";
-			}
-			?>
+<?php
+if ($temAcessoExclusao) {
+    echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
+    echo " {separator: true}";
+}
+?>
         ],
         searchitems : [
-            {display: 'Descrição', name : 'Cras.descricao', isdefault: true},
-            {display: 'Logradouro', name : 'Cras.logradouro'},
+            {display: 'Descrição', name : 'Cras.desc_cras', isdefault: true},
+            {display: 'Logradouro', name : 'Cras.end_logradouro'},
             {display: 'Bairro', name : 'Bairro.nome_bairro'},
-            {display: 'Cidade', name : 'Cras.cidade'}
+            {display: 'Cidade', name : 'Cras.end_cidade'}
         ],
-        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Cras.descricao'; ?>',
+        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Cras.desc_cras'; ?>',
         sortorder: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortorder') : 'asc'; ?>',
         usepager: true,
         useRp: true,
@@ -58,15 +58,15 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
     });
     
     $('#flex').dblclick( function(){
-        var id = $('.trSelected').find('td[abbr="Cras.id"]').text();
+        var id = $('.trSelected').find('td[abbr="Cras.id_cras"]').text();
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'cras', 'action' => 'cadastro')); ?>/' + id);
     });
     //}).disableSelection();
     
     function actions(com, grid) {
-        var id = $('.trSelected', grid).find('td[abbr="Cras.id"]').text();
-        var nome = $('.trSelected', grid).find('td[abbr="nome"]').text();
+        var id = $('.trSelected', grid).find('td[abbr="Cras.id_cras"]').text();
+        var desc_cras = $('.trSelected', grid).find('td[abbr="Cras.desc_cras"]').text();
         switch(com)
         {
             case "Incluir":
@@ -81,7 +81,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             case "Excluir":
                 if(id != '')
                 {
-                    if(confirm('Deseja realmente excluir?\nCliente: ' + nome))
+                    if(confirm('Deseja realmente excluir?\nCras: ' + desc_cras))
                         $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'cras', 'action' => 'excluir')); ?>/' + id);
                 }
                 else

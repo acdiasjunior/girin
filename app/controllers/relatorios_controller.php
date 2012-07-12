@@ -62,7 +62,7 @@ class RelatoriosController extends AppController {
                             'Domicilio.numero',
                             'Domicilio.complemento',
                             'Bairro.nome_bairro',
-                            'Cras.descricao',
+                            'Cras.desc_cras',
                             'Regiao.descricao'
                         ),
                         'page' => $i,
@@ -205,7 +205,7 @@ class RelatoriosController extends AppController {
             ),
             'conditions' => array(
                 'Domicilio.quantidade_pessoas > 0',
-                'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
+                'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
             ),
             'group' => array(
                 'Pessoa.tipo_trabalho',
@@ -224,10 +224,10 @@ class RelatoriosController extends AppController {
                 );
                 $options['group'][] = 'Domicilio.regiao_id';
                 break;
-            case 'cras_id':
-                $options['fields'][] = 'Domicilio.cras_id';
-                $options['conditions']['Domicilio.cras_id'] = $this->data['Relatorio']['cras_id'];
-                $options['group'][] = 'Domicilio.cras_id';
+            case 'id_cras':
+                $options['fields'][] = 'Domicilio.id_cras';
+                $options['conditions']['Domicilio.id_cras'] = $this->data['Relatorio']['id_cras'];
+                $options['group'][] = 'Domicilio.id_cras';
                 break;
             case 'id_bairro':
                 $options['fields'][] = 'Domicilio.id_bairro';
@@ -283,7 +283,7 @@ class RelatoriosController extends AppController {
             ),
             'conditions' => array(
                 'Domicilio.quantidade_pessoas > 0',
-                'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
+                'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
             ),
             'fields' => array(
                 $idade . ' AS idade',
@@ -307,10 +307,10 @@ class RelatoriosController extends AppController {
                 );
                 $options['group'][] = 'Domicilio.regiao_id';
                 break;
-            case 'cras_id':
-                $options['fields'][] = 'Domicilio.cras_id';
-                $options['conditions']['Domicilio.cras_id'] = $this->data['Relatorio']['cras_id'];
-                $options['group'][] = 'Domicilio.cras_id';
+            case 'id_cras':
+                $options['fields'][] = 'Domicilio.id_cras';
+                $options['conditions']['Domicilio.id_cras'] = $this->data['Relatorio']['id_cras'];
+                $options['group'][] = 'Domicilio.id_cras';
                 break;
             case 'id_bairro':
                 $options['fields'][] = 'Domicilio.id_bairro';
@@ -406,7 +406,7 @@ class RelatoriosController extends AppController {
             ),
             'conditions' => array(
                 'Domicilio.quantidade_pessoas > 0',
-                'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
+                'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
             ),
             'group' => array(
                 'remuneracao',
@@ -425,10 +425,10 @@ class RelatoriosController extends AppController {
                 );
                 $options['group'][] = 'Domicilio.regiao_id';
                 break;
-            case 'cras_id':
-                $options['fields'][] = 'Domicilio.cras_id';
-                $options['conditions']['Domicilio.cras_id'] = $this->data['Relatorio']['cras_id'];
-                $options['group'][] = 'Domicilio.cras_id';
+            case 'id_cras':
+                $options['fields'][] = 'Domicilio.id_cras';
+                $options['conditions']['Domicilio.id_cras'] = $this->data['Relatorio']['id_cras'];
+                $options['group'][] = 'Domicilio.id_cras';
                 break;
             case 'id_bairro':
                 $options['fields'][] = 'Domicilio.id_bairro';
@@ -525,7 +525,7 @@ class RelatoriosController extends AppController {
             ),
             'conditions' => array(
                 'Domicilio.quantidade_pessoas > 0',
-                'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
+                'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
             ),
             'order' => array(
                 'FaixasEtaria.faixa',
@@ -540,10 +540,10 @@ class RelatoriosController extends AppController {
                 );
                 $options['group'][] = 'Domicilio.regiao_id';
                 break;
-            case 'cras_id':
-                $options['fields'][] = 'Domicilio.cras_id';
-                $options['conditions']['Domicilio.cras_id'] = $this->data['Relatorio']['cras_id'];
-                $options['group'][] = 'Domicilio.cras_id';
+            case 'id_cras':
+                $options['fields'][] = 'Domicilio.id_cras';
+                $options['conditions']['Domicilio.id_cras'] = $this->data['Relatorio']['id_cras'];
+                $options['group'][] = 'Domicilio.id_cras';
                 break;
             case 'id_bairro':
                 $options['fields'][] = 'Domicilio.id_bairro';

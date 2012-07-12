@@ -5,7 +5,9 @@ class Domicilio extends AppModel {
     var $name = 'Domicilio';
     var $primaryKey = 'codigo_domiciliar';
     var $belongsTo = array(
-        'Cras',
+        'Cras' => array(
+            'foreignKey' => 'id_cras'
+        ),
         'Regiao',
         'Bairro' => array(
             'foreignKey' => 'id_bairro'

@@ -51,10 +51,10 @@ class BairrosController extends AppController {
         }
     }
 
-    function listaBairrosCras($cras_id) {
+    function listaBairrosCras($id_cras) {
         $this->layout = 'ajax';
 
-        $conditions = array('Bairro.id_cras =' => $cras_id);
+        $conditions = array('Bairro.id_cras =' => $id_cras);
         if ($this->params['form']['query'] != '')
             $conditions[] = array($this->params['form']['qtype'] . ' LIKE' => '%' . str_replace(' ', '%', $this->params['form']['query']) . '%');
 
@@ -72,13 +72,13 @@ class BairrosController extends AppController {
         $this->set(compact('bairros', 'page', 'total'));
     }
 
-    function preencheCombo($cras_id = null) {
+    function preencheCombo($id_cras = null) {
         $this->layout = 'ajax';
         $this->autoRender = false;
-        if ($cras_id == null)
+        if ($id_cras == null)
             $cras = $this->Bairro->find('list');
         else
-            $cras = $this->Bairro->find('list', array('conditions' => array('Bairro.id_cras' => $cras_id)));
+            $cras = $this->Bairro->find('list', array('conditions' => array('Bairro.id_cras' => $id_cras)));
         echo '<option value="">Selecione o Bairro</option>';
         foreach ($cras as $key => $value)
             echo '<option value="' . $key . '">' . $value . '</option>';
@@ -93,7 +93,7 @@ class BairrosController extends AppController {
             if ($novo_bairro != null) {
                 $this->loadModel('Domicilio');
                 $this->Domicilio->updateAll(array('Domicilio.id_bairro' => $novo_bairro), array('Domicilio.id_bairro' => $id));
-                $this->Domicilio->query('UPDATE tb_domicilio SET cras_id = (SELECT id_cras FROM tb_bairro WHERE tb_bairro.id_bairro = tb_domicilio.id_bairro), id_regiao = (SELECT id_regiao FROM tb_bairro WHERE tb_bairro.id_bairro = tb_domicilio.id_bairro)');
+                $this->Domicilio->query('UPDATE tb_domicilio SET id_cras = (SELECT id_cras FROM tb_bairro WHERE tb_bairro.id_bairro = tb_domicilio.id_bairro), id_regiao = (SELECT id_regiao FROM tb_bairro WHERE tb_bairro.id_bairro = tb_domicilio.id_bairro)');
             }
         } else {
             $this->Session->setFlash('Erro ao tentar excluir: código inexistente!');

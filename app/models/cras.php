@@ -3,17 +3,31 @@
 class Cras extends AppModel {
 
     var $name = 'Cras';
-    var $displayField = 'descricao';
-    var $order = 'Cras.descricao';
-    var $hasMany = array('Bairro', 'Domicilio');
+    var $primaryKey = 'id_cras';
+    var $useTable = 'cras';
+    var $tablePrefix = 'tb_';
+    var $displayField = 'desc_cras';
+    var $order = 'Cras.desc_cras';
+    var $hasMany = array(
+        'Domicilio' => array(
+            'foreignKey' => 'id_cras',
+            'dependent' => true
+        ),
+        'Bairro' => array(
+            'foreignKey' => 'id_cras',
+            'dependent' => true
+        )
+    );
     var $belongsTo = array(
         'Bairro' => array(
             'foreignKey' => 'id_bairro'
         ),
-        'Regiao'
+        'Regiao' => array(
+            'foreignKey' => 'id_regiao'
+        )
     );
     var $hasAndBelongsToMany = array('Usuario');
     var $recursive = 0;
     var $sequence = 'seq_cras';
-
+    
 }

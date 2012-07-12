@@ -18,7 +18,7 @@ class PessoasController extends AppController {
         $this->Pessoa->recursive = 0;
 
         $conditions = array(
-            'Domicilio.cras_id IN(' . $this->crasUsuario() . ')',
+            'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
         );
 
         if ($this->params['form']['query'] != '')
@@ -304,7 +304,7 @@ class PessoasController extends AppController {
             $usuario = $this->Usuario->read();
             if (count($usuario['Cras']) > 0)
                 foreach ($usuario['Cras'] as $cras)
-                    $cras_usuario[] = $cras['id'];
+                    $cras_usuario[] = $cras['id_cras'];
         }
 
         return implode(',', $cras_usuario);
