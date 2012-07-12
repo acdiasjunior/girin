@@ -26,8 +26,14 @@ class Cras extends AppModel {
             'foreignKey' => 'id_regiao'
         )
     );
-    var $hasAndBelongsToMany = array('Usuario');
+    var $hasAndBelongsToMany = array(
+        'Usuario' => array(
+            'joinTable' => 'tb_cras_usuario',
+            'foreignKey' => 'id_usuario',
+            'associationForeignKey' => 'id_cras',
+        )
+    );
     var $recursive = 0;
     var $sequence = 'seq_cras';
-    
+
 }
