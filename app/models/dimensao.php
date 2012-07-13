@@ -7,7 +7,8 @@ class Dimensao extends AppModel {
     var $useTable = 'dimensao_idf';
     var $tablePrefix = 'tb_';
     var $displayField = 'desc_dimensao_idf';
-    var $hasMany = array('Indicador' => array(
+    var $hasMany = array(
+        'Indicador' => array(
             'foreignKey' => 'id_dimensao_idf',
             'dependent' => true
         )
