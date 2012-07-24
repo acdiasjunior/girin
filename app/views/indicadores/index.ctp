@@ -11,7 +11,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         dataType: 'json',
         colModel : [
             {display: 'ID', name : 'Indicador.id', width : 50, sortable : true, align: 'center', hide: true},
-            {display: 'Dimensão', name : 'Dimensao.descricao', width : 150, sortable : true, align: 'left'},
+            {display: 'Dimensão', name : 'Dimensao.desc_dimensao_idf', width : 150, sortable : true, align: 'left'},
             {display: 'Código', name : 'Indicador.codigo', width : 80, sortable : true, align: 'left'},
             {display: 'Descrição', name : 'Indicador.descricao', width : 600, sortable : true, align: 'left'},
             {display: 'Label', name : 'Indicador.label', width : 600, sortable : true, align: 'left', hide: true}
@@ -31,7 +31,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         searchitems : [
             {display: 'Indicador', name : 'Indicador.descricao', isdefault: true}
         ],
-        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Dimensao.descricao'; ?>',
+        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Dimensao.desc_dimensao_idf'; ?>',
         sortorder: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortorder') : 'asc'; ?>',
         usepager: true,
         useRp: true,
