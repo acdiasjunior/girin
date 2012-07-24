@@ -190,7 +190,7 @@ class RelatoriosController extends AppController {
         $options = array(
             'recursive' => -1,
             'joins' => array(
-                array('table' => 'domicilios',
+                array('table' => 'tb_domicilio',
                     'alias' => 'Domicilio',
                     'type' => 'INNER',
                     'conditions' => array(
@@ -251,7 +251,7 @@ class RelatoriosController extends AppController {
                         [$faixa['Pessoa']['tipo_trabalho']][65]
                         += (int) $faixa[0]['total'];
             }
-            
+
             if (isset($faixaEtaria[$faixa['Pessoa']['tipo_trabalho']])) {
                 $faixaEtaria[$faixa['Pessoa']['tipo_trabalho']] += (int) $faixa[0]['total'];
             } else {
@@ -273,7 +273,7 @@ class RelatoriosController extends AppController {
         $options = array(
             'recursive' => -1,
             'joins' => array(
-                array('table' => 'domicilios',
+                array('table' => 'tb_domicilio',
                     'alias' => 'Domicilio',
                     'type' => 'INNER',
                     'conditions' => array(
@@ -384,7 +384,7 @@ class RelatoriosController extends AppController {
         $options = array(
             'recursive' => -1,
             'joins' => array(
-                array('table' => 'domicilios',
+                array('table' => 'tb_domicilio',
                     'alias' => 'Domicilio',
                     'type' => 'INNER',
                     'conditions' => array(
@@ -504,7 +504,7 @@ class RelatoriosController extends AppController {
                         'CASE WHEN ' . $idade . ' > 80 THEN FaixasEtaria.idade = 80 ELSE FaixasEtaria.idade = ' . $idade . 'END',
                     )
                 ),
-                array('table' => 'domicilios',
+                array('table' => 'tb_domicilio',
                     'alias' => 'Domicilio',
                     'type' => 'INNER',
                     'conditions' => array(

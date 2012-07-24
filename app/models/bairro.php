@@ -31,7 +31,7 @@ class Bairro extends AppModel {
     public function __construct($id = false, $table = null, $ds = null) {
         parent::__construct($id, $table, $ds);
         $this->virtualFields = array(
-            'domicilio_count' => 'SELECT COUNT(*) FROM domicilios WHERE domicilios.id_bairro = Bairro.id_bairro'
+            'domicilio_count' => 'SELECT COUNT(*) FROM tb_domicilio WHERE tb_domicilio.id_bairro = Bairro.id_bairro'
         );
     }
 

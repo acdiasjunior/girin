@@ -9,7 +9,7 @@ class IndicesController extends AppController {
     function index() {
         parent::temAcesso();
         $joins = array(
-            array('table' => 'domicilios',
+            array('table' => 'tb_domicilio',
                 'alias' => 'Domicilio',
                 'type' => 'INNER',
                 'conditions' => array(

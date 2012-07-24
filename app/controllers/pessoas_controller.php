@@ -238,7 +238,7 @@ class PessoasController extends AppController {
                         'CASE WHEN ' . $idade . ' > 80 THEN FaixasEtaria.idade = 80 ELSE FaixasEtaria.idade = ' . $idade . 'END',
                     )
                 ),
-                array('table' => 'domicilios',
+                array('table' => 'tb_domicilio',
                     'alias' => 'Domicilio',
                     'type' => 'INNER',
                     'conditions' => array(
