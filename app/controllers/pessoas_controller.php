@@ -106,10 +106,10 @@ class PessoasController extends AppController {
         $this->set(compact('membros', 'page', 'total'));
     }
 
-    function listaPessoasDomicilio($codigo_domiciliar) {
+    function listaPessoasDomicilio($cod_domiciliar) {
         $this->layout = 'ajax';
 
-        $conditions = array('Pessoa.codigo_domiciliar =' => $codigo_domiciliar);
+        $conditions = array('Pessoa.cod_domiciliar =' => $cod_domiciliar);
         if ($this->params['form']['query'] != '')
             $conditions[] = array($this->params['form']['qtype'] . ' LIKE' => '%' . str_replace(' ', '%', $this->params['form']['query']) . '%');
 
@@ -191,11 +191,11 @@ class PessoasController extends AppController {
 //        $options = array(
 //            'recursive' => -1,
 //            'fields' => array(
-//                'Pessoa.codigo_domiciliar',
+//                'Pessoa.cod_domiciliar',
 //                'Pessoa.nis',
 //            ),
 //            'order' => array(
-//                'Pessoa.codigo_domiciliar',
+//                'Pessoa.cod_domiciliar',
 //            ),
 //        );
 //        $pessoas = $this->Pessoa->find('all', $options);
@@ -213,7 +213,7 @@ class PessoasController extends AppController {
 //                'alias' => 'Indice',
 //                'type' => 'RIGHT',
 //                'conditions' => array(
-//                    'Indice.codigo_domiciliar = Pessoa.codigo_domiciliar',
+//                    'Indice.cod_domiciliar = Pessoa.cod_domiciliar',
 //                )
 //            )
 //        );
@@ -242,7 +242,7 @@ class PessoasController extends AppController {
                     'alias' => 'Domicilio',
                     'type' => 'INNER',
                     'conditions' => array(
-                        'Pessoa.codigo_domiciliar = Domicilio.codigo_domiciliar',
+                        'Pessoa.cod_domiciliar = Domicilio.cod_domiciliar',
                     )
                 ),
             ),
@@ -265,7 +265,7 @@ class PessoasController extends AppController {
         $pessoas = $this->Pessoa->find('all', $options);
 
         $faixaEtaria['tempo'] = microtime(true) - $inicio;
-        $faixaEtaria['total'] = $this->Pessoa->find('count', array('conditions' => array('Domicilio.quantidade_pessoas > 0')));
+        $faixaEtaria['total'] = $this->Pessoa->find('count', array('conditions' => array('Domicilio.qtd_pessoa > 0')));
         foreach ($pessoas as $faixa) {
             $faixaEtaria[$faixa['FaixasEtaria']['descricao']][$faixa['Pessoa']['tipo_trabalho']] = $faixa[0]['total'];
         }

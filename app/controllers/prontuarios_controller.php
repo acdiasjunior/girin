@@ -6,13 +6,13 @@ class ProntuariosController extends AppController {
 
     function index() {
         parent::temAcesso();
-		$temAcessoExclusao = parent::temAcessoExclusao();
-		$this->set(compact('temAcessoExclusao'));
+        $temAcessoExclusao = parent::temAcessoExclusao();
+        $this->set(compact('temAcessoExclusao'));
     }
 
     function lista() {
         $this->layout = 'ajax';
-        
+
         $this->Prontuario->recursive = 2;
 
         $conditions = array(
@@ -30,13 +30,13 @@ class ProntuariosController extends AppController {
             ),
             'conditions' => $conditions
         );
-        
+
         $prontuarios = $this->paginate('Prontuario');
         $page = $this->params['form']['page'];
         $total = $this->Prontuario->find('count', array('conditions' => $conditions));
         $this->set(compact('prontuarios', 'page', 'total'));
     }
-    
+
     function filtro() {
         $this->layout = 'ajax';
         $this->loadModel('Domicilio');
@@ -45,14 +45,14 @@ class ProntuariosController extends AppController {
         $regioes = $this->Domicilio->Regiao->find('list');
         $this->set(compact('bairros', 'cras', 'regioes'));
     }
-    
+
     function gerar() {
         parent::temAcesso();
     }
 
-    function gerarProntuario($codigo_domiciliar = null) {
+    function gerarProntuario($cod_domiciliar = null) {
         parent::temAcesso();
-        if ($codigo_domiciliar == null) 
+        if ($cod_domiciliar == null)
             $this->redirect(array('action' => 'index'));
 
         $this->loadModel('Indice');
@@ -60,18 +60,18 @@ class ProntuariosController extends AppController {
         $this->loadModel('EstrategiaIndicador');
 
         $this->Indice->recursive = -1;
-        $indices = $this->Indice->read($this->Indice->indicadores, $codigo_domiciliar);
+        $indices = $this->Indice->read($this->Indice->indicadores, $cod_domiciliar);
 
         $this->Indicador->displayField = 'coluna';
         $indicadores = $this->Indicador->find('list');
 
         $this->data = array();
         $this->data['Prontuario'] = array(
-            'codigo_domiciliar' => $codigo_domiciliar,
+            'cod_domiciliar' => $cod_domiciliar,
             'usuario_id' => $this->Session->read('Auth.Usuario.id'),
-            'numero_prontuario' => (int) $this->Prontuario->field('MAX(numero_prontuario)', array('codigo_domiciliar' => $codigo_domiciliar)) + 1,
+            'numero_prontuario' => (int) $this->Prontuario->field('MAX(numero_prontuario)', array('cod_domiciliar' => $cod_domiciliar)) + 1,
         );
-        
+
         foreach ($indices['Indice'] as $key => $value) {
             if ($value == '0' && array_search($key, $indicadores) !== false) {
                 $list[array_search($key, $indicadores)] = $key;
@@ -113,13 +113,13 @@ class ProntuariosController extends AppController {
 
     function gerarPDF($id) {
         $this->autoRender = false;
-        $codigo_domiciliar = $this->Prontuario->field('codigo_domiciliar');
+        $cod_domiciliar = $this->Prontuario->field('cod_domiciliar');
         $numero_prontuario = $this->Prontuario->field('numero_prontuario');
         $html = $this->requestAction(array('controller' => 'prontuarios', 'action' => 'exibirProntuario'), array('return', 'pass' => array($id)));
         App::import('Vendor', 'mpdf53/mpdf');
         $pdf = new mPDF('utf-8', 'A4-L', '', '', 15, 15, 25, 15, 10, 10);
         //The last parameters are all margin values in millimetres: left-margin, right-margin, top-margin, bottom-margin, header-margin, footer-margin.
-        $setFooter = $pdf->SetFooter("Prontuário no. " . str_pad($numero_prontuario, 4, "0", STR_PAD_LEFT) . "|Código Domiciliar: $codigo_domiciliar|{PAGENO}");
+        $setFooter = $pdf->SetFooter("Prontuário no. " . str_pad($numero_prontuario, 4, "0", STR_PAD_LEFT) . "|Código Domiciliar: $cod_domiciliar|{PAGENO}");
         $setFooter = $pdf->SetHTMLHeader('<table cellspacing="0" cellpading="0" border="0" style="border: none; margin-bottom: 10mm;">
         <tr>
             <td style="border: none;">
@@ -134,9 +134,9 @@ class ProntuariosController extends AppController {
         </tr>
     </table>');
         $pdf->WriteHTML($html);
-        $pdf->Output('Prontuario_' . $codigo_domiciliar . '_' . str_pad($numero_prontuario, 4, "0", STR_PAD_LEFT) . '.pdf', 'D');
+        $pdf->Output('Prontuario_' . $cod_domiciliar . '_' . str_pad($numero_prontuario, 4, "0", STR_PAD_LEFT) . '.pdf', 'D');
     }
-    
+
     private function crasUsuario() {
         $this->loadModel('Usuario');
         $this->Usuario->id = $this->Session->read('Auth.Usuario.id');

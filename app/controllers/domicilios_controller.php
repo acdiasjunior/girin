@@ -18,14 +18,14 @@ class DomiciliosController extends AppController {
         $this->layout = 'ajax';
 
         $conditions = array(
-            'Domicilio.quantidade_pessoas != 0',
+            'Domicilio.qtd_pessoa != 0',
             'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
         );
 
         if ($this->params['form']['query'] != '')
             switch ($this->params['form']['qtype']) {
-                case 'Domicilio.idf':
-                    $conditions['Domicilio.idf <='] = $this->params['form']['query'];
+                case 'Domicilio.vlr_idf':
+                    $conditions['Domicilio.vlr_idf <='] = $this->params['form']['query'];
                     break;
                 case 'Responsavel.data_nascimento':
                     $conditions['Responsavel.data_nascimento ='] = parent::converteData($this->params['form']['query'], 1);
@@ -36,15 +36,15 @@ class DomiciliosController extends AppController {
 
         $this->paginate = array(
             'fields' => array(
-                'Domicilio.codigo_domiciliar',
+                'Domicilio.cod_domiciliar',
                 'Responsavel.nome',
-                'Domicilio.logradouro',
-                'Domicilio.numero',
+                'Domicilio.end_logradouro',
+                'Domicilio.end_num',
                 'Bairro.nome_bairro',
                 'Indice.idf',
-                'Domicilio.valor_renda_familia',
-                'Domicilio.quantidade_pessoas',
-                'Domicilio.renda_per_capita'
+                'Domicilio.vlr_renda_familia',
+                'Domicilio.qtd_pessoa',
+                'Domicilio.vlr_renda_per_capita'
             ),
             'page' => $this->params['form']['page'],
             'limit' => $this->params['form']['rp'],
@@ -65,14 +65,14 @@ class DomiciliosController extends AppController {
         $container = 'prontuarios.gerar.filtroDomicilios';
 
         $conditions = array(
-            'Domicilio.quantidade_pessoas != 0',
+            'Domicilio.qtd_pessoa != 0',
             'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
         );
 
-        if ($this->Session->read("$container.Domicilio_codigo_domiciliar") != '')
-            $conditions['Domicilio.codigo_domiciliar'] = $this->Session->read("$container.Domicilio_codigo_domiciliar");
-        if ($this->Session->read("$container.Domicilio_regiao_id") != '')
-            $conditions['Domicilio.regiao_id'] = $this->Session->read("$container.Domicilio_regiao_id");
+        if ($this->Session->read("$container.Domicilio_cod_domiciliar") != '')
+            $conditions['Domicilio.cod_domiciliar'] = $this->Session->read("$container.Domicilio_cod_domiciliar");
+        if ($this->Session->read("$container.Domicilio_id_regiao") != '')
+            $conditions['Domicilio.id_regiao'] = $this->Session->read("$container.Domicilio_id_regiao");
         if ($this->Session->read("$container.Domicilio_id_cras") != '')
             $conditions['Domicilio.id_cras'] = $this->Session->read("$container.Domicilio_id_cras");
         if ($this->Session->read("$container.Domicilio_id_bairro") != '')
@@ -83,7 +83,7 @@ class DomiciliosController extends AppController {
             $conditions['Responsavel.cpf'] = str_replace(array('.', '-'), '', $this->Session->read("$container.Responsavel_cpf"));
         if ($this->Session->read("$container.Responsavel_nome") != '')
             $conditions['Responsavel.nome LIKE '] = '%' . $this->Session->read("$container.Responsavel_nome") . '%';
-        if ($this->Session->read("$container.Domicilio_idf") != '') {
+        if ($this->Session->read("$container.Domicilio_vlr_idf") != '') {
             switch ($this->Session->read("$container.TipoBusca")) {
                 case 'menor':
                     $tipo_busca = '<=';
@@ -97,7 +97,7 @@ class DomiciliosController extends AppController {
                 default:
                     return;
             }
-            $conditions['Indice.idf ' . $tipo_busca] = $this->Session->read("$container.Domicilio_idf");
+            $conditions['Indice.idf ' . $tipo_busca] = $this->Session->read("$container.Domicilio_vlr_idf");
         }
 
         $this->paginate = array(
@@ -200,8 +200,8 @@ class DomiciliosController extends AppController {
                         die('Erro ao gravar o registro!');
                     }
                 }
-                $this->Domicilio->query('UPDATE domicilios d SET id_bairro = (SELECT b.id FROM bairros b WHERE d.bairro_nome = b.nome)');
-                $this->Domicilio->query('UPDATE domicilios SET id_cras = (SELECT id_cras FROM bairros WHERE bairros.id = domicilios.id_bairro), regiao_id = (SELECT regiao_id FROM bairros WHERE bairros.id = domicilios.id_bairro)');
+                $this->Domicilio->query('UPDATE tb_domicilio d SET id_bairro = (SELECT b.id FROM bairros b WHERE d.bairro_nome = b.nome)');
+                $this->Domicilio->query('UPDATE tb_domicilio SET id_cras = (SELECT id_cras FROM bairros WHERE bairros.id = tb_domicilio.id_bairro), id_regiao = (SELECT id_regiao FROM bairros WHERE bairros.id = tb_domicilio.id_bairro)');
 
                 // close the file
                 fclose($handle);

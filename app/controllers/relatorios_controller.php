@@ -50,17 +50,17 @@ class RelatoriosController extends AppController {
                 for ($i = 1; $i <= ceil($quant / $cache); $i++) {
                     $this->paginate = array(
                         'fields' => array(
-                            'Domicilio.codigo_domiciliar',
+                            'Domicilio.cod_domiciliar',
                             'Indice.*',
                             'Responsavel.nome',
                             'Responsavel.nis',
-                            'Domicilio.valor_renda_familia',
-                            'Domicilio.quantidade_pessoas',
-                            'Domicilio.valor_beneficio',
-                            'Domicilio.tipo_logradouro',
-                            'Domicilio.logradouro',
-                            'Domicilio.numero',
-                            'Domicilio.complemento',
+                            'Domicilio.vlr_renda_familia',
+                            'Domicilio.qtd_pessoa',
+                            'Domicilio.vlr_beneficio',
+                            'Domicilio.end_tipo',
+                            'Domicilio.end_logradouro',
+                            'Domicilio.end_num',
+                            'Domicilio.end_compl',
                             'Bairro.nome_bairro',
                             'Cras.desc_cras',
                             'Regiao.descricao'
@@ -68,7 +68,7 @@ class RelatoriosController extends AppController {
                         'page' => $i,
                         'limit' => $cache,
                         'order' => array(
-                            'Domicilio.codigo_domiciliar' => 'asc'
+                            'Domicilio.cod_domiciliar' => 'asc'
                         )
                     );
                     $domicilios = $this->paginate('Domicilio');
@@ -79,7 +79,7 @@ class RelatoriosController extends AppController {
                         flush();
 
                         $linha = array();
-                        $linha[] = $domicilio['Domicilio']['codigo_domiciliar'];
+                        $linha[] = $domicilio['Domicilio']['cod_domiciliar'];
                         $linha[] = number_format($domicilio['Indice']['idf'], 5, ',', '.');
                         $linha[] = $domicilio['Indice']['v1'];
                         $linha[] = $domicilio['Indice']['v2'];
@@ -152,14 +152,14 @@ class RelatoriosController extends AppController {
                         $linha[] = number_format($domicilio['Indice']['habitacao'], 2, ',', '.');
                         $linha[] = $domicilio['Responsavel']['nis'];
                         $linha[] = $domicilio['Responsavel']['nome'];
-                        $linha[] = number_format($domicilio['Domicilio']['valor_renda_familia'], 2, ',', '.');
-                        $linha[] = $domicilio['Domicilio']['quantidade_pessoas'];
-                        $linha[] = number_format(($domicilio['Domicilio']['valor_renda_familia'] / $domicilio['Domicilio']['quantidade_pessoas']), 2, ',', '.');
-                        $linha[] = number_format($domicilio['Domicilio']['valor_beneficio'], 2, ',', '.');
-                        $linha[] = $domicilio['Domicilio']['tipo_logradouro'];
-                        $linha[] = $domicilio['Domicilio']['logradouro'];
-                        $linha[] = $domicilio['Domicilio']['numero'];
-                        $linha[] = $domicilio['Domicilio']['complemento'];
+                        $linha[] = number_format($domicilio['Domicilio']['vlr_renda_familia'], 2, ',', '.');
+                        $linha[] = $domicilio['Domicilio']['qtd_pessoa'];
+                        $linha[] = number_format(($domicilio['Domicilio']['vlr_renda_familia'] / $domicilio['Domicilio']['qtd_pessoa']), 2, ',', '.');
+                        $linha[] = number_format($domicilio['Domicilio']['vlr_beneficio'], 2, ',', '.');
+                        $linha[] = $domicilio['Domicilio']['end_tipo'];
+                        $linha[] = $domicilio['Domicilio']['end_logradouro'];
+                        $linha[] = $domicilio['Domicilio']['end_num'];
+                        $linha[] = $domicilio['Domicilio']['end_compl'];
                         $linha[] = $domicilio['Bairro']['nome_bairro'];
                         $linha[] = $domicilio['Cras']['desc_cras'];
                         $linha[] = $domicilio['Regiao']['descricao'];
@@ -194,7 +194,7 @@ class RelatoriosController extends AppController {
                     'alias' => 'Domicilio',
                     'type' => 'INNER',
                     'conditions' => array(
-                        'Pessoa.codigo_domiciliar = Domicilio.codigo_domiciliar',
+                        'Pessoa.cod_domiciliar = Domicilio.cod_domiciliar',
                     )
                 ),
             ),
@@ -204,7 +204,7 @@ class RelatoriosController extends AppController {
                 'Pessoa.tipo_trabalho',
             ),
             'conditions' => array(
-                'Domicilio.quantidade_pessoas > 0',
+                'Domicilio.qtd_pessoa > 0',
                 'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
             ),
             'group' => array(
@@ -217,12 +217,12 @@ class RelatoriosController extends AppController {
         );
 
         switch ($this->data['Relatorio']['filtro']) {
-            case 'regiao_id':
-                $options['fields'][] = 'Domicilio.regiao_id';
+            case 'id_regiao':
+                $options['fields'][] = 'Domicilio.id_regiao';
                 $options['conditions'] = array(
-                    'Domicilio.regiao_id' => $this->data['Relatorio']['regiao_id'],
+                    'Domicilio.id_regiao' => $this->data['Relatorio']['id_regiao'],
                 );
-                $options['group'][] = 'Domicilio.regiao_id';
+                $options['group'][] = 'Domicilio.id_regiao';
                 break;
             case 'id_cras':
                 $options['fields'][] = 'Domicilio.id_cras';
@@ -277,12 +277,12 @@ class RelatoriosController extends AppController {
                     'alias' => 'Domicilio',
                     'type' => 'INNER',
                     'conditions' => array(
-                        'Pessoa.codigo_domiciliar = Domicilio.codigo_domiciliar',
+                        'Pessoa.cod_domiciliar = Domicilio.cod_domiciliar',
                     )
                 ),
             ),
             'conditions' => array(
-                'Domicilio.quantidade_pessoas > 0',
+                'Domicilio.qtd_pessoa > 0',
                 'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
             ),
             'fields' => array(
@@ -300,12 +300,12 @@ class RelatoriosController extends AppController {
         );
 
         switch ($this->data['Relatorio']['filtro']) {
-            case 'regiao_id':
-                $options['fields'][] = 'Domicilio.regiao_id';
+            case 'id_regiao':
+                $options['fields'][] = 'Domicilio.id_regiao';
                 $options['conditions'] = array(
-                    'Domicilio.regiao_id' => $this->data['Relatorio']['regiao_id'],
+                    'Domicilio.id_regiao' => $this->data['Relatorio']['id_regiao'],
                 );
-                $options['group'][] = 'Domicilio.regiao_id';
+                $options['group'][] = 'Domicilio.id_regiao';
                 break;
             case 'id_cras':
                 $options['fields'][] = 'Domicilio.id_cras';
@@ -388,7 +388,7 @@ class RelatoriosController extends AppController {
                     'alias' => 'Domicilio',
                     'type' => 'INNER',
                     'conditions' => array(
-                        '"Pessoa"."codigo_domiciliar" = "Domicilio"."codigo_domiciliar"',
+                        '"Pessoa"."cod_domiciliar" = "Domicilio"."cod_domiciliar"',
                     )
                 ),
             ),
@@ -405,7 +405,7 @@ class RelatoriosController extends AppController {
                 $idade . ' AS idade',
             ),
             'conditions' => array(
-                'Domicilio.quantidade_pessoas > 0',
+                'Domicilio.qtd_pessoa > 0',
                 'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
             ),
             'group' => array(
@@ -418,12 +418,12 @@ class RelatoriosController extends AppController {
         );
 
         switch ($this->data['Relatorio']['filtro']) {
-            case 'regiao_id':
-                $options['fields'][] = 'Domicilio.regiao_id';
+            case 'id_regiao':
+                $options['fields'][] = 'Domicilio.id_regiao';
                 $options['conditions'] = array(
-                    'Domicilio.regiao_id' => $this->data['Relatorio']['regiao_id'],
+                    'Domicilio.id_regiao' => $this->data['Relatorio']['id_regiao'],
                 );
-                $options['group'][] = 'Domicilio.regiao_id';
+                $options['group'][] = 'Domicilio.id_regiao';
                 break;
             case 'id_cras':
                 $options['fields'][] = 'Domicilio.id_cras';
@@ -508,7 +508,7 @@ class RelatoriosController extends AppController {
                     'alias' => 'Domicilio',
                     'type' => 'INNER',
                     'conditions' => array(
-                        'Pessoa.codigo_domiciliar = Domicilio.codigo_domiciliar',
+                        'Pessoa.cod_domiciliar = Domicilio.cod_domiciliar',
                     )
                 ),
             ),
@@ -524,7 +524,7 @@ class RelatoriosController extends AppController {
                 'FaixasEtaria.faixa',
             ),
             'conditions' => array(
-                'Domicilio.quantidade_pessoas > 0',
+                'Domicilio.qtd_pessoa > 0',
                 'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
             ),
             'order' => array(
@@ -533,12 +533,12 @@ class RelatoriosController extends AppController {
         );
 
         switch ($this->data['Relatorio']['filtro']) {
-            case 'regiao_id':
-                $options['fields'][] = 'Domicilio.regiao_id';
+            case 'id_regiao':
+                $options['fields'][] = 'Domicilio.id_regiao';
                 $options['conditions'] = array(
-                    'Domicilio.regiao_id' => $this->data['Relatorio']['regiao_id'],
+                    'Domicilio.id_regiao' => $this->data['Relatorio']['id_regiao'],
                 );
-                $options['group'][] = 'Domicilio.regiao_id';
+                $options['group'][] = 'Domicilio.id_regiao';
                 break;
             case 'id_cras':
                 $options['fields'][] = 'Domicilio.id_cras';
@@ -555,7 +555,8 @@ class RelatoriosController extends AppController {
         $inicio = microtime(true);
         $pessoas = $this->Pessoa->find('all', $options);
 
-        $educacaoFormal['total'] = $this->Pessoa->find('count', array('conditions' => array('Domicilio.quantidade_pessoas > 0',)));
+        $educacaoFormal['total'] = $this->Pessoa->find('count', array('conditions' => array('Domicilio.qtd_pessoa > 0',)));
+
         foreach ($pessoas as $educacao) {
             $educacaoFormal
                     [$educacao['FaixasEtaria']['faixa']]

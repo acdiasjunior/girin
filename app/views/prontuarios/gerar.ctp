@@ -38,14 +38,14 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             data: {
                 controller: '<?php echo $this->params['controller'] ?>',
                 action: '<?php echo $this->params['action'] ?>',
-                'Domicilio.codigo_domiciliar': $('input[id$="DomicilioCodigoDomiciliar"]').val(),
-                'Domicilio.regiao_id': $('select[id$="DomicilioRegiaoId"]').val(),
-                'Domicilio.id_cras': $('select[id$="DomicilioCrasId"]').val(),
-                'Domicilio.id_bairro': $('select[id$="DomicilioBairroId"]').val(),
+                'Domicilio.cod_domiciliar': $('input[id$="DomicilioCodigoDomiciliar"]').val(),
+                'Domicilio.id_regiao': $('select[id$="DomicilioIdRegiao"]').val(),
+                'Domicilio.id_cras': $('select[id$="DomicilioIdCras"]').val(),
+                'Domicilio.id_bairro': $('select[id$="DomicilioIdBairro"]').val(),
                 'Responsavel.nis': $('input[id$="ResponsavelNis"]').val(),
                 'Responsavel.cpf': $('input[id$="ResponsavelCpf"]').val(),
                 'Responsavel.nome': $('input[id$="ResponsavelNome"]').val(),
-                'Domicilio.idf': $('input[id$="DomicilioIdf"]').val(),
+                'Domicilio.vlr_idf': $('input[id$="DomicilioVlrIdf"]').val(),
                 'TipoBusca': $('select[id$="TipoBusca"]').val()
             }
         });
@@ -58,15 +58,15 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         url: '<?php echo $this->Html->url(array('controller' => 'domicilios', 'action' => 'listaDomiciliosFiltro')); ?>',
         dataType: 'json',
         colModel : [
-            {display: 'Cód. Dom.', name : 'Domicilio.codigo_domiciliar', width : 55, sortable : true, align: 'center'}, //, hide: true},
+            {display: 'Cód. Dom.', name : 'Domicilio.cod_domiciliar', width : 55, sortable : true, align: 'center'}, //, hide: true},
             {display: 'Responsável', name : 'Responsavel.nome', width : 210, sortable : true, align: 'left'},
-            {display: 'Logradouro', name : 'Domicilio.logradouro', width : 190, sortable : true, align: 'left'},
-            {display: 'Numero', name : 'Domicilio.numero', width : 40, sortable : true, align: 'center'},
+            {display: 'Logradouro', name : 'Domicilio.end_logradouro', width : 190, sortable : true, align: 'left'},
+            {display: 'Numero', name : 'Domicilio.end_num', width : 40, sortable : true, align: 'center'},
             {display: 'Bairro', name : 'Bairro.nome_bairro', width : 105, sortable : true, align: 'left'},
-            {display: 'IDF', name : 'Indice.idf', width : 30, sortable : true, align: 'center'},
-            {display: 'Renda Familiar', name : 'Domicilio.renda_familiar', width : 70, sortable : true, align: 'center'},
-            {display: 'Qtd.', name : 'Domicilio.quantidade_pessoas', width : 20, sortable : true, align: 'center'},
-            {display: 'Renda per Cap.', name : 'Domicilio.renda_per_capita', width : 70, sortable : true, align: 'center'}
+            {display: 'IDF', name : 'Indice.vlr_idf', width : 30, sortable : true, align: 'center'},
+            {display: 'Renda Familiar', name : 'Domicilio.vlr_renda_familiar', width : 70, sortable : true, align: 'center'},
+            {display: 'Qtd.', name : 'Domicilio.qtd_pessoa', width : 20, sortable : true, align: 'center'},
+            {display: 'Renda per Cap.', name : 'Domicilio.vlr_renda_per_capita', width : 70, sortable : true, align: 'center'}
         ],
         buttons : [
             {name: 'Prontuario', bclass: 'prontuario', onpress : actions},
@@ -74,7 +74,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             {name: 'Filtrar', bclass: 'prontuario', onpress : actions},
             {separator: true}
         ],
-        sortname: 'Domicilio.codigo_domiciliar',
+        sortname: 'Domicilio.cod_domiciliar',
         sortorder: 'asc',
         usepager: true,
         useRp: true,
@@ -95,13 +95,13 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
     });
 
     $('#flex').dblclick( function(){
-        var id = $('.trSelected').find('td[abbr="Domicilio.codigo_domiciliar"]').text();
+        var id = $('.trSelected').find('td[abbr="Domicilio.cod_domiciliar"]').text();
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'domicilios', 'action' => 'cadastro')); ?>/' + id);
     });
 
     function actions(com, grid) {
-        var id = $('.trSelected', grid).find('td[abbr="Domicilio.codigo_domiciliar"]').text();
+        var id = $('.trSelected', grid).find('td[abbr="Domicilio.cod_domiciliar"]').text();
         var nome = $('.trSelected', grid).find('td[abbr="Responsavel.nome"]').text();
         switch(com)
         {
