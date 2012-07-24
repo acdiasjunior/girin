@@ -3,12 +3,16 @@
 class Domicilio extends AppModel {
 
     var $name = 'Domicilio';
-    var $primaryKey = 'codigo_domiciliar';
+    var $useTable = 'domicilio';
+    var $tablePrefix = 'tb_';
+    var $primaryKey = 'cod_domiciliar';
     var $belongsTo = array(
         'Cras' => array(
             'foreignKey' => 'id_cras'
         ),
-        'Regiao',
+        'Regiao' => array(
+            'foreignKey' => 'id_regiao'
+        ),
         'Bairro' => array(
             'foreignKey' => 'id_bairro'
         ),
@@ -19,31 +23,31 @@ class Domicilio extends AppModel {
     );
     var $hasOne = array(
         'Indice' => array(
-            'foreignKey' => 'codigo_domiciliar',
+            'foreignKey' => 'cod_domiciliar',
             'dependent' => true
         ),
     );
     var $hasMany = array(
         'Prontuario' => array(
-            'foreignKey' => 'codigo_domiciliar',
+            'foreignKey' => 'cod_domiciliar',
         ),
         'Pessoa' => array(
-            'foreignKey' => 'codigo_domiciliar',
+            'foreignKey' => 'cod_domiciliar',
             'order' => 'data_nascimento ASC'
         )
     );
     var $validate = array(
-        'codigo_domiciliar' => array(
+        'cod_domiciliar' => array(
             'rule' => 'isUnique'
         ),
     );
     var $actsAs = array('DateFormatter');
-	var $sequence = 'seq_domicilio';
+    var $sequence = 'seq_domicilio';
 
-    public function __construct($id=false, $table=null, $ds=null) {
+    public function __construct($id = false, $table = null, $ds = null) {
         parent::__construct($id, $table, $ds);
         $this->virtualFields = array(
-            'renda_per_capita' => "(Domicilio.valor_renda_familia / Domicilio.quantidade_pessoas)"
+            'vlr_renda_per_capita' => "(Domicilio.vlr_renda_familia / Domicilio.qtd_pessoa)"
         );
     }
 
@@ -237,4 +241,5 @@ class Domicilio extends AppModel {
     const LIXO_ENTERRADO = 3;
     const LIXO_CEU_ABERTO = 4;
     const LIXO_OUTRO = 5;
+
 }

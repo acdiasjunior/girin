@@ -5,7 +5,7 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
 <script type="text/javascript">
     $(function() {        
         $("#flex").flexigrid({
-            url: '/prefeitura/pessoas/listaPessoasDomicilio/<?php echo $this->data['Pessoa']['codigo_domiciliar'] ?>',
+            url: '/prefeitura/pessoas/listaPessoasDomicilio/<?php echo $this->data['Pessoa']['cod_domiciliar'] ?>',
             dataType: 'json',
             colModel : [
                 {display: 'NIS', name : 'Pessoa.nis', width : 80, sortable : true, align: 'center', hide: false},
@@ -90,15 +90,15 @@ echo $this->Html->tag('/fieldset', null);
 
 echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Domicílio');
-echo $this->Form->input('Domicilio.codigo_domiciliar', array('label' => 'Cód. Domiciliar'));
-echo $this->Form->input('Domicilio.cep', array('class' => 'maskcep', 'label' => 'Cep'));
-echo $this->Form->input('Domicilio.tipo_logradouro', array('label' => 'Tipo'));
-echo $this->Form->input('Domicilio.logradouro', array('label' => 'Logradouro'));
-echo $this->Form->input('Domicilio.numero', array('label' => 'Número'));
-echo $this->Form->input('Domicilio.complemento', array('label' => 'Complemento'));
-echo $this->Form->input('Domicilio.bairro', array('label' => 'Bairro'));
-echo $this->Form->input('Domicilio.cidade', array('label' => 'Cidade'));
-echo $this->Form->input('Domicilio.uf', array('label' => 'UF', 'size' => '2'));
+echo $this->Form->input('Domicilio.cod_domiciliar', array('label' => 'Cód. Domiciliar'));
+echo $this->Form->input('Domicilio.end_cep', array('class' => 'maskcep', 'label' => 'Cep'));
+echo $this->Form->input('Domicilio.end_tipo', array('label' => 'Tipo'));
+echo $this->Form->input('Domicilio.end_logradouro', array('label' => 'Logradouro'));
+echo $this->Form->input('Domicilio.end_num', array('label' => 'Número'));
+echo $this->Form->input('Domicilio.end_compl', array('label' => 'Complemento'));
+echo $this->Form->input('Domicilio.id_bairro', array('type' => 'select', 'options' => $bairros, 'label' => 'Bairro'));
+echo $this->Form->input('Domicilio.end_cidade', array('label' => 'Cidade'));
+echo $this->Form->input('Domicilio.end_estado', array('label' => 'UF', 'size' => '2'));
 echo $this->Html->tag('/fieldset', null);
 
 echo $this->Html->tag('fieldset', null);

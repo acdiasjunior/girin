@@ -14,7 +14,7 @@ class Pessoa extends AppModel {
     );
     var $belongsTo = array(
         'Domicilio' => array(
-            'foreignKey' => 'codigo_domiciliar',
+            'foreignKey' => 'cod_domiciliar',
         ),
         'Responsavel' => array(
             'className' => 'Pessoa',

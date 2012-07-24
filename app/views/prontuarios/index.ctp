@@ -12,7 +12,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         colModel : [
             {display: 'ID', name : 'Prontuario.id', width : 40, sortable : true, align: 'center'}, //, hide: true},
             {display: 'Núm.', name : 'Prontuario.numero_prontuario', width : 60, sortable : true, align: 'center'},
-            {display: 'Cód. Domiciliar', name : 'Domicilio.codigo_domiciliar', width : 80, sortable : true, align: 'center'},
+            {display: 'Cód. Domiciliar', name : 'Domicilio.cod_domiciliar', width : 80, sortable : true, align: 'center'},
             {display: 'Cras', name : 'Cras.desc_cras', width : 160, sortable : true, align: 'left'},
             {display: 'IDF', name : 'Indice.indice', width : 40, sortable : true, align: 'center'},
             {display: 'Usuário', name : 'Usuario.nome', width : 220, sortable : true, align: 'left'},
@@ -31,13 +31,13 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
 			?>
         ],
         searchitems : [
-            {display: 'Cód. Domiciliar', name : 'Domicilio.codigo_domiciliar', isdefault: true},
+            {display: 'Cód. Domiciliar', name : 'Domicilio.cod_domiciliar', isdefault: true},
             {display: 'Responsável', name : 'Responsavel.nome'},
-            {display: 'Logradouro', name : 'Domicilio.logradouro'},
+            {display: 'Logradouro', name : 'Domicilio.end_logradouro'},
             {display: 'Bairro', name : 'Bairro.nome_bairro'},
-            {display: 'Cidade', name : 'Domicilio.cidade'}
+            {display: 'Cidade', name : 'Domicilio.end_cidade'}
         ],
-        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Domicilio.codigo_domiciliar'; ?>',
+        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Domicilio.cod_domiciliar'; ?>',
         sortorder: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortorder') : 'asc'; ?>',
         usepager: true,
         useRp: true,

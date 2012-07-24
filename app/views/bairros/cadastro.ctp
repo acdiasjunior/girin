@@ -8,11 +8,11 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
             url: '/prefeitura/domicilios/listaDomiciliosBairro/<?php echo $this->data['Bairro']['id_bairro'] ?>',
             dataType: 'json',
             colModel : [
-                {display: 'Cód. Domiciliar', name : 'Domicilio.codigo_domiciliar', width : 80, sortable : true, align: 'center', hide: false},
+                {display: 'Cód. Domiciliar', name : 'Domicilio.cod_domiciliar', width : 80, sortable : true, align: 'center', hide: false},
                 {display: 'Responsavel', name : 'Responsavel.nome', width : 260, sortable : true, align: 'left'},
-                {display: 'Logradouro', name : 'Domicilio.logradouro', width : 220, sortable : true, align: 'left'},
-                {display: 'Número', name : 'Domicilio.numero', width : 40, sortable : true, align: 'center'},
-                {display: 'Pessoas', name : 'Domicilio.quantidade_pessoas', width : 50, sortable : true, align: 'left'}
+                {display: 'Logradouro', name : 'Domicilio.end_logradouro', width : 220, sortable : true, align: 'left'},
+                {display: 'Número', name : 'Domicilio.end_num', width : 40, sortable : true, align: 'center'},
+                {display: 'Pessoas', name : 'Domicilio.qtd_pessoa', width : 50, sortable : true, align: 'left'}
             ],
             buttons : [
                 {name: 'Incluir', bclass: 'add', onpress : actions},
@@ -43,13 +43,13 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
         });
         
         $('#flex').dblclick( function(){
-            var id = $('.trSelected').find('td[abbr="Domicilio.codigo_domiciliar"]').text();
+            var id = $('.trSelected').find('td[abbr="Domicilio.cod_domiciliar"]').text();
             if(id != '')
                 $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'domicilios', 'action' => 'cadastro')); ?>/' + id);
         }).disableSelection();
     
         function actions(com, grid) {
-            var id = $('.trSelected', grid).find('td[abbr="Domicilio.codigo_domiciliar"]').text();
+            var id = $('.trSelected', grid).find('td[abbr="Domicilio.cod_domiciliar"]').text();
             var nome = $('.trSelected', grid).find('td[abbr="Responsavel.nome"]').text();
             switch(com)
             {

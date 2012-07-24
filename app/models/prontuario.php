@@ -6,15 +6,15 @@ class Prontuario extends AppModel {
     var $hasMany = array('Visita');
     var $belongsTo = array(
         'Domicilio' => array(
-            'foreignKey' => 'codigo_domiciliar',
+            'foreignKey' => 'cod_domiciliar',
         ),
         'Indice' => array(
-            'foreignKey' => 'codigo_domiciliar',
+            'foreignKey' => 'cod_domiciliar',
         ),
         'Usuario',
     );
     var $hasAndBelongsToMany = array('Estrategia', 'Indicador');
     var $actsAs = array('DateFormatter');
-	var $sequence = 'seq_prontuario';
+    var $sequence = 'seq_prontuario';
 
 }

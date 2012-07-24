@@ -13,14 +13,14 @@ class IndicesController extends AppController {
                 'alias' => 'Domicilio',
                 'type' => 'INNER',
                 'conditions' => array(
-                    'Indice.codigo_domiciliar = Domicilio.codigo_domiciliar',
+                    'Indice.cod_domiciliar = Domicilio.cod_domiciliar',
                 )
             ),
             array('table' => 'regioes',
                 'alias' => 'Regiao',
                 'type' => 'LEFT',
                 'conditions' => array(
-                    'Regiao.id = Domicilio.regiao_id',
+                    'Regiao.id = Domicilio.id_regiao',
                 )
             ),
             array('table' => 'tb_bairro',
@@ -55,13 +55,13 @@ class IndicesController extends AppController {
             $fields[] = "AVG($indicador) AS $indicador";
         
         $conditions = array(
-            'Domicilio.quantidade_pessoas != 0',
+            'Domicilio.qtd_pessoa != 0',
             'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
         );
 
         switch ($this->data['Relatorio']['filtro']) {
             case 'regiao_id':
-                $conditions['Domicilio.regiao_id'] = $this->data['Relatorio']['regiao_id'];
+                $conditions['Domicilio.id_regiao'] = $this->data['Relatorio']['id_regiao'];
                 break;
             case 'id_cras':
                 $conditions['Domicilio.id_cras'] = $this->data['Relatorio']['id_cras'];
@@ -120,12 +120,12 @@ class IndicesController extends AppController {
         $retorno['status'] = 1;
         switch ($atualizar) {
             case 'total':
-                $retorno['total'] = $this->Domicilio->find('count', array('conditions' => array('Domicilio.quantidade_pessoas > 0')));
+                $retorno['total'] = $this->Domicilio->find('count', array('conditions' => array('Domicilio.qtd_pessoa > 0')));
                 break;
             case 'desatualizados':
                 $retorno['desatualizados'] = $this->Domicilio->find('count', array(
                     'conditions' => array(
-                        'Domicilio.quantidade_pessoas > 0',
+                        'Domicilio.qtd_pessoa > 0',
                         'OR' => array(
                             'Indice.modified <' => date('Y-m-d'),
                             'Indice.modified IS NULL',
@@ -143,12 +143,12 @@ class IndicesController extends AppController {
                             'alias' => 'Indice',
                             'type' => 'LEFT',
                             'conditions' => array(
-                                'Domicilio.codigo_domiciliar = Indice.codigo_domiciliar',
+                                'Domicilio.cod_domiciliar = Indice.cod_domiciliar',
                             )
                         )
                     ),
                     'conditions' => array(
-                        'Domicilio.quantidade_pessoas > 0',
+                        'Domicilio.qtd_pessoa > 0',
                         'OR' => array(
                             'Indice.modified <' => date('Y-m-d'),
                             'Indice.modified IS NULL',
@@ -158,15 +158,15 @@ class IndicesController extends AppController {
                         )
                 );
 
-                foreach ($domicilios as $codigo_domiciliar) {
+                foreach ($domicilios as $cod_domiciliar) {
 
-                    $this->Domicilio->id = $codigo_domiciliar;
+                    $this->Domicilio->id = $cod_domiciliar;
                     $domicilio = array();
                     $domicilio = $this->Domicilio->read();
                     $domicilio = $this->Indice->calcularIndices($domicilio);
 
                     $this->data['Indice'] = $domicilio['Indice'];
-                    $this->data['Indice']['codigo_domiciliar'] = $codigo_domiciliar;
+                    $this->data['Indice']['cod_domiciliar'] = $cod_domiciliar;
                     $this->data['Indice']['modified'] = date("Y-m-d H:i:s");
 
                     if (!$this->Indice->save($this->data)) {
@@ -178,7 +178,7 @@ class IndicesController extends AppController {
         if ($atualizar != null) {
             $retorno['desatualizados'] = $this->Domicilio->find('count', array(
                 'conditions' => array(
-                    'Domicilio.quantidade_pessoas > 0',
+                    'Domicilio.qtd_pessoa > 0',
                     'OR' => array(
                         'Indice.modified <' => date('Y-m-d'),
                         'Indice.modified IS NULL',

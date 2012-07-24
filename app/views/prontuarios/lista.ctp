@@ -12,7 +12,7 @@ foreach($prontuarios as $prontuario)
         'cell' => array(
             $prontuario['Prontuario']['id'],
             str_pad($prontuario['Prontuario']['numero_prontuario'], 4, '0', STR_PAD_LEFT),
-            $prontuario['Domicilio']['codigo_domiciliar'],
+            $prontuario['Domicilio']['cod_domiciliar'],
             $prontuario['Domicilio']['Cras']['desc_cras'],
             round($prontuario['Indice']['idf'],2),
             $prontuario['Usuario']['nome'],

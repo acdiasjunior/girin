@@ -3,19 +3,19 @@
 class Indice extends AppModel {
 
     var $name = 'Indice';
-    var $primaryKey = 'codigo_domiciliar';
+    var $primaryKey = 'cod_domiciliar';
     var $hasOne = array(
         'Domicilio' => array(
-            'foreignKey' => 'codigo_domiciliar',
+            'foreignKey' => 'cod_domiciliar',
             'dependent' => false
         ),
     );
     var $hasMany = array(
         'Prontuario' => array(
-            'foreignKey' => 'codigo_domiciliar',
+            'foreignKey' => 'cod_domiciliar',
         ),
         'IndicesHistorico' => array(
-            'foreignKey' => 'codigo_domiciliar',
+            'foreignKey' => 'cod_domiciliar',
         ),
     );
     public $indicadores = array(
@@ -124,7 +124,7 @@ class Indice extends AppModel {
         ),
     );
     var $domicilio = array();
-	var $sequence = 'seq_indice';
+    var $sequence = 'seq_indice';
 
     function contadorMembrosIdadeAtiva() {
         $idade_ativa = 0;
@@ -215,8 +215,8 @@ class Indice extends AppModel {
         $acessoEletricidade = Indice::calculoComponenteAcessoEletricidade();
         $this->domicilio['Indice']['acessoEletricidade'] = $acessoEletricidade;
         $habitacao = ($propriedade + $deficit + $abrigalidade +
-                      $acessoAgua + $acessoSaneamento +
-                      $acessoColetaLixo + $acessoEletricidade) / 7;
+                $acessoAgua + $acessoSaneamento +
+                $acessoColetaLixo + $acessoEletricidade) / 7;
         $this->domicilio['Indice']['habitacao'] = $habitacao;
 
         // Calculo do IDF da Familia
@@ -224,7 +224,7 @@ class Indice extends AppModel {
                 $recursos + $desenvolvimento + $habitacao) / 6, 2);
 
         $this->domicilio['Indice']['idf'] = $idf;
-        $this->domicilio['Domicilio']['idf'] = $idf;
+        $this->domicilio['Domicilio']['vlr_idf'] = $idf;
         return $this->domicilio;
     }
 
@@ -351,7 +351,7 @@ class Indice extends AppModel {
     //V.9 Mais da metade dos membros encontra-se em idade ativa
     function v9() {
         $retorno = 0;
-        if ($this->domicilio['Domicilio']['quantidade_pessoas'] / 2 < $this->contadorMembrosIdadeAtiva()) {
+        if ($this->domicilio['Domicilio']['qtd_pessoa'] / 2 < $this->contadorMembrosIdadeAtiva()) {
             $retorno = 1;
         }
         $this->domicilio['Indice']['v9'] = $retorno;
@@ -444,7 +444,7 @@ class Indice extends AppModel {
     //T.1 Mais da metade dos membros em idade ativa encontram-se ocupados
     function t1() {
         $retorno = 0;
-        if ($this->contadorMembrosIdadeAtivaOcupados() > $this->domicilio['Domicilio']['quantidade_pessoas'] / 2 ) {
+        if ($this->contadorMembrosIdadeAtivaOcupados() > $this->domicilio['Domicilio']['qtd_pessoa'] / 2) {
             $retorno = 1;
         }
         $this->domicilio['Indice']['t1'] = $retorno;
@@ -526,7 +526,7 @@ class Indice extends AppModel {
     //R.1 Despesa familiar per capita superior a linha de extema pobreza
     function r1() {
         $retorno = 0;
-        if ($this->domicilio['Domicilio']['quantidade_pessoas'] > 0 && $this->domicilio['Domicilio']['valor_despesa_familia'] / $this->domicilio['Domicilio']['quantidade_pessoas'] >= 70) {
+        if ($this->domicilio['Domicilio']['qtd_pessoa'] > 0 && $this->domicilio['Domicilio']['vlr_despesa_familia'] / $this->domicilio['Domicilio']['qtd_pessoa'] >= 70) {
             $retorno = 1;
         }
         $this->domicilio['Indice']['r1'] = $retorno;
@@ -536,7 +536,7 @@ class Indice extends AppModel {
     //R.2 Renda familiar per capita superior a linha de extrema pobreza
     function r2() {
         $retorno = 0;
-        if ($this->domicilio['Domicilio']['valor_renda_familia'] / $this->domicilio['Domicilio']['quantidade_pessoas'] >= 70) {
+        if ($this->domicilio['Domicilio']['vlr_renda_familia'] / $this->domicilio['Domicilio']['qtd_pessoa'] >= 70) {
             $retorno = 1;
         }
         $this->domicilio['Indice']['r2'] = $retorno;
@@ -546,7 +546,7 @@ class Indice extends AppModel {
     //R.3 Despesa com alimentos superior a linha de extema pobreza
     function r3() {
         $retorno = 0;
-        if ($this->domicilio['Domicilio']['valor_despesa_alimentacao'] >= 70) {
+        if ($this->domicilio['Domicilio']['vlr_despesa_alimentacao'] >= 70) {
             $retorno = 1;
         }
         $this->domicilio['Indice']['r3'] = $retorno;
@@ -560,7 +560,7 @@ class Indice extends AppModel {
     //R.4 Despesa familiar per capita superior a linha de pobreza
     function r4() {
         $retorno = 0;
-        if ($this->domicilio['Domicilio']['valor_despesa_familia'] / $this->domicilio['Domicilio']['quantidade_pessoas'] >= 140) {
+        if ($this->domicilio['Domicilio']['vlr_despesa_familia'] / $this->domicilio['Domicilio']['qtd_pessoa'] >= 140) {
             $retorno = 1;
         }
         $this->domicilio['Indice']['r4'] = $retorno;
@@ -570,7 +570,7 @@ class Indice extends AppModel {
     //R.5 Renda familiar per capita superior a linha de pobreza
     function r5() {
         $retorno = 0;
-        if ($this->domicilio['Domicilio']['valor_renda_familia'] / $this->domicilio['Domicilio']['quantidade_pessoas'] >= 140) {
+        if ($this->domicilio['Domicilio']['vlr_renda_familia'] / $this->domicilio['Domicilio']['qtd_pessoa'] >= 140) {
             $retorno = 1;
         }
         $this->domicilio['Indice']['r5'] = $retorno;
@@ -584,7 +584,7 @@ class Indice extends AppModel {
     //R.6 Maior parte da renda familiar não advém de transferências
     function r6() {
         $retorno = 1;
-        if ($this->domicilio['Domicilio']['valor_beneficio'] > $this->domicilio['Domicilio']['valor_renda_familia']) {
+        if ($this->domicilio['Domicilio']['vlr_beneficio'] > $this->domicilio['Domicilio']['vlr_renda_familia']) {
             $retorno = 0;
         }
         $this->domicilio['Indice']['r6'] = $retorno;
@@ -723,7 +723,7 @@ class Indice extends AppModel {
     //H.1 Domicílio próprio
     function h1() {
         $retorno = 1;
-        if ($this->domicilio['Domicilio']['situacao_domicilio'] != Domicilio::DOMICILIO_PROPRIO) {
+        if ($this->domicilio['Domicilio']['tp_situacao_domicilio'] != Domicilio::DOMICILIO_PROPRIO) {
             $retorno = 0;
         }
         $this->domicilio['Indice']['h1'] = $retorno;
@@ -733,9 +733,9 @@ class Indice extends AppModel {
     //H.2 Domicílio próprio, cedido ou invadido
     function h2() {
         $retorno = 1;
-        if ($this->domicilio['Domicilio']['situacao_domicilio'] != Domicilio::DOMICILIO_PROPRIO &&
-                $this->domicilio['Domicilio']['situacao_domicilio'] != Domicilio::DOMICILIO_CEDIDO &&
-                $this->domicilio['Domicilio']['situacao_domicilio'] != Domicilio::DOMICILIO_ALUGADO) {
+        if ($this->domicilio['Domicilio']['tp_situacao_domicilio'] != Domicilio::DOMICILIO_PROPRIO &&
+                $this->domicilio['Domicilio']['tp_situacao_domicilio'] != Domicilio::DOMICILIO_CEDIDO &&
+                $this->domicilio['Domicilio']['tp_situacao_domicilio'] != Domicilio::DOMICILIO_ALUGADO) {
             $retorno = 0;
         }
         $this->domicilio['Indice']['h2'] = $retorno;
@@ -749,7 +749,7 @@ class Indice extends AppModel {
     //H.3 Densidade de até 2 moradores por dormitório
     function h3() {
         $retorno = 1;
-        if ($this->domicilio['Domicilio']['quantidade_pessoas'] / $this->domicilio['Domicilio']['comodos'] > 2) {
+        if ($this->domicilio['Domicilio']['qtd_pessoa'] / $this->domicilio['Domicilio']['qtd_comodo'] > 2) {
             $retorno = 0;
         }
         $this->domicilio['Indice']['h3'] = $retorno;
@@ -763,7 +763,7 @@ class Indice extends AppModel {
     //H.4 Material de construção permanente
     function h4() {
         $retorno = 1;
-        if ($this->domicilio['Domicilio']['tipo_construcao'] != Domicilio::CONSTRUCAO_TIJOLO_ALVENARIA) {
+        if ($this->domicilio['Domicilio']['tp_construcao'] != Domicilio::CONSTRUCAO_TIJOLO_ALVENARIA) {
             $retorno = 0;
         }
         $this->domicilio['Indice']['h4'] = $retorno;
@@ -777,7 +777,7 @@ class Indice extends AppModel {
     //H.5 Acesso adequado à água
     function h5() {
         $retorno = 1;
-        if ($this->domicilio['Domicilio']['tipo_abastecimento'] != Domicilio::ABASTECIMENTO_REDE_PUBLICA) {
+        if ($this->domicilio['Domicilio']['tp_abastecimento'] != Domicilio::ABASTECIMENTO_REDE_PUBLICA) {
             $retorno = 0;
         }
         $this->domicilio['Indice']['h5'] = $retorno;
@@ -791,7 +791,7 @@ class Indice extends AppModel {
     //H.6 Esgotamento sanitário adequado
     function h6() {
         $retorno = 1;
-        if ($this->domicilio['Domicilio']['escoamento_sanitario'] != Domicilio::ESCOAMENTO_REDE_PUBLICA) {
+        if ($this->domicilio['Domicilio']['tp_escoamento_sanitario'] != Domicilio::ESCOAMENTO_REDE_PUBLICA) {
             $retorno = 0;
         }
         $this->domicilio['Indice']['h6'] = $retorno;
@@ -805,7 +805,7 @@ class Indice extends AppModel {
     //H.7 Lixo é coletado
     function h7() {
         $retorno = 1;
-        if ($this->domicilio['Domicilio']['destino_lixo'] != Domicilio::LIXO_COLETADO) {
+        if ($this->domicilio['Domicilio']['tp_destino_lixo'] != Domicilio::LIXO_COLETADO) {
             $retorno = 0;
         }
         $this->domicilio['Indice']['h7'] = $retorno;
@@ -819,8 +819,8 @@ class Indice extends AppModel {
     //H.8 Acesso à eletricidade
     function h8() {
         $retorno = 1;
-        if ($this->domicilio['Domicilio']['tipo_iluminacao'] != Domicilio::ILUMINACAO_RELOGIO_PROPRIO &&
-                $this->domicilio['Domicilio']['tipo_iluminacao'] != Domicilio::ILUMINACAO_RELOGIO_COMUNITARIO) {
+        if ($this->domicilio['Domicilio']['tp_iluminacao'] != Domicilio::ILUMINACAO_RELOGIO_PROPRIO &&
+                $this->domicilio['Domicilio']['tp_iluminacao'] != Domicilio::ILUMINACAO_RELOGIO_COMUNITARIO) {
             $retorno = 0;
         }
         $this->domicilio['Indice']['h8'] = $retorno;

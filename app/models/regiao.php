@@ -7,11 +7,17 @@ class Regiao extends AppModel {
     var $order = 'descricao';
     var $hasMany = array(
         'Cras' => array(
-            'foreignKey' => 'id_bairro',
+            'foreignKey' => 'id_regiao',
             'dependent' => true
         ),
-        'Bairro',
-        'Domicilio'
+        'Bairro' => array(
+            'foreignKey' => 'id_regiao',
+            'dependent' => true
+        ),
+        'Domicilio' => array(
+            'foreignKey' => 'id_regiao',
+            'dependent' => true
+        ),
     );
     var $recursive = 0;
     var $sequence = 'seq_regiao';

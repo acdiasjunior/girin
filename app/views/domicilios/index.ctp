@@ -10,15 +10,15 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         url: '<?php echo $this->Html->url(array('controller' => 'domicilios', 'action' => 'lista')); ?>',
         dataType: 'json',
         colModel : [
-            {display: 'Cód. Dom.', name : 'Domicilio.codigo_domiciliar', width : 55, sortable : true, align: 'center'}, //, hide: true},
+            {display: 'Cód. Dom.', name : 'Domicilio.cod_domiciliar', width : 55, sortable : true, align: 'center'}, //, hide: true},
             {display: 'Responsável', name : 'Responsavel.nome', width : 210, sortable : true, align: 'left'},
-            {display: 'Logradouro', name : 'Domicilio.logradouro', width : 190, sortable : true, align: 'left'},
-            {display: 'Numero', name : 'Domicilio.numero', width : 40, sortable : true, align: 'center'},
+            {display: 'Logradouro', name : 'Domicilio.end_logradouro', width : 190, sortable : true, align: 'left'},
+            {display: 'Numero', name : 'Domicilio.end_num', width : 40, sortable : true, align: 'center'},
             {display: 'Bairro', name : 'Bairro.nome_bairro', width : 105, sortable : true, align: 'left'},
-            {display: 'IDF', name : 'Indice.idf', width : 30, sortable : true, align: 'center'},
-            {display: 'Renda Familiar', name : 'Domicilio.valor_renda_familia', width : 70, sortable : true, align: 'center'},
-            {display: 'Qtd.', name : 'Domicilio.quantidade_pessoas', width : 20, sortable : true, align: 'center'},
-            {display: 'Renda per Cap.', name : 'Domicilio.renda_per_capita', width : 70, sortable : true, align: 'center'}
+            {display: 'IDF', name : 'Indice.vlr_idf', width : 30, sortable : true, align: 'center'},
+            {display: 'Renda Familiar', name : 'Domicilio.vlr_renda_familia', width : 70, sortable : true, align: 'center'},
+            {display: 'Qtd.', name : 'Domicilio.qtd_pessoa', width : 20, sortable : true, align: 'center'},
+            {display: 'Renda per Cap.', name : 'Domicilio.vlr_renda_per_capita', width : 70, sortable : true, align: 'center'}
         ],
         buttons : [
             {name: 'Editar', bclass: 'edit', onpress : actions},
@@ -33,14 +33,14 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
 			?>
         ],
         searchitems : [
-            {display: 'Cód. Domiciliar', name : 'Domicilio.codigo_domiciliar', isdefault: true},
+            {display: 'Cód. Domiciliar', name : 'Domicilio.cod_domiciliar', isdefault: true},
             {display: 'Responsável', name : 'Responsavel.nome'},
-            {display: 'IDF <=', name : 'Domicilio.idf'},
-            {display: 'Logradouro', name : 'Domicilio.logradouro'},
+            {display: 'IDF <=', name : 'Domicilio.vlr_idf'},
+            {display: 'Logradouro', name : 'Domicilio.end_logradouro'},
             {display: 'Bairro', name : 'Bairro.nome_bairro'},
             {display: 'Data Nascimento Resp.', name : 'Responsavel.data_nascimento'}
         ],
-        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Domicilio.codigo_domiciliar'; ?>',
+        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Domicilio.cod_domiciliar'; ?>',
         sortorder: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortorder') : 'asc'; ?>',
         usepager: true,
         useRp: true,
@@ -61,14 +61,14 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
     });
 
     $('#flex').dblclick( function(){
-        var id = $('.trSelected').find('td[abbr="Domicilio.codigo_domiciliar"]').text();
+        var id = $('.trSelected').find('td[abbr="Domicilio.cod_domiciliar"]').text();
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'domicilios', 'action' => 'cadastro')); ?>/' + id);
     });
     //}).disableSelection();
 
     function actions(com, grid) {
-        var id = $('.trSelected', grid).find('td[abbr="Domicilio.codigo_domiciliar"]').text();
+        var id = $('.trSelected', grid).find('td[abbr="Domicilio.cod_domiciliar"]').text();
         var nome = $('.trSelected', grid).find('td[abbr="Responsavel.nome"]').text();
         switch(com)
         {
