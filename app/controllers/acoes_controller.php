@@ -35,10 +35,6 @@ class AcoesController extends AppController {
         $this->set(compact('acoes', 'page', 'total'));
     }
 
-    function listaAcoes() {
-        $this->data = $this->Acao->find('all');
-    }
-
     function cadastro($id = null) {
         parent::temAcesso();
         if (empty($this->data)) {
