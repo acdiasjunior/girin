@@ -11,7 +11,7 @@ foreach($indicadores as $indicador)
         'id' => $indicador['Indicador']['id'],
         'cell' => array(
             $indicador['Indicador']['id'],
-            $indicador['Dimensao']['descricao'],
+            $indicador['Dimensao']['desc_dimensao_idf'],
             $indicador['Indicador']['codigo'],
             $indicador['Indicador']['descricao'],
             $indicador['Indicador']['label'],

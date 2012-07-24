@@ -207,7 +207,7 @@ function classificaIDF($indice) {
             <tbody>
                 <?php
                 foreach ($this->data['Indicador'] as $indicador) {
-                    if ($indicador['Dimensao']['coluna'] == 'vulnerabilidade') {
+                    if ($indicador['Dimensao']['desc_coluna_idf'] == 'vulnerabilidade') {
                         ?>
                         <tr>
                             <td><?php echo $indicador['codigo'] . ' ' . $indicador['label'] ?></td>
@@ -239,7 +239,7 @@ function classificaIDF($indice) {
             <tbody>
                 <?php
                 foreach ($this->data['Indicador'] as $indicador) {
-                    if ($indicador['Dimensao']['coluna'] == 'conhecimento') {
+                    if ($indicador['Dimensao']['desc_coluna_idf'] == 'conhecimento') {
                         ?>
                         <tr>
                             <td><?php echo $indicador['codigo'] . ' ' . $indicador['label'] ?></td>
@@ -271,7 +271,7 @@ function classificaIDF($indice) {
             <tbody>
                 <?php
                 foreach ($this->data['Indicador'] as $indicador) {
-                    if ($indicador['Dimensao']['coluna'] == 'trabalho') {
+                    if ($indicador['Dimensao']['desc_coluna_idf'] == 'trabalho') {
                         ?>
                         <tr>
                             <td><?php echo $indicador['codigo'] . ' ' . $indicador['label'] ?></td>
@@ -303,7 +303,7 @@ function classificaIDF($indice) {
             <tbody>
                 <?php
                 foreach ($this->data['Indicador'] as $indicador) {
-                    if ($indicador['Dimensao']['coluna'] == 'recursos') {
+                    if ($indicador['Dimensao']['desc_coluna_idf'] == 'recursos') {
                         ?>
                         <tr>
                             <td><?php echo $indicador['codigo'] . ' ' . $indicador['label'] ?></td>
@@ -335,7 +335,7 @@ function classificaIDF($indice) {
             <tbody>
                 <?php
                 foreach ($this->data['Indicador'] as $indicador) {
-                    if ($indicador['Dimensao']['coluna'] == 'desenvolvimento') {
+                    if ($indicador['Dimensao']['desc_coluna_idf'] == 'desenvolvimento') {
                         ?>
                         <tr>
                             <td><?php echo $indicador['codigo'] . ' ' . $indicador['label'] ?></td>
@@ -367,7 +367,7 @@ function classificaIDF($indice) {
             <tbody>
                 <?php
                 foreach ($this->data['Indicador'] as $indicador) {
-                    if ($indicador['Dimensao']['coluna'] == 'habitacao') {
+                    if ($indicador['Dimensao']['desc_coluna_idf'] == 'habitacao') {
                         ?>
                         <tr>
                             <td><?php echo $indicador['codigo'] . ' ' . $indicador['label'] ?></td>
@@ -487,7 +487,7 @@ function classificaIDF($indice) {
             foreach ($estrategia['Acao'] as $acao) {
                 ?>
                 <tr>
-                    <td><?php echo Acao::atividade($acao['atividade']) ?></td>
+                    <td><?php echo Acao::atividade($acao['cod_atividade']) ?></td>
                     <td><?php echo $acao['encaminhamento'] ?></td>
                     <td><?php echo ($acao['prazo_maximo'] == 0) ? "" : $acao['prazo_maximo'] . " dias"; ?></td>
                 </tr>
