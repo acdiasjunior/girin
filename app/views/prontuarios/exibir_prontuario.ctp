@@ -148,7 +148,7 @@ function classificaIDF($indice) {
                                 <br />&nbsp;
                             </td>
                             <td valign="top"><?php echo Pessoa::estadoCivil($membro['estado_civil']) ?></td>
-                            <td valign="top"><?php echo Pessoa::grauParentesco($membro['grau_parentesco']) ?></td>
+                            <td valign="top"><?php echo Pessoa::grauParentesco($membro['responsavel_parentesco']) ?></td>
                             <td valign="top"><?php echo Pessoa::serieEscolar($membro['serie_escolar']) ?> - <?php echo Pessoa::tipoEscola($membro['tipo_escola']) ?></td>
                             <td valign="top"><?php echo Pessoa::tipoTrabalho($membro['tipo_trabalho']) ?></td>
                         </tr>
