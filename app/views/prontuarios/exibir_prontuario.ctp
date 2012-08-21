@@ -92,11 +92,12 @@ function classificaIDF($indice) {
                 <br />
                 <strong>Endereço: </strong>
                 <?php
-                echo $this->data['Domicilio']['tipo_logradouro'] . ' ';
-                echo $this->data['Domicilio']['logradouro'] . ', ';
+                echo (strlen($this->data['Domicilio']['tipo_logradouro']) > 0) ? $this->data['Domicilio']['tipo_logradouro'] . ' ' : '';
+                echo (strlen($this->data['Domicilio']['logradouro']) > 0) ? $this->data['Domicilio']['logradouro'] : '';
                 echo (strlen($this->data['Domicilio']['numero']) > 0) ? ', no ' . $this->data['Domicilio']['numero'] : '';
                 echo (strlen($this->data['Domicilio']['complemento']) > 0) ? ', ' . $this->data['Domicilio']['complemento'] : '';
                 ?>
+                <strong> Telefone:</strong> <?php echo $this->data['Domicilio']['telefone'] ?>
                 <p><strong>Responsável Legal:</strong> <?php echo $this->data['Domicilio']['Responsavel']['nome'] ?></p>
             </td>
             <td>
@@ -117,6 +118,7 @@ function classificaIDF($indice) {
                     <td>Nome
                         <br />Idade - NIS</td>
                     <td>Est. Civil</td>
+                    <td>Parentesco RP</td>
                     <td>Série Escolar - Frequenta Escola</td>
                     <td>Tipo Trabalho</td>
                 </tr>
@@ -129,6 +131,7 @@ function classificaIDF($indice) {
                         <br />&nbsp;
                     </td>
                     <td valign="top"><?php echo Pessoa::estadoCivil($this->data['Domicilio']['Responsavel']['estado_civil']) ?></td>
+                    <td valign="top"></td>
                     <td valign="top"><?php echo Pessoa::serieEscolar($this->data['Domicilio']['Responsavel']['serie_escolar']) ?> - <?php echo Pessoa::tipoEscola($this->data['Domicilio']['Responsavel']['tipo_escola']) ?></td>
                     <td valign="top"><?php echo Pessoa::tipoTrabalho($this->data['Domicilio']['Responsavel']['tipo_trabalho']) ?></td>
                 </tr>
@@ -145,6 +148,7 @@ function classificaIDF($indice) {
                                 <br />&nbsp;
                             </td>
                             <td valign="top"><?php echo Pessoa::estadoCivil($membro['estado_civil']) ?></td>
+                            <td valign="top"><?php echo Pessoa::grauParentesco($membro['responsavel_parentesco']) ?></td>
                             <td valign="top"><?php echo Pessoa::serieEscolar($membro['serie_escolar']) ?> - <?php echo Pessoa::tipoEscola($membro['tipo_escola']) ?></td>
                             <td valign="top"><?php echo Pessoa::tipoTrabalho($membro['tipo_trabalho']) ?></td>
                         </tr>
