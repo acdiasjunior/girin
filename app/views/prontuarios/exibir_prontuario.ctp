@@ -117,10 +117,10 @@ function classificaIDF($indice) {
                 <tr>
                     <td>Nome
                         <br />Idade - NIS</td>
-                    <td>Est. Civil</td>
-                    <td>Parentesco RP</td>
-                    <td>Série Escolar - Frequenta Escola</td>
-                    <td>Tipo Trabalho</td>
+                    <td style="width: 20mm;">Parentesco</td>
+                    <td style="width: 20mm;">Est. Civil</td>
+                    <td style="width: 80mm;">Série Escolar - Frequenta Escola</td>
+                    <td style="width: 60mm;">Tipo Trabalho</td>
                 </tr>
             </thead>
             <tbody>
@@ -130,8 +130,8 @@ function classificaIDF($indice) {
                         - NIS: <?php echo $this->data['Domicilio']['Responsavel']['nis'] ?>
                         <br />&nbsp;
                     </td>
-                    <td valign="top"><?php echo Pessoa::estadoCivil($this->data['Domicilio']['Responsavel']['estado_civil']) ?></td>
                     <td valign="top"></td>
+                    <td valign="top"><?php echo Pessoa::estadoCivil($this->data['Domicilio']['Responsavel']['estado_civil']) ?></td>
                     <td valign="top"><?php echo Pessoa::serieEscolar($this->data['Domicilio']['Responsavel']['serie_escolar']) ?> - <?php echo Pessoa::tipoEscola($this->data['Domicilio']['Responsavel']['tipo_escola']) ?></td>
                     <td valign="top"><?php echo Pessoa::tipoTrabalho($this->data['Domicilio']['Responsavel']['tipo_trabalho']) ?></td>
                 </tr>
@@ -147,8 +147,8 @@ function classificaIDF($indice) {
                                 - NIS: <?php echo $membro['nis'] ?>
                                 <br />&nbsp;
                             </td>
-                            <td valign="top"><?php echo Pessoa::estadoCivil($membro['estado_civil']) ?></td>
                             <td valign="top"><?php echo Pessoa::grauParentesco($membro['responsavel_parentesco']) ?></td>
+                            <td valign="top"><?php echo Pessoa::estadoCivil($membro['estado_civil']) ?></td>
                             <td valign="top"><?php echo Pessoa::serieEscolar($membro['serie_escolar']) ?> - <?php echo Pessoa::tipoEscola($membro['tipo_escola']) ?></td>
                             <td valign="top"><?php echo Pessoa::tipoTrabalho($membro['tipo_trabalho']) ?></td>
                         </tr>
