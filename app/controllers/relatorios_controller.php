@@ -190,13 +190,6 @@ class RelatoriosController extends AppController {
         $options = array(
             'recursive' => -1,
             'joins' => array(
-                array('table' => 'faixas_etarias',
-                    'alias' => 'FaixasEtaria',
-                    'type' => 'INNER',
-                    'conditions' => array(
-                        'CASE WHEN ' . $idade . ' > 80 THEN FaixasEtaria.idade = 80 ELSE FaixasEtaria.idade = ' . $idade . 'END',
-                    )
-                ),
                 array('table' => 'domicilios',
                     'alias' => 'Domicilio',
                     'type' => 'INNER',
@@ -206,10 +199,9 @@ class RelatoriosController extends AppController {
                 ),
             ),
             'fields' => array(
-                'COUNT(FaixasEtaria.id) AS total',
+                $idade . ' AS idade',
+                'COUNT(' . $idade . ') AS total',
                 'Pessoa.tipo_trabalho',
-                'FaixasEtaria.descricao',
-                'FaixasEtaria.faixa',
             ),
             'conditions' => array(
                 'Domicilio.quantidade_pessoas > 0',
@@ -217,11 +209,10 @@ class RelatoriosController extends AppController {
             ),
             'group' => array(
                 'Pessoa.tipo_trabalho',
-                'FaixasEtaria.descricao',
-                'FaixasEtaria.faixa',
+                $idade,
             ),
             'order' => array(
-                'FaixasEtaria.faixa',
+                $idade,
             ),
         );
 
@@ -247,13 +238,21 @@ class RelatoriosController extends AppController {
 
         $inicio = microtime(true);
         $pessoas = $this->Pessoa->find('all', $options);
-
+        
         $faixaEtaria['tempo'] = microtime(true) - $inicio;
         $faixaEtaria['total'] = $this->Pessoa->find('count', $options);
         foreach ($pessoas as $faixa) {
-            $faixaEtaria[$faixa['FaixasEtaria']['faixa']][$faixa['Pessoa']['tipo_trabalho']][$faixa['FaixasEtaria']['descricao']] = $faixa[0]['total'];
+            if($faixa[0]['idade'] < 65) {
+                $faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])]
+                        [$faixa['Pessoa']['tipo_trabalho']][$faixa[0]['idade']]
+                        = $faixa[0]['total'];
+            } else {
+                $faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])]
+                        [$faixa['Pessoa']['tipo_trabalho']][$faixa[0]['idade']]
+                        = $faixa[0]['total'];
+            }
         }
-
+        
         $bairros = $this->Domicilio->Bairro->find('list', array('order' => 'Bairro.nome'));
         $cras = $this->Domicilio->Cras->find('list');
         $regioes = $this->Domicilio->Regiao->find('list');
@@ -575,6 +574,18 @@ class RelatoriosController extends AppController {
         }
 
         return implode(',', $cras_usuario);
+    }
+    
+    private function faixaEtaria($idade) {
+        if ($idade < 10)
+            return 'Criança';
+        else if ($idade < 15)
+            return 'Adolescente';
+        else if ($idade < 18)
+            return 'Jovem';
+        else if ($idade < 60)
+            return 'Adulto';
+        return 'Idoso';
     }
 
 }
