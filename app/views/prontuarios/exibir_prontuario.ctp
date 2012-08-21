@@ -97,13 +97,18 @@ function classificaIDF($indice) {
                 echo (strlen($this->data['Domicilio']['numero']) > 0) ? ', no ' . $this->data['Domicilio']['numero'] : '';
                 echo (strlen($this->data['Domicilio']['complemento']) > 0) ? ', ' . $this->data['Domicilio']['complemento'] : '';
                 ?>
-                <strong> Telefone:</strong> <?php echo $this->data['Domicilio']['telefone'] ?>
-                <p><strong>Responsável Legal:</strong> <?php echo $this->data['Domicilio']['Responsavel']['nome'] ?></p>
+                <strong>Situação do Domicílio:</strong> <?php echo Domicilio::situacaoDomicilio($this->data['Domicilio']['situacao_domicilio']) ?>
+                <p>
+                    <strong>Responsável Legal:</strong> <?php echo $this->data['Domicilio']['Responsavel']['nome'] ?>
+                    <strong>Telefone:</strong> <?php echo $this->data['Domicilio']['telefone'] ?>
+                </p>
+                <p>&nbsp;</p>
             </td>
             <td>
                 Resumo:<br />
                 Estratégias de enfrentamento: <?php echo count($this->data['Estrategia']) ?> de <?php echo $total_estrategias ?><br />
                 Indicadores do IDF: <?php echo count($this->data['Indicador']) ?> de 41
+                <br />&nbsp;
             </td>
         </tr>
     </table>
