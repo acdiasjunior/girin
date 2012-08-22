@@ -54,96 +54,24 @@ echo $this->element('filtro');
             <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_TRABALHADOR_RURAL][0] ?></td>
             <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_NAO_TRABALHA][0] ?></td>
         </tr>
-        <tr>
-            <td style="width: 154px;">1 ano</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][1] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][1] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][1] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][1] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][1] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_TRABALHADOR_RURAL][1] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_NAO_TRABALHA][1] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 154px;">2 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][2] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][2] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][2] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][2] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][2] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_TRABALHADOR_RURAL][2] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_NAO_TRABALHA][2] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 154px;">3 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][3] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][3] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][3] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][3] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][3] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_TRABALHADOR_RURAL][3] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_NAO_TRABALHA][3] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 154px;">4 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][4] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][4] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][4] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][4] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][4] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_TRABALHADOR_RURAL][4] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_NAO_TRABALHA][4] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 154px;">5 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][5] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][5] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][5] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][5] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][5] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_TRABALHADOR_RURAL][5] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_NAO_TRABALHA][5] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 154px;">6 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][6] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][6] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][6] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][6] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][6] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_TRABALHADOR_RURAL][6] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_NAO_TRABALHA][6] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 154px;">7 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][7] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][7] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][7] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][7] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][7] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_TRABALHADOR_RURAL][7] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_NAO_TRABALHA][7] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 154px;">8 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][8] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][8] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][8] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][8] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][8] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_TRABALHADOR_RURAL][8] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_NAO_TRABALHA][8] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 154px;">9 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][9] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][9] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][9] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][9] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][9] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_TRABALHADOR_RURAL][9] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_NAO_TRABALHA][9] ?></td>
-        </tr>
+
+        <?php
+        for ($i = 1; $i <= 9; $i++):
+            ?>
+            <tr>
+                <td style="width: 154px;"><?php echo ($i == 1) ? '1 ano' : $i . ' anos'; ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_TRABALHADOR_RURAL][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Criança'][Pessoa::TRABALHO_NAO_TRABALHA][$i] ?></td>
+            </tr>
+            <?php
+        endfor;
+        ?>
+
         <tr style="font-weight: bold;">
             <td style="width: 154px;">Sub-total Crianças</td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]) ?></td>
@@ -158,37 +86,89 @@ echo $this->element('filtro');
 </table>
 <br />
 <table style="text-align: center; width: 920px;" border="1" cellpadding="2" cellspacing="0">
+<tbody>
+    <tr>
+        <td colspan="1" rowspan="6" style="width: 80px;"><span class="rotate">Adolescentes</span></td>
+        <td style="width: 154px;">10 anos</td>
+        <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][10] ?></td>
+        <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][10] ?></td>
+        <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][10] ?></td>
+        <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][10] ?></td>
+        <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][10] ?></td>
+        <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_TRABALHADOR_RURAL][10] ?></td>
+        <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_NAO_TRABALHA][10] ?></td>
+    </tr>
+
+    <?php
+    for ($i = 11; $i <= 14; $i++):
+        ?>
+        <tr>
+            <td style="width: 154px;"><?php echo $i ?> anos</td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][$i] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][$i] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][$i] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][$i] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][$i] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_TRABALHADOR_RURAL][$i] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_NAO_TRABALHA][$i] ?></td>
+        </tr>
+        <?php
+    endfor;
+    ?>
+
+    <tr style="font-weight: bold;">
+        <td style="width: 154px;">Sub-total Adolescentes</td>
+        <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]) ?></td>
+        <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]) ?></td>
+        <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]) ?></td>
+        <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]) ?></td>
+        <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]) ?></td>
+        <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_TRABALHADOR_RURAL]) ?></td>
+        <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_NAO_TRABALHA]) ?></td>
+    </tr>
+</tbody>
+</table>
+<br />
+<table style="text-align: center; width: 920px;" border="1" cellpadding="2" cellspacing="0">
     <tbody>
         <tr>
-            <td colspan="1" rowspan="3" style="width: 80px;"><span class="rotate">Adoles-<br />centes</span></td>
-            <td style="width: 154px;">De 10 a 14 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]['10 a 14 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]['10 a 14 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]['10 a 14 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]['10 a 14 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]['10 a 14 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_TRABALHADOR_RURAL]['10 a 14 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_NAO_TRABALHA]['10 a 14 anos'] ?></td>
+            <td colspan="1" rowspan="6" style="width: 80px;"><span class="rotate">Jovens</span></td>
+            <td style="width: 154px;">15 anos</td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Jovem'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][15] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Jovem'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][15] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Jovem'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][15] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Jovem'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][15] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Jovem'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][15] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Jovem'][Pessoa::TRABALHO_TRABALHADOR_RURAL][15] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Jovem'][Pessoa::TRABALHO_NAO_TRABALHA][15] ?></td>
         </tr>
-        <tr>
-            <td style="width: 154px;">De 15 a 19 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]['15 a 19 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]['15 a 19 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]['15 a 19 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]['15 a 19 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]['15 a 19 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_TRABALHADOR_RURAL]['15 a 19 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_NAO_TRABALHA]['15 a 19 anos'] ?></td>
-        </tr>
+
+        <?php
+        for ($i = 16; $i <= 17; $i++):
+            ?>
+            <tr>
+                <td style="width: 154px;"><?php echo $i ?> anos</td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Jovem'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Jovem'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Jovem'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Jovem'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Jovem'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Jovem'][Pessoa::TRABALHO_TRABALHADOR_RURAL][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Jovem'][Pessoa::TRABALHO_NAO_TRABALHA][$i] ?></td>
+            </tr>
+            <?php
+        endfor;
+        ?>
+
         <tr style="font-weight: bold;">
-            <td style="width: 154px;">Sub-total Adolescentes</td>
-            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]) ?></td>
-            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]) ?></td>
-            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]) ?></td>
-            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]) ?></td>
-            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]) ?></td>
-            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_TRABALHADOR_RURAL]) ?></td>
-            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_NAO_TRABALHA]) ?></td>
+            <td style="width: 154px;">Sub-total Jovens</td>
+            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Jovem'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]) ?></td>
+            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Jovem'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]) ?></td>
+            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Jovem'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]) ?></td>
+            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Jovem'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]) ?></td>
+            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Jovem'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]) ?></td>
+            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Jovem'][Pessoa::TRABALHO_TRABALHADOR_RURAL]) ?></td>
+            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Jovem'][Pessoa::TRABALHO_NAO_TRABALHA]) ?></td>
         </tr>
     </tbody>
 </table>
@@ -196,88 +176,36 @@ echo $this->element('filtro');
 <table style="text-align: center; width: 920px;" border="1" cellpadding="2" cellspacing="0">
     <tbody>
         <tr>
-            <td colspan="1" rowspan="10" style="width: 80px;"><span class="rotate">Adultos</span></td>
-            <td style="width: 154px;">De 20 a 23 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]['20 a 23 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]['20 a 23 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]['20 a 23 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]['20 a 23 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]['20 a 23 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_TRABALHADOR_RURAL]['20 a 23 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_NAO_TRABALHA]['20 a 23 anos'] ?></td>
+            <td colspan="1" rowspan="43" style="width: 80px;"><span class="rotate">Adultos</span></td>
+            <td style="width: 184px;">18 anos</td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][18] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][18] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][18] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][18] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][18] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_TRABALHADOR_RURAL][18] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_NAO_TRABALHA][18] ?></td>
         </tr>
-        <tr>
-            <td style="width: 154px;">De 24 a 29 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]['24 a 29 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]['24 a 29 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]['24 a 29 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]['24 a 29 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]['24 a 29 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_TRABALHADOR_RURAL]['24 a 29 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_NAO_TRABALHA]['24 a 29 anos'] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 154px;">De 30 a 34 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]['30 a 34 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]['30 a 34 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]['30 a 34 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]['30 a 34 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]['30 a 34 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_TRABALHADOR_RURAL]['30 a 34 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_NAO_TRABALHA]['30 a 34 anos'] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 154px;">De 35 a 39 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]['35 a 39 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]['35 a 39 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]['35 a 39 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]['35 a 39 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]['35 a 39 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_TRABALHADOR_RURAL]['35 a 39 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_NAO_TRABALHA]['35 a 39 anos'] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 154px;">De 40 a 44 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]['40 a 44 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]['40 a 44 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]['40 a 44 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]['40 a 44 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]['40 a 44 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_TRABALHADOR_RURAL]['40 a 44 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_NAO_TRABALHA]['40 a 44 anos'] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 154px;">De 45 a 49 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]['45 a 49 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]['45 a 49 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]['45 a 49 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]['45 a 49 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]['45 a 49 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_TRABALHADOR_RURAL]['45 a 49 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_NAO_TRABALHA]['45 a 49 anos'] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 154px;">De 50 a 54 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]['50 a 54 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]['50 a 54 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]['50 a 54 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]['50 a 54 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]['50 a 54 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_TRABALHADOR_RURAL]['50 a 54 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_NAO_TRABALHA]['50 a 54 anos'] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 154px;">De 55 a 59 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]['55 a 59 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]['55 a 59 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]['55 a 59 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]['55 a 59 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]['55 a 59 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_TRABALHADOR_RURAL]['55 a 59 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_NAO_TRABALHA]['55 a 59 anos'] ?></td>
-        </tr>
+
+        <?php
+        for ($i = 19; $i <= 59; $i++):
+            ?>
+            <tr>
+                <td style="width: 154px;"><?php echo $i ?> anos</td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_TRABALHADOR_RURAL][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Adulto'][Pessoa::TRABALHO_NAO_TRABALHA][$i] ?></td>
+            </tr>
+            <?php
+        endfor;
+        ?>
+
         <tr style="font-weight: bold;">
-            <td style="width: 154px;">Sub-total Adultos</td>
+            <td style="width: 184px;">Sub-total Adultos</td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]) ?></td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]) ?></td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]) ?></td>
@@ -293,55 +221,33 @@ echo $this->element('filtro');
     <tbody>
         <tr>
             <td colspan="1" rowspan="7" style="width: 80px;"><span class="rotate">Idosos</span></td>
-            <td style="width: 154px;">De 60 a 64 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]['60 a 64 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]['60 a 64 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]['60 a 64 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]['60 a 64 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]['60 a 64 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_TRABALHADOR_RURAL]['60 a 64 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_NAO_TRABALHA]['60 a 64 anos'] ?></td>
+            <td style="width: 604px;">60 anos</td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][60] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][60] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][60] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][60] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][60] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_TRABALHADOR_RURAL][60] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_NAO_TRABALHA][60] ?></td>
         </tr>
-        <tr>
-            <td style="width: 154px;">De 65 a 69 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]['65 a 69 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]['65 a 69 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]['65 a 69 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]['65 a 69 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]['65 a 69 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_TRABALHADOR_RURAL]['65 a 69 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_NAO_TRABALHA]['65 a 69 anos'] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 154px;">De 70 a 74 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]['70 a 74 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]['70 a 74 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]['70 a 74 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]['70 a 74 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]['70 a 74 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_TRABALHADOR_RURAL]['70 a 74 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_NAO_TRABALHA]['70 a 74 anos'] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 154px;">De 75 a 79 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]['75 a 79 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]['75 a 79 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]['75 a 79 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]['75 a 79 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]['75 a 79 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_TRABALHADOR_RURAL]['75 a 79 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_NAO_TRABALHA]['75 a 79 anos'] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 154px;">Acima de 80 anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]['acima de 80 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]['acima de 80 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]['acima de 80 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]['acima de 80 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]['acima de 80 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_TRABALHADOR_RURAL]['acima de 80 anos'] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_NAO_TRABALHA]['acima de 80 anos'] ?></td>
-        </tr>
+
+        <?php
+        for ($i = 61; $i <= 65; $i++):
+            ?>
+            <tr>
+                <td style="width: 154px;"><?php echo $i ?> anos</td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_TRABALHADOR_RURAL][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_NAO_TRABALHA][$i] ?></td>
+            </tr>
+            <?php
+        endfor;
+        ?>
+
         <tr style="font-weight: bold;">
             <td style="width: 154px;">Sub-total Idosos</td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]) ?></td>
@@ -355,4 +261,5 @@ echo $this->element('filtro');
     </tbody>
 </table>
 <br />
+
 Tempo de processamento: <?php echo $faixaEtaria['tempo'] ?> segundos.
