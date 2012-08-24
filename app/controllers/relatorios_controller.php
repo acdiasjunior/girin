@@ -238,21 +238,22 @@ class RelatoriosController extends AppController {
 
         $inicio = microtime(true);
         $pessoas = $this->Pessoa->find('all', $options);
-        
+
         $faixaEtaria['tempo'] = microtime(true) - $inicio;
         $faixaEtaria['total'] = $this->Pessoa->find('count', $options);
+
         foreach ($pessoas as $faixa) {
-            if($faixa[0]['idade'] < 65) {
+            if ($faixa[0]['idade'] < 65) {
                 $faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])]
                         [$faixa['Pessoa']['tipo_trabalho']][$faixa[0]['idade']]
-                        = $faixa[0]['total'];
+                        = (int) $faixa[0]['total'];
             } else {
-                $faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])]
-                        [$faixa['Pessoa']['tipo_trabalho']][$faixa[0]['idade']]
-                        = $faixa[0]['total'];
+                $faixaEtaria[$this->faixaEtaria(65)]
+                        [$faixa['Pessoa']['tipo_trabalho']][65]
+                        += $faixa[0]['total'];
             }
         }
-        
+
         $bairros = $this->Domicilio->Bairro->find('list', array('order' => 'Bairro.nome'));
         $cras = $this->Domicilio->Cras->find('list');
         $regioes = $this->Domicilio->Regiao->find('list');
@@ -316,44 +317,50 @@ class RelatoriosController extends AppController {
         $pessoas = $this->Pessoa->find('all', $options);
 
         $faixaEtaria['total'] = 0;
-        
+
         foreach ($pessoas as $faixa) {
-            $faixaEtaria['total'] += $faixaEtaria
-                    [$this->faixaEtaria($faixa[0]['idade'])]
-                    [$faixa['Pessoa']['genero']]
-                    [$faixa[0]['idade']] = $faixa[0]['total'];
-            
+            if ($faixa[0]['idade'] < 65) {
+                $faixaEtaria['total'] += $faixaEtaria
+                        [$this->faixaEtaria($faixa[0]['idade'])]
+                        [$faixa['Pessoa']['genero']]
+                        [$faixa[0]['idade']] = (int) $faixa[0]['total'];
+            } else {
+                $faixaEtaria['total'] += $faixaEtaria
+                        [$this->faixaEtaria($faixa[0]['idade'])]
+                        [$faixa['Pessoa']['genero']]
+                        [$faixa[0]['idade']] += (int) $faixa[0]['total'];
+            }
+
             //Totalizador por faixa etária
             //IF usado para corrigir erro de variável não setada usando +=
             if (!isset($faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])]['total']))
                 $faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])]['total'] = $faixa[0]['total'];
             else
                 $faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])]['total'] += $faixa[0]['total'];
-            
+
             //Totalizador por faixa etária
             if (!isset($faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])]['idade'][$faixa[0]['idade']]['total']))
                 $faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])]['idade'][$faixa[0]['idade']] = $faixa[0]['total'];
             else
                 $faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])]['idade'][$faixa[0]['idade']] += $faixa[0]['total'];
-            
+
             //Totalizador por faixa etária / genero
             //IF usado para corrigir erro de variável não setada usando +=
             if (!isset($faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])][$faixa['Pessoa']['genero']]['total']))
                 $faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])][$faixa['Pessoa']['genero']]['total'] = $faixa[0]['total'];
             else
                 $faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])][$faixa['Pessoa']['genero']]['total'] += $faixa[0]['total'];
-            
+
             //Totalizador por  genero
             //IF usado para corrigir erro de variável não setada usando +=
             if (!isset($faixaEtaria[$faixa['Pessoa']['genero']]))
                 $faixaEtaria[$faixa['Pessoa']['genero']] = $faixa[0]['total'];
             else
                 $faixaEtaria[$faixa['Pessoa']['genero']] += $faixa[0]['total'];
-            
         }
-        
+
         $faixaEtaria['tempo'] = microtime(true) - $inicio;
-        
+
         $bairros = $this->Domicilio->Bairro->find('list', array(
             'order' => 'Bairro.nome'
                 ));
@@ -570,7 +577,7 @@ class RelatoriosController extends AppController {
 
         return implode(',', $cras_usuario);
     }
-    
+
     private function faixaEtaria($idade) {
         if ($idade < 10)
             return 'Criança';
