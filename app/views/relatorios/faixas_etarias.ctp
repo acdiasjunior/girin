@@ -21,7 +21,7 @@ echo $this->element('filtro');
 <table style="text-align: center; width: 920px;" border="1" cellpadding="4" cellspacing="0">
     <tbody>
         <tr>
-            <td style="width: 388px; font-weight: bold;">Faixa etária - anos</td>
+            <td style="width: 388px; font-weight: bold;">Faixa etária</td>
             <td style="width: 150px; font-weight: bold;">Masculino</td>
             <td style="width: 150px; font-weight: bold;">Feminino</td>
             <td style="width: 100px; font-weight: bold;">Total</td>
@@ -37,180 +37,169 @@ echo $this->element('filtro');
             <td style="width: 317px;">até 1 ano</td>
             <td style="width: 150px;"><?php echo $faixaEtaria['Criança'][Pessoa::GENERO_MASCULINO][0] ?></td>
             <td style="width: 150px;"><?php echo $faixaEtaria['Criança'][Pessoa::GENERO_FEMININO][0] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Criança']['idade'][0]  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Criança']['idade'][0] * 100 / $faixaEtaria['total'],2) ?> %</td>
+            <td style="width: 100px;"><?php echo $faixaEtaria['Criança']['idade'][0] ?></td>
+            <td style="width: 100px;"><?php echo round($faixaEtaria['Criança']['idade'][0] * 100 / $faixaEtaria['total'], 2) ?> %</td>
         </tr>
-<?php
-
-for ($i = 1; $i <= 9; $i++):
-
-?>
-        <tr>
-            <td style="width: 317px;"><?php echo ($i == 1) ? '1 ano' : $i . ' anos'; ?></td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Criança'][Pessoa::GENERO_MASCULINO][$i] ?></td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Criança'][Pessoa::GENERO_FEMININO][$i] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Criança']['idade'][$i]  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Criança']['idade'][$i] * 100 / $faixaEtaria['total'],2) ?> %</td>
-        </tr>
-<?php
-
-endfor;
-
-?>
+        <?php
+        for ($i = 1; $i <= 9; $i++):
+            ?>
+            <tr>
+                <td style="width: 317px;"><?php echo ($i == 1) ? '1 ano' : $i . ' anos'; ?></td>
+                <td style="width: 150px;"><?php echo $faixaEtaria['Criança'][Pessoa::GENERO_MASCULINO][$i] ?></td>
+                <td style="width: 150px;"><?php echo $faixaEtaria['Criança'][Pessoa::GENERO_FEMININO][$i] ?></td>
+                <td style="width: 100px;"><?php echo $faixaEtaria['Criança']['idade'][$i] ?></td>
+                <td style="width: 100px;"><?php echo round($faixaEtaria['Criança']['idade'][$i] * 100 / $faixaEtaria['total'], 2) ?> %</td>
+            </tr>
+            <?php
+        endfor;
+        ?>
         <tr style="font-weight: bold;">
-            <td style="width: 317px;">Sub-total crianças</td>
+            <td style="width: 317px;">Subtotal crianças</td>
             <td style="width: 150px;"><?php echo $faixaEtaria['Criança'][Pessoa::GENERO_MASCULINO]['total'] ?></td>
             <td style="width: 150px;"><?php echo $faixaEtaria['Criança'][Pessoa::GENERO_FEMININO]['total'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Criança']['total']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Criança']['total'] * 100 / $faixaEtaria['total'],2) ?> %</td>
+            <td style="width: 100px;"><?php echo $faixaEtaria['Criança']['total'] ?></td>
+            <td style="width: 100px;"><?php echo round($faixaEtaria['Criança']['total'] * 100 / $faixaEtaria['total'], 2) ?> %</td>
         </tr>
     </tbody>
 </table>
 <br />
+
 <table style="text-align: center; width: 920px;" border="1" cellpadding="4" cellspacing="0">
     <tbody>
         <tr>
-            <td rowspan="3" style="width: 65px; font-weight: bold;"><span class="rotate">Adoles-<br />centes</span></td>
-            <td style="width: 317px;">10 a 14 anos</td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::GENERO_MASCULINO]['10 a 14 anos'] ?></td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::GENERO_FEMININO]['10 a 14 anos'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Adolescente']['10 a 14 anos']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Adolescente']['10 a 14 anos'] * 100 / $faixaEtaria['total'],2) ?> %</td>
+            <td rowspan="11" style="width: 65px; font-weight: bold;"><span class="rotate">Adolescentes</span></td>
+            <td style="width: 317px;">10 anos</td>
+            <td style="width: 150px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::GENERO_MASCULINO][10] ?></td>
+            <td style="width: 150px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::GENERO_FEMININO][10] ?></td>
+            <td style="width: 100px;"><?php echo $faixaEtaria['Adolescente']['idade'][10] ?></td>
+            <td style="width: 100px;"><?php echo round($faixaEtaria['Adolescente']['idade'][10] * 100 / $faixaEtaria['total'], 2) ?> %</td>
         </tr>
-        <tr>
-            <td style="width: 317px;">15 a 19 anos</td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::GENERO_MASCULINO]['15 a 19 anos'] ?></td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::GENERO_FEMININO]['15 a 19 anos'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Adolescente']['15 a 19 anos']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Adolescente']['15 a 19 anos'] * 100 / $faixaEtaria['total'],2) ?> %</td>
-        </tr>
+        <?php
+        for ($i = 10; $i <= 14; $i++):
+            ?>
+            <tr>
+                <td style="width: 317px;"><?php echo $i; ?> anos</td>
+                <td style="width: 150px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::GENERO_MASCULINO][$i] ?></td>
+                <td style="width: 150px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::GENERO_FEMININO][$i] ?></td>
+                <td style="width: 100px;"><?php echo $faixaEtaria['Adolescente']['idade'][$i] ?></td>
+                <td style="width: 100px;"><?php echo round($faixaEtaria['Adolescente']['idade'][$i] * 100 / $faixaEtaria['total'], 2) ?> %</td>
+            </tr>
+            <?php
+        endfor;
+        ?>
         <tr style="font-weight: bold;">
-            <td style="width: 317px;">Sub-total adolescentes</td>
+            <td style="width: 317px;">Subtotal Adolescentes</td>
             <td style="width: 150px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::GENERO_MASCULINO]['total'] ?></td>
             <td style="width: 150px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::GENERO_FEMININO]['total'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Adolescente']['total']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Adolescente']['total'] * 100 / $faixaEtaria['total'],2) ?> %</td>
+            <td style="width: 100px;"><?php echo $faixaEtaria['Adolescente']['total'] ?></td>
+            <td style="width: 100px;"><?php echo round($faixaEtaria['Adolescente']['total'] * 100 / $faixaEtaria['total'], 2) ?> %</td>
         </tr>
     </tbody>
 </table>
 <br />
+
 <table style="text-align: center; width: 920px;" border="1" cellpadding="4" cellspacing="0">
     <tbody>
         <tr>
-            <td rowspan="9" style="width: 65px; font-weight: bold;"><span class="rotate">Adulto</span></td>
-            <td style="width: 317px;">20 a 23 anos</td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_MASCULINO]['20 a 23 anos'] ?></td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_FEMININO]['20 a 23 anos'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Adulto']['20 a 23 anos']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Adulto']['20 a 23 anos'] * 100 / $faixaEtaria['total'],2) ?> %</td>
+            <td rowspan="11" style="width: 65px; font-weight: bold;"><span class="rotate">Jovens</span></td>
+            <td style="width: 317px;">15 anos</td>
+            <td style="width: 150px;"><?php echo $faixaEtaria['Jovem'][Pessoa::GENERO_MASCULINO][15] ?></td>
+            <td style="width: 150px;"><?php echo $faixaEtaria['Jovem'][Pessoa::GENERO_FEMININO][15] ?></td>
+            <td style="width: 100px;"><?php echo $faixaEtaria['Jovem']['idade'][15] ?></td>
+            <td style="width: 100px;"><?php echo round($faixaEtaria['Jovem']['idade'][15] * 100 / $faixaEtaria['total'], 2) ?> %</td>
         </tr>
-        <tr>
-            <td style="width: 317px;">24 a 29 anos</td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_MASCULINO]['24 a 29 anos'] ?></td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_FEMININO]['24 a 29 anos'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Adulto']['24 a 29 anos']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Adulto']['24 a 29 anos'] * 100 / $faixaEtaria['total'],2) ?> %</td>
-        </tr>
-        <tr>
-            <td style="width: 317px;">30 a 34 anos</td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_MASCULINO]['30 a 34 anos'] ?></td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_FEMININO]['30 a 34 anos'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Adulto']['30 a 34 anos']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Adulto']['30 a 34 anos'] * 100 / $faixaEtaria['total'],2) ?> %</td>
-        </tr>
-        <tr>
-            <td style="width: 317px;">35 a 39 anos</td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_MASCULINO]['35 a 39 anos'] ?></td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_FEMININO]['35 a 39 anos'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Adulto']['35 a 39 anos']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Adulto']['35 a 39 anos'] * 100 / $faixaEtaria['total'],2) ?> %</td>
-        </tr>
-        <tr>
-            <td style="width: 317px;">40 a 44 anos</td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_MASCULINO]['40 a 44 anos'] ?></td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_FEMININO]['40 a 44 anos'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Adulto']['40 a 44 anos']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Adulto']['40 a 44 anos'] * 100 / $faixaEtaria['total'],2) ?> %</td>
-        </tr>
-        <tr>
-            <td style="width: 317px;">45 a 49 anos</td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_MASCULINO]['45 a 49 anos'] ?></td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_FEMININO]['45 a 49 anos'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Adulto']['45 a 49 anos']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Adulto']['45 a 49 anos'] * 100 / $faixaEtaria['total'],2) ?> %</td>
-        </tr>
-        <tr>
-            <td style="width: 317px;">50 a 54 anos</td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_MASCULINO]['50 a 54 anos'] ?></td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_FEMININO]['50 a 54 anos'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Adulto']['50 a 54 anos']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Adulto']['50 a 54 anos'] * 100 / $faixaEtaria['total'],2) ?> %</td>
-        </tr>
-        <tr>
-            <td style="width: 317px;">55 a 59 anos</td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_MASCULINO]['55 a 59 anos'] ?></td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_FEMININO]['55 a 59 anos'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Adulto']['55 a 59 anos']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Adulto']['55 a 59 anos'] * 100 / $faixaEtaria['total'],2) ?> %</td>
-        </tr>
+        <?php
+        for ($i = 16; $i <= 17; $i++):
+            ?>
+            <tr>
+                <td style="width: 317px;"><?php echo $i; ?> anos</td>
+                <td style="width: 150px;"><?php echo $faixaEtaria['Jovem'][Pessoa::GENERO_MASCULINO][$i] ?></td>
+                <td style="width: 150px;"><?php echo $faixaEtaria['Jovem'][Pessoa::GENERO_FEMININO][$i] ?></td>
+                <td style="width: 100px;"><?php echo $faixaEtaria['Jovem']['idade'][$i] ?></td>
+                <td style="width: 100px;"><?php echo round($faixaEtaria['Jovem']['idade'][$i] * 100 / $faixaEtaria['total'], 2) ?> %</td>
+            </tr>
+            <?php
+        endfor;
+        ?>
         <tr style="font-weight: bold;">
-            <td style="width: 317px;">Sub-total Adultos</td>
+            <td style="width: 317px;">Subtotal Jovens</td>
+            <td style="width: 150px;"><?php echo $faixaEtaria['Jovem'][Pessoa::GENERO_MASCULINO]['total'] ?></td>
+            <td style="width: 150px;"><?php echo $faixaEtaria['Jovem'][Pessoa::GENERO_FEMININO]['total'] ?></td>
+            <td style="width: 100px;"><?php echo $faixaEtaria['Jovem']['total'] ?></td>
+            <td style="width: 100px;"><?php echo round($faixaEtaria['Jovem']['total'] * 100 / $faixaEtaria['total'], 2) ?> %</td>
+        </tr>
+    </tbody>
+</table>
+<br />
+
+<table style="text-align: center; width: 920px;" border="1" cellpadding="4" cellspacing="0">
+    <tbody>
+        <tr>
+            <td rowspan="43" style="width: 65px; font-weight: bold;"><span class="rotate">Adultos</span></td>
+            <td style="width: 317px;">18 anos</td>
+            <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_MASCULINO][18] ?></td>
+            <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_FEMININO][18] ?></td>
+            <td style="width: 100px;"><?php echo $faixaEtaria['Adulto']['idade'][18] ?></td>
+            <td style="width: 100px;"><?php echo round($faixaEtaria['Adulto']['idade'][18] * 100 / $faixaEtaria['total'], 2) ?> %</td>
+        </tr>
+        <?php
+        for ($i = 19; $i <= 59; $i++):
+            ?>
+            <tr>
+                <td style="width: 317px;"><?php echo $i; ?> anos</td>
+                <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_MASCULINO][$i] ?></td>
+                <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_FEMININO][$i] ?></td>
+                <td style="width: 100px;"><?php echo $faixaEtaria['Adulto']['idade'][$i] ?></td>
+                <td style="width: 100px;"><?php echo round($faixaEtaria['Adulto']['idade'][$i] * 100 / $faixaEtaria['total'], 2) ?> %</td>
+            </tr>
+            <?php
+        endfor;
+        ?>
+        <tr style="font-weight: bold;">
+            <td style="width: 317px;">Subtotal Adultos</td>
             <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_MASCULINO]['total'] ?></td>
             <td style="width: 150px;"><?php echo $faixaEtaria['Adulto'][Pessoa::GENERO_FEMININO]['total'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Adulto']['total']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Adulto']['total'] * 100 / $faixaEtaria['total'],2) ?> %</td>
+            <td style="width: 100px;"><?php echo $faixaEtaria['Adulto']['total'] ?></td>
+            <td style="width: 100px;"><?php echo round($faixaEtaria['Adulto']['total'] * 100 / $faixaEtaria['total'], 2) ?> %</td>
         </tr>
     </tbody>
 </table>
 <br />
+
 <table style="text-align: center; width: 920px;" border="1" cellpadding="4" cellspacing="0">
     <tbody>
         <tr>
-            <td rowspan="6" style="width: 65px; font-weight: bold;"><span class="rotate">Idoso</span></td>
-            <td style="width: 317px;">60 a 64 anos</td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Idoso'][Pessoa::GENERO_MASCULINO]['60 a 64 anos'] ?></td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Idoso'][Pessoa::GENERO_FEMININO]['60 a 64 anos'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Idoso']['60 a 64 anos']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Idoso']['60 a 64 anos'] * 100 / $faixaEtaria['total'],2) ?> %</td>
+            <td rowspan="11" style="width: 65px; font-weight: bold;"><span class="rotate">Idosos</span></td>
+            <td style="width: 317px;">60 anos</td>
+            <td style="width: 150px;"><?php echo $faixaEtaria['Idoso'][Pessoa::GENERO_MASCULINO][60] ?></td>
+            <td style="width: 150px;"><?php echo $faixaEtaria['Idoso'][Pessoa::GENERO_FEMININO][60] ?></td>
+            <td style="width: 100px;"><?php echo $faixaEtaria['Idoso']['idade'][60] ?></td>
+            <td style="width: 100px;"><?php echo round($faixaEtaria['Idoso']['idade'][60] * 100 / $faixaEtaria['total'], 2) ?> %</td>
         </tr>
-        <tr>
-            <td style="width: 317px;">65 a 69 anos</td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Idoso'][Pessoa::GENERO_MASCULINO]['65 a 69 anos'] ?></td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Idoso'][Pessoa::GENERO_FEMININO]['65 a 69 anos'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Idoso']['65 a 69 anos']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Idoso']['65 a 69 anos'] * 100 / $faixaEtaria['total'],2) ?> %</td>
-        </tr>
-        <tr>
-            <td style="width: 317px;">70 a 74 anos</td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Idoso'][Pessoa::GENERO_MASCULINO]['70 a 74 anos'] ?></td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Idoso'][Pessoa::GENERO_FEMININO]['70 a 74 anos'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Idoso']['70 a 74 anos']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Idoso']['70 a 74 anos'] * 100 / $faixaEtaria['total'],2) ?> %</td>
-        </tr>
-        <tr>
-            <td style="width: 317px;">75 a 79 anos</td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Idoso'][Pessoa::GENERO_MASCULINO]['75 a 79 anos'] ?></td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Idoso'][Pessoa::GENERO_FEMININO]['75 a 79 anos'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Idoso']['75 a 79 anos']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Idoso']['75 a 79 anos'] * 100 / $faixaEtaria['total'],2) ?> %</td>
-        </tr>
-        <tr>
-            <td style="width: 317px;">≥ 80 anos</td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Idoso'][Pessoa::GENERO_MASCULINO]['acima de 80 anos'] ?></td>
-            <td style="width: 150px;"><?php echo $faixaEtaria['Idoso'][Pessoa::GENERO_FEMININO]['acima de 80 anos'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Idoso']['acima de 80 anos']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Idoso']['acima de 80 anos'] * 100 / $faixaEtaria['total'],2) ?> %</td>
-        </tr>
+        <?php
+        for ($i = 61; $i <= 65; $i++):
+            ?>
+            <tr>
+                <td style="width: 317px;"><?php echo ($i == 65) ? '≥ ' . $i : $i; ?> anos</td>
+                <td style="width: 150px;"><?php echo $faixaEtaria['Idoso'][Pessoa::GENERO_MASCULINO][$i] ?></td>
+                <td style="width: 150px;"><?php echo $faixaEtaria['Idoso'][Pessoa::GENERO_FEMININO][$i] ?></td>
+                <td style="width: 100px;"><?php echo $faixaEtaria['Idoso']['idade'][$i] ?></td>
+                <td style="width: 100px;"><?php echo round($faixaEtaria['Idoso']['idade'][$i] * 100 / $faixaEtaria['total'], 2) ?> %</td>
+            </tr>
+            <?php
+        endfor;
+        ?>
         <tr style="font-weight: bold;">
-            <td style="width: 317px;">Sub-total Idosos</td>
+            <td style="width: 317px;">Subtotal Idosos</td>
             <td style="width: 150px;"><?php echo $faixaEtaria['Idoso'][Pessoa::GENERO_MASCULINO]['total'] ?></td>
             <td style="width: 150px;"><?php echo $faixaEtaria['Idoso'][Pessoa::GENERO_FEMININO]['total'] ?></td>
-            <td style="width: 100px;"><?php echo $faixaEtaria['Idoso']['total']  ?></td>
-            <td style="width: 100px;"><?php echo round($faixaEtaria['Idoso']['total'] * 100 / $faixaEtaria['total'],2) ?> %</td>
+            <td style="width: 100px;"><?php echo $faixaEtaria['Idoso']['total'] ?></td>
+            <td style="width: 100px;"><?php echo round($faixaEtaria['Idoso']['total'] * 100 / $faixaEtaria['total'], 2) ?> %</td>
         </tr>
     </tbody>
 </table>
 <br />
+
 <table style="text-align: center; width: 920px;" border="1" cellpadding="4" cellspacing="0">
     <tbody>
         <tr style="font-weight: bold;">
@@ -223,4 +212,5 @@ endfor;
     </tbody>
 </table>
 <br />
+
 Tempo de processamento: <?php echo $faixaEtaria['tempo'] ?> segundos.

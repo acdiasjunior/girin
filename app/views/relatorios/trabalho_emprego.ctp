@@ -73,7 +73,7 @@ echo $this->element('filtro');
         ?>
 
         <tr style="font-weight: bold;">
-            <td style="width: 154px;">Sub-total Crianças</td>
+            <td style="width: 154px;">Subtotal Crianças</td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]) ?></td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Criança'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]) ?></td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Criança'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]) ?></td>
@@ -117,7 +117,7 @@ echo $this->element('filtro');
     ?>
 
     <tr style="font-weight: bold;">
-        <td style="width: 154px;">Sub-total Adolescentes</td>
+        <td style="width: 154px;">Subtotal Adolescentes</td>
         <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]) ?></td>
         <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]) ?></td>
         <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]) ?></td>
@@ -161,7 +161,7 @@ echo $this->element('filtro');
         ?>
 
         <tr style="font-weight: bold;">
-            <td style="width: 154px;">Sub-total Jovens</td>
+            <td style="width: 154px;">Subtotal Jovens</td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Jovem'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]) ?></td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Jovem'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]) ?></td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Jovem'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]) ?></td>
@@ -205,7 +205,7 @@ echo $this->element('filtro');
         ?>
 
         <tr style="font-weight: bold;">
-            <td style="width: 184px;">Sub-total Adultos</td>
+            <td style="width: 184px;">Subtotal Adultos</td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]) ?></td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adulto'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]) ?></td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adulto'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]) ?></td>
@@ -235,7 +235,7 @@ echo $this->element('filtro');
         for ($i = 61; $i <= 65; $i++):
             ?>
             <tr>
-                <td style="width: 154px;"><?php echo $i ?> anos</td>
+                <td style="width: 154px;"><?php echo ($i == 65) ? '≥ ' . $i : $i; ?> anos</td>
                 <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][$i] ?></td>
                 <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][$i] ?></td>
                 <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][$i] ?></td>
@@ -249,7 +249,7 @@ echo $this->element('filtro');
         ?>
 
         <tr style="font-weight: bold;">
-            <td style="width: 154px;">Sub-total Idosos</td>
+            <td style="width: 154px;">Subtotal Idosos</td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]) ?></td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]) ?></td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Idoso'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]) ?></td>

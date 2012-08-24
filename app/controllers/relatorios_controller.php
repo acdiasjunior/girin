@@ -326,9 +326,9 @@ class RelatoriosController extends AppController {
                         [$faixa[0]['idade']] = (int) $faixa[0]['total'];
             } else {
                 $faixaEtaria['total'] += $faixaEtaria
-                        [$this->faixaEtaria($faixa[0]['idade'])]
+                        [$this->faixaEtaria(65)]
                         [$faixa['Pessoa']['genero']]
-                        [$faixa[0]['idade']] += (int) $faixa[0]['total'];
+                        [65] += (int) $faixa[0]['total'];
             }
 
             //Totalizador por faixa etária
@@ -394,12 +394,12 @@ class RelatoriosController extends AppController {
             'fields' => array(
                 'COUNT("FaixasEtaria"."id") AS total',
                 '(CASE
-                    WHEN "Pessoa"."valor_remuneracao" = 0 THEN \'0 reais\'
-                    WHEN "Pessoa"."valor_remuneracao" BETWEEN 0.01 AND 70 THEN \'ate 70 reais\'
-                    WHEN "Pessoa"."valor_remuneracao" BETWEEN 70.01 AND 140 THEN \'70 a 140 reais\'
-                    WHEN "Pessoa"."valor_remuneracao" BETWEEN 140.01 AND 240 THEN \'140 a 240 reais\'
-                    WHEN "Pessoa"."valor_remuneracao" BETWEEN 240.01 AND 545 THEN \'240 a 545 reais\'
-                    WHEN "Pessoa"."valor_remuneracao" > 545 THEN \'acima 545 reais\'
+                    WHEN "Pessoa"."valor_somatorio_renda" = 0 THEN \'0 reais\'
+                    WHEN "Pessoa"."valor_somatorio_renda" BETWEEN 0.01 AND 70 THEN \'ate 70 reais\'
+                    WHEN "Pessoa"."valor_somatorio_renda" BETWEEN 70.01 AND 140 THEN \'70 a 140 reais\'
+                    WHEN "Pessoa"."valor_somatorio_renda" BETWEEN 140.01 AND 240 THEN \'140 a 240 reais\'
+                    WHEN "Pessoa"."valor_somatorio_renda" BETWEEN 240.01 AND 545 THEN \'240 a 545 reais\'
+                    WHEN "Pessoa"."valor_somatorio_renda" > 545 THEN \'acima 545 reais\'
                  END) AS remuneracao',
                 'FaixasEtaria.descricao',
                 'FaixasEtaria.faixa',
