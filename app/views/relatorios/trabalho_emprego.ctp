@@ -221,7 +221,7 @@ echo $this->element('filtro');
     <tbody>
         <tr>
             <td colspan="1" rowspan="7" style="width: 80px;"><span class="rotate">Idosos</span></td>
-            <td style="width: 604px;">60 anos</td>
+            <td style="width: 184px;">60 anos</td>
             <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][60] ?></td>
             <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][60] ?></td>
             <td style="width: 90px;"><?php echo $faixaEtaria['Idoso'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][60] ?></td>
@@ -257,6 +257,22 @@ echo $this->element('filtro');
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Idoso'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]) ?></td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Idoso'][Pessoa::TRABALHO_TRABALHADOR_RURAL]) ?></td>
             <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Idoso'][Pessoa::TRABALHO_NAO_TRABALHA]) ?></td>
+        </tr>
+    </tbody>
+</table>
+<br />
+
+<table style="text-align: center; margin-left: 0px;" border="1" cellpadding="2" cellspacing="0">
+    <tbody>
+        <tr style="font-weight: bold;">
+            <td style="width: 234px;">Total</td>
+            <td style="width: 90px;"><?php echo $faixaEtaria[Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria[Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria[Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria[Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria[Pessoa::TRABALHO_APOSENTADO_PENSIONISTA] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria[Pessoa::TRABALHO_TRABALHADOR_RURAL] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria[Pessoa::TRABALHO_NAO_TRABALHA] ?></td>
         </tr>
     </tbody>
 </table>

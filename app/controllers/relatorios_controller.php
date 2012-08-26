@@ -249,10 +249,16 @@ class RelatoriosController extends AppController {
             } else {
                 $faixaEtaria[$this->faixaEtaria(65)]
                         [$faixa['Pessoa']['tipo_trabalho']][65]
-                        += $faixa[0]['total'];
+                        += (int) $faixa[0]['total'];
+            }
+            
+            if (isset($faixaEtaria[$faixa['Pessoa']['tipo_trabalho']])) {
+                $faixaEtaria[$faixa['Pessoa']['tipo_trabalho']] += (int) $faixa[0]['total'];
+            } else {
+                $faixaEtaria[$faixa['Pessoa']['tipo_trabalho']] = (int) $faixa[0]['total'];
             }
         }
-        
+
         $faixaEtaria['tempo'] = microtime(true) - $inicio;
 
         $bairros = $this->Domicilio->Bairro->find('list', array('order' => 'Bairro.nome'));
@@ -437,19 +443,26 @@ class RelatoriosController extends AppController {
 
         $valorRenda['total'] = 0;
         foreach ($pessoas as $renda) {
+            $valorRenda['total'] += (int) $renda[0]['total'];
             if ($renda[0]['idade'] < 65) {
-                $valorRenda['total'] += $valorRenda
+                $valorRenda
                         [$this->faixaEtaria($renda[0]['idade'])]
                         [$renda[0]['remuneracao']]
                         [$renda[0]['idade']] = (int) $renda[0]['total'];
             } else {
-                $valorRenda['total'] += $valorRenda
+                $valorRenda
                         [$this->faixaEtaria(65)]
                         [$renda[0]['remuneracao']]
                         [65] += (int) $renda[0]['total'];
             }
+
+            if (isset($valorRenda[$renda[0]['remuneracao']])) {
+                $valorRenda[$renda[0]['remuneracao']] += (int) $renda[0]['total'];
+            } else {
+                $valorRenda[$renda[0]['remuneracao']] = (int) $renda[0]['total'];
+            }
         }
-        
+
         $valorRenda['tempo'] = microtime(true) - $inicio;
 
         $bairros = $this->Domicilio->Bairro->find('list', array(
@@ -551,7 +564,7 @@ class RelatoriosController extends AppController {
                     [$educacao['FaixasEtaria']['descricao']] = $educacao[0]['total'];
             $educacaoFormal[$educacao[0]['educacao_formal']] += $educacao[0]['total'];
         }
-        
+
         $educacaoFormal['tempo'] = microtime(true) - $inicio;
 
         $bairros = $this->Domicilio->Bairro->find('list', array(

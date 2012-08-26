@@ -212,7 +212,7 @@ echo $this->element('filtro');
         for ($i = 61; $i <= 65; $i++):
             ?>
             <tr>
-                <td style="width: 200px;"><?php echo $i; ?> anos</td>
+                <td style="width: 200px;"><?php echo ($i == 65) ? '≥ ' . $i : $i; ?> anos</td>
                 <td style="width: 110px;"><?php echo $valorRenda['Idoso']['0 reais'][$i] ?></td>
                 <td style="width: 110px;"><?php echo $valorRenda['Idoso']['ate 70 reais'][$i] ?></td>
                 <td style="width: 110px;"><?php echo $valorRenda['Idoso']['70 a 140 reais'][$i] ?></td>
@@ -236,4 +236,18 @@ echo $this->element('filtro');
 </table>
 <br />
 
+<table style="text-align: center; margin-left: 0px;" border="1" cellpadding="2" cellspacing="0">
+    <tbody>
+        <tr style="font-weight: bold;">
+            <td style="width: 255px;">Total</td>
+            <td style="width: 105px;"><?php echo $valorRenda['0 reais'] ?></td>
+            <td style="width: 105px;"><?php echo $valorRenda['ate 70 reais'] ?></td>
+            <td style="width: 105px;"><?php echo $valorRenda['70 a 140 reais'] ?></td>
+            <td style="width: 105px;"><?php echo $valorRenda['140 a 240 reais'] ?></td>
+            <td style="width: 105px;"><?php echo $valorRenda['240 a 545 reais'] ?></td>
+            <td style="width: 105px;"><?php echo $valorRenda['acima 545 reais'] ?></td>
+        </tr>
+    </tbody>
+</table>
+<br />
 Tempo de processamento: <?php echo $valorRenda['tempo'] ?> segundos.
