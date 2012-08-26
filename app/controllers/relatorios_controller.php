@@ -239,7 +239,6 @@ class RelatoriosController extends AppController {
         $inicio = microtime(true);
         $pessoas = $this->Pessoa->find('all', $options);
 
-        $faixaEtaria['tempo'] = microtime(true) - $inicio;
         $faixaEtaria['total'] = $this->Pessoa->find('count', $options);
 
         foreach ($pessoas as $faixa) {
@@ -253,6 +252,8 @@ class RelatoriosController extends AppController {
                         += $faixa[0]['total'];
             }
         }
+        
+        $faixaEtaria['tempo'] = microtime(true) - $inicio;
 
         $bairros = $this->Domicilio->Bairro->find('list', array('order' => 'Bairro.nome'));
         $cras = $this->Domicilio->Cras->find('list');
@@ -319,16 +320,18 @@ class RelatoriosController extends AppController {
         $faixaEtaria['total'] = 0;
 
         foreach ($pessoas as $faixa) {
+            $total = (int) $faixa[0]['total'];
+            $faixaEtaria['total'] += $total;
             if ($faixa[0]['idade'] < 65) {
-                $faixaEtaria['total'] += $faixaEtaria
+                $faixaEtaria
                         [$this->faixaEtaria($faixa[0]['idade'])]
                         [$faixa['Pessoa']['genero']]
-                        [$faixa[0]['idade']] = (int) $faixa[0]['total'];
+                        [$faixa[0]['idade']] = $total;
             } else {
-                $faixaEtaria['total'] += $faixaEtaria
+                $faixaEtaria
                         [$this->faixaEtaria(65)]
                         [$faixa['Pessoa']['genero']]
-                        [65] += (int) $faixa[0]['total'];
+                        [65] += $total;
             }
 
             //Totalizador por faixa etária
@@ -540,7 +543,6 @@ class RelatoriosController extends AppController {
         $inicio = microtime(true);
         $pessoas = $this->Pessoa->find('all', $options);
 
-        $educacaoFormal['tempo'] = microtime(true) - $inicio;
         $educacaoFormal['total'] = $this->Pessoa->find('count', array('conditions' => array('Domicilio.quantidade_pessoas > 0',)));
         foreach ($pessoas as $educacao) {
             $educacaoFormal
@@ -549,6 +551,8 @@ class RelatoriosController extends AppController {
                     [$educacao['FaixasEtaria']['descricao']] = $educacao[0]['total'];
             $educacaoFormal[$educacao[0]['educacao_formal']] += $educacao[0]['total'];
         }
+        
+        $educacaoFormal['tempo'] = microtime(true) - $inicio;
 
         $bairros = $this->Domicilio->Bairro->find('list', array(
             'order' => 'Bairro.nome'
