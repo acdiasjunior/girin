@@ -39,42 +39,30 @@ echo $this->element('filtro');
 <table style="text-align: center; margin-left: 0px;" border="1" cellpadding="2" cellspacing="0">
     <tbody>
         <tr>
-            <td style="width: 60px;" rowspan="5"><span class="rotate">Crianças</span></td>
+            <td style="width: 60px;" rowspan="11"><span class="rotate">Crianças</span></td>
             <td style="width: 200px;">até 1 ano</td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['0 reais']['ate 1 ano'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['ate 70 reais']['ate 1 ano'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['70 a 140 reais']['ate 1 ano'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['140 a 240 reais']['ate 1 ano'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['240 a 545 reais']['ate 1 ano'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['acima 545 reais']['ate 1 ano'] ?></td>
+            <td style="width: 110px;"><?php echo $valorRenda['Criança']['0 reais'][0] ?></td>
+            <td style="width: 110px;"><?php echo $valorRenda['Criança']['ate 70 reais'][0] ?></td>
+            <td style="width: 110px;"><?php echo $valorRenda['Criança']['70 a 140 reais'][0] ?></td>
+            <td style="width: 110px;"><?php echo $valorRenda['Criança']['140 a 240 reais'][0] ?></td>
+            <td style="width: 110px;"><?php echo $valorRenda['Criança']['240 a 545 reais'][0] ?></td>
+            <td style="width: 110px;"><?php echo $valorRenda['Criança']['acima 545 reais'][0] ?></td>
         </tr>
-        <tr>
-            <td style="width: 200px;">De 1 a 3 anos</td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['0 reais']['1 a 3 anos'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['ate 70 reais']['1 a 3 anos'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['70 a 140 reais']['1 a 3 anos'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['140 a 240 reais']['1 a 3 anos'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['240 a 545 reais']['1 a 3 anos'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['acima 545 reais']['1 a 3 anos'] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 200px;">De 4 a 5 anos</td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['0 reais']['4 a 5 anos'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['ate 70 reais']['4 a 5 anos'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['70 a 140 reais']['4 a 5 anos'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['140 a 240 reais']['4 a 5 anos'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['240 a 545 reais']['4 a 5 anos'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['acima 545 reais']['4 a 5 anos'] ?></td>
-        </tr>
-        <tr>
-            <td style="width: 200px;">De 6 a 9 anos</td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['0 reais']['6 a 9 anos'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['ate 70 reais']['6 a 9 anos'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['70 a 140 reais']['6 a 9 anos'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['140 a 240 reais']['6 a 9 anos'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['240 a 545 reais']['6 a 9 anos'] ?></td>
-            <td style="width: 110px;"><?php echo $valorRenda['Criança']['acima 545 reais']['6 a 9 anos'] ?></td>
-        </tr>
+        <?php
+        for ($i = 1; $i <= 9; $i++):
+            ?>
+            <tr>
+                <td style="width: 200px;"><?php echo ($i == 1) ? '1 ano' : $i . ' anos'; ?></td>
+                <td style="width: 110px;"><?php echo $valorRenda['Criança']['0 reais'][$i] ?></td>
+                <td style="width: 110px;"><?php echo $valorRenda['Criança']['ate 70 reais'][$i] ?></td>
+                <td style="width: 110px;"><?php echo $valorRenda['Criança']['70 a 140 reais'][$i] ?></td>
+                <td style="width: 110px;"><?php echo $valorRenda['Criança']['140 a 240 reais'][$i] ?></td>
+                <td style="width: 110px;"><?php echo $valorRenda['Criança']['240 a 545 reais'][$i] ?></td>
+                <td style="width: 110px;"><?php echo $valorRenda['Criança']['acima 545 reais'][$i] ?></td>
+            </tr>
+            <?php
+        endfor;
+        ?>
         <tr style="font-weight: bold;">
             <td style="width: 200px;">Sub-total Crianças</td>
             <td style="width: 110px;"><?php echo array_sum($valorRenda['Criança']['0 reais']) ?></td>

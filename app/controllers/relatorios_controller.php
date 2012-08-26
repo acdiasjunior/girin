@@ -376,13 +376,6 @@ class RelatoriosController extends AppController {
         $options = array(
             'recursive' => -1,
             'joins' => array(
-                array('table' => 'faixas_etarias',
-                    'alias' => 'FaixasEtaria',
-                    'type' => 'INNER',
-                    'conditions' => array(
-                        'CASE WHEN ' . $idade . ' > 80 THEN FaixasEtaria.idade = 80 ELSE FaixasEtaria.idade = ' . $idade . 'END',
-                    )
-                ),
                 array('table' => 'domicilios',
                     'alias' => 'Domicilio',
                     'type' => 'INNER',
@@ -392,7 +385,7 @@ class RelatoriosController extends AppController {
                 ),
             ),
             'fields' => array(
-                'COUNT("FaixasEtaria"."id") AS total',
+                'COUNT(' . $idade . ') AS total',
                 '(CASE
                     WHEN "Pessoa"."valor_somatorio_renda" = 0 THEN \'0 reais\'
                     WHEN "Pessoa"."valor_somatorio_renda" BETWEEN 0.01 AND 70 THEN \'ate 70 reais\'
@@ -401,8 +394,7 @@ class RelatoriosController extends AppController {
                     WHEN "Pessoa"."valor_somatorio_renda" BETWEEN 240.01 AND 545 THEN \'240 a 545 reais\'
                     WHEN "Pessoa"."valor_somatorio_renda" > 545 THEN \'acima 545 reais\'
                  END) AS remuneracao',
-                'FaixasEtaria.descricao',
-                'FaixasEtaria.faixa',
+                $idade . ' AS idade',
             ),
             'conditions' => array(
                 'Domicilio.quantidade_pessoas > 0',
@@ -410,11 +402,10 @@ class RelatoriosController extends AppController {
             ),
             'group' => array(
                 'remuneracao',
-                '"FaixasEtaria"."descricao"',
-                '"FaixasEtaria"."faixa"',
+                $idade,
             ),
             'order' => array(
-                'FaixasEtaria.faixa',
+                $idade,
             ),
         );
 
@@ -441,14 +432,22 @@ class RelatoriosController extends AppController {
         $inicio = microtime(true);
         $pessoas = $this->Pessoa->find('all', $options);
 
-        $valorRenda['tempo'] = microtime(true) - $inicio;
-        $valorRenda['total'] = $this->Pessoa->find('count', $options);
+        $valorRenda['total'] = 0;
         foreach ($pessoas as $renda) {
-            $valorRenda
-                    [$renda['FaixasEtaria']['faixa']]
-                    [$renda[0]['remuneracao']]
-                    [$renda['FaixasEtaria']['descricao']] = $renda[0]['total'];
+            if ($renda[0]['idade'] < 65) {
+                $valorRenda['total'] += $valorRenda
+                        [$this->faixaEtaria($renda[0]['idade'])]
+                        [$renda[0]['remuneracao']]
+                        [$renda[0]['idade']] = (int) $renda[0]['total'];
+            } else {
+                $valorRenda['total'] += $valorRenda
+                        [$this->faixaEtaria(65)]
+                        [$renda[0]['remuneracao']]
+                        [65] += (int) $renda[0]['total'];
+            }
         }
+        
+        $valorRenda['tempo'] = microtime(true) - $inicio;
 
         $bairros = $this->Domicilio->Bairro->find('list', array(
             'order' => 'Bairro.nome'
