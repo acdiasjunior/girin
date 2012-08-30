@@ -2,15 +2,19 @@
 
 class Pessoa extends AppModel {
 
-    var $name = 'Pessoa';
-    var $primaryKey = 'nis';
+    var $name = 'Domicilio';
+    var $useTable = 'pessoa';
+    var $tablePrefix = 'tb_';
+    var $primaryKey = 'cod_nis';
     var $displayField = 'nome';
+    var $sequence = 'seq_pessoa';
     var $actsAs = array('DateFormatter');
     var $hasAndBelongsToMany = array(
         'Servico' => array(
-            'foreignKey' => 'pessoa_nis',
+            'joinTable' => 'tb_pessoa_servico',
+            'foreignKey' => 'cod_nis_pessoa',
             'associationForeignKey' => 'servico_id',
-        ),
+        )
     );
     var $belongsTo = array(
         'Domicilio' => array(
@@ -18,13 +22,13 @@ class Pessoa extends AppModel {
         ),
         'Responsavel' => array(
             'className' => 'Pessoa',
-            'foreignKey' => 'responsavel_nis'
+            'foreignKey' => 'cod_nis_responsavel'
         ),
     );
     var $hasMany = array(
         'Membro' => array(
             'className' => 'Pessoa',
-            'foreignKey' => 'responsavel_nis'
+            'foreignKey' => 'cod_nis_responsavel'
         )
     );
     var $validate = array(
@@ -32,13 +36,12 @@ class Pessoa extends AppModel {
             'rule' => 'isUnique'
         )
     );
-	var $sequence = 'seq_pessoa';
 
-    public function __construct($id=false, $table=null, $ds=null) {
+    public function __construct($id = false, $table = null, $ds = null) {
         parent::__construct($id, $table, $ds);
         $this->virtualFields = array(
-            'idade' => "(SELECT EXTRACT(year from AGE(NOW(), {$this->alias}.data_nascimento)))",
-            'meses' => "(SELECT EXTRACT(month from AGE(NOW(), {$this->alias}.data_nascimento)))"
+            'idade' => "(SELECT EXTRACT(year from AGE(NOW(), {$this->alias}.dt_nasc)))",
+            'meses' => "(SELECT EXTRACT(month from AGE(NOW(), {$this->alias}.dt_nasc)))"
         );
     }
 
@@ -49,18 +52,18 @@ class Pessoa extends AppModel {
      * @access static
      */
 
-    static function genero($value = null) { // 203
+    static function sexo($value = null) { // 203
         $options = array(
-            self::GENERO_NAO_INFORMADO => __('Não Informado', true),
-            self::GENERO_MASCULINO => __('Masculino', true),
-            self::GENERO_FEMININO => __('Feminino', true),
+            self::SEXO_NAO_INFORMADO => __('Não Informado', true),
+            self::SEXO_MASCULINO => __('Masculino', true),
+            self::SEXO_FEMININO => __('Feminino', true),
         );
         return parent::enum($value, $options);
     }
 
-    const GENERO_NAO_INFORMADO = '';
-    const GENERO_MASCULINO = '1';
-    const GENERO_FEMININO = '2';
+    const SEXO_NAO_INFORMADO = '';
+    const SEXO_MASCULINO = '1';
+    const SEXO_FEMININO = '2';
 
     static function estadoCivil($value = null) { // 212
         $options = array(
@@ -291,4 +294,5 @@ class Pessoa extends AppModel {
     const IDADE_JOVEM = 15;
     const IDADE_ADULTO = 18;
     const IDADE_IDOSO = 60;
+
 }

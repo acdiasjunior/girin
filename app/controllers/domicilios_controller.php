@@ -27,8 +27,8 @@ class DomiciliosController extends AppController {
                 case 'Domicilio.vlr_idf':
                     $conditions['Domicilio.vlr_idf <='] = $this->params['form']['query'];
                     break;
-                case 'Responsavel.data_nascimento':
-                    $conditions['Responsavel.data_nascimento ='] = parent::converteData($this->params['form']['query'], 1);
+                case 'Responsavel.dt_nasc':
+                    $conditions['Responsavel.dt_nasc ='] = parent::converteData($this->params['form']['query'], 1);
                     break;
                 default:
                     $conditions[$this->params['form']['qtype'] . ' LIKE'] = '%' . str_replace(' ', '%', $this->params['form']['query']) . '%';

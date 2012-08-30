@@ -6,8 +6,9 @@ class Servico extends AppModel {
     var $displayField = 'descricao';
     var $hasAndBelongsToMany = array(
         'Pessoa' => array(
-            'foreignKey' => 'servico_id',
-            'associationForeignKey' => 'pessoa_nis',
+            'joinTable' => 'tb_pessoa_servico',
+            'foreignKey' => 'id_servico',
+            'associationForeignKey' => 'cod_nis_pessoa',
         ),
     );
 	var $sequence = 'seq_servico';

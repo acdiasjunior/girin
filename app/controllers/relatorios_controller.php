@@ -186,7 +186,7 @@ class RelatoriosController extends AppController {
 
     function trabalhoEmprego() {
         parent::temAcesso();
-        $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."data_nascimento")))';
+        $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."dt_nasc")))';
         $options = array(
             'recursive' => -1,
             'joins' => array(
@@ -269,7 +269,7 @@ class RelatoriosController extends AppController {
 
     function faixasEtarias() {
         parent::temAcesso();
-        $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."data_nascimento")))';
+        $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."dt_nasc")))';
         $options = array(
             'recursive' => -1,
             'joins' => array(
@@ -288,10 +288,10 @@ class RelatoriosController extends AppController {
             'fields' => array(
                 $idade . ' AS idade',
                 'COUNT(' . $idade . ') AS total',
-                'Pessoa.genero',
+                'Pessoa.SEXO',
             ),
             'group' => array(
-                'Pessoa.genero',
+                'Pessoa.SEXO',
                 $idade,
             ),
             'order' => array(
@@ -330,12 +330,12 @@ class RelatoriosController extends AppController {
             if ($faixa[0]['idade'] < 65) {
                 $faixaEtaria
                         [$this->faixaEtaria($faixa[0]['idade'])]
-                        [$faixa['Pessoa']['genero']]
+                        [$faixa['Pessoa']['SEXO']]
                         [$faixa[0]['idade']] = $total;
             } else {
                 $faixaEtaria
                         [$this->faixaEtaria(65)]
-                        [$faixa['Pessoa']['genero']]
+                        [$faixa['Pessoa']['SEXO']]
                         [65] += $total;
             }
 
@@ -352,19 +352,19 @@ class RelatoriosController extends AppController {
             else
                 $faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])]['idade'][$faixa[0]['idade']] += $faixa[0]['total'];
 
-            //Totalizador por faixa etária / genero
+            //Totalizador por faixa etária / SEXO
             //IF usado para corrigir erro de variável não setada usando +=
-            if (!isset($faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])][$faixa['Pessoa']['genero']]['total']))
-                $faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])][$faixa['Pessoa']['genero']]['total'] = $faixa[0]['total'];
+            if (!isset($faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])][$faixa['Pessoa']['SEXO']]['total']))
+                $faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])][$faixa['Pessoa']['SEXO']]['total'] = $faixa[0]['total'];
             else
-                $faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])][$faixa['Pessoa']['genero']]['total'] += $faixa[0]['total'];
+                $faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])][$faixa['Pessoa']['SEXO']]['total'] += $faixa[0]['total'];
 
-            //Totalizador por  genero
+            //Totalizador por  SEXO
             //IF usado para corrigir erro de variável não setada usando +=
-            if (!isset($faixaEtaria[$faixa['Pessoa']['genero']]))
-                $faixaEtaria[$faixa['Pessoa']['genero']] = $faixa[0]['total'];
+            if (!isset($faixaEtaria[$faixa['Pessoa']['SEXO']]))
+                $faixaEtaria[$faixa['Pessoa']['SEXO']] = $faixa[0]['total'];
             else
-                $faixaEtaria[$faixa['Pessoa']['genero']] += $faixa[0]['total'];
+                $faixaEtaria[$faixa['Pessoa']['SEXO']] += $faixa[0]['total'];
         }
 
         $faixaEtaria['tempo'] = microtime(true) - $inicio;
@@ -380,7 +380,7 @@ class RelatoriosController extends AppController {
 
     function valorRenda() {
         parent::temAcesso();
-        $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."data_nascimento")))';
+        $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."dt_nasc")))';
         $options = array(
             'recursive' => -1,
             'joins' => array(
@@ -395,12 +395,12 @@ class RelatoriosController extends AppController {
             'fields' => array(
                 'COUNT(' . $idade . ') AS total',
                 '(CASE
-                    WHEN "Pessoa"."valor_somatorio_renda" = 0 THEN \'0 reais\'
-                    WHEN "Pessoa"."valor_somatorio_renda" BETWEEN 0.01 AND 70 THEN \'ate 70 reais\'
-                    WHEN "Pessoa"."valor_somatorio_renda" BETWEEN 70.01 AND 140 THEN \'70 a 140 reais\'
-                    WHEN "Pessoa"."valor_somatorio_renda" BETWEEN 140.01 AND 240 THEN \'140 a 240 reais\'
-                    WHEN "Pessoa"."valor_somatorio_renda" BETWEEN 240.01 AND 545 THEN \'240 a 545 reais\'
-                    WHEN "Pessoa"."valor_somatorio_renda" > 545 THEN \'acima 545 reais\'
+                    WHEN "Pessoa"."vlr_renda_total" = 0 THEN \'0 reais\'
+                    WHEN "Pessoa"."vlr_renda_total" BETWEEN 0.01 AND 70 THEN \'ate 70 reais\'
+                    WHEN "Pessoa"."vlr_renda_total" BETWEEN 70.01 AND 140 THEN \'70 a 140 reais\'
+                    WHEN "Pessoa"."vlr_renda_total" BETWEEN 140.01 AND 240 THEN \'140 a 240 reais\'
+                    WHEN "Pessoa"."vlr_renda_total" BETWEEN 240.01 AND 545 THEN \'240 a 545 reais\'
+                    WHEN "Pessoa"."vlr_renda_total" > 545 THEN \'acima 545 reais\'
                  END) AS remuneracao',
                 $idade . ' AS idade',
             ),
@@ -492,7 +492,7 @@ class RelatoriosController extends AppController {
         $serie_escolar .= ' WHEN serie_escolar = ' . Pessoa::SERIE_NAO_INFORMADO . ' THEN \'nao informado\'';
         $serie_escolar .= ' END) AS educacao_formal';
 
-        $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."data_nascimento")))';
+        $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."dt_nasc")))';
 
         $options = array(
             'recursive' => -1,

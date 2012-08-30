@@ -10,11 +10,11 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         url: '<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'lista')); ?>',
         dataType: 'json',
         colModel : [
-            {display: 'NIS', name : 'Pessoa.nis', width : 80, sortable : true, align: 'center'}, //, hide: true},
+            {display: 'NIS', name : 'Pessoa.cod_nis', width : 80, sortable : true, align: 'center'}, //, hide: true},
             {display: 'Nome', name : 'Pessoa.nome', width : 240, sortable : true, align: 'left'},
-            {display: 'Idade', name : 'Pessoa.data_nascimento', width : 45, sortable : true, align: 'center'},
+            {display: 'Idade', name : 'Pessoa.dt_nasc', width : 45, sortable : true, align: 'center'},
             {display: 'Responsável Legal', name : 'Responsavel.nome', width : 240, sortable : true, align: 'left'},
-            {display: 'NIS Responsável', name : 'Responsavel.nis', width : 80, sortable : true, align: 'center'}
+            {display: 'NIS Responsável', name : 'Responsavel.cod_nis', width : 80, sortable : true, align: 'center'}
         ],
         buttons : [
             {name: 'Editar', bclass: 'edit', onpress : actions},
@@ -27,11 +27,11 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
 			?>
         ],
         searchitems : [
-            {display: 'NIS', name : 'Pessoa.nis'},
+            {display: 'NIS', name : 'Pessoa.cod_nis'},
             {display: 'Nome', name : 'Pessoa.nome', isdefault: true},
-            {display: 'Data Nascimento', name : 'Pessoa.data_nascimento'},
+            {display: 'Data Nascimento', name : 'Pessoa.dt_nasc'},
             {display: 'Responsável', name : 'Responsavel.nome'},
-            {display: 'NIS Responsável', name : 'Responsavel.nis'}
+            {display: 'NIS Responsável', name : 'Responsavel.cod_nis'}
         ],
         sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Pessoa.nome'; ?>',
         sortorder: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortorder') : 'asc'; ?>',
@@ -54,14 +54,14 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
     });
     
     $('#flex').dblclick( function(){
-        var id = $('.trSelected').find('td[abbr="Pessoa.nis"]').text();
+        var id = $('.trSelected').find('td[abbr="Pessoa.cod_nis"]').text();
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'cadastro')); ?>/' + id);
     });
     //}).disableSelection();
     
     function actions(com, grid) {
-        var id = $('.trSelected', grid).find('td[abbr="Pessoa.nis"]').text();
+        var id = $('.trSelected', grid).find('td[abbr="Pessoa.cod_nis"]').text();
         var nome = $('.trSelected', grid).find('td[abbr="nome"]').text();
         switch(com)
         {
