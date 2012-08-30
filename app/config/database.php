@@ -78,14 +78,14 @@ class DATABASE_CONFIG {
     var $default;
 
     function __construct() {
-        if ($_SERVER['SERVER_NAME'] == 'juniordias.com.br' || $_SERVER['SERVER_NAME'] == 'www.juniordias.com.br')
+        if (!in_array($_SERVER['SERVER_ADDR'], array('127.0.0.1', '::1')))
             $this->default = array(
                 'driver' => 'postgres',
                 'persistent' => false,
-                'host' => 'pgsql.juniordias.com.br',
-                'login' => 'juniordias',
-                'password' => 'system',
-                'database' => 'juniordias',
+                'host' => base64_decode('cGdzcWwuanVuaW9yZGlhcy5jb20uYnI='),
+                'login' => base64_decode('anVuaW9yZGlhcw=='),
+                'password' => base64_decode('c3lzdGVt'),
+                'database' => base64_decode('anVuaW9yZGlhcw=='),
                 'encoding' => 'utf8'
             );
         else
@@ -93,9 +93,9 @@ class DATABASE_CONFIG {
                 'driver' => 'postgres',
                 'persistent' => false,
                 'host' => '127.0.0.1',
-                'login' => 'programacaolocal',
-                'password' => 'sistema',
-                'database' => 'programacaolocal',
+                'login' => base64_decode('cHJvZ3JhbWFjYW9sb2NhbA=='),
+                'password' => base64_decode('c2lzdGVtYQ=='),
+                'database' => base64_decode('cHJvZ3JhbWFjYW9sb2NhbA=='),
                 'encoding' => 'utf8'
             );
     }
