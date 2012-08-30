@@ -7,18 +7,14 @@ $data['rows'] = array();
 
 foreach($pessoas as $pessoa)
 {
-//    if($pessoa['Pessoa']['nis'] == $pessoa['Responsavel']['nis']){
-//        $pessoa['Responsavel']['nome'] = '';
-//        $pessoa['Responsavel']['nis'] = '';
-//    }
     $data['rows'][] = array(
-        'id' => $pessoa['Pessoa']['nis'],
+        'id' => $pessoa['Pessoa']['cod_nis'],
         'cell' => array(
-            $pessoa['Pessoa']['nis'],
+            $pessoa['Pessoa']['cod_nis'],
             $pessoa['Pessoa']['nome'],
             $pessoa['Pessoa']['idade'] . 'a ' . $pessoa['Pessoa']['meses'] . 'm',
             $pessoa['Responsavel']['nome'],
-            $pessoa['Responsavel']['nis'],
+            $pessoa['Responsavel']['cod_nis'],
         )
     );
 }

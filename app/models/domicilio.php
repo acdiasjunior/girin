@@ -33,7 +33,7 @@ class Domicilio extends AppModel {
         ),
         'Pessoa' => array(
             'foreignKey' => 'cod_domiciliar',
-            'order' => 'data_nascimento ASC'
+            'order' => 'dt_nasc ASC'
         )
     );
     var $validate = array(

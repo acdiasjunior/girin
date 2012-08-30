@@ -23,8 +23,8 @@ class PessoasController extends AppController {
 
         if ($this->params['form']['query'] != '')
             switch ($this->params['form']['qtype']) {
-                case 'Pessoa.data_nascimento':
-                    $conditions['Pessoa.data_nascimento ='] = parent::converteData($this->params['form']['query'], 1);
+                case 'Pessoa.dt_nasc':
+                    $conditions['Pessoa.dt_nasc ='] = parent::converteData($this->params['form']['query'], 1);
                     break;
                 default:
                     $conditions[$this->params['form']['qtype'] . ' LIKE'] = '%' . str_replace(' ', '%', $this->params['form']['query']) . '%';
@@ -59,7 +59,7 @@ class PessoasController extends AppController {
     function listaNomesResponsavel() {
         $options = array(
             'conditions' => array(
-                'Pessoa.responsavel_id IS NULL',
+                'Pessoa.cod_nis_responsavel IS NULL',
                 'Pessoa.nome LIKE ' => '%' . str_replace(' ', '%', $this->params['form']['term']) . '%'
             )
         );
@@ -69,25 +69,11 @@ class PessoasController extends AppController {
         $this->render('lista_nomes');
     }
 
-    function listaNomesConjuge($sexo) {
-        $options = array(
-            'conditions' => array(
-                'Pessoa.conjuge_id IS NULL',
-                'Pessoa.sexo !=' => $sexo,
-                'Pessoa.nome LIKE ' => '%' . str_replace(' ', '%', $this->params['form']['term']) . '%'
-            )
-        );
-        $nomes = $this->Pessoa->find('list', $options);
-        $this->set(compact('nomes'));
-        $this->layout = 'ajax';
-        $this->render('lista_nomes');
-    }
-
-    function listaMembros($responsavel_nis) {
+    function listaMembros($cod_nis_responsavel) {
 
         $this->layout = 'ajax';
 
-        $conditions = array('Pessoa.responsavel_nis =' => $responsavel_nis, 'Pessoa.responsavel_nis != Pessoa.nis');
+        $conditions = array('Pessoa.cod_nis_responsavel =' => $cod_nis_responsavel, 'Pessoa.cod_nis_responsavel != Pessoa.nis');
 
         if ($this->params['form']['query'] != '')
             $conditions[] = array($this->params['form']['qtype'] . ' LIKE' => '%' . str_replace(' ', '%', $this->params['form']['query']) . '%');
@@ -185,111 +171,6 @@ class PessoasController extends AppController {
                 $this->Session->setFlash("Upload do arquivo falhou!");
             }
         }
-    }
-
-//    function listaPersonalizada() {
-//        $options = array(
-//            'recursive' => -1,
-//            'fields' => array(
-//                'Pessoa.cod_domiciliar',
-//                'Pessoa.nis',
-//            ),
-//            'order' => array(
-//                'Pessoa.cod_domiciliar',
-//            ),
-//        );
-//        $pessoas = $this->Pessoa->find('all', $options);
-//        foreach($pessoas as $pessoa) {
-//
-//        }
-//        var_dump();
-//        die();
-//    }
-//    function listaPersonalizada() {
-//        //pessoas com 17 ou mais concluindo ou já concluiu ensino medio
-//        //só as que estão com IDF abaixo de 0.6
-//        $options['joins'] = array(
-//            array('table' => 'indices',
-//                'alias' => 'Indice',
-//                'type' => 'RIGHT',
-//                'conditions' => array(
-//                    'Indice.cod_domiciliar = Pessoa.cod_domiciliar',
-//                )
-//            )
-//        );
-//        $options['conditions'] = array(
-//            'Indice.indice <=' => 0.6,
-//            'Pessoa.grau_instrucao >=' => Pessoa::ESCOLARIDADE_MEDIO_INCOMPLETO,
-//            'Pessoa.idade >=' => 17
-//        );
-//        echo $this->Pessoa->find('count', $options);
-//        die();
-//    }
-
-    function faixas() {
-        $idade = "(YEAR(CURDATE())-YEAR(Pessoa.data_nascimento))-(RIGHT(CURDATE(),5)<RIGHT(Pessoa.data_nascimento,5))";
-        $options = array(
-            'recursive' => -1,
-            'joins' => array(
-                array('table' => 'faixas_etarias',
-                    'alias' => 'FaixasEtaria',
-                    'type' => 'INNER',
-                    'conditions' => array(
-                        'CASE WHEN ' . $idade . ' > 80 THEN FaixasEtaria.idade = 80 ELSE FaixasEtaria.idade = ' . $idade . 'END',
-                    )
-                ),
-                array('table' => 'tb_domicilio',
-                    'alias' => 'Domicilio',
-                    'type' => 'INNER',
-                    'conditions' => array(
-                        'Pessoa.cod_domiciliar = Domicilio.cod_domiciliar',
-                    )
-                ),
-            ),
-            'fields' => array(
-                'COUNT(FaixasEtaria.id) AS total',
-                'Pessoa.tipo_trabalho',
-                'FaixasEtaria.descricao',
-            ),
-            'conditions' => array(
-            ),
-            'group' => array(
-                'Pessoa.tipo_trabalho',
-                'FaixasEtaria.descricao',
-            ),
-            'order' => array(
-                'FaixasEtaria.idade',
-            ),
-        );
-        $inicio = microtime(true);
-        $pessoas = $this->Pessoa->find('all', $options);
-
-        $faixaEtaria['tempo'] = microtime(true) - $inicio;
-        $faixaEtaria['total'] = $this->Pessoa->find('count', array('conditions' => array('Domicilio.qtd_pessoa > 0')));
-        foreach ($pessoas as $faixa) {
-            $faixaEtaria[$faixa['FaixasEtaria']['descricao']][$faixa['Pessoa']['tipo_trabalho']] = $faixa[0]['total'];
-        }
-
-        echo '<pre>';
-        print_r($faixaEtaria);
-        echo '</pre>';
-
-//        echo 'Tempo total de processamento: ' . (microtime(true) - $inicio) . '<br /><br />';
-//
-//        echo '<table border="1" cellspace="0">';
-//        echo '<tr>';
-//        echo '<td>Pessoas<td>';
-//        echo '<td>Tipo de Trabalho<td>';
-//        echo '<td>Faixa Etária<td>';
-//        echo '</tr>';
-//        foreach ($pessoas as $faixa) {
-//            echo '<tr>';
-//            echo '<td>' . $faixa[0]['total'] . '<td>';
-//            echo '<td>' . $faixa['Pessoa']['tipo_trabalho'] . ' - ' . Pessoa::tipoTrabalho($faixa['Pessoa']['tipo_trabalho']) . '<td>';
-//            echo '<td>' . $faixa['FaixasEtaria']['descricao'] . '<td>';
-//            echo '</tr>';
-//        }
-        die();
     }
 
     private function crasUsuario() {

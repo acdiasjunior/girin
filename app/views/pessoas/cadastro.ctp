@@ -8,9 +8,9 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
             url: '/prefeitura/pessoas/listaPessoasDomicilio/<?php echo $this->data['Pessoa']['cod_domiciliar'] ?>',
             dataType: 'json',
             colModel : [
-                {display: 'NIS', name : 'Pessoa.nis', width : 80, sortable : true, align: 'center', hide: false},
+                {display: 'NIS', name : 'Pessoa.cod_nis', width : 80, sortable : true, align: 'center', hide: false},
                 {display: 'Nome', name : 'Pessoa.nome', width : 250, sortable : true, align: 'left'},
-                {display: 'Idade', name : 'Pessoa.data_nascimento', width : 80, sortable : true, align: 'center'}
+                {display: 'Idade', name : 'Pessoa.dt_nasc', width : 80, sortable : true, align: 'center'}
             ],
             searchitems : [
                 {display: 'Nome', name : 'Pessoa.nome', isdefault: true}
@@ -34,7 +34,7 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
         });
         
         $('#flex').dblclick( function(){
-            var id = $('.trSelected').find('td[abbr="Pessoa.nis"]').text();
+            var id = $('.trSelected').find('td[abbr="Pessoa.cod_nis"]').text();
             if(id != '')
                 $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'cadastro')); ?>/' + id);
         });
@@ -47,26 +47,26 @@ echo $this->Form->create('Pessoa');
 
 echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Identificação');
-echo $this->Form->input('Pessoa.nis', array('label' => 'NIS', 'type' => 'text', 'class' => 'edit14'));
+echo $this->Form->input('Pessoa.cod_nis', array('label' => 'NIS', 'type' => 'text', 'class' => 'edit14'));
 echo $this->Form->input('Pessoa.nome', array('label' => 'Nome', 'class' => 'edit40'));
-echo $this->Form->hidden('Pessoa.responsavel_nis');
+echo $this->Form->hidden('Pessoa.cod_nis_responsavel');
 if (!$this->data['Pessoa']['portador_deficiencia']) {
     echo $this->Form->input('Responsavel.nome', array('label' => 'Responsável Legal', 'class' => 'nomeResponsavelAutocomplete edit40'));
-    echo $this->Form->input('Pessoa.responsavel_parentesco', array('label' => 'Parentesco', 'type' => 'select', 'options' => Pessoa::grauParentesco()));
+    echo $this->Form->input('Pessoa.tp_parentesco_responsavel', array('label' => 'Parentesco', 'type' => 'select', 'options' => Pessoa::grauParentesco()));
 }
 echo $this->Html->div('', '', array('style' => 'clear: both;'));
-echo $this->Form->input('Pessoa.data_nascimento', array('label' => 'Data Nascimento', 'type' => 'text', 'class' => 'maskdata data'));
+echo $this->Form->input('Pessoa.dt_nasc', array('label' => 'Data Nascimento', 'type' => 'text', 'class' => 'maskdata data'));
 echo $this->Form->input('Pessoa.idade', array('label' => 'Idade', 'value' => $this->data['Pessoa']['idade'] . ' anos ' . $this->data['Pessoa']['meses'] . ' meses'));
-echo $this->Form->input('Pessoa.genero', array('label' => 'Gênero', 'type' => 'select', 'options' => Pessoa::genero()));
+echo $this->Form->input('Pessoa.sexo', array('label' => 'Sexo', 'type' => 'select', 'options' => Pessoa::sexo()));
 echo $this->Html->tag('/fieldset', null);
 
 echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Documentação');
 echo $this->Form->input('Pessoa.cpf', array('label' => 'CPF', 'class' => 'maskcpf edit14'));
-echo $this->Form->input('Pessoa.titulo_eleitor', array('label' => 'Título Eleitor', 'class' => 'edit14'));
-echo $this->Form->input('Pessoa.zona', array('label' => 'Zona', 'class' => 'edit8'));
-echo $this->Form->input('Pessoa.secao', array('label' => 'Seção', 'type' => 'text'));
-echo $this->Form->input('Pessoa.inep', array('label' => 'Inep', 'type' => 'text'));
+echo $this->Form->input('Pessoa.teleitor_num', array('label' => 'Título Eleitor', 'class' => 'edit14'));
+echo $this->Form->input('Pessoa.teleitor_zona', array('label' => 'Zona', 'class' => 'edit8'));
+echo $this->Form->input('Pessoa.teleitor_secao', array('label' => 'Seção', 'type' => 'text'));
+echo $this->Form->input('Pessoa.cod_inep', array('label' => 'Inep', 'type' => 'text'));
 echo $this->Html->tag('/fieldset', null);
 
 echo $this->Html->tag('fieldset', null);
