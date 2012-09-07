@@ -11,7 +11,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         dataType: 'json',
         colModel : [
             {display: 'id', name : 'Servico.id', width : 80, sortable : true, align: 'center', hide: true},
-            {display: 'Tipo Serviço', name : 'Servico.tipo_servico', width : 200, sortable : true, align: 'left'},
+            {display: 'Tipo Serviço', name : 'Servico.tp_servico', width : 200, sortable : true, align: 'left'},
             {display: 'Descrição', name : 'Servico.descricao', width : 300, sortable : true, align: 'left'},
             {display: 'Faixa Etária', name : 'Servico.faixa_etaria', width : 120, sortable : true, align: 'left'},
             {display: 'Capac.', name : 'Servico.capacidade', width : 40, sortable : true, align: 'center'}

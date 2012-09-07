@@ -8,9 +8,9 @@ $data['rows'] = array();
 foreach($membros as $membro)
 {
     $data['rows'][] = array(
-        'id' => $membro['Pessoa']['nis'],
+        'id' => $membro['Pessoa']['cod_nis'],
         'cell' => array(
-            $membro['Pessoa']['nis'],
+            $membro['Pessoa']['cod_nis'],
             $membro['Pessoa']['nome'],
             $membro['Pessoa']['idade'],
         )

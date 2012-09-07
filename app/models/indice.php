@@ -140,8 +140,8 @@ class Indice extends AppModel {
         $idade_ativa_ocupado = 0;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
             if ($pessoa['idade'] >= Pessoa::IDADE_ADOLESCENTE &&
-                    $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
-                    && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA)
+                    $pessoa['tp_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
+                    && $pessoa['tp_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA)
                 $idade_ativa_ocupado++;
         }
         return $idade_ativa_ocupado;
@@ -236,7 +236,7 @@ class Indice extends AppModel {
     function v1() {
         $retorno = 1;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
-            if ($pessoa['mes_gestacao'] > 0) {
+            if ($pessoa['qtd_mes_gestacao'] > 0) {
                 $retorno = 0;
                 break;
             }
@@ -459,8 +459,8 @@ class Indice extends AppModel {
     function t2() {
         $retorno = 0;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
-            if ($pessoa['tipo_trabalho'] == Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA
-                    || $pessoa['tipo_trabalho'] == Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA) {
+            if ($pessoa['tp_trabalho'] == Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA
+                    || $pessoa['tp_trabalho'] == Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA) {
                 $retorno = 1;
                 break;
             }
@@ -473,10 +473,10 @@ class Indice extends AppModel {
     function t3() {
         $retorno = 0;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
-            if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA &&
-                    $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO &&
-                    $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_TRABALHADOR_RURAL
-                    && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_EMPREGADOR_RURAL) {
+            if ($pessoa['tp_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA &&
+                    $pessoa['tp_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO &&
+                    $pessoa['tp_trabalho'] != Pessoa::TRABALHO_TRABALHADOR_RURAL
+                    && $pessoa['tp_trabalho'] != Pessoa::TRABALHO_EMPREGADOR_RURAL) {
                 $retorno = 1;
                 break;
             }
@@ -493,9 +493,9 @@ class Indice extends AppModel {
     function t4() {
         $retorno = 0;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
-            if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
-                    && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
-                    && $pessoa['valor_remuneracao'] > 545) {
+            if ($pessoa['tp_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
+                    && $pessoa['tp_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
+                    && $pessoa['vlr_remuneracao'] > 545) {
                 $retorno = 1;
                 break;
             }
@@ -508,9 +508,9 @@ class Indice extends AppModel {
     function t5() {
         $retorno = 0;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
-            if ($pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
-                    && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
-                    && $pessoa['valor_remuneracao'] > (545 * 2)) {
+            if ($pessoa['tp_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
+                    && $pessoa['tp_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO
+                    && $pessoa['vlr_remuneracao'] > (545 * 2)) {
                 $retorno = 1;
                 break;
             }
@@ -600,8 +600,8 @@ class Indice extends AppModel {
         $retorno = 1;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
             if ($pessoa['idade'] < Pessoa::IDADE_ADOLESCENTE
-                    && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
-                    && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO) {
+                    && $pessoa['tp_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
+                    && $pessoa['tp_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO) {
                 $retorno = 0;
                 break;
             }
@@ -615,8 +615,8 @@ class Indice extends AppModel {
         $retorno = 1;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
             if ($pessoa['idade'] < 16
-                    && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
-                    && $pessoa['tipo_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO) {
+                    && $pessoa['tp_trabalho'] != Pessoa::TRABALHO_NAO_TRABALHA
+                    && $pessoa['tp_trabalho'] != Pessoa::TRABALHO_NAO_INFORMADO) {
                 $retorno = 0;
                 break;
             }
@@ -633,8 +633,8 @@ class Indice extends AppModel {
     function d3() {
         $retorno = 1;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
-            if ($pessoa['idade'] <= 6 && ($pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
-                    || $pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
+            if ($pessoa['idade'] <= 6 && ($pessoa['tp_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
+                    || $pessoa['tp_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
                 $retorno = 0;
                 break;
             }
@@ -647,8 +647,8 @@ class Indice extends AppModel {
     function d4() {
         $retorno = 1;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
-            if ($pessoa['idade'] >= 7 && $pessoa['idade'] <= 14 && ($pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
-                    || $pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
+            if ($pessoa['idade'] >= 7 && $pessoa['idade'] <= 14 && ($pessoa['tp_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
+                    || $pessoa['tp_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
                 $retorno = 0;
                 break;
             }
@@ -661,8 +661,8 @@ class Indice extends AppModel {
     function d5() {
         $retorno = 1;
         foreach ($this->domicilio['Pessoa'] as $pessoa) {
-            if ($pessoa['idade'] >= 7 && $pessoa['idade'] <= 17 && ($pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
-                    || $pessoa['tipo_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
+            if ($pessoa['idade'] >= 7 && $pessoa['idade'] <= 17 && ($pessoa['tp_escola'] == Pessoa::ESCOLA_NAO_FREQUENTA
+                    || $pessoa['tp_escola'] == Pessoa::ESCOLA_NAO_INFORMADO)) {
                 $retorno = 0;
                 break;
             }

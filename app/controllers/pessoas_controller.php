@@ -1,18 +1,26 @@
 <?php
 
-class PessoasController extends AppController {
+class PessoasController extends AppController
+{
 
     var $name = 'Pessoas';
     var $helpers = array('Javascript', 'Js');
     var $components = array('RequestHandler');
 
-    function index() {
+    /**
+     * @var Pessoa Model Pessoa
+     */
+    var $Pessoa;
+
+    function index()
+    {
         parent::temAcesso();
         $temAcessoExclusao = parent::temAcessoExclusao();
         $this->set(compact('temAcessoExclusao'));
     }
 
-    function lista() {
+    function lista()
+    {
         $this->layout = 'ajax';
 
         $this->Pessoa->recursive = 0;
@@ -45,7 +53,8 @@ class PessoasController extends AppController {
         $this->set(compact('pessoas', 'page', 'total'));
     }
 
-    function listaNomes() {
+    function listaNomes()
+    {
         $options = array(
             'conditions' => array(
                 'Pessoa.nome LIKE ' => '%' . str_replace(' ', '%', $this->params['form']['term']) . '%'
@@ -56,7 +65,8 @@ class PessoasController extends AppController {
         $this->render('lista_nomes');
     }
 
-    function listaNomesResponsavel() {
+    function listaNomesResponsavel()
+    {
         $options = array(
             'conditions' => array(
                 'Pessoa.cod_nis_responsavel IS NULL',
@@ -69,7 +79,8 @@ class PessoasController extends AppController {
         $this->render('lista_nomes');
     }
 
-    function listaMembros($cod_nis_responsavel) {
+    function listaMembros($cod_nis_responsavel)
+    {
 
         $this->layout = 'ajax';
 
@@ -92,7 +103,8 @@ class PessoasController extends AppController {
         $this->set(compact('membros', 'page', 'total'));
     }
 
-    function listaPessoasDomicilio($cod_domiciliar) {
+    function listaPessoasDomicilio($cod_domiciliar)
+    {
         $this->layout = 'ajax';
 
         $conditions = array('Pessoa.cod_domiciliar =' => $cod_domiciliar);
@@ -113,12 +125,14 @@ class PessoasController extends AppController {
         $this->set(compact('pessoas', 'page', 'total'));
     }
 
-    function cadastro($id = null) {
+    function cadastro($id = null)
+    {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Pessoa->read();
             $temAcessoEscrita = parent::temAcessoEscrita();
-            $this->set(compact('temAcessoEscrita'));
+            $bairros = $this->Pessoa->Domicilio->Bairro->find('list');
+            $this->set(compact('bairros', 'temAcessoEscrita'));
         } else {
             if ($this->Pessoa->save($this->data)) {
                 $this->Session->setFlash('Cadastro salvo.');
@@ -127,7 +141,8 @@ class PessoasController extends AppController {
         }
     }
 
-    function excluir($id) {
+    function excluir($id)
+    {
         parent::temAcesso();
         if (!empty($id)) {
             $this->Pessoa->delete($id);
@@ -138,7 +153,8 @@ class PessoasController extends AppController {
         $this->redirect(array('action' => 'index'));
     }
 
-    function importar($arquivo = null) {
+    function importar($arquivo = null)
+    {
         parent::temAcesso();
         if (empty($this->data)) {
             //Abre a tela de importação
@@ -173,7 +189,8 @@ class PessoasController extends AppController {
         }
     }
 
-    private function crasUsuario() {
+    private function crasUsuario()
+    {
         $this->loadModel('Usuario');
         $this->Usuario->id = $this->Session->read('Auth.Usuario.id');
         $cras_usuario = array();

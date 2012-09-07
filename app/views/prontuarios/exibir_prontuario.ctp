@@ -92,7 +92,7 @@ function classificaIDF($indice) {
                 <br />
                 <strong>Endereço: </strong>
                 <?php
-                echo (strlen($this->data['Domicilio']['tipo_logradouro']) > 0) ? $this->data['Domicilio']['tipo_logradouro'] . ' ' : '';
+                echo (strlen($this->data['Domicilio']['tp_logradouro']) > 0) ? $this->data['Domicilio']['tp_logradouro'] . ' ' : '';
                 echo (strlen($this->data['Domicilio']['logradouro']) > 0) ? $this->data['Domicilio']['logradouro'] : '';
                 echo (strlen($this->data['Domicilio']['numero']) > 0) ? ', no ' . $this->data['Domicilio']['numero'] : '';
                 echo (strlen($this->data['Domicilio']['complemento']) > 0) ? ', ' . $this->data['Domicilio']['complemento'] : '';
@@ -132,30 +132,30 @@ function classificaIDF($indice) {
                 <tr>
                     <td valign="top"><?php echo $this->data['Domicilio']['Responsavel']['nome'] ?>
                         <br />Idade: <?php echo $this->data['Domicilio']['Responsavel']['idade'] ?>
-                        - NIS: <?php echo $this->data['Domicilio']['Responsavel']['nis'] ?>
+                        - NIS: <?php echo $this->data['Domicilio']['Responsavel']['cod_nis'] ?>
                         <br />&nbsp;
                     </td>
                     <td valign="top"></td>
-                    <td valign="top"><?php echo Pessoa::estadoCivil($this->data['Domicilio']['Responsavel']['estado_civil']) ?></td>
-                    <td valign="top"><?php echo Pessoa::serieEscolar($this->data['Domicilio']['Responsavel']['serie_escolar']) ?> - <?php echo Pessoa::tipoEscola($this->data['Domicilio']['Responsavel']['tipo_escola']) ?></td>
-                    <td valign="top"><?php echo Pessoa::tipoTrabalho($this->data['Domicilio']['Responsavel']['tipo_trabalho']) ?></td>
+                    <td valign="top"><?php echo Pessoa::estadoCivil($this->data['Domicilio']['Responsavel']['est_civil']) ?></td>
+                    <td valign="top"><?php echo Pessoa::serieEscolar($this->data['Domicilio']['Responsavel']['serie_escolar']) ?> - <?php echo Pessoa::tipoEscola($this->data['Domicilio']['Responsavel']['tp_escola']) ?></td>
+                    <td valign="top"><?php echo Pessoa::tipoTrabalho($this->data['Domicilio']['Responsavel']['tp_trabalho']) ?></td>
                 </tr>
             </tbody>
             <tbody>
                 <?php
                 foreach ($this->data['Domicilio']['Pessoa'] as $membro) {
-                    if ($membro['nis'] != $this->data['Domicilio']['Responsavel']['nis']) {
+                    if ($membro['cod_nis'] != $this->data['Domicilio']['Responsavel']['cod_nis']) {
                         ?>
                         <tr>
                             <td valign="top"><?php echo $membro['nome'] ?>
                                 <br />Idade: <?php echo $membro['idade'] ?>
-                                - NIS: <?php echo $membro['nis'] ?>
+                                - NIS: <?php echo $membro['cod_nis'] ?>
                                 <br />&nbsp;
                             </td>
                             <td valign="top"><?php echo Pessoa::grauParentesco($membro['responsavel_parentesco']) ?></td>
-                            <td valign="top"><?php echo Pessoa::estadoCivil($membro['estado_civil']) ?></td>
-                            <td valign="top"><?php echo Pessoa::serieEscolar($membro['serie_escolar']) ?> - <?php echo Pessoa::tipoEscola($membro['tipo_escola']) ?></td>
-                            <td valign="top"><?php echo Pessoa::tipoTrabalho($membro['tipo_trabalho']) ?></td>
+                            <td valign="top"><?php echo Pessoa::estadoCivil($membro['est_civil']) ?></td>
+                            <td valign="top"><?php echo Pessoa::serieEscolar($membro['serie_escolar']) ?> - <?php echo Pessoa::tipoEscola($membro['tp_escola']) ?></td>
+                            <td valign="top"><?php echo Pessoa::tipoTrabalho($membro['tp_trabalho']) ?></td>
                         </tr>
                         <?php
                     } //end if
