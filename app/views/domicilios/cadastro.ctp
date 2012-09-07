@@ -3,12 +3,12 @@ echo $this->Html->css(array('flexigrid'));
 echo $javascript->link(array('flexigrid.pack', 'button'));
 ?>
 <script type="text/javascript">
-    $(function() {        
+    $(function() {
         $("#flex").flexigrid({
             url: '/prefeitura/pessoas/listaPessoasDomicilio/<?php echo $this->data['Domicilio']['cod_domiciliar'] ?>',
             dataType: 'json',
             colModel : [
-                {display: 'NIS', name : 'Pessoa.nis', width : 80, sortable : true, align: 'center', hide: false},
+                {display: 'NIS', name : 'Pessoa.cod_nis', width : 80, sortable : true, align: 'center', hide: false},
                 {display: 'Nome', name : 'Pessoa.nome', width : 250, sortable : true, align: 'left'},
                 {display: 'Idade', name : 'Pessoa.idade', width : 80, sortable : true, align: 'center'}
             ],
@@ -33,7 +33,7 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
             procmsg:'Processando, por favor aguarde ...',
             nomsg:'Nenhum item'
         });
-        
+
         $('#flex').dblclick( function(){
             var id = $('.trSelected').find('td[abbr="Pessoa.nis"]').text();
             if(id != '')
@@ -95,7 +95,7 @@ if ($temAcessoEscrita) {
 } else {
     ?>
     <script type="text/javascript">
-        $(document).ready(function () 
+        $(document).ready(function ()
         {
             $('select').attr('disabled','disabled');
             $('input, textarea').attr('readonly','readonly').click(function() {

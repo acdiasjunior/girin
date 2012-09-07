@@ -86,18 +86,18 @@ class DomiciliosController extends AppController {
         if ($this->Session->read("$container.Domicilio_vlr_idf") != '') {
             switch ($this->Session->read("$container.TipoBusca")) {
                 case 'menor':
-                    $tipo_busca = '<=';
+                    $tp_busca = '<=';
                     break;
                 case 'exatamente':
-                    $tipo_busca = '=';
+                    $tp_busca = '=';
                     break;
                 case 'maior':
-                    $tipo_busca = '>';
+                    $tp_busca = '>';
                     break;
                 default:
                     return;
             }
-            $conditions['Indice.idf ' . $tipo_busca] = $this->Session->read("$container.Domicilio_vlr_idf");
+            $conditions['Indice.idf ' . $tp_busca] = $this->Session->read("$container.Domicilio_vlr_idf");
         }
 
         $this->paginate = array(

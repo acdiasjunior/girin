@@ -3,12 +3,12 @@ echo $this->Html->css(array('flexigrid'));
 echo $javascript->link(array('flexigrid.pack', 'button'));
 ?>
 <script type="text/javascript">
-    $(function() {        
+    $(function() {
         $("#flex").flexigrid({
             url: '/prefeitura/pessoas/listaPessoasServico/<?php echo $this->data['Servico']['id'] ?>',
             dataType: 'json',
             colModel : [
-                {display: 'NIS', name : 'Pessoa.nis', width : 80, sortable : true, align: 'center', hide: false},
+                {display: 'NIS', name : 'Pessoa.cod_nis', width : 80, sortable : true, align: 'center', hide: false},
                 {display: 'Nome', name : 'Pessoa.nome', width : 250, sortable : true, align: 'left'},
                 {display: 'Idade', name : 'Pessoa.idade', width : 80, sortable : true, align: 'center'}
             ],
@@ -39,13 +39,13 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
             procmsg:'Processando, por favor aguarde ...',
             nomsg:'Nenhum item'
         });
-        
+
         $('#flex').dblclick( function(){
             var id = $('.trSelected').find('td[abbr="Pessoa.nis"]').text();
             if(id != '')
                 $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'cadastro')); ?>/' + id);
         }).disableSelection();
-    
+
         function actions(com, grid) {
             var id = $('.trSelected', grid).find('td[abbr="Pessoa.nis"]').text();
             var nome = $('.trSelected', grid).find('td[abbr="Pessoa.nome"]').text();
@@ -75,7 +75,7 @@ echo $this->Form->create('Servico');
 echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Endereço');
 echo $this->Form->input('id', array('label' => 'Cód.'));
-echo $this->Form->input('tipo_servico', array('label' => 'Tipo de Serviço', 'options' => Servico::tipoServico()));
+echo $this->Form->input('tp_servico', array('label' => 'Tipo de Serviço', 'options' => Servico::tipoServico()));
 echo $this->Form->input('descricao', array('label' => 'Descrição', 'class' => 'edit40'));
 echo $this->Html->div('', '', array('style' => 'clear: both;'));
 echo $this->Form->input('descricao_detalhada', array('label' => 'Descrição Detalhada', 'class' => 'edit100'));
@@ -95,7 +95,7 @@ if ($temAcessoEscrita) {
 } else {
 	?>
 	<script type="text/javascript">
-		$(document).ready(function () 
+		$(document).ready(function ()
 		{
 			$('select').attr('disabled','disabled');
 			$('input, textarea').attr('readonly','readonly').click(function() {

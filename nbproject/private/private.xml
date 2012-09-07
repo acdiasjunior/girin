@@ -2,4 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/D:/Projetos/PHP/prefeitura/app/controllers/relatorios_controller.php</file>
+        <file>file:/D:/Projetos/PHP/prefeitura/app/config/core.php</file>
+        <file>file:/D:/Projetos/PHP/prefeitura/app/controllers/pessoas_controller.php</file>
+        <file>file:/D:/Projetos/PHP/prefeitura/app/views/pessoas/lista.ctp</file>
+        <file>file:/D:/Projetos/PHP/prefeitura/app/models/pessoa.php</file>
+        <file>file:/D:/Projetos/PHP/prefeitura/app/models/domicilio.php</file>
+        <file>file:/D:/Projetos/PHP/prefeitura/app/models/cras.php</file>
+        <file>file:/D:/Projetos/PHP/prefeitura/app/models/servico.php</file>
+        <file>file:/D:/Projetos/PHP/prefeitura/app/views/pessoas/index.ctp</file>
+        <file>file:/D:/Projetos/PHP/prefeitura/app/views/pessoas/cadastro.ctp</file>
+    </open-files>
 </project-private>

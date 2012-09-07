@@ -11,7 +11,7 @@ foreach($servicos as $servico)
         'id' => $servico['Servico']['id'],
         'cell' => array(
             $servico['Servico']['id'],
-             Servico::tipoServico($servico['Servico']['tipo_servico']),
+             Servico::tipoServico($servico['Servico']['tp_servico']),
             $servico['Servico']['descricao'],
             $servico['Servico']['faixa_etaria'],
             $servico['Servico']['capacidade'],

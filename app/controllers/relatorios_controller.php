@@ -41,7 +41,7 @@ class RelatoriosController extends AppController {
                     'D4', 'D5', 'ACESSO_ESCOLA', 'D6', 'D7', 'D8', 'PROGR_ESC', 'DESENV_INFANTIL', 'H1', 'H2', 'PROPRIO', 'H3',
                     'DEFICIT_HAB', 'H4', 'ABRIGO', 'H5', 'ACESSO_AGUA', 'H6', 'SANEAMENTO', 'H7', 'LIXO', 'H8', 'ELETRICIDADE',
                     'COND_HABIT', 'NIS_RESP_LEGAL', 'NOME_RESPONSAVEL_LEGAL', 'RENDA_FAMILIAR', 'QUANT_PESSOAS', 'RENDA_PER_CAPITA',
-                    'BOLSA_FAMILIA', 'TIPO_LOGRADOURO', 'LOGRADOURO', 'NUMERO', 'COMPLEMENTO', 'BAIRRO', 'CRAS', 'REGIAO');
+                    'BOLSA_FAMILIA', 'tp_LOGRADOURO', 'LOGRADOURO', 'NUMERO', 'COMPLEMENTO', 'BAIRRO', 'CRAS', 'REGIAO');
 
                 $size = fputcsv($fw, $linha, ';');
 
@@ -150,7 +150,7 @@ class RelatoriosController extends AppController {
                         $linha[] = $domicilio['Indice']['h8'];
                         $linha[] = number_format($domicilio['Indice']['acessoEletricidade'], 2, ',', '.');
                         $linha[] = number_format($domicilio['Indice']['habitacao'], 2, ',', '.');
-                        $linha[] = $domicilio['Responsavel']['nis'];
+                        $linha[] = $domicilio['Responsavel']['cod_nis'];
                         $linha[] = $domicilio['Responsavel']['nome'];
                         $linha[] = number_format($domicilio['Domicilio']['vlr_renda_familia'], 2, ',', '.');
                         $linha[] = $domicilio['Domicilio']['qtd_pessoa'];
@@ -201,14 +201,14 @@ class RelatoriosController extends AppController {
             'fields' => array(
                 $idade . ' AS idade',
                 'COUNT(' . $idade . ') AS total',
-                'Pessoa.tipo_trabalho',
+                'Pessoa.tp_trabalho',
             ),
             'conditions' => array(
                 'Domicilio.qtd_pessoa > 0',
                 'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
             ),
             'group' => array(
-                'Pessoa.tipo_trabalho',
+                'Pessoa.tp_trabalho',
                 $idade,
             ),
             'order' => array(
@@ -244,18 +244,18 @@ class RelatoriosController extends AppController {
         foreach ($pessoas as $faixa) {
             if ($faixa[0]['idade'] < 65) {
                 $faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])]
-                        [$faixa['Pessoa']['tipo_trabalho']][$faixa[0]['idade']]
+                        [$faixa['Pessoa']['tp_trabalho']][$faixa[0]['idade']]
                         = (int) $faixa[0]['total'];
             } else {
                 $faixaEtaria[$this->faixaEtaria(65)]
-                        [$faixa['Pessoa']['tipo_trabalho']][65]
+                        [$faixa['Pessoa']['tp_trabalho']][65]
                         += (int) $faixa[0]['total'];
             }
 
-            if (isset($faixaEtaria[$faixa['Pessoa']['tipo_trabalho']])) {
-                $faixaEtaria[$faixa['Pessoa']['tipo_trabalho']] += (int) $faixa[0]['total'];
+            if (isset($faixaEtaria[$faixa['Pessoa']['tp_trabalho']])) {
+                $faixaEtaria[$faixa['Pessoa']['tp_trabalho']] += (int) $faixa[0]['total'];
             } else {
-                $faixaEtaria[$faixa['Pessoa']['tipo_trabalho']] = (int) $faixa[0]['total'];
+                $faixaEtaria[$faixa['Pessoa']['tp_trabalho']] = (int) $faixa[0]['total'];
             }
         }
 

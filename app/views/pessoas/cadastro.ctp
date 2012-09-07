@@ -3,7 +3,7 @@ echo $this->Html->css(array('flexigrid'));
 echo $javascript->link(array('flexigrid.pack', 'button'));
 ?>
 <script type="text/javascript">
-    $(function() {        
+    $(function() {
         $("#flex").flexigrid({
             url: '/prefeitura/pessoas/listaPessoasDomicilio/<?php echo $this->data['Pessoa']['cod_domiciliar'] ?>',
             dataType: 'json',
@@ -32,13 +32,13 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
             procmsg:'Processando, por favor aguarde ...',
             nomsg:'Nenhum item'
         });
-        
+
         $('#flex').dblclick( function(){
             var id = $('.trSelected').find('td[abbr="Pessoa.cod_nis"]').text();
             if(id != '')
                 $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'cadastro')); ?>/' + id);
         });
-        
+
     });
 </script><?php
 $javascript->link(array('jquery.ui.datepicker-pt-BR', 'jquery.maskedinput-1.2.2.min', 'errormessage', 'maskinput', 'datepicker', 'autocomplete'), false);
@@ -71,21 +71,21 @@ echo $this->Html->tag('/fieldset', null);
 
 echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Informações Pessoais');
-echo $this->Form->input('Pessoa.estado_civil', array('options' => Pessoa::estadoCivil(), 'label' => 'Estado Civil'));
-echo $this->Form->input('Pessoa.raca_cor', array('options' => Pessoa::cor(), 'label' => 'Cor'));
+echo $this->Form->input('Pessoa.est_civil', array('options' => Pessoa::estadoCivil(), 'label' => 'Estado Civil'));
+echo $this->Form->input('Pessoa.raca', array('options' => Pessoa::cor(), 'label' => 'Cor'));
 echo $this->Html->div('', '', array('style' => 'clear: both;'));
 echo $this->Form->input('Pessoa.grau_instrucao', array('options' => Pessoa::grauInstrucao(), 'label' => 'Grau de instrução'));
 echo $this->Form->input('Pessoa.serie_escolar', array('options' => Pessoa::serieEscolar(), 'label' => 'Série Escolar'));
-echo $this->Form->input('Pessoa.tipo_escola', array('options' => Pessoa::tipoEscola(), 'label' => 'Tipo de Escola'));
+echo $this->Form->input('Pessoa.tp_escola', array('options' => Pessoa::tipoEscola(), 'label' => 'Tipo de Escola'));
 echo $this->Html->div('', '', array('style' => 'clear: both;'));
-echo $this->Form->input('Pessoa.tipo_trabalho', array('options' => Pessoa::tipoTrabalho(), 'label' => 'Tipo de Trabalho'));
-echo $this->Form->input('Pessoa.ocupacao', array('label' => 'Ocupação'));
-echo $this->Form->input('Pessoa.valor_remuneracao', array('label' => 'Remuneração Mensal'));
-echo $this->Form->input('Pessoa.valor_aposentadoria', array('label' => 'Valor Aposentadoria'));
-echo $this->Form->input('Pessoa.valor_pensao', array('label' => 'Valor Pensão'));
-echo $this->Form->input('Pessoa.valor_seguro_desemprego', array('label' => 'Seguro desemprego'));
-echo $this->Form->input('Pessoa.valor_outras_rendas', array('label' => 'Valor Outras Rendas'));
-echo $this->Form->input('Pessoa.valor_beneficio', array('label' => 'Valor Benefício'));
+echo $this->Form->input('Pessoa.tp_trabalho', array('options' => Pessoa::tipoTrabalho(), 'label' => 'Tipo de Trabalho'));
+echo $this->Form->input('Pessoa.desc_ocupacao', array('label' => 'Ocupação'));
+echo $this->Form->input('Pessoa.vlr_remuneracao', array('label' => 'Remuneração Mensal'));
+echo $this->Form->input('Pessoa.vlr_aposentadoria', array('label' => 'Valor Aposentadoria'));
+echo $this->Form->input('Pessoa.vlr_pensao', array('label' => 'Valor Pensão'));
+echo $this->Form->input('Pessoa.vlr_seguro_desemprego', array('label' => 'Seguro desemprego'));
+echo $this->Form->input('Pessoa.vlr_outras_rendas', array('label' => 'Valor Outras Rendas'));
+echo $this->Form->input('Pessoa.vlr_beneficio', array('label' => 'Valor Benefício'));
 echo $this->Html->tag('/fieldset', null);
 
 echo $this->Html->tag('fieldset', null);
@@ -103,7 +103,7 @@ echo $this->Html->tag('/fieldset', null);
 
 echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Complementares');
-echo $this->Form->input('Pessoa.mes_gestacao', array('label' => 'Mês de Gestação'));
+echo $this->Form->input('Pessoa.qtd_mes_gestacao', array('label' => 'Mês de Gestação'));
 echo $this->Form->input('Pessoa.amamentando', array('label' => 'Amamentando'));
 echo $this->Form->input('Pessoa.esposa_companheiro', array('label' => 'Presença de esposa ou companheiro?'));
 echo $this->Form->input('Pessoa.portador_deficiencia', array('label' => 'Portador deficiência?'));
@@ -120,7 +120,7 @@ echo $this->Html->tag('/fieldset', null);
 echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Observações');
 echo $this->Html->div('', '', array('style' => 'clear: both;'));
-echo $this->Form->input('observacoes', array('label' => 'Observações', 'rows' => '5', 'cols' => '70'));
+echo $this->Form->input('observacao', array('label' => 'Observações', 'rows' => '5', 'cols' => '70'));
 echo $this->Html->tag('/fieldset', null);
 
 echo $this->Html->tag('fieldset', null);
@@ -142,25 +142,25 @@ echo $this->Form->button('Fechar', array(
     'onClick' => "window.location.href = '" . $this->Html->url(array('controller' => 'pessoas', 'action' => 'index')) . "';"
 ));
 if ($temAcessoEscrita) {
-	echo $this->Form->button('Salvar', array('type' => 'submit'));
+    echo $this->Form->button('Salvar', array('type' => 'submit'));
 } else {
-	?>
-	<script type="text/javascript">
-		$(document).ready(function () 
-		{
-			$('select').attr('disabled','disabled');
-			$('input, textarea').attr('readonly','readonly').click(function() {
-				return false;
-			});
-		});
-	</script>
-	<?php
-
+    ?>
+    <script type="text/javascript">
+        $(document).ready(function ()
+        {
+            $('select').attr('disabled','disabled');
+            $('input, textarea').attr('readonly','readonly').click(function() {
+                return false;
+            });
+        });
+    </script>
+    <?php
 }
-echo $this->Form->end();
 
-echo $this->Html->tag('div', '', array('style' => 'height: 20px;'));
-echo $this->Html->tag('fieldset', null);
-echo $this->Html->tag('legend', 'Pessoa - Membros');
-echo '<table id="flex" style="display: none"></table>';
-echo $this->Html->tag('/fieldset', null);
+//if (count($this->data['Membro']) > 0) {
+    echo $this->Html->tag('div', '', array('style' => 'height: 20px;'));
+    echo $this->Html->tag('fieldset', null);
+    echo $this->Html->tag('legend', 'Pessoa - Membros');
+    echo '<table id="flex" style="display: none"></table>';
+    echo $this->Html->tag('/fieldset', null);
+//}

@@ -13,11 +13,11 @@
 <script type="text/javascript">
 
     $(function() {
-        
+
         $('.filtro').parent().hide();
         if($('#ProntuarioFiltro').val() != '')
             $('.' + $('#ProntuarioFiltro').val()).parent().show();
-        
+
         $('#ProntuarioFiltro').change(function(){
             $('.filtro').val('').parent().hide();
             $('.' + $(this).val()).parent().show();
@@ -37,7 +37,7 @@ echo $this->Form->input('id_cras', array('options' => $cras, 'empty' => 'Selecio
 echo $this->Form->input('id_bairro', array('options' => $bairros, 'empty' => 'Selecione o bairro', 'class' => 'filtro id_bairro'));
 echo $this->Html->div('', '', array('style' => 'clear: both;'));
 echo $this->Form->input('cod_domiciliar', array('label' => 'Código Domicíliar'));
-echo $this->Form->input('nis_responsavel', array('label' => 'NIS Responsável Legal'));
+echo $this->Form->input('cod_nis_responsavel', array('label' => 'NIS Responsável Legal'));
 echo $this->Form->input('cpf_responsavel', array('label' => 'CPF Responsável Legal'));
 echo $this->Html->div('', '', array('style' => 'clear: both;'));
 echo $this->Form->input('idf', array('label' => 'IDF'));
