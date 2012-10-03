@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2012-10-03 02:15:05
+-- Started on 2012-10-03 02:16:30
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -12,21 +12,21 @@ SET client_min_messages = warning;
 SET escape_string_warning = off;
 
 --
--- TOC entry 383 (class 2612 OID 95407662)
--- Name: plpgsql; Type: PROCEDURAL LANGUAGE; Schema: -; Owner: juniordias
+-- TOC entry 372 (class 2612 OID 16386)
+-- Name: plpgsql; Type: PROCEDURAL LANGUAGE; Schema: -; Owner: postgres
 --
 
 CREATE PROCEDURAL LANGUAGE plpgsql;
 
 
-ALTER PROCEDURAL LANGUAGE plpgsql OWNER TO juniordias;
+ALTER PROCEDURAL LANGUAGE plpgsql OWNER TO postgres;
 
 SET search_path = public, pg_catalog;
 
 --
--- TOC entry 1570 (class 1259 OID 95448615)
+-- TOC entry 1582 (class 1259 OID 17412)
 -- Dependencies: 6
--- Name: seq_acao; Type: SEQUENCE; Schema: public; Owner: juniordias
+-- Name: seq_acao; Type: SEQUENCE; Schema: public; Owner: programacaolocal
 --
 
 CREATE SEQUENCE seq_acao
@@ -37,850 +37,12 @@ CREATE SEQUENCE seq_acao
     CACHE 1;
 
 
-ALTER TABLE public.seq_acao OWNER TO juniordias;
-
-SET default_tablespace = '';
-
-SET default_with_oids = false;
+ALTER TABLE public.seq_acao OWNER TO programacaolocal;
 
 --
--- TOC entry 1571 (class 1259 OID 95448617)
--- Dependencies: 1896 1897 1898 1899 1900 1901 6
--- Name: acoes; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE acoes (
-    id integer DEFAULT nextval('seq_acao'::regclass) NOT NULL,
-    estrategia_id integer NOT NULL,
-    codigo character varying(10) NOT NULL,
-    descricao character varying(2048) NOT NULL,
-    responsavel smallint,
-    usuarios smallint,
-    atividade smallint,
-    rede smallint,
-    ponto_socioassistencial smallint,
-    sistema_setorial_apoio smallint,
-    sistema_logistico smallint,
-    prazo_minimo integer,
-    prazo_maximo integer,
-    encaminhamento character varying(1024) DEFAULT NULL::character varying,
-    pactuacao_familia character varying(255) DEFAULT NULL::character varying,
-    observacoes character varying(1024) DEFAULT NULL::character varying,
-    CONSTRAINT acoes_prazo_maximo_check CHECK ((prazo_maximo >= 0)),
-    CONSTRAINT acoes_prazo_minimo_check CHECK ((prazo_minimo >= 0))
-);
-
-
-ALTER TABLE public.acoes OWNER TO juniordias;
-
---
--- TOC entry 1572 (class 1259 OID 95448629)
+-- TOC entry 1583 (class 1259 OID 17414)
 -- Dependencies: 6
--- Name: seq_bairro; Type: SEQUENCE; Schema: public; Owner: juniordias
---
-
-CREATE SEQUENCE seq_bairro
-    START WITH 195
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.seq_bairro OWNER TO juniordias;
-
---
--- TOC entry 1573 (class 1259 OID 95448631)
--- Dependencies: 1902 6
--- Name: bairros; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE bairros (
-    id integer DEFAULT nextval('seq_bairro'::regclass) NOT NULL,
-    regiao_id integer,
-    cras_id integer,
-    nome character varying(50) NOT NULL
-);
-
-
-ALTER TABLE public.bairros OWNER TO juniordias;
-
---
--- TOC entry 1574 (class 1259 OID 95448637)
--- Dependencies: 6
--- Name: seq_cras; Type: SEQUENCE; Schema: public; Owner: juniordias
---
-
-CREATE SEQUENCE seq_cras
-    START WITH 12
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.seq_cras OWNER TO juniordias;
-
---
--- TOC entry 1575 (class 1259 OID 95448639)
--- Dependencies: 1903 1904 1905 1906 1907 1908 1909 1910 6
--- Name: cras; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE cras (
-    id integer DEFAULT nextval('seq_cras'::regclass) NOT NULL,
-    descricao character varying(80) NOT NULL,
-    tipo_logradouro character varying(20) DEFAULT NULL::character varying,
-    logradouro character varying(80) DEFAULT NULL::character varying,
-    numero character varying(10) DEFAULT NULL::character varying,
-    complemento character varying(30) DEFAULT NULL::character varying,
-    bairro_id integer,
-    regiao_id integer,
-    cidade character varying(80) DEFAULT NULL::character varying,
-    uf character varying(2) DEFAULT NULL::character varying,
-    telefone character varying(14) DEFAULT NULL::character varying
-);
-
-
-ALTER TABLE public.cras OWNER TO juniordias;
-
---
--- TOC entry 1576 (class 1259 OID 95448652)
--- Dependencies: 6
--- Name: seq_cras_usuario; Type: SEQUENCE; Schema: public; Owner: juniordias
---
-
-CREATE SEQUENCE seq_cras_usuario
-    START WITH 44
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.seq_cras_usuario OWNER TO juniordias;
-
---
--- TOC entry 1577 (class 1259 OID 95448654)
--- Dependencies: 1911 6
--- Name: cras_usuarios; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE cras_usuarios (
-    id integer DEFAULT nextval('seq_cras_usuario'::regclass) NOT NULL,
-    cras_id integer NOT NULL,
-    usuario_id integer NOT NULL
-);
-
-
-ALTER TABLE public.cras_usuarios OWNER TO juniordias;
-
---
--- TOC entry 1578 (class 1259 OID 95448659)
--- Dependencies: 6
--- Name: seq_dimensao; Type: SEQUENCE; Schema: public; Owner: juniordias
---
-
-CREATE SEQUENCE seq_dimensao
-    START WITH 7
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.seq_dimensao OWNER TO juniordias;
-
---
--- TOC entry 1579 (class 1259 OID 95448661)
--- Dependencies: 1912 6
--- Name: dimensoes; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE dimensoes (
-    id integer DEFAULT nextval('seq_dimensao'::regclass) NOT NULL,
-    descricao character varying(50) NOT NULL,
-    coluna character varying(20) NOT NULL
-);
-
-
-ALTER TABLE public.dimensoes OWNER TO juniordias;
-
---
--- TOC entry 1580 (class 1259 OID 95448665)
--- Dependencies: 1913 1914 1915 1916 1917 1918 1919 1920 1921 1922 1923 1924 1925 1926 1927 1928 1929 1930 1931 1932 1933 1934 1935 1936 1937 1938 1939 1940 1941 1942 1943 1944 1945 1946 6
--- Name: domicilios; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE domicilios (
-    codigo_domiciliar character varying(12) NOT NULL,
-    nis_responsavel character varying(15) DEFAULT NULL::character varying,
-    cep character varying(10) DEFAULT NULL::character varying,
-    tipo_logradouro character varying(20) DEFAULT NULL::character varying,
-    logradouro character varying(80) DEFAULT NULL::character varying,
-    numero character varying(10) DEFAULT NULL::character varying,
-    complemento character varying(30) DEFAULT NULL::character varying,
-    bairro_id integer,
-    bairro_nome character varying(60) DEFAULT NULL::character varying,
-    cras_id integer,
-    regiao_id integer,
-    cidade character varying(80) DEFAULT NULL::character varying,
-    uf character varying(2) DEFAULT NULL::character varying,
-    ddd character varying(3) DEFAULT NULL::character varying,
-    telefone character varying(10) DEFAULT NULL::character varying,
-    tipo_localidade smallint,
-    situacao_domicilio smallint,
-    tipo_domicilio smallint,
-    tipo_construcao smallint,
-    tipo_abastecimento smallint,
-    tratamento_agua smallint,
-    tipo_iluminacao smallint,
-    escoamento_sanitario smallint,
-    destino_lixo smallint,
-    bolsa_familia smallint,
-    comodos integer,
-    valor_despesa_aluguel numeric(10,2) DEFAULT NULL::numeric,
-    valor_despesa_prestacao numeric(10,2) DEFAULT NULL::numeric,
-    valor_despesa_alimentacao numeric(10,2) DEFAULT NULL::numeric,
-    valor_despesa_agua numeric(10,2) DEFAULT NULL::numeric,
-    valor_despesa_luz numeric(10,2) DEFAULT NULL::numeric,
-    valor_despesa_transporte numeric(10,2) DEFAULT NULL::numeric,
-    valor_despesa_medicamento numeric(10,2) DEFAULT NULL::numeric,
-    valor_despesa_gas numeric(10,2) DEFAULT NULL::numeric,
-    valor_outras_despesas numeric(10,2) DEFAULT NULL::numeric,
-    idf numeric(3,2),
-    data_pesquisa date,
-    data_inclusao date,
-    data_atualizacao date,
-    entrevistador character varying(60) DEFAULT NULL::character varying,
-    quantidade_pessoas integer,
-    valor_despesa_familia numeric(10,2) DEFAULT NULL::numeric,
-    valor_remuneracao numeric(10,2) DEFAULT NULL::numeric,
-    valor_aposentadoria_pensao numeric(10,2) DEFAULT NULL::numeric,
-    valor_seguro_desemprego numeric(10,2) DEFAULT NULL::numeric,
-    valor_pensao_alimenticia numeric(10,2) DEFAULT NULL::numeric,
-    valor_outras_rendas numeric(10,2) DEFAULT NULL::numeric,
-    valor_renda_familia numeric(10,2) DEFAULT NULL::numeric,
-    valor_beneficio numeric(10,2) DEFAULT NULL::numeric,
-    CONSTRAINT domicilios_bairro_id_check CHECK ((bairro_id >= 0)),
-    CONSTRAINT domicilios_cras_id_check CHECK ((cras_id >= 0)),
-    CONSTRAINT domicilios_regiao_id_check CHECK ((regiao_id >= 0)),
-    CONSTRAINT domicilios_situacao_domicilio_check CHECK ((situacao_domicilio >= 0)),
-    CONSTRAINT domicilios_tipo_localidade_check CHECK ((tipo_localidade >= 0))
-);
-
-
-ALTER TABLE public.domicilios OWNER TO juniordias;
-
---
--- TOC entry 1581 (class 1259 OID 95448702)
--- Dependencies: 6
--- Name: seq_estrategia; Type: SEQUENCE; Schema: public; Owner: juniordias
---
-
-CREATE SEQUENCE seq_estrategia
-    START WITH 20
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.seq_estrategia OWNER TO juniordias;
-
---
--- TOC entry 1582 (class 1259 OID 95448704)
--- Dependencies: 1947 6
--- Name: estrategias; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE estrategias (
-    id integer DEFAULT nextval('seq_estrategia'::regclass) NOT NULL,
-    codigo character varying(5) NOT NULL,
-    descricao character varying(1024) NOT NULL,
-    idade_min integer,
-    idade_max integer
-);
-
-
-ALTER TABLE public.estrategias OWNER TO juniordias;
-
---
--- TOC entry 1583 (class 1259 OID 95448711)
--- Dependencies: 6
--- Name: seq_estrategia_indicador; Type: SEQUENCE; Schema: public; Owner: juniordias
---
-
-CREATE SEQUENCE seq_estrategia_indicador
-    START WITH 103
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.seq_estrategia_indicador OWNER TO juniordias;
-
---
--- TOC entry 1584 (class 1259 OID 95448713)
--- Dependencies: 1948 1949 1950 6
--- Name: estrategias_indicadores; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE estrategias_indicadores (
-    id integer DEFAULT nextval('seq_estrategia_indicador'::regclass) NOT NULL,
-    estrategia_id integer NOT NULL,
-    indicador_id integer NOT NULL,
-    CONSTRAINT estrategias_indicadores_estrategia_id_check CHECK ((estrategia_id >= 0)),
-    CONSTRAINT estrategias_indicadores_indicador_id_check CHECK ((indicador_id >= 0))
-);
-
-
-ALTER TABLE public.estrategias_indicadores OWNER TO juniordias;
-
---
--- TOC entry 1585 (class 1259 OID 95448719)
--- Dependencies: 6
--- Name: seq_estrategia_prontuario; Type: SEQUENCE; Schema: public; Owner: juniordias
---
-
-CREATE SEQUENCE seq_estrategia_prontuario
-    START WITH 109
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.seq_estrategia_prontuario OWNER TO juniordias;
-
---
--- TOC entry 1586 (class 1259 OID 95448721)
--- Dependencies: 1951 1952 1953 6
--- Name: estrategias_prontuarios; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE estrategias_prontuarios (
-    id integer DEFAULT nextval('seq_estrategia_prontuario'::regclass) NOT NULL,
-    estrategia_id integer NOT NULL,
-    prontuario_id integer NOT NULL,
-    CONSTRAINT estrategias_prontuarios_estrategia_id_check CHECK ((estrategia_id >= 0)),
-    CONSTRAINT estrategias_prontuarios_prontuario_id_check CHECK ((prontuario_id >= 0))
-);
-
-
-ALTER TABLE public.estrategias_prontuarios OWNER TO juniordias;
-
---
--- TOC entry 1587 (class 1259 OID 95448727)
--- Dependencies: 6
--- Name: seq_faixa_etaria; Type: SEQUENCE; Schema: public; Owner: juniordias
---
-
-CREATE SEQUENCE seq_faixa_etaria
-    START WITH 82
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.seq_faixa_etaria OWNER TO juniordias;
-
---
--- TOC entry 1588 (class 1259 OID 95448729)
--- Dependencies: 1954 6
--- Name: faixas_etarias; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE faixas_etarias (
-    id integer DEFAULT nextval('seq_faixa_etaria'::regclass) NOT NULL,
-    idade integer NOT NULL,
-    descricao character varying(20) NOT NULL,
-    faixa character varying(20) NOT NULL
-);
-
-
-ALTER TABLE public.faixas_etarias OWNER TO juniordias;
-
---
--- TOC entry 1589 (class 1259 OID 95448733)
--- Dependencies: 6
--- Name: seq_indicador; Type: SEQUENCE; Schema: public; Owner: juniordias
---
-
-CREATE SEQUENCE seq_indicador
-    START WITH 45
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.seq_indicador OWNER TO juniordias;
-
---
--- TOC entry 1590 (class 1259 OID 95448735)
--- Dependencies: 1955 1956 6
--- Name: indicadores; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE indicadores (
-    id integer DEFAULT nextval('seq_indicador'::regclass) NOT NULL,
-    dimensao_id integer NOT NULL,
-    codigo character varying(5) NOT NULL,
-    descricao character varying(255) NOT NULL,
-    label character varying(255) NOT NULL,
-    coluna character varying(3) NOT NULL,
-    CONSTRAINT indicadores_dimensao_id_check CHECK ((dimensao_id >= 0))
-);
-
-
-ALTER TABLE public.indicadores OWNER TO juniordias;
-
---
--- TOC entry 1591 (class 1259 OID 95448743)
--- Dependencies: 6
--- Name: seq_indicador_prontuario; Type: SEQUENCE; Schema: public; Owner: juniordias
---
-
-CREATE SEQUENCE seq_indicador_prontuario
-    START WITH 340
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.seq_indicador_prontuario OWNER TO juniordias;
-
---
--- TOC entry 1592 (class 1259 OID 95448745)
--- Dependencies: 1957 1958 1959 6
--- Name: indicadores_prontuarios; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE indicadores_prontuarios (
-    id integer DEFAULT nextval('seq_indicador_prontuario'::regclass) NOT NULL,
-    indicador_id integer NOT NULL,
-    prontuario_id integer NOT NULL,
-    CONSTRAINT indicadores_prontuarios_indicador_id_check CHECK ((indicador_id >= 0)),
-    CONSTRAINT indicadores_prontuarios_prontuario_id_check CHECK ((prontuario_id >= 0))
-);
-
-
-ALTER TABLE public.indicadores_prontuarios OWNER TO juniordias;
-
---
--- TOC entry 1593 (class 1259 OID 95448751)
--- Dependencies: 6
--- Name: indices; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE indices (
-    codigo_domiciliar character varying(12) NOT NULL,
-    idf numeric(3,2),
-    vulnerabilidade double precision,
-    gestacao double precision,
-    v1 smallint,
-    v2 smallint,
-    criancas double precision,
-    v3 smallint,
-    v4 smallint,
-    v5 smallint,
-    idosos double precision,
-    v6 smallint,
-    v7 smallint,
-    dependencia double precision,
-    v8 smallint,
-    v9 smallint,
-    conhecimento double precision,
-    analfabetismo double precision,
-    c1 smallint,
-    c2 smallint,
-    escolaridade double precision,
-    c3 smallint,
-    c4 smallint,
-    c5 smallint,
-    trabalho double precision,
-    disponibilidade double precision,
-    t1 smallint,
-    qualidade double precision,
-    t2 smallint,
-    t3 smallint,
-    remuneracao double precision,
-    t4 smallint,
-    t5 smallint,
-    recursos double precision,
-    extremapobreza double precision,
-    r1 smallint,
-    r2 smallint,
-    r3 smallint,
-    pobreza double precision,
-    r4 smallint,
-    r5 smallint,
-    capacidadegeracao double precision,
-    r6 smallint,
-    desenvolvimento double precision,
-    trabalhoprecoce double precision,
-    d1 smallint,
-    d2 smallint,
-    acessoescola double precision,
-    d3 smallint,
-    d4 smallint,
-    d5 smallint,
-    progressoescolar double precision,
-    d6 smallint,
-    d7 smallint,
-    d8 smallint,
-    habitacao double precision,
-    propriedade double precision,
-    h1 smallint,
-    h2 smallint,
-    deficit double precision,
-    h3 smallint,
-    abrigalidade double precision,
-    h4 smallint,
-    acessoagua double precision,
-    h5 smallint,
-    acessosaneamento double precision,
-    h6 smallint,
-    acessocoletalixo double precision,
-    h7 smallint,
-    acessoeletricidade double precision,
-    h8 smallint,
-    v10 smallint,
-    v11 smallint,
-    v12 smallint,
-    modified timestamp without time zone
-);
-
-
-ALTER TABLE public.indices OWNER TO juniordias;
-
---
--- TOC entry 1594 (class 1259 OID 95448754)
--- Dependencies: 6
--- Name: seq_indice_historico; Type: SEQUENCE; Schema: public; Owner: juniordias
---
-
-CREATE SEQUENCE seq_indice_historico
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.seq_indice_historico OWNER TO juniordias;
-
---
--- TOC entry 1595 (class 1259 OID 95448756)
--- Dependencies: 1960 6
--- Name: indices_historicos; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE indices_historicos (
-    id integer DEFAULT nextval('seq_indice_historico'::regclass) NOT NULL,
-    codigo_domiciliar character varying(12) NOT NULL,
-    idf numeric(3,2),
-    vulnerabilidade double precision,
-    v1 smallint,
-    v2 smallint,
-    v3 smallint,
-    v4 smallint,
-    v5 smallint,
-    v6 smallint,
-    v7 smallint,
-    v8 smallint,
-    v9 smallint,
-    conhecimento double precision,
-    c1 smallint,
-    c2 smallint,
-    c3 smallint,
-    c4 smallint,
-    c5 smallint,
-    trabalho double precision,
-    t1 smallint,
-    t2 smallint,
-    t3 smallint,
-    t4 smallint,
-    t5 smallint,
-    recursos double precision,
-    r1 smallint,
-    r2 smallint,
-    r3 smallint,
-    r4 smallint,
-    r5 smallint,
-    r6 smallint,
-    desenvolvimento double precision,
-    d1 smallint,
-    d2 smallint,
-    d3 smallint,
-    d4 smallint,
-    d5 smallint,
-    d6 smallint,
-    d7 smallint,
-    d8 smallint,
-    habyteaacao double precision,
-    h1 smallint,
-    h2 smallint,
-    h3 smallint,
-    h4 smallint,
-    h5 smallint,
-    h6 smallint,
-    h7 smallint,
-    h8 smallint,
-    v10 smallint,
-    v11 smallint,
-    v12 smallint,
-    created timestamp without time zone
-);
-
-
-ALTER TABLE public.indices_historicos OWNER TO juniordias;
-
---
--- TOC entry 1596 (class 1259 OID 95448760)
--- Dependencies: 6
--- Name: seq_page; Type: SEQUENCE; Schema: public; Owner: juniordias
---
-
-CREATE SEQUENCE seq_page
-    START WITH 3
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.seq_page OWNER TO juniordias;
-
---
--- TOC entry 1597 (class 1259 OID 95448762)
--- Dependencies: 1961 6
--- Name: pages; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE pages (
-    id integer DEFAULT nextval('seq_page'::regclass) NOT NULL,
-    link character varying(30) NOT NULL,
-    titulo character varying(60) NOT NULL,
-    conteudo text NOT NULL,
-    created timestamp without time zone,
-    modified timestamp without time zone
-);
-
-
-ALTER TABLE public.pages OWNER TO juniordias;
-
---
--- TOC entry 1598 (class 1259 OID 95448769)
--- Dependencies: 1962 1963 1964 1965 6
--- Name: parametros; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE parametros (
-    id integer NOT NULL,
-    descricao character varying(40) DEFAULT NULL::character varying,
-    "default" character varying(20) DEFAULT NULL::character varying,
-    controller character varying(30) DEFAULT NULL::character varying,
-    action character varying(30) DEFAULT NULL::character varying
-);
-
-
-ALTER TABLE public.parametros OWNER TO juniordias;
-
---
--- TOC entry 1599 (class 1259 OID 95448776)
--- Dependencies: 6
--- Name: seq_parametro_usuario; Type: SEQUENCE; Schema: public; Owner: juniordias
---
-
-CREATE SEQUENCE seq_parametro_usuario
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.seq_parametro_usuario OWNER TO juniordias;
-
---
--- TOC entry 1600 (class 1259 OID 95448778)
--- Dependencies: 1966 1967 6
--- Name: parametros_usuarios; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE parametros_usuarios (
-    id integer DEFAULT nextval('seq_parametro_usuario'::regclass) NOT NULL,
-    parametro_id integer NOT NULL,
-    usuario_id integer NOT NULL,
-    valor character varying(20) DEFAULT NULL::character varying
-);
-
-
-ALTER TABLE public.parametros_usuarios OWNER TO juniordias;
-
---
--- TOC entry 1601 (class 1259 OID 95448783)
--- Dependencies: 1968 1969 1970 1971 1972 1973 1974 1975 1976 1977 1978 1979 1980 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990 1991 1992 1993 1994 1995 1996 1997 6
--- Name: pessoas; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE pessoas (
-    nis character varying(15) NOT NULL,
-    nome character varying(100) NOT NULL,
-    codigo_domiciliar character varying(12) DEFAULT NULL::character varying,
-    cpf character varying(14) DEFAULT NULL::character varying,
-    titulo_eleitor character varying(18) DEFAULT NULL::character varying,
-    zona character varying(10) DEFAULT NULL::character varying,
-    secao character varying(10) DEFAULT NULL::character varying,
-    ocupacao character varying(30) DEFAULT NULL::character varying,
-    inep character varying(12) DEFAULT NULL::character varying,
-    responsavel_nis character varying(15) DEFAULT NULL::character varying,
-    responsavel_parentesco smallint,
-    valor_remuneracao numeric(10,2) DEFAULT 0.00 NOT NULL,
-    valor_aposentadoria numeric(10,2) DEFAULT 0.00 NOT NULL,
-    valor_pensao numeric(10,2) DEFAULT 0.00 NOT NULL,
-    valor_seguro_desemprego numeric(10,2) DEFAULT 0.00 NOT NULL,
-    valor_beneficio numeric(10,2) DEFAULT 0.00 NOT NULL,
-    data_nascimento date,
-    serie_escolar smallint,
-    tipo_trabalho smallint,
-    raca_cor smallint,
-    genero smallint,
-    estado_civil smallint,
-    grau_instrucao smallint,
-    tipo_escola smallint,
-    observacoes text,
-    data_pesquisa date,
-    data_inclusao date,
-    data_atualizacao date,
-    entrevistador character varying(60) DEFAULT NULL::character varying,
-    valor_outras_rendas numeric(10,2) DEFAULT 0.00,
-    mes_gestacao smallint,
-    amamentando smallint DEFAULT (0)::smallint NOT NULL,
-    cegueira smallint DEFAULT (0)::smallint NOT NULL,
-    surdez smallint DEFAULT (0)::smallint NOT NULL,
-    mudez smallint DEFAULT (0)::smallint NOT NULL,
-    deficiencia_mental smallint DEFAULT (0)::smallint NOT NULL,
-    deficiencia_fisica smallint DEFAULT (0)::smallint NOT NULL,
-    outra_deficiencia smallint DEFAULT (0)::smallint NOT NULL,
-    portador_deficiencia smallint DEFAULT (0)::smallint NOT NULL,
-    esposa_companheiro smallint DEFAULT (0)::smallint NOT NULL,
-    valor_somatorio_renda numeric(10,2),
-    CONSTRAINT pessoas_estado_civil_check CHECK ((estado_civil >= 0)),
-    CONSTRAINT pessoas_grau_instrucao_check CHECK ((grau_instrucao >= 0)),
-    CONSTRAINT pessoas_raca_cor_check CHECK ((raca_cor >= 0)),
-    CONSTRAINT pessoas_serie_escolar_check CHECK ((serie_escolar >= 0)),
-    CONSTRAINT pessoas_tipo_escola_check CHECK ((tipo_escola >= 0)),
-    CONSTRAINT pessoas_tipo_trabalho_check CHECK ((tipo_trabalho >= 0))
-);
-
-
-ALTER TABLE public.pessoas OWNER TO juniordias;
-
---
--- TOC entry 1602 (class 1259 OID 95448819)
--- Dependencies: 6
--- Name: seq_pessoa_servico; Type: SEQUENCE; Schema: public; Owner: juniordias
---
-
-CREATE SEQUENCE seq_pessoa_servico
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.seq_pessoa_servico OWNER TO juniordias;
-
---
--- TOC entry 1603 (class 1259 OID 95448821)
--- Dependencies: 1998 6
--- Name: pessoas_servicos; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE pessoas_servicos (
-    id integer DEFAULT nextval('seq_pessoa_servico'::regclass) NOT NULL,
-    pessoa_nis character varying(15) NOT NULL,
-    servico_id integer NOT NULL
-);
-
-
-ALTER TABLE public.pessoas_servicos OWNER TO juniordias;
-
---
--- TOC entry 1604 (class 1259 OID 95448825)
--- Dependencies: 6
--- Name: seq_prontuario; Type: SEQUENCE; Schema: public; Owner: juniordias
---
-
-CREATE SEQUENCE seq_prontuario
-    START WITH 23
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.seq_prontuario OWNER TO juniordias;
-
---
--- TOC entry 1605 (class 1259 OID 95448827)
--- Dependencies: 1999 2000 6
--- Name: prontuarios; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE prontuarios (
-    id integer DEFAULT nextval('seq_prontuario'::regclass) NOT NULL,
-    codigo_domiciliar character varying(12) NOT NULL,
-    numero_prontuario integer NOT NULL,
-    usuario_id integer NOT NULL,
-    created timestamp without time zone NOT NULL,
-    CONSTRAINT prontuarios_numero_prontuario_check CHECK ((numero_prontuario >= 0))
-);
-
-
-ALTER TABLE public.prontuarios OWNER TO juniordias;
-
---
--- TOC entry 1606 (class 1259 OID 95448832)
--- Dependencies: 6
--- Name: seq_regiao; Type: SEQUENCE; Schema: public; Owner: juniordias
---
-
-CREATE SEQUENCE seq_regiao
-    START WITH 9
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.seq_regiao OWNER TO juniordias;
-
---
--- TOC entry 1607 (class 1259 OID 95448834)
--- Dependencies: 2001 6
--- Name: regioes; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE regioes (
-    id integer DEFAULT nextval('seq_regiao'::regclass) NOT NULL,
-    descricao character varying(30) NOT NULL
-);
-
-
-ALTER TABLE public.regioes OWNER TO juniordias;
-
---
--- TOC entry 1608 (class 1259 OID 95448838)
--- Dependencies: 6
--- Name: seq_acesso; Type: SEQUENCE; Schema: public; Owner: juniordias
+-- Name: seq_acesso; Type: SEQUENCE; Schema: public; Owner: programacaolocal
 --
 
 CREATE SEQUENCE seq_acesso
@@ -891,12 +53,140 @@ CREATE SEQUENCE seq_acesso
     CACHE 1;
 
 
-ALTER TABLE public.seq_acesso OWNER TO juniordias;
+ALTER TABLE public.seq_acesso OWNER TO programacaolocal;
 
 --
--- TOC entry 1609 (class 1259 OID 95448840)
+-- TOC entry 1584 (class 1259 OID 17416)
 -- Dependencies: 6
--- Name: seq_grupo; Type: SEQUENCE; Schema: public; Owner: juniordias
+-- Name: seq_bairro; Type: SEQUENCE; Schema: public; Owner: programacaolocal
+--
+
+CREATE SEQUENCE seq_bairro
+    START WITH 195
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_bairro OWNER TO programacaolocal;
+
+--
+-- TOC entry 1585 (class 1259 OID 17418)
+-- Dependencies: 6
+-- Name: seq_cras; Type: SEQUENCE; Schema: public; Owner: programacaolocal
+--
+
+CREATE SEQUENCE seq_cras
+    START WITH 12
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_cras OWNER TO programacaolocal;
+
+--
+-- TOC entry 1586 (class 1259 OID 17420)
+-- Dependencies: 6
+-- Name: seq_cras_usuario; Type: SEQUENCE; Schema: public; Owner: programacaolocal
+--
+
+CREATE SEQUENCE seq_cras_usuario
+    START WITH 44
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_cras_usuario OWNER TO programacaolocal;
+
+--
+-- TOC entry 1587 (class 1259 OID 17422)
+-- Dependencies: 6
+-- Name: seq_dimensao; Type: SEQUENCE; Schema: public; Owner: programacaolocal
+--
+
+CREATE SEQUENCE seq_dimensao
+    START WITH 7
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_dimensao OWNER TO programacaolocal;
+
+--
+-- TOC entry 1559 (class 1259 OID 17276)
+-- Dependencies: 6
+-- Name: seq_estrategia; Type: SEQUENCE; Schema: public; Owner: programacaolocal
+--
+
+CREATE SEQUENCE seq_estrategia
+    START WITH 20
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_estrategia OWNER TO programacaolocal;
+
+--
+-- TOC entry 1561 (class 1259 OID 17285)
+-- Dependencies: 6
+-- Name: seq_estrategia_indicador; Type: SEQUENCE; Schema: public; Owner: programacaolocal
+--
+
+CREATE SEQUENCE seq_estrategia_indicador
+    START WITH 103
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_estrategia_indicador OWNER TO programacaolocal;
+
+--
+-- TOC entry 1563 (class 1259 OID 17293)
+-- Dependencies: 6
+-- Name: seq_estrategia_prontuario; Type: SEQUENCE; Schema: public; Owner: programacaolocal
+--
+
+CREATE SEQUENCE seq_estrategia_prontuario
+    START WITH 109
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_estrategia_prontuario OWNER TO programacaolocal;
+
+--
+-- TOC entry 1565 (class 1259 OID 17301)
+-- Dependencies: 6
+-- Name: seq_faixa_etaria; Type: SEQUENCE; Schema: public; Owner: programacaolocal
+--
+
+CREATE SEQUENCE seq_faixa_etaria
+    START WITH 82
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_faixa_etaria OWNER TO programacaolocal;
+
+--
+-- TOC entry 1588 (class 1259 OID 17424)
+-- Dependencies: 6
+-- Name: seq_grupo; Type: SEQUENCE; Schema: public; Owner: programacaolocal
 --
 
 CREATE SEQUENCE seq_grupo
@@ -907,12 +197,92 @@ CREATE SEQUENCE seq_grupo
     CACHE 1;
 
 
-ALTER TABLE public.seq_grupo OWNER TO juniordias;
+ALTER TABLE public.seq_grupo OWNER TO programacaolocal;
 
 --
--- TOC entry 1610 (class 1259 OID 95448842)
+-- TOC entry 1566 (class 1259 OID 17307)
 -- Dependencies: 6
--- Name: seq_permissao; Type: SEQUENCE; Schema: public; Owner: juniordias
+-- Name: seq_indicador; Type: SEQUENCE; Schema: public; Owner: programacaolocal
+--
+
+CREATE SEQUENCE seq_indicador
+    START WITH 45
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_indicador OWNER TO programacaolocal;
+
+--
+-- TOC entry 1568 (class 1259 OID 17317)
+-- Dependencies: 6
+-- Name: seq_indicador_prontuario; Type: SEQUENCE; Schema: public; Owner: programacaolocal
+--
+
+CREATE SEQUENCE seq_indicador_prontuario
+    START WITH 340
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_indicador_prontuario OWNER TO programacaolocal;
+
+--
+-- TOC entry 1571 (class 1259 OID 17328)
+-- Dependencies: 6
+-- Name: seq_indice_historico; Type: SEQUENCE; Schema: public; Owner: programacaolocal
+--
+
+CREATE SEQUENCE seq_indice_historico
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_indice_historico OWNER TO programacaolocal;
+
+--
+-- TOC entry 1572 (class 1259 OID 17334)
+-- Dependencies: 6
+-- Name: seq_pagina; Type: SEQUENCE; Schema: public; Owner: programacaolocal
+--
+
+CREATE SEQUENCE seq_pagina
+    START WITH 3
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_pagina OWNER TO programacaolocal;
+
+--
+-- TOC entry 1574 (class 1259 OID 17350)
+-- Dependencies: 6
+-- Name: seq_parametro_usuario; Type: SEQUENCE; Schema: public; Owner: programacaolocal
+--
+
+CREATE SEQUENCE seq_parametro_usuario
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_parametro_usuario OWNER TO programacaolocal;
+
+--
+-- TOC entry 1589 (class 1259 OID 17426)
+-- Dependencies: 6
+-- Name: seq_permissao; Type: SEQUENCE; Schema: public; Owner: programacaolocal
 --
 
 CREATE SEQUENCE seq_permissao
@@ -923,12 +293,60 @@ CREATE SEQUENCE seq_permissao
     CACHE 1;
 
 
-ALTER TABLE public.seq_permissao OWNER TO juniordias;
+ALTER TABLE public.seq_permissao OWNER TO programacaolocal;
 
 --
--- TOC entry 1611 (class 1259 OID 95448844)
+-- TOC entry 1576 (class 1259 OID 17393)
 -- Dependencies: 6
--- Name: seq_servico; Type: SEQUENCE; Schema: public; Owner: juniordias
+-- Name: seq_pessoa_servico; Type: SEQUENCE; Schema: public; Owner: programacaolocal
+--
+
+CREATE SEQUENCE seq_pessoa_servico
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_pessoa_servico OWNER TO programacaolocal;
+
+--
+-- TOC entry 1578 (class 1259 OID 17399)
+-- Dependencies: 6
+-- Name: seq_prontuario; Type: SEQUENCE; Schema: public; Owner: programacaolocal
+--
+
+CREATE SEQUENCE seq_prontuario
+    START WITH 23
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_prontuario OWNER TO programacaolocal;
+
+--
+-- TOC entry 1580 (class 1259 OID 17406)
+-- Dependencies: 6
+-- Name: seq_regiao; Type: SEQUENCE; Schema: public; Owner: programacaolocal
+--
+
+CREATE SEQUENCE seq_regiao
+    START WITH 9
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_regiao OWNER TO programacaolocal;
+
+--
+-- TOC entry 1590 (class 1259 OID 17428)
+-- Dependencies: 6
+-- Name: seq_servico; Type: SEQUENCE; Schema: public; Owner: programacaolocal
 --
 
 CREATE SEQUENCE seq_servico
@@ -939,12 +357,12 @@ CREATE SEQUENCE seq_servico
     CACHE 1;
 
 
-ALTER TABLE public.seq_servico OWNER TO juniordias;
+ALTER TABLE public.seq_servico OWNER TO programacaolocal;
 
 --
--- TOC entry 1612 (class 1259 OID 95448846)
+-- TOC entry 1591 (class 1259 OID 17430)
 -- Dependencies: 6
--- Name: seq_usuario; Type: SEQUENCE; Schema: public; Owner: juniordias
+-- Name: seq_usuario; Type: SEQUENCE; Schema: public; Owner: programacaolocal
 --
 
 CREATE SEQUENCE seq_usuario
@@ -955,12 +373,12 @@ CREATE SEQUENCE seq_usuario
     CACHE 1;
 
 
-ALTER TABLE public.seq_usuario OWNER TO juniordias;
+ALTER TABLE public.seq_usuario OWNER TO programacaolocal;
 
 --
--- TOC entry 1613 (class 1259 OID 95448848)
+-- TOC entry 1592 (class 1259 OID 17432)
 -- Dependencies: 6
--- Name: seq_visita; Type: SEQUENCE; Schema: public; Owner: juniordias
+-- Name: seq_visita; Type: SEQUENCE; Schema: public; Owner: programacaolocal
 --
 
 CREATE SEQUENCE seq_visita
@@ -971,32 +389,46 @@ CREATE SEQUENCE seq_visita
     CACHE 1;
 
 
-ALTER TABLE public.seq_visita OWNER TO juniordias;
+ALTER TABLE public.seq_visita OWNER TO programacaolocal;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
 
 --
--- TOC entry 1614 (class 1259 OID 95448850)
--- Dependencies: 2002 2003 2004 2005 2006 6
--- Name: servicos; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 1594 (class 1259 OID 17442)
+-- Dependencies: 1933 1934 1935 1936 1937 1938 6
+-- Name: tb_acao; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
-CREATE TABLE servicos (
-    id integer DEFAULT nextval('seq_servico'::regclass) NOT NULL,
-    tipo_servico smallint,
-    descricao character varying(60) DEFAULT NULL::character varying,
-    descricao_detalhada character varying(200) DEFAULT NULL::character varying,
-    faixa_etaria character varying(60) DEFAULT NULL::character varying,
-    horario character varying(40) DEFAULT NULL::character varying,
-    per_capita double precision,
-    capacidade integer
+CREATE TABLE tb_acao (
+    id_acao integer DEFAULT nextval('seq_acao'::regclass) NOT NULL,
+    id_estrategia integer NOT NULL,
+    cod_acao character varying(10) NOT NULL,
+    desc_acao character varying(2048) NOT NULL,
+    cod_responsavel smallint,
+    cod_usuario smallint,
+    cod_atividade smallint,
+    cod_rede smallint,
+    cod_ponto_socioassistencial smallint,
+    cod_sistema_setorial_apoio smallint,
+    cod_sistema_logistico smallint,
+    qtd_prazo_minimo integer,
+    qtd_prazo_maximo integer,
+    desc_encaminhamento character varying(1024) DEFAULT NULL::character varying,
+    desc_pactuacao_familia character varying(255) DEFAULT NULL::character varying,
+    desc_observacao character varying(1024) DEFAULT NULL::character varying,
+    CONSTRAINT acoes_prazo_maximo_check CHECK ((qtd_prazo_maximo >= 0)),
+    CONSTRAINT acoes_prazo_minimo_check CHECK ((qtd_prazo_minimo >= 0))
 );
 
 
-ALTER TABLE public.servicos OWNER TO juniordias;
+ALTER TABLE public.tb_acao OWNER TO programacaolocal;
 
 --
--- TOC entry 1615 (class 1259 OID 95448858)
--- Dependencies: 2007 2008 6
--- Name: tb_acesso; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 1595 (class 1259 OID 17454)
+-- Dependencies: 1939 1940 6
+-- Name: tb_acesso; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
 CREATE TABLE tb_acesso (
@@ -1007,12 +439,339 @@ CREATE TABLE tb_acesso (
 );
 
 
-ALTER TABLE public.tb_acesso OWNER TO juniordias;
+ALTER TABLE public.tb_acesso OWNER TO programacaolocal;
 
 --
--- TOC entry 1616 (class 1259 OID 95448863)
--- Dependencies: 2009 2010 6
--- Name: tb_permissao; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 1596 (class 1259 OID 17459)
+-- Dependencies: 1941 6
+-- Name: tb_bairro; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE TABLE tb_bairro (
+    id_bairro integer DEFAULT nextval('seq_bairro'::regclass) NOT NULL,
+    id_regiao integer,
+    id_cras integer,
+    nome_bairro character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.tb_bairro OWNER TO programacaolocal;
+
+--
+-- TOC entry 1597 (class 1259 OID 17463)
+-- Dependencies: 1942 1943 1944 1945 1946 1947 1948 1949 6
+-- Name: tb_cras; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE TABLE tb_cras (
+    id_cras integer DEFAULT nextval('seq_cras'::regclass) NOT NULL,
+    desc_cras character varying(80) NOT NULL,
+    end_tipo character varying(20) DEFAULT NULL::character varying,
+    end_logradouro character varying(80) DEFAULT NULL::character varying,
+    end_num character varying(10) DEFAULT NULL::character varying,
+    end_compl character varying(30) DEFAULT NULL::character varying,
+    id_bairro integer,
+    id_regiao integer,
+    end_cidade character varying(80) DEFAULT NULL::character varying,
+    end_estado character varying(2) DEFAULT NULL::character varying,
+    tel_num character varying(14) DEFAULT NULL::character varying
+);
+
+
+ALTER TABLE public.tb_cras OWNER TO programacaolocal;
+
+--
+-- TOC entry 1598 (class 1259 OID 17474)
+-- Dependencies: 1950 6
+-- Name: tb_cras_usuario; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE TABLE tb_cras_usuario (
+    id_cras_usuario integer DEFAULT nextval('seq_cras_usuario'::regclass) NOT NULL,
+    id_cras integer NOT NULL,
+    id_usuario integer NOT NULL
+);
+
+
+ALTER TABLE public.tb_cras_usuario OWNER TO programacaolocal;
+
+--
+-- TOC entry 1599 (class 1259 OID 17478)
+-- Dependencies: 1951 6
+-- Name: tb_dimensao_idf; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE TABLE tb_dimensao_idf (
+    id_dimensao_idf integer DEFAULT nextval('seq_dimensao'::regclass) NOT NULL,
+    desc_dimensao_idf character varying(50) NOT NULL,
+    desc_coluna_idf character varying(20) NOT NULL
+);
+
+
+ALTER TABLE public.tb_dimensao_idf OWNER TO programacaolocal;
+
+--
+-- TOC entry 1600 (class 1259 OID 17482)
+-- Dependencies: 1952 1953 1954 1955 1956 1957 1958 1959 1960 1961 1962 1963 1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 1974 1975 1976 1977 1978 1979 1980 1981 1982 1983 1984 1985 6
+-- Name: tb_domicilio; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE TABLE tb_domicilio (
+    cod_domiciliar character varying(12) NOT NULL,
+    cod_nis_responsavel character varying(15) DEFAULT NULL::character varying,
+    end_cep character varying(10) DEFAULT NULL::character varying,
+    end_tipo character varying(20) DEFAULT NULL::character varying,
+    end_logradouro character varying(80) DEFAULT NULL::character varying,
+    end_num character varying(10) DEFAULT NULL::character varying,
+    end_compl character varying(30) DEFAULT NULL::character varying,
+    id_bairro integer,
+    nome_bairro character varying(60) DEFAULT NULL::character varying,
+    id_cras integer,
+    id_regiao integer,
+    end_cidade character varying(80) DEFAULT NULL::character varying,
+    end_estado character varying(2) DEFAULT NULL::character varying,
+    tel_ddd character varying(3) DEFAULT NULL::character varying,
+    tel_num character varying(10) DEFAULT NULL::character varying,
+    tp_localidade smallint,
+    tp_situacao_domicilio smallint,
+    tp_domicilio smallint,
+    tp_construcao smallint,
+    tp_abastecimento smallint,
+    tp_tratamento_agua smallint,
+    tp_iluminacao smallint,
+    tp_escoamento_sanitario smallint,
+    tp_destino_lixo smallint,
+    st_bolsa_familia smallint,
+    qtd_comodo integer,
+    vlr_despesa_aluguel numeric(10,2) DEFAULT NULL::numeric,
+    vlr_despesa_prestacao numeric(10,2) DEFAULT NULL::numeric,
+    vlr_despesa_alimentacao numeric(10,2) DEFAULT NULL::numeric,
+    vlr_despesa_agua numeric(10,2) DEFAULT NULL::numeric,
+    vlr_despesa_luz numeric(10,2) DEFAULT NULL::numeric,
+    vlr_despesa_transporte numeric(10,2) DEFAULT NULL::numeric,
+    vlr_despesa_medicamento numeric(10,2) DEFAULT NULL::numeric,
+    vlr_despesa_gas numeric(10,2) DEFAULT NULL::numeric,
+    vlr_outras_despesas numeric(10,2) DEFAULT NULL::numeric,
+    vlr_idf numeric(3,2),
+    dt_pesquisa date,
+    dt_inclusao date,
+    dt_atualizacao date,
+    nome_entrevistador character varying(60) DEFAULT NULL::character varying,
+    qtd_pessoa integer,
+    vlr_despesa_familia numeric(10,2) DEFAULT NULL::numeric,
+    vlr_remuneracao numeric(10,2) DEFAULT NULL::numeric,
+    vlr_aposentadoria_pensao numeric(10,2) DEFAULT NULL::numeric,
+    vlr_seguro_desemprego numeric(10,2) DEFAULT NULL::numeric,
+    vlr_pensao_alimenticia numeric(10,2) DEFAULT NULL::numeric,
+    vlr_outras_rendas numeric(10,2) DEFAULT NULL::numeric,
+    vlr_renda_familia numeric(10,2) DEFAULT NULL::numeric,
+    vlr_beneficio numeric(10,2) DEFAULT NULL::numeric,
+    CONSTRAINT domicilios_bairro_id_check CHECK ((id_bairro >= 0)),
+    CONSTRAINT domicilios_cras_id_check CHECK ((id_cras >= 0)),
+    CONSTRAINT domicilios_regiao_id_check CHECK ((id_regiao >= 0)),
+    CONSTRAINT domicilios_situacao_domicilio_check CHECK ((tp_situacao_domicilio >= 0)),
+    CONSTRAINT domicilios_tipo_localidade_check CHECK ((tp_localidade >= 0))
+);
+
+
+ALTER TABLE public.tb_domicilio OWNER TO programacaolocal;
+
+--
+-- TOC entry 1560 (class 1259 OID 17278)
+-- Dependencies: 1880 6
+-- Name: tb_estrategia; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE TABLE tb_estrategia (
+    id_estrategia integer DEFAULT nextval('seq_estrategia'::regclass) NOT NULL,
+    cod_estrategia character varying(5) NOT NULL,
+    desc_estrategia character varying(1024) NOT NULL,
+    idade_minima integer,
+    idade_maxima integer
+);
+
+
+ALTER TABLE public.tb_estrategia OWNER TO programacaolocal;
+
+--
+-- TOC entry 1562 (class 1259 OID 17287)
+-- Dependencies: 1881 1882 1883 6
+-- Name: tb_estrategia_indicador; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE TABLE tb_estrategia_indicador (
+    id_estrategia_indicador integer DEFAULT nextval('seq_estrategia_indicador'::regclass) NOT NULL,
+    id_estrategia integer NOT NULL,
+    id_indicador integer NOT NULL,
+    CONSTRAINT estrategias_indicadores_estrategia_id_check CHECK ((id_estrategia >= 0)),
+    CONSTRAINT estrategias_indicadores_indicador_id_check CHECK ((id_indicador >= 0))
+);
+
+
+ALTER TABLE public.tb_estrategia_indicador OWNER TO programacaolocal;
+
+--
+-- TOC entry 1564 (class 1259 OID 17295)
+-- Dependencies: 1884 1885 1886 6
+-- Name: tb_estrategia_plano_familiar; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE TABLE tb_estrategia_plano_familiar (
+    id_estrategia_prontuario integer DEFAULT nextval('seq_estrategia_prontuario'::regclass) NOT NULL,
+    id_estrategia integer NOT NULL,
+    id_plano_familiar integer NOT NULL,
+    CONSTRAINT estrategias_prontuarios_estrategia_id_check CHECK ((id_estrategia >= 0)),
+    CONSTRAINT estrategias_prontuarios_prontuario_id_check CHECK ((id_plano_familiar >= 0))
+);
+
+
+ALTER TABLE public.tb_estrategia_plano_familiar OWNER TO programacaolocal;
+
+--
+-- TOC entry 1567 (class 1259 OID 17309)
+-- Dependencies: 1887 1888 6
+-- Name: tb_indicador; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE TABLE tb_indicador (
+    id_indicador integer DEFAULT nextval('seq_indicador'::regclass) NOT NULL,
+    id_dimensao_idf integer NOT NULL,
+    cod_indicador character varying(5) NOT NULL,
+    desc_indicador character varying(255) NOT NULL,
+    desc_label_indicador character varying(255) NOT NULL,
+    cod_coluna_indicador character varying(3) NOT NULL,
+    CONSTRAINT indicadores_dimensao_id_check CHECK ((id_dimensao_idf >= 0))
+);
+
+
+ALTER TABLE public.tb_indicador OWNER TO programacaolocal;
+
+--
+-- TOC entry 1569 (class 1259 OID 17319)
+-- Dependencies: 1889 1890 1891 6
+-- Name: tb_indicador_plano_familiar; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE TABLE tb_indicador_plano_familiar (
+    id integer DEFAULT nextval('seq_indicador_prontuario'::regclass) NOT NULL,
+    indicador_id integer NOT NULL,
+    plano_familiar_id integer NOT NULL,
+    CONSTRAINT indicadores_prontuarios_indicador_id_check CHECK ((indicador_id >= 0)),
+    CONSTRAINT indicadores_prontuarios_prontuario_id_check CHECK ((plano_familiar_id >= 0))
+);
+
+
+ALTER TABLE public.tb_indicador_plano_familiar OWNER TO programacaolocal;
+
+--
+-- TOC entry 1570 (class 1259 OID 17325)
+-- Dependencies: 6
+-- Name: tb_indice; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE TABLE tb_indice (
+    cod_domiciliar character varying(12) NOT NULL,
+    vlr_idf numeric(3,2),
+    vlr_dimensao_vulnerabilidade double precision,
+    vlr_componente_gestacao double precision,
+    vlr_indicador_v1 smallint,
+    vlr_indicador_v2 smallint,
+    vlr_componente_crianca double precision,
+    vlr_indicador_v3 smallint,
+    vlr_indicador_v4 smallint,
+    vlr_indicador_v5 smallint,
+    vlr_componente_idoso double precision,
+    vlr_indicador_v6 smallint,
+    vlr_indicador_v7 smallint,
+    vlr_componente_depedencia double precision,
+    vlr_indicador_v8 smallint,
+    vlr_indicador_v9 smallint,
+    vlr_dimensao_conhecimento double precision,
+    vlr_componente_analfabetismo double precision,
+    vlr_indicador_c1 smallint,
+    vlr_indicador_c2 smallint,
+    vlr_componente_escolaridade double precision,
+    vlr_indicador_c3 smallint,
+    vlr_indicador_c4 smallint,
+    vlr_indicador_c5 smallint,
+    vlr_dimensao_trabalho double precision,
+    vlr_componente_disponibilidade double precision,
+    vlr_indicador_t1 smallint,
+    vlr_componente_qualidade double precision,
+    vlr_indicador_t2 smallint,
+    vlr_indicador_t3 smallint,
+    vlr_componente_remuneracao double precision,
+    vlr_indicador_t4 smallint,
+    vlr_indicador_t5 smallint,
+    vlr_dimensao_recurso double precision,
+    vlr_componente_extrema_pobreza double precision,
+    vlr_indicador_r1 smallint,
+    vlr_indicador_r2 smallint,
+    vlr_indicador_r3 smallint,
+    vlr_componente_pobreza double precision,
+    vlr_indicador_r4 smallint,
+    vlr_indicador_r5 smallint,
+    vlr_componente_capacidade_geracao double precision,
+    vlr_indicador_r6 smallint,
+    vlr_dimensao_desenvolvimento double precision,
+    vlr_componente_trabalho_precoce double precision,
+    vlr_indicador_d1 smallint,
+    vlr_indicador_d2 smallint,
+    vlr_componente_acesso_escola double precision,
+    vlr_indicador_d3 smallint,
+    vlr_indicador_d4 smallint,
+    vlr_indicador_d5 smallint,
+    vlr_componente_progresso_escolar double precision,
+    vlr_indicador_d6 smallint,
+    vlr_indicador_d7 smallint,
+    vlr_indicador_d8 smallint,
+    vlr_dimensao_habitacao double precision,
+    vlr_componente_propriedade double precision,
+    vlr_indicador_h1 smallint,
+    vlr_indicador_h2 smallint,
+    vlr_componente_deficit double precision,
+    vlr_indicador_h3 smallint,
+    vlr_componente_abrigalidade double precision,
+    vlr_indicador_h4 smallint,
+    vlr_componente_acesso_agua double precision,
+    vlr_indicador_h5 smallint,
+    vlr_componente_acesso_escoamento double precision,
+    vlr_indicador_h6 smallint,
+    vlr_componente_acesso_coleta_lixo double precision,
+    vlr_indicador_h7 smallint,
+    vlr_componente_acesso_eletricidade double precision,
+    vlr_indicador_h8 smallint,
+    vlr_indicador_v10 smallint,
+    vlr_indicador_v11 smallint,
+    vlr_indicador_v12 smallint,
+    modified timestamp without time zone
+);
+
+
+ALTER TABLE public.tb_indice OWNER TO programacaolocal;
+
+--
+-- TOC entry 1573 (class 1259 OID 17336)
+-- Dependencies: 1892 6
+-- Name: tb_pagina; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE TABLE tb_pagina (
+    id_pagina integer DEFAULT nextval('seq_pagina'::regclass) NOT NULL,
+    nome_link character varying(30) NOT NULL,
+    desc_titulo character varying(60) NOT NULL,
+    desc_conteudo text NOT NULL,
+    created timestamp without time zone,
+    modified timestamp without time zone
+);
+
+
+ALTER TABLE public.tb_pagina OWNER TO programacaolocal;
+
+--
+-- TOC entry 1601 (class 1259 OID 17519)
+-- Dependencies: 1986 1987 6
+-- Name: tb_permissao; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
 CREATE TABLE tb_permissao (
@@ -1027,17 +786,143 @@ CREATE TABLE tb_permissao (
 );
 
 
-ALTER TABLE public.tb_permissao OWNER TO juniordias;
+ALTER TABLE public.tb_permissao OWNER TO programacaolocal;
 
 --
--- TOC entry 1617 (class 1259 OID 95448867)
--- Dependencies: 2011 6
--- Name: usuarios; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 1575 (class 1259 OID 17357)
+-- Dependencies: 1893 1894 1895 1896 1897 1898 1899 1900 1901 1902 1903 1904 1905 1906 1907 1908 1909 1910 1911 1912 1913 1914 1915 1916 1917 1918 1919 1920 1921 1922 1923 6
+-- Name: tb_pessoa; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
-CREATE TABLE usuarios (
-    id integer DEFAULT nextval('seq_usuario'::regclass) NOT NULL,
-    nome character varying(50) NOT NULL,
+CREATE TABLE tb_pessoa (
+    cod_nis character varying(15) NOT NULL,
+    nome character varying(100) NOT NULL,
+    cod_domiciliar character varying(12) DEFAULT NULL::character varying,
+    cpf character varying(14) DEFAULT NULL::character varying,
+    teleitor_num character varying(18) DEFAULT NULL::character varying,
+    teleitor_zona character varying(10) DEFAULT NULL::character varying,
+    teleitor_secao character varying(10) DEFAULT NULL::character varying,
+    desc_ocupacao character varying(30) DEFAULT NULL::character varying,
+    cod_inep character varying(12) DEFAULT NULL::character varying,
+    cod_nis_responsavel character varying(15) DEFAULT NULL::character varying,
+    tp_pararentesco_responsavel smallint,
+    vlr_remuneracao numeric(10,2) DEFAULT 0.00 NOT NULL,
+    vlr_aposentadoria numeric(10,2) DEFAULT 0.00 NOT NULL,
+    vlr_pensao numeric(10,2) DEFAULT 0.00 NOT NULL,
+    vlr_seguro_desemprego numeric(10,2) DEFAULT 0.00 NOT NULL,
+    vlr_beneficio numeric(10,2) DEFAULT 0.00 NOT NULL,
+    dt_nasc date,
+    serie_escolar smallint,
+    tp_trabalho smallint,
+    raca smallint,
+    sexo smallint,
+    est_civil smallint,
+    grau_instrucao smallint,
+    tp_escola smallint,
+    observacao text,
+    data_pesquisa date,
+    dt_inclusao date,
+    dt_atualizacao date,
+    nome_entrevistador character varying(60) DEFAULT NULL::character varying,
+    vlr_outra_renda numeric(10,2) DEFAULT 0.00,
+    qtd_mes_gestacao smallint,
+    amamentando smallint DEFAULT (0)::smallint NOT NULL,
+    cegueira smallint DEFAULT (0)::smallint NOT NULL,
+    surdez smallint DEFAULT (0)::smallint NOT NULL,
+    mudez smallint DEFAULT (0)::smallint NOT NULL,
+    deficiencia_mental smallint DEFAULT (0)::smallint NOT NULL,
+    deficiencia_fisica smallint DEFAULT (0)::smallint NOT NULL,
+    outra_deficiencia smallint DEFAULT (0)::smallint NOT NULL,
+    portador_deficiencia smallint DEFAULT (0)::smallint NOT NULL,
+    esposa_companheiro smallint DEFAULT (0)::smallint NOT NULL,
+    vlr_renda_total numeric(10,2) DEFAULT 0.00 NOT NULL,
+    CONSTRAINT pessoas_estado_civil_check CHECK ((est_civil >= 0)),
+    CONSTRAINT pessoas_grau_instrucao_check CHECK ((grau_instrucao >= 0)),
+    CONSTRAINT pessoas_raca_cor_check CHECK ((raca >= 0)),
+    CONSTRAINT pessoas_serie_escolar_check CHECK ((serie_escolar >= 0)),
+    CONSTRAINT pessoas_tipo_escola_check CHECK ((tp_escola >= 0)),
+    CONSTRAINT pessoas_tipo_trabalho_check CHECK ((tp_trabalho >= 0))
+);
+
+
+ALTER TABLE public.tb_pessoa OWNER TO programacaolocal;
+
+--
+-- TOC entry 1577 (class 1259 OID 17395)
+-- Dependencies: 1924 6
+-- Name: tb_pessoa_servico; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE TABLE tb_pessoa_servico (
+    id_pessoa_servico integer DEFAULT nextval('seq_pessoa_servico'::regclass) NOT NULL,
+    cod_nis_pessoa character varying(15) NOT NULL,
+    id_servico integer NOT NULL
+);
+
+
+ALTER TABLE public.tb_pessoa_servico OWNER TO programacaolocal;
+
+--
+-- TOC entry 1579 (class 1259 OID 17401)
+-- Dependencies: 1925 1926 6
+-- Name: tb_plano_familiar; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE TABLE tb_plano_familiar (
+    id_plano_familiar integer DEFAULT nextval('seq_prontuario'::regclass) NOT NULL,
+    cod_domiciliar character varying(12) NOT NULL,
+    num_plano_familiar integer NOT NULL,
+    id_usuario integer NOT NULL,
+    created timestamp without time zone NOT NULL,
+    CONSTRAINT prontuarios_numero_prontuario_check CHECK ((num_plano_familiar >= 0))
+);
+
+
+ALTER TABLE public.tb_plano_familiar OWNER TO programacaolocal;
+
+--
+-- TOC entry 1581 (class 1259 OID 17408)
+-- Dependencies: 1927 6
+-- Name: tb_regiao; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE TABLE tb_regiao (
+    id_regiao integer DEFAULT nextval('seq_regiao'::regclass) NOT NULL,
+    desc_regiao character varying(30) NOT NULL
+);
+
+
+ALTER TABLE public.tb_regiao OWNER TO programacaolocal;
+
+--
+-- TOC entry 1593 (class 1259 OID 17434)
+-- Dependencies: 1928 1929 1930 1931 1932 6
+-- Name: tb_servico; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE TABLE tb_servico (
+    id_servico integer DEFAULT nextval('seq_servico'::regclass) NOT NULL,
+    tp_servico smallint,
+    nome_servico character varying(60) DEFAULT NULL::character varying,
+    desc_servico character varying(200) DEFAULT NULL::character varying,
+    faixa_etaria character varying(60) DEFAULT NULL::character varying,
+    horario character varying(40) DEFAULT NULL::character varying,
+    vlr_per_capita double precision,
+    qtd_capacidade integer
+);
+
+
+ALTER TABLE public.tb_servico OWNER TO programacaolocal;
+
+--
+-- TOC entry 1602 (class 1259 OID 17524)
+-- Dependencies: 1988 6
+-- Name: tb_usuario; Type: TABLE; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE TABLE tb_usuario (
+    id_usuario integer DEFAULT nextval('seq_usuario'::regclass) NOT NULL,
+    nome_usuario character varying(50) NOT NULL,
     username character varying(20) NOT NULL,
     password character varying(64) NOT NULL,
     created timestamp without time zone,
@@ -1046,31 +931,12 @@ CREATE TABLE usuarios (
 );
 
 
-ALTER TABLE public.usuarios OWNER TO juniordias;
+ALTER TABLE public.tb_usuario OWNER TO programacaolocal;
 
 --
--- TOC entry 1618 (class 1259 OID 95448871)
--- Dependencies: 2012 2013 2014 6
--- Name: visitas; Type: TABLE; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE TABLE visitas (
-    id integer DEFAULT nextval('seq_visita'::regclass) NOT NULL,
-    usuario_id integer NOT NULL,
-    prontuario_id integer NOT NULL,
-    data date,
-    observacoes character varying(1024) DEFAULT NULL::character varying,
-    created timestamp without time zone,
-    CONSTRAINT visitas_prontuario_id_check CHECK ((prontuario_id >= 0))
-);
-
-
-ALTER TABLE public.visitas OWNER TO juniordias;
-
---
--- TOC entry 2100 (class 2606 OID 95448881)
--- Dependencies: 1615 1615
--- Name: acessos_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2039 (class 2606 OID 17538)
+-- Dependencies: 1595 1595
+-- Name: acessos_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
 ALTER TABLE ONLY tb_acesso
@@ -1078,209 +944,169 @@ ALTER TABLE ONLY tb_acesso
 
 
 --
--- TOC entry 2016 (class 2606 OID 95448883)
--- Dependencies: 1571 1571
--- Name: acoes_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2036 (class 2606 OID 17540)
+-- Dependencies: 1594 1594
+-- Name: acoes_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
-ALTER TABLE ONLY acoes
-    ADD CONSTRAINT acoes_pkey PRIMARY KEY (id);
-
-
---
--- TOC entry 2019 (class 2606 OID 95448885)
--- Dependencies: 1573 1573
--- Name: bairros_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
---
-
-ALTER TABLE ONLY bairros
-    ADD CONSTRAINT bairros_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY tb_acao
+    ADD CONSTRAINT acoes_pkey PRIMARY KEY (id_acao);
 
 
 --
--- TOC entry 2024 (class 2606 OID 95448887)
--- Dependencies: 1575 1575
--- Name: cras_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2042 (class 2606 OID 17542)
+-- Dependencies: 1596 1596
+-- Name: bairros_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
-ALTER TABLE ONLY cras
-    ADD CONSTRAINT cras_pkey PRIMARY KEY (id);
-
-
---
--- TOC entry 2027 (class 2606 OID 95448889)
--- Dependencies: 1577 1577 1577 1577
--- Name: cras_usuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
---
-
-ALTER TABLE ONLY cras_usuarios
-    ADD CONSTRAINT cras_usuarios_pkey PRIMARY KEY (id, cras_id, usuario_id);
+ALTER TABLE ONLY tb_bairro
+    ADD CONSTRAINT bairros_pkey PRIMARY KEY (id_bairro);
 
 
 --
--- TOC entry 2031 (class 2606 OID 95448891)
--- Dependencies: 1579 1579
--- Name: dimensoes_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
---
-
-ALTER TABLE ONLY dimensoes
-    ADD CONSTRAINT dimensoes_pkey PRIMARY KEY (id);
-
-
---
--- TOC entry 2033 (class 2606 OID 95448893)
--- Dependencies: 1580 1580
--- Name: domicilios_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
---
-
-ALTER TABLE ONLY domicilios
-    ADD CONSTRAINT domicilios_pkey PRIMARY KEY (codigo_domiciliar);
-
-
---
--- TOC entry 2044 (class 2606 OID 95448895)
--- Dependencies: 1584 1584 1584 1584
--- Name: estrategias_indicadores_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
---
-
-ALTER TABLE ONLY estrategias_indicadores
-    ADD CONSTRAINT estrategias_indicadores_pkey PRIMARY KEY (id, estrategia_id, indicador_id);
-
-
---
--- TOC entry 2040 (class 2606 OID 95448897)
--- Dependencies: 1582 1582
--- Name: estrategias_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
---
-
-ALTER TABLE ONLY estrategias
-    ADD CONSTRAINT estrategias_pkey PRIMARY KEY (id);
-
-
---
--- TOC entry 2047 (class 2606 OID 95448899)
--- Dependencies: 1586 1586 1586 1586
--- Name: estrategias_prontuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
---
-
-ALTER TABLE ONLY estrategias_prontuarios
-    ADD CONSTRAINT estrategias_prontuarios_pkey PRIMARY KEY (id, estrategia_id, prontuario_id);
-
-
---
--- TOC entry 2053 (class 2606 OID 95448901)
--- Dependencies: 1588 1588
--- Name: faixas_etarias_pk; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
---
-
-ALTER TABLE ONLY faixas_etarias
-    ADD CONSTRAINT faixas_etarias_pk PRIMARY KEY (id);
-
-
---
--- TOC entry 2055 (class 2606 OID 95448903)
--- Dependencies: 1590 1590
--- Name: indicadores_coluna_key; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
---
-
-ALTER TABLE ONLY indicadores
-    ADD CONSTRAINT indicadores_coluna_key UNIQUE (coluna);
-
-
---
--- TOC entry 2058 (class 2606 OID 95448905)
--- Dependencies: 1590 1590
--- Name: indicadores_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
---
-
-ALTER TABLE ONLY indicadores
-    ADD CONSTRAINT indicadores_pkey PRIMARY KEY (id);
-
-
---
--- TOC entry 2061 (class 2606 OID 95448907)
--- Dependencies: 1592 1592 1592 1592
--- Name: indicadores_prontuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
---
-
-ALTER TABLE ONLY indicadores_prontuarios
-    ADD CONSTRAINT indicadores_prontuarios_pkey PRIMARY KEY (id, indicador_id, prontuario_id);
-
-
---
--- TOC entry 2069 (class 2606 OID 95448909)
--- Dependencies: 1595 1595
--- Name: indices_historicos_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
---
-
-ALTER TABLE ONLY indices_historicos
-    ADD CONSTRAINT indices_historicos_pkey PRIMARY KEY (id);
-
-
---
--- TOC entry 2066 (class 2606 OID 95448911)
--- Dependencies: 1593 1593
--- Name: indices_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
---
-
-ALTER TABLE ONLY indices
-    ADD CONSTRAINT indices_pkey PRIMARY KEY (codigo_domiciliar);
-
-
---
--- TOC entry 2071 (class 2606 OID 95448913)
+-- TOC entry 2047 (class 2606 OID 17544)
 -- Dependencies: 1597 1597
--- Name: pages_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
+-- Name: cras_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
-ALTER TABLE ONLY pages
-    ADD CONSTRAINT pages_pkey PRIMARY KEY (id);
-
-
---
--- TOC entry 2073 (class 2606 OID 95448915)
--- Dependencies: 1598 1598
--- Name: parametros_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
---
-
-ALTER TABLE ONLY parametros
-    ADD CONSTRAINT parametros_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY tb_cras
+    ADD CONSTRAINT cras_pkey PRIMARY KEY (id_cras);
 
 
 --
--- TOC entry 2076 (class 2606 OID 95448917)
--- Dependencies: 1600 1600 1600 1600
--- Name: parametros_usuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2050 (class 2606 OID 17546)
+-- Dependencies: 1598 1598 1598 1598
+-- Name: cras_usuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
-ALTER TABLE ONLY parametros_usuarios
-    ADD CONSTRAINT parametros_usuarios_pkey PRIMARY KEY (id, parametro_id, usuario_id);
+ALTER TABLE ONLY tb_cras_usuario
+    ADD CONSTRAINT cras_usuarios_pkey PRIMARY KEY (id_cras_usuario, id_cras, id_usuario);
 
 
 --
--- TOC entry 2085 (class 2606 OID 95448919)
+-- TOC entry 2054 (class 2606 OID 17548)
+-- Dependencies: 1599 1599
+-- Name: dimensoes_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_dimensao_idf
+    ADD CONSTRAINT dimensoes_pkey PRIMARY KEY (id_dimensao_idf);
+
+
+--
+-- TOC entry 2056 (class 2606 OID 17550)
+-- Dependencies: 1600 1600
+-- Name: domicilios_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_domicilio
+    ADD CONSTRAINT domicilios_pkey PRIMARY KEY (cod_domiciliar);
+
+
+--
+-- TOC entry 1994 (class 2606 OID 17552)
+-- Dependencies: 1562 1562 1562 1562
+-- Name: estrategias_indicadores_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_estrategia_indicador
+    ADD CONSTRAINT estrategias_indicadores_pkey PRIMARY KEY (id_estrategia_indicador, id_estrategia, id_indicador);
+
+
+--
+-- TOC entry 1990 (class 2606 OID 17554)
+-- Dependencies: 1560 1560
+-- Name: estrategias_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_estrategia
+    ADD CONSTRAINT estrategias_pkey PRIMARY KEY (id_estrategia);
+
+
+--
+-- TOC entry 1997 (class 2606 OID 17556)
+-- Dependencies: 1564 1564 1564 1564
+-- Name: estrategias_prontuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_estrategia_plano_familiar
+    ADD CONSTRAINT estrategias_prontuarios_pkey PRIMARY KEY (id_estrategia_prontuario, id_estrategia, id_plano_familiar);
+
+
+--
+-- TOC entry 2000 (class 2606 OID 17560)
+-- Dependencies: 1567 1567
+-- Name: indicadores_coluna_key; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_indicador
+    ADD CONSTRAINT indicadores_coluna_key UNIQUE (cod_coluna_indicador);
+
+
+--
+-- TOC entry 2003 (class 2606 OID 17562)
+-- Dependencies: 1567 1567
+-- Name: indicadores_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_indicador
+    ADD CONSTRAINT indicadores_pkey PRIMARY KEY (id_indicador);
+
+
+--
+-- TOC entry 2006 (class 2606 OID 17564)
+-- Dependencies: 1569 1569 1569 1569
+-- Name: indicadores_prontuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_indicador_plano_familiar
+    ADD CONSTRAINT indicadores_prontuarios_pkey PRIMARY KEY (id, indicador_id, plano_familiar_id);
+
+
+--
+-- TOC entry 2011 (class 2606 OID 17568)
+-- Dependencies: 1570 1570
+-- Name: indices_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_indice
+    ADD CONSTRAINT indices_pkey PRIMARY KEY (cod_domiciliar);
+
+
+--
+-- TOC entry 2013 (class 2606 OID 17570)
+-- Dependencies: 1573 1573
+-- Name: pages_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_pagina
+    ADD CONSTRAINT pages_pkey PRIMARY KEY (id_pagina);
+
+
+--
+-- TOC entry 2021 (class 2606 OID 17576)
+-- Dependencies: 1575 1575
+-- Name: pessoas_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_pessoa
+    ADD CONSTRAINT pessoas_pkey PRIMARY KEY (cod_nis);
+
+
+--
+-- TOC entry 2025 (class 2606 OID 17578)
+-- Dependencies: 1577 1577 1577 1577
+-- Name: pessoas_servicos_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_pessoa_servico
+    ADD CONSTRAINT pessoas_servicos_pkey PRIMARY KEY (id_pessoa_servico, cod_nis_pessoa, id_servico);
+
+
+--
+-- TOC entry 2063 (class 2606 OID 17580)
 -- Dependencies: 1601 1601
--- Name: pessoas_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
---
-
-ALTER TABLE ONLY pessoas
-    ADD CONSTRAINT pessoas_pkey PRIMARY KEY (nis);
-
-
---
--- TOC entry 2089 (class 2606 OID 95448921)
--- Dependencies: 1603 1603 1603 1603
--- Name: pessoas_servicos_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
---
-
-ALTER TABLE ONLY pessoas_servicos
-    ADD CONSTRAINT pessoas_servicos_pkey PRIMARY KEY (id, pessoa_nis, servico_id);
-
-
---
--- TOC entry 2103 (class 2606 OID 95448923)
--- Dependencies: 1616 1616
--- Name: pk_permissao; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
+-- Name: pk_permissao; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
 ALTER TABLE ONLY tb_permissao
@@ -1288,588 +1114,626 @@ ALTER TABLE ONLY tb_permissao
 
 
 --
--- TOC entry 2093 (class 2606 OID 95448925)
--- Dependencies: 1605 1605
--- Name: prontuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2029 (class 2606 OID 17582)
+-- Dependencies: 1579 1579
+-- Name: prontuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
-ALTER TABLE ONLY prontuarios
-    ADD CONSTRAINT prontuarios_pkey PRIMARY KEY (id);
-
-
---
--- TOC entry 2096 (class 2606 OID 95448927)
--- Dependencies: 1607 1607
--- Name: regioes_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
---
-
-ALTER TABLE ONLY regioes
-    ADD CONSTRAINT regioes_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY tb_plano_familiar
+    ADD CONSTRAINT prontuarios_pkey PRIMARY KEY (id_plano_familiar);
 
 
 --
--- TOC entry 2098 (class 2606 OID 95448929)
--- Dependencies: 1614 1614
--- Name: servicos_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2032 (class 2606 OID 17584)
+-- Dependencies: 1581 1581
+-- Name: regioes_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
-ALTER TABLE ONLY servicos
-    ADD CONSTRAINT servicos_pkey PRIMARY KEY (id);
-
-
---
--- TOC entry 2105 (class 2606 OID 95448931)
--- Dependencies: 1617 1617
--- Name: usuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
---
-
-ALTER TABLE ONLY usuarios
-    ADD CONSTRAINT usuarios_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY tb_regiao
+    ADD CONSTRAINT regioes_pkey PRIMARY KEY (id_regiao);
 
 
 --
--- TOC entry 2107 (class 2606 OID 95448933)
--- Dependencies: 1617 1617
--- Name: usuarios_username_key; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2034 (class 2606 OID 17586)
+-- Dependencies: 1593 1593
+-- Name: servicos_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
-ALTER TABLE ONLY usuarios
+ALTER TABLE ONLY tb_servico
+    ADD CONSTRAINT servicos_pkey PRIMARY KEY (id_servico);
+
+
+--
+-- TOC entry 2065 (class 2606 OID 17588)
+-- Dependencies: 1602 1602
+-- Name: usuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_usuario
+    ADD CONSTRAINT usuarios_pkey PRIMARY KEY (id_usuario);
+
+
+--
+-- TOC entry 2067 (class 2606 OID 17590)
+-- Dependencies: 1602 1602
+-- Name: usuarios_username_key; Type: CONSTRAINT; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_usuario
     ADD CONSTRAINT usuarios_username_key UNIQUE (username);
 
 
 --
--- TOC entry 2109 (class 2606 OID 95448935)
--- Dependencies: 1618 1618
--- Name: visitas_pkey; Type: CONSTRAINT; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2045 (class 1259 OID 17593)
+-- Dependencies: 1597
+-- Name: cras_bairro_id_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
-ALTER TABLE ONLY visitas
-    ADD CONSTRAINT visitas_pkey PRIMARY KEY (id);
+CREATE INDEX cras_bairro_id_idx ON tb_cras USING btree (id_bairro);
 
 
 --
--- TOC entry 2022 (class 1259 OID 95448940)
+-- TOC entry 2048 (class 1259 OID 17594)
+-- Dependencies: 1597
+-- Name: cras_regiao_id_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX cras_regiao_id_idx ON tb_cras USING btree (id_regiao);
+
+
+--
+-- TOC entry 2057 (class 1259 OID 17595)
+-- Dependencies: 1600
+-- Name: domicilios_regiao_id_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX domicilios_regiao_id_idx ON tb_domicilio USING btree (id_regiao);
+
+
+--
+-- TOC entry 1991 (class 1259 OID 17596)
+-- Dependencies: 1562
+-- Name: estrategias_indicadores_estrategia_id_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX estrategias_indicadores_estrategia_id_idx ON tb_estrategia_indicador USING btree (id_estrategia);
+
+
+--
+-- TOC entry 1992 (class 1259 OID 17597)
+-- Dependencies: 1562
+-- Name: estrategias_indicadores_indicador_id_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX estrategias_indicadores_indicador_id_idx ON tb_estrategia_indicador USING btree (id_indicador);
+
+
+--
+-- TOC entry 1995 (class 1259 OID 17598)
+-- Dependencies: 1564
+-- Name: estrategias_prontuarios_estrategia_id_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX estrategias_prontuarios_estrategia_id_idx ON tb_estrategia_plano_familiar USING btree (id_estrategia);
+
+
+--
+-- TOC entry 1998 (class 1259 OID 17599)
+-- Dependencies: 1564
+-- Name: estrategias_prontuarios_prontuario_id_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX estrategias_prontuarios_prontuario_id_idx ON tb_estrategia_plano_familiar USING btree (id_plano_familiar);
+
+
+--
+-- TOC entry 2043 (class 1259 OID 17603)
+-- Dependencies: 1596
+-- Name: fki_cras; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX fki_cras ON tb_bairro USING btree (id_cras);
+
+
+--
+-- TOC entry 2051 (class 1259 OID 17604)
+-- Dependencies: 1598
+-- Name: fki_cras2; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX fki_cras2 ON tb_cras_usuario USING btree (id_cras);
+
+
+--
+-- TOC entry 2058 (class 1259 OID 17605)
+-- Dependencies: 1600
+-- Name: fki_domicilios_bairro; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX fki_domicilios_bairro ON tb_domicilio USING btree (id_bairro);
+
+
+--
+-- TOC entry 2059 (class 1259 OID 17606)
+-- Dependencies: 1600
+-- Name: fki_domicilios_cras; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX fki_domicilios_cras ON tb_domicilio USING btree (id_cras);
+
+
+--
+-- TOC entry 2060 (class 1259 OID 17607)
+-- Dependencies: 1600
+-- Name: fki_domicilios_regiao; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX fki_domicilios_regiao ON tb_domicilio USING btree (id_regiao);
+
+
+--
+-- TOC entry 2061 (class 1259 OID 17608)
+-- Dependencies: 1600
+-- Name: fki_domicilios_responsavel; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX fki_domicilios_responsavel ON tb_domicilio USING btree (cod_nis_responsavel);
+
+
+--
+-- TOC entry 2037 (class 1259 OID 17609)
+-- Dependencies: 1594
+-- Name: fki_estrategia; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX fki_estrategia ON tb_acao USING btree (id_estrategia);
+
+
+--
+-- TOC entry 2014 (class 1259 OID 17610)
 -- Dependencies: 1575
--- Name: cras_bairro_id_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- Name: fki_pessoas_domicilios; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
-CREATE INDEX cras_bairro_id_idx ON cras USING btree (bairro_id);
+CREATE INDEX fki_pessoas_domicilios ON tb_pessoa USING btree (cod_domiciliar);
 
 
 --
--- TOC entry 2025 (class 1259 OID 95448941)
+-- TOC entry 2015 (class 1259 OID 17611)
 -- Dependencies: 1575
--- Name: cras_regiao_id_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- Name: fki_pessoas_responsavel; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
-CREATE INDEX cras_regiao_id_idx ON cras USING btree (regiao_id);
-
-
---
--- TOC entry 2034 (class 1259 OID 95448944)
--- Dependencies: 1580
--- Name: domicilios_regiao_id_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE INDEX domicilios_regiao_id_idx ON domicilios USING btree (regiao_id);
+CREATE INDEX fki_pessoas_responsavel ON tb_pessoa USING btree (cod_nis);
 
 
 --
--- TOC entry 2041 (class 1259 OID 95448945)
--- Dependencies: 1584
--- Name: estrategias_indicadores_estrategia_id_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2044 (class 1259 OID 17612)
+-- Dependencies: 1596
+-- Name: fki_regiao; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
-CREATE INDEX estrategias_indicadores_estrategia_id_idx ON estrategias_indicadores USING btree (estrategia_id);
-
-
---
--- TOC entry 2042 (class 1259 OID 95448946)
--- Dependencies: 1584
--- Name: estrategias_indicadores_indicador_id_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE INDEX estrategias_indicadores_indicador_id_idx ON estrategias_indicadores USING btree (indicador_id);
+CREATE INDEX fki_regiao ON tb_bairro USING btree (id_regiao);
 
 
 --
--- TOC entry 2045 (class 1259 OID 95448947)
--- Dependencies: 1586
--- Name: estrategias_prontuarios_estrategia_id_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE INDEX estrategias_prontuarios_estrategia_id_idx ON estrategias_prontuarios USING btree (estrategia_id);
-
-
---
--- TOC entry 2048 (class 1259 OID 95448948)
--- Dependencies: 1586
--- Name: estrategias_prontuarios_prontuario_id_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE INDEX estrategias_prontuarios_prontuario_id_idx ON estrategias_prontuarios USING btree (prontuario_id);
-
-
---
--- TOC entry 2049 (class 1259 OID 95448949)
--- Dependencies: 1588
--- Name: faixas_etarias_descricao_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE INDEX faixas_etarias_descricao_idx ON faixas_etarias USING btree (descricao);
-
-
---
--- TOC entry 2050 (class 1259 OID 95448950)
--- Dependencies: 1588
--- Name: faixas_etarias_faixa_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE INDEX faixas_etarias_faixa_idx ON faixas_etarias USING btree (faixa);
-
-
---
--- TOC entry 2051 (class 1259 OID 95448951)
--- Dependencies: 1588
--- Name: faixas_etarias_idade_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE INDEX faixas_etarias_idade_idx ON faixas_etarias USING btree (idade);
-
-
---
--- TOC entry 2020 (class 1259 OID 95628866)
--- Dependencies: 1573
--- Name: fki_cras; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE INDEX fki_cras ON bairros USING btree (cras_id);
-
-
---
--- TOC entry 2028 (class 1259 OID 95628887)
--- Dependencies: 1577
--- Name: fki_cras2; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE INDEX fki_cras2 ON cras_usuarios USING btree (cras_id);
-
-
---
--- TOC entry 2035 (class 1259 OID 95448952)
--- Dependencies: 1580
--- Name: fki_domicilios_bairro; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE INDEX fki_domicilios_bairro ON domicilios USING btree (bairro_id);
-
-
---
--- TOC entry 2036 (class 1259 OID 95448953)
--- Dependencies: 1580
--- Name: fki_domicilios_cras; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE INDEX fki_domicilios_cras ON domicilios USING btree (cras_id);
-
-
---
--- TOC entry 2037 (class 1259 OID 95448954)
--- Dependencies: 1580
--- Name: fki_domicilios_regiao; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE INDEX fki_domicilios_regiao ON domicilios USING btree (regiao_id);
-
-
---
--- TOC entry 2038 (class 1259 OID 95448955)
--- Dependencies: 1580
--- Name: fki_domicilios_responsavel; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE INDEX fki_domicilios_responsavel ON domicilios USING btree (nis_responsavel);
-
-
---
--- TOC entry 2017 (class 1259 OID 95628854)
--- Dependencies: 1571
--- Name: fki_estrategia; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE INDEX fki_estrategia ON acoes USING btree (estrategia_id);
-
-
---
--- TOC entry 2078 (class 1259 OID 95448956)
--- Dependencies: 1601
--- Name: fki_pessoas_domicilios; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE INDEX fki_pessoas_domicilios ON pessoas USING btree (codigo_domiciliar);
-
-
---
--- TOC entry 2079 (class 1259 OID 95448957)
--- Dependencies: 1601
--- Name: fki_pessoas_responsavel; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE INDEX fki_pessoas_responsavel ON pessoas USING btree (nis);
-
-
---
--- TOC entry 2021 (class 1259 OID 95628860)
--- Dependencies: 1573
--- Name: fki_regiao; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
---
-
-CREATE INDEX fki_regiao ON bairros USING btree (regiao_id);
-
-
---
--- TOC entry 2101 (class 1259 OID 95628848)
--- Dependencies: 1615
--- Name: fki_usuario; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2040 (class 1259 OID 17613)
+-- Dependencies: 1595
+-- Name: fki_usuario; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
 CREATE INDEX fki_usuario ON tb_acesso USING btree (id_usuario);
 
 
 --
--- TOC entry 2029 (class 1259 OID 95628916)
+-- TOC entry 2052 (class 1259 OID 17614)
+-- Dependencies: 1598
+-- Name: fki_usuario2; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX fki_usuario2 ON tb_cras_usuario USING btree (id_usuario);
+
+
+--
+-- TOC entry 2001 (class 1259 OID 17615)
+-- Dependencies: 1567
+-- Name: indicadores_dimensao_id_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX indicadores_dimensao_id_idx ON tb_indicador USING btree (id_dimensao_idf);
+
+
+--
+-- TOC entry 2004 (class 1259 OID 17616)
+-- Dependencies: 1569
+-- Name: indicadores_prontuarios_indicador_id_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX indicadores_prontuarios_indicador_id_idx ON tb_indicador_plano_familiar USING btree (indicador_id);
+
+
+--
+-- TOC entry 2007 (class 1259 OID 17617)
+-- Dependencies: 1569
+-- Name: indicadores_prontuarios_prontuario_id_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX indicadores_prontuarios_prontuario_id_idx ON tb_indicador_plano_familiar USING btree (plano_familiar_id);
+
+
+--
+-- TOC entry 2008 (class 1259 OID 17619)
+-- Dependencies: 1570
+-- Name: indices_idf_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX indices_idf_idx ON tb_indice USING btree (vlr_idf);
+
+
+--
+-- TOC entry 2009 (class 1259 OID 17620)
+-- Dependencies: 1570
+-- Name: indices_modified_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX indices_modified_idx ON tb_indice USING btree (modified);
+
+
+--
+-- TOC entry 2016 (class 1259 OID 17623)
+-- Dependencies: 1575
+-- Name: pessoas_codigo_domiciliar_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX pessoas_codigo_domiciliar_idx ON tb_pessoa USING btree (cod_domiciliar);
+
+
+--
+-- TOC entry 2017 (class 1259 OID 17624)
+-- Dependencies: 1575
+-- Name: pessoas_data_nascimento_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX pessoas_data_nascimento_idx ON tb_pessoa USING btree (dt_nasc);
+
+
+--
+-- TOC entry 2018 (class 1259 OID 17625)
+-- Dependencies: 1575
+-- Name: pessoas_genero_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX pessoas_genero_idx ON tb_pessoa USING btree (sexo);
+
+
+--
+-- TOC entry 2019 (class 1259 OID 17626)
+-- Dependencies: 1575
+-- Name: pessoas_grau_instrucao_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX pessoas_grau_instrucao_idx ON tb_pessoa USING btree (grau_instrucao);
+
+
+--
+-- TOC entry 2022 (class 1259 OID 17627)
+-- Dependencies: 1575
+-- Name: pessoas_responsavel_nis_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+--
+
+CREATE INDEX pessoas_responsavel_nis_idx ON tb_pessoa USING btree (cod_nis_responsavel);
+
+
+--
+-- TOC entry 2023 (class 1259 OID 17628)
 -- Dependencies: 1577
--- Name: fki_usuario2; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- Name: pessoas_servicos_pessoa_nis_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
-CREATE INDEX fki_usuario2 ON cras_usuarios USING btree (usuario_id);
+CREATE INDEX pessoas_servicos_pessoa_nis_idx ON tb_pessoa_servico USING btree (cod_nis_pessoa);
 
 
 --
--- TOC entry 2056 (class 1259 OID 95448958)
--- Dependencies: 1590
--- Name: indicadores_dimensao_id_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2026 (class 1259 OID 17629)
+-- Dependencies: 1577
+-- Name: pessoas_servicos_servico_id_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
-CREATE INDEX indicadores_dimensao_id_idx ON indicadores USING btree (dimensao_id);
+CREATE INDEX pessoas_servicos_servico_id_idx ON tb_pessoa_servico USING btree (id_servico);
 
 
 --
--- TOC entry 2059 (class 1259 OID 95448959)
--- Dependencies: 1592
--- Name: indicadores_prontuarios_indicador_id_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2027 (class 1259 OID 17630)
+-- Dependencies: 1579
+-- Name: prontuarios_codigo_domiciliar_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
-CREATE INDEX indicadores_prontuarios_indicador_id_idx ON indicadores_prontuarios USING btree (indicador_id);
+CREATE INDEX prontuarios_codigo_domiciliar_idx ON tb_plano_familiar USING btree (cod_domiciliar);
 
 
 --
--- TOC entry 2062 (class 1259 OID 95448960)
--- Dependencies: 1592
--- Name: indicadores_prontuarios_prontuario_id_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2030 (class 1259 OID 17631)
+-- Dependencies: 1579
+-- Name: prontuarios_usuario_id_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
-CREATE INDEX indicadores_prontuarios_prontuario_id_idx ON indicadores_prontuarios USING btree (prontuario_id);
+CREATE INDEX prontuarios_usuario_id_idx ON tb_plano_familiar USING btree (id_usuario);
 
 
 --
--- TOC entry 2067 (class 1259 OID 95448961)
--- Dependencies: 1595
--- Name: indices_historicos_codigo_domiciliar_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2086 (class 2606 OID 17634)
+-- Dependencies: 1597 1596 2041
+-- Name: fk_bairro; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-CREATE INDEX indices_historicos_codigo_domiciliar_idx ON indices_historicos USING btree (codigo_domiciliar);
+ALTER TABLE ONLY tb_cras
+    ADD CONSTRAINT fk_bairro FOREIGN KEY (id_bairro) REFERENCES tb_bairro(id_bairro);
 
 
 --
--- TOC entry 2063 (class 1259 OID 95448962)
--- Dependencies: 1593
--- Name: indices_idf_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2084 (class 2606 OID 17639)
+-- Dependencies: 1597 1596 2046
+-- Name: fk_cras; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-CREATE INDEX indices_idf_idx ON indices USING btree (idf);
+ALTER TABLE ONLY tb_bairro
+    ADD CONSTRAINT fk_cras FOREIGN KEY (id_cras) REFERENCES tb_cras(id_cras);
 
 
 --
--- TOC entry 2064 (class 1259 OID 95448963)
--- Dependencies: 1593
--- Name: indices_modified_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2088 (class 2606 OID 17644)
+-- Dependencies: 1598 2046 1597
+-- Name: fk_cras; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-CREATE INDEX indices_modified_idx ON indices USING btree (modified);
+ALTER TABLE ONLY tb_cras_usuario
+    ADD CONSTRAINT fk_cras FOREIGN KEY (id_cras) REFERENCES tb_cras(id_cras);
 
 
 --
--- TOC entry 2074 (class 1259 OID 95448964)
--- Dependencies: 1600
--- Name: parametros_usuarios_parametro_id_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2072 (class 2606 OID 17818)
+-- Dependencies: 1599 1567 2053
+-- Name: fk_dimensao; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-CREATE INDEX parametros_usuarios_parametro_id_idx ON parametros_usuarios USING btree (parametro_id);
+ALTER TABLE ONLY tb_indicador
+    ADD CONSTRAINT fk_dimensao FOREIGN KEY (id_dimensao_idf) REFERENCES tb_dimensao_idf(id_dimensao_idf);
 
 
 --
--- TOC entry 2077 (class 1259 OID 95448965)
--- Dependencies: 1600
--- Name: parametros_usuarios_usuario_id_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2080 (class 2606 OID 17778)
+-- Dependencies: 1600 1579 2055
+-- Name: fk_domicilio; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-CREATE INDEX parametros_usuarios_usuario_id_idx ON parametros_usuarios USING btree (usuario_id);
+ALTER TABLE ONLY tb_plano_familiar
+    ADD CONSTRAINT fk_domicilio FOREIGN KEY (cod_domiciliar) REFERENCES tb_domicilio(cod_domiciliar);
 
 
 --
--- TOC entry 2080 (class 1259 OID 95448966)
--- Dependencies: 1601
--- Name: pessoas_codigo_domiciliar_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2090 (class 2606 OID 17649)
+-- Dependencies: 1600 2041 1596
+-- Name: fk_domicilios_bairro; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-CREATE INDEX pessoas_codigo_domiciliar_idx ON pessoas USING btree (codigo_domiciliar);
+ALTER TABLE ONLY tb_domicilio
+    ADD CONSTRAINT fk_domicilios_bairro FOREIGN KEY (id_bairro) REFERENCES tb_bairro(id_bairro);
 
 
 --
--- TOC entry 2081 (class 1259 OID 95448967)
--- Dependencies: 1601
--- Name: pessoas_data_nascimento_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2091 (class 2606 OID 17654)
+-- Dependencies: 2046 1597 1600
+-- Name: fk_domicilios_cras; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-CREATE INDEX pessoas_data_nascimento_idx ON pessoas USING btree (data_nascimento);
+ALTER TABLE ONLY tb_domicilio
+    ADD CONSTRAINT fk_domicilios_cras FOREIGN KEY (id_cras) REFERENCES tb_cras(id_cras);
 
 
 --
--- TOC entry 2082 (class 1259 OID 95448968)
--- Dependencies: 1601
--- Name: pessoas_genero_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2092 (class 2606 OID 17659)
+-- Dependencies: 1581 2031 1600
+-- Name: fk_domicilios_regioes; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-CREATE INDEX pessoas_genero_idx ON pessoas USING btree (genero);
+ALTER TABLE ONLY tb_domicilio
+    ADD CONSTRAINT fk_domicilios_regioes FOREIGN KEY (id_regiao) REFERENCES tb_regiao(id_regiao);
 
 
 --
--- TOC entry 2083 (class 1259 OID 95448969)
--- Dependencies: 1601
--- Name: pessoas_grau_instrucao_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2093 (class 2606 OID 17664)
+-- Dependencies: 1600 2020 1575
+-- Name: fk_domicilios_responsavel; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-CREATE INDEX pessoas_grau_instrucao_idx ON pessoas USING btree (grau_instrucao);
+ALTER TABLE ONLY tb_domicilio
+    ADD CONSTRAINT fk_domicilios_responsavel FOREIGN KEY (cod_nis_responsavel) REFERENCES tb_pessoa(cod_nis);
 
 
 --
--- TOC entry 2086 (class 1259 OID 95448970)
--- Dependencies: 1601
--- Name: pessoas_responsavel_nis_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2082 (class 2606 OID 17669)
+-- Dependencies: 1594 1560 1989
+-- Name: fk_estrategia; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-CREATE INDEX pessoas_responsavel_nis_idx ON pessoas USING btree (responsavel_nis);
+ALTER TABLE ONLY tb_acao
+    ADD CONSTRAINT fk_estrategia FOREIGN KEY (id_estrategia) REFERENCES tb_estrategia(id_estrategia);
 
 
 --
--- TOC entry 2087 (class 1259 OID 95448971)
--- Dependencies: 1603
--- Name: pessoas_servicos_pessoa_nis_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2070 (class 2606 OID 17798)
+-- Dependencies: 1564 1989 1560
+-- Name: fk_estrategia; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-CREATE INDEX pessoas_servicos_pessoa_nis_idx ON pessoas_servicos USING btree (pessoa_nis);
+ALTER TABLE ONLY tb_estrategia_plano_familiar
+    ADD CONSTRAINT fk_estrategia FOREIGN KEY (id_estrategia) REFERENCES tb_estrategia(id_estrategia);
 
 
 --
--- TOC entry 2090 (class 1259 OID 95448972)
--- Dependencies: 1603
--- Name: pessoas_servicos_servico_id_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2068 (class 2606 OID 17808)
+-- Dependencies: 1560 1989 1562
+-- Name: fk_estrategia; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-CREATE INDEX pessoas_servicos_servico_id_idx ON pessoas_servicos USING btree (servico_id);
+ALTER TABLE ONLY tb_estrategia_indicador
+    ADD CONSTRAINT fk_estrategia FOREIGN KEY (id_estrategia) REFERENCES tb_estrategia(id_estrategia);
 
 
 --
--- TOC entry 2091 (class 1259 OID 95448973)
--- Dependencies: 1605
--- Name: prontuarios_codigo_domiciliar_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2073 (class 2606 OID 17788)
+-- Dependencies: 1567 1569 2002
+-- Name: fk_indicador; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-CREATE INDEX prontuarios_codigo_domiciliar_idx ON prontuarios USING btree (codigo_domiciliar);
+ALTER TABLE ONLY tb_indicador_plano_familiar
+    ADD CONSTRAINT fk_indicador FOREIGN KEY (indicador_id) REFERENCES tb_indicador(id_indicador);
 
 
 --
--- TOC entry 2094 (class 1259 OID 95448974)
--- Dependencies: 1605
--- Name: prontuarios_usuario_id_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2069 (class 2606 OID 17813)
+-- Dependencies: 1567 2002 1562
+-- Name: fk_indicador; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-CREATE INDEX prontuarios_usuario_id_idx ON prontuarios USING btree (usuario_id);
+ALTER TABLE ONLY tb_estrategia_indicador
+    ADD CONSTRAINT fk_indicador FOREIGN KEY (id_indicador) REFERENCES tb_indicador(id_indicador);
 
 
 --
--- TOC entry 2110 (class 1259 OID 95448975)
--- Dependencies: 1618
--- Name: visitas_prontuario_id_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2075 (class 2606 OID 17674)
+-- Dependencies: 1570 1600 2055
+-- Name: fk_indices_domicilios; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-CREATE INDEX visitas_prontuario_id_idx ON visitas USING btree (prontuario_id);
+ALTER TABLE ONLY tb_indice
+    ADD CONSTRAINT fk_indices_domicilios FOREIGN KEY (cod_domiciliar) REFERENCES tb_domicilio(cod_domiciliar);
 
 
 --
--- TOC entry 2111 (class 1259 OID 95448976)
--- Dependencies: 1618
--- Name: visitas_usuario_id_idx; Type: INDEX; Schema: public; Owner: juniordias; Tablespace: 
+-- TOC entry 2078 (class 2606 OID 17768)
+-- Dependencies: 1575 1577 2020
+-- Name: fk_pessoa; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-CREATE INDEX visitas_usuario_id_idx ON visitas USING btree (usuario_id);
+ALTER TABLE ONLY tb_pessoa_servico
+    ADD CONSTRAINT fk_pessoa FOREIGN KEY (cod_nis_pessoa) REFERENCES tb_pessoa(cod_nis);
 
 
 --
--- TOC entry 2114 (class 2606 OID 95628867)
--- Dependencies: 1575 1573 2018
--- Name: fk_bairro; Type: FK CONSTRAINT; Schema: public; Owner: juniordias
+-- TOC entry 2076 (class 2606 OID 17679)
+-- Dependencies: 1600 2055 1575
+-- Name: fk_pessoas_domicilios; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-ALTER TABLE ONLY cras
-    ADD CONSTRAINT fk_bairro FOREIGN KEY (bairro_id) REFERENCES bairros(id);
+ALTER TABLE ONLY tb_pessoa
+    ADD CONSTRAINT fk_pessoas_domicilios FOREIGN KEY (cod_domiciliar) REFERENCES tb_domicilio(cod_domiciliar);
 
 
 --
--- TOC entry 2116 (class 2606 OID 95628882)
--- Dependencies: 1577 2023 1575
--- Name: fk_cras; Type: FK CONSTRAINT; Schema: public; Owner: juniordias
+-- TOC entry 2077 (class 2606 OID 17684)
+-- Dependencies: 1575 1575 2020
+-- Name: fk_pessoas_responsavel; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-ALTER TABLE ONLY cras_usuarios
-    ADD CONSTRAINT fk_cras FOREIGN KEY (cras_id) REFERENCES cras(id);
+ALTER TABLE ONLY tb_pessoa
+    ADD CONSTRAINT fk_pessoas_responsavel FOREIGN KEY (cod_nis) REFERENCES tb_pessoa(cod_nis);
 
 
 --
--- TOC entry 2118 (class 2606 OID 95448977)
--- Dependencies: 1573 1580 2018
--- Name: fk_domicilios_bairro; Type: FK CONSTRAINT; Schema: public; Owner: juniordias
+-- TOC entry 2074 (class 2606 OID 17793)
+-- Dependencies: 1579 2028 1569
+-- Name: fk_plano_familiar; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-ALTER TABLE ONLY domicilios
-    ADD CONSTRAINT fk_domicilios_bairro FOREIGN KEY (bairro_id) REFERENCES bairros(id);
+ALTER TABLE ONLY tb_indicador_plano_familiar
+    ADD CONSTRAINT fk_plano_familiar FOREIGN KEY (plano_familiar_id) REFERENCES tb_plano_familiar(id_plano_familiar);
 
 
 --
--- TOC entry 2119 (class 2606 OID 95448982)
--- Dependencies: 1575 2023 1580
--- Name: fk_domicilios_cras; Type: FK CONSTRAINT; Schema: public; Owner: juniordias
+-- TOC entry 2071 (class 2606 OID 17803)
+-- Dependencies: 1564 2028 1579
+-- Name: fk_plano_familiar; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-ALTER TABLE ONLY domicilios
-    ADD CONSTRAINT fk_domicilios_cras FOREIGN KEY (cras_id) REFERENCES cras(id);
+ALTER TABLE ONLY tb_estrategia_plano_familiar
+    ADD CONSTRAINT fk_plano_familiar FOREIGN KEY (id_plano_familiar) REFERENCES tb_plano_familiar(id_plano_familiar);
 
 
 --
--- TOC entry 2120 (class 2606 OID 95448987)
--- Dependencies: 1607 2095 1580
--- Name: fk_domicilios_regioes; Type: FK CONSTRAINT; Schema: public; Owner: juniordias
+-- TOC entry 2085 (class 2606 OID 17689)
+-- Dependencies: 1581 2031 1596
+-- Name: fk_regiao; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-ALTER TABLE ONLY domicilios
-    ADD CONSTRAINT fk_domicilios_regioes FOREIGN KEY (regiao_id) REFERENCES regioes(id);
+ALTER TABLE ONLY tb_bairro
+    ADD CONSTRAINT fk_regiao FOREIGN KEY (id_regiao) REFERENCES tb_regiao(id_regiao);
 
 
 --
--- TOC entry 2121 (class 2606 OID 95448992)
--- Dependencies: 2084 1580 1601
--- Name: fk_domicilios_responsavel; Type: FK CONSTRAINT; Schema: public; Owner: juniordias
+-- TOC entry 2087 (class 2606 OID 17694)
+-- Dependencies: 1597 1581 2031
+-- Name: fk_regiao; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-ALTER TABLE ONLY domicilios
-    ADD CONSTRAINT fk_domicilios_responsavel FOREIGN KEY (nis_responsavel) REFERENCES pessoas(nis);
+ALTER TABLE ONLY tb_cras
+    ADD CONSTRAINT fk_regiao FOREIGN KEY (id_regiao) REFERENCES tb_regiao(id_regiao);
 
 
 --
--- TOC entry 2112 (class 2606 OID 95628849)
--- Dependencies: 1571 1582 2039
--- Name: fk_estrategia; Type: FK CONSTRAINT; Schema: public; Owner: juniordias
+-- TOC entry 2079 (class 2606 OID 17773)
+-- Dependencies: 2033 1593 1577
+-- Name: fk_servico; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-ALTER TABLE ONLY acoes
-    ADD CONSTRAINT fk_estrategia FOREIGN KEY (estrategia_id) REFERENCES estrategias(id);
+ALTER TABLE ONLY tb_pessoa_servico
+    ADD CONSTRAINT fk_servico FOREIGN KEY (id_servico) REFERENCES tb_servico(id_servico);
 
 
 --
--- TOC entry 2122 (class 2606 OID 95448997)
--- Dependencies: 1580 1593 2032
--- Name: fk_indices_domicilios; Type: FK CONSTRAINT; Schema: public; Owner: juniordias
---
-
-ALTER TABLE ONLY indices
-    ADD CONSTRAINT fk_indices_domicilios FOREIGN KEY (codigo_domiciliar) REFERENCES domicilios(codigo_domiciliar);
-
-
---
--- TOC entry 2123 (class 2606 OID 95449002)
--- Dependencies: 1601 1580 2032
--- Name: fk_pessoas_domicilios; Type: FK CONSTRAINT; Schema: public; Owner: juniordias
---
-
-ALTER TABLE ONLY pessoas
-    ADD CONSTRAINT fk_pessoas_domicilios FOREIGN KEY (codigo_domiciliar) REFERENCES domicilios(codigo_domiciliar);
-
-
---
--- TOC entry 2124 (class 2606 OID 95449007)
--- Dependencies: 1601 2084 1601
--- Name: fk_pessoas_responsavel; Type: FK CONSTRAINT; Schema: public; Owner: juniordias
---
-
-ALTER TABLE ONLY pessoas
-    ADD CONSTRAINT fk_pessoas_responsavel FOREIGN KEY (nis) REFERENCES pessoas(nis);
-
-
---
--- TOC entry 2113 (class 2606 OID 95628855)
--- Dependencies: 2095 1607 1573
--- Name: fk_regiao; Type: FK CONSTRAINT; Schema: public; Owner: juniordias
---
-
-ALTER TABLE ONLY bairros
-    ADD CONSTRAINT fk_regiao FOREIGN KEY (regiao_id) REFERENCES regioes(id);
-
-
---
--- TOC entry 2115 (class 2606 OID 95628872)
--- Dependencies: 1607 2095 1575
--- Name: fk_regiao; Type: FK CONSTRAINT; Schema: public; Owner: juniordias
---
-
-ALTER TABLE ONLY cras
-    ADD CONSTRAINT fk_regiao FOREIGN KEY (regiao_id) REFERENCES regioes(id);
-
-
---
--- TOC entry 2125 (class 2606 OID 95628843)
--- Dependencies: 1617 2104 1615
--- Name: fk_usuario; Type: FK CONSTRAINT; Schema: public; Owner: juniordias
+-- TOC entry 2083 (class 2606 OID 17699)
+-- Dependencies: 2064 1602 1595
+-- Name: fk_usuario; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
 ALTER TABLE ONLY tb_acesso
-    ADD CONSTRAINT fk_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios(id);
+    ADD CONSTRAINT fk_usuario FOREIGN KEY (id_usuario) REFERENCES tb_usuario(id_usuario);
 
 
 --
--- TOC entry 2117 (class 2606 OID 95628911)
--- Dependencies: 2104 1617 1577
--- Name: fk_usuario; Type: FK CONSTRAINT; Schema: public; Owner: juniordias
+-- TOC entry 2089 (class 2606 OID 17704)
+-- Dependencies: 1598 1602 2064
+-- Name: fk_usuario; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
 --
 
-ALTER TABLE ONLY cras_usuarios
-    ADD CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id);
+ALTER TABLE ONLY tb_cras_usuario
+    ADD CONSTRAINT fk_usuario FOREIGN KEY (id_usuario) REFERENCES tb_usuario(id_usuario);
 
 
 --
--- TOC entry 2129 (class 0 OID 0)
+-- TOC entry 2081 (class 2606 OID 17783)
+-- Dependencies: 1579 1602 2064
+-- Name: fk_usuario; Type: FK CONSTRAINT; Schema: public; Owner: programacaolocal
+--
+
+ALTER TABLE ONLY tb_plano_familiar
+    ADD CONSTRAINT fk_usuario FOREIGN KEY (id_usuario) REFERENCES tb_usuario(id_usuario);
+
+
+--
+-- TOC entry 2097 (class 0 OID 0)
 -- Dependencies: 6
--- Name: public; Type: ACL; Schema: -; Owner: juniordias
+-- Name: public; Type: ACL; Schema: -; Owner: programacaolocal
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM juniordias;
-GRANT ALL ON SCHEMA public TO juniordias;
+REVOKE ALL ON SCHEMA public FROM programacaolocal;
+GRANT ALL ON SCHEMA public TO programacaolocal;
 GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2012-10-03 02:15:28
+-- Completed on 2012-10-03 02:16:31
 
 --
 -- PostgreSQL database dump complete
