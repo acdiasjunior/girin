@@ -1,8 +1,12 @@
 <?php
 
-class IndicesHistorico extends AppModel {
+class IndicesHistorico extends AppModel
+{
 
     var $name = 'IndicesHistorico';
+    var $useTable = 'indice_historico';
+    var $tablePrefix = 'tb_';
+    var $primaryKey = 'id_indice_historico';
     var $belongsTo = array(
         'Indice' => array(
             'foreignKey' => 'cod_domiciliar',

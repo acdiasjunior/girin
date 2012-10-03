@@ -5,8 +5,7 @@ $data['page'] = $page;
 $data['total'] = $total;
 $data['rows'] = array();
 
-foreach($bairros as $bairro)
-{
+foreach ($bairros as $bairro) {
     $data['rows'][] = array(
         'id_bairro' => $bairro['Bairro']['id_bairro'],
         'cell' => array(

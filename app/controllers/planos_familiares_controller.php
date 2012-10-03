@@ -1,19 +1,22 @@
 <?php
 
-class ProntuariosController extends AppController {
+class PlanoFamiliaresController extends AppController
+{
 
-    var $name = 'Prontuarios';
+    var $name = 'PlanoFamiliares';
 
-    function index() {
+    function index()
+    {
         parent::temAcesso();
         $temAcessoExclusao = parent::temAcessoExclusao();
         $this->set(compact('temAcessoExclusao'));
     }
 
-    function lista() {
+    function lista()
+    {
         $this->layout = 'ajax';
 
-        $this->Prontuario->recursive = 2;
+        $this->PlanoFamiliar->recursive = 2;
 
         $conditions = array(
             'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
@@ -31,13 +34,14 @@ class ProntuariosController extends AppController {
             'conditions' => $conditions
         );
 
-        $prontuarios = $this->paginate('Prontuario');
+        $plano_familiares = $this->paginate('PlanoFamiliar');
         $page = $this->params['form']['page'];
-        $total = $this->Prontuario->find('count', array('conditions' => $conditions));
-        $this->set(compact('prontuarios', 'page', 'total'));
+        $total = $this->PlanoFamiliar->find('count', array('conditions' => $conditions));
+        $this->set(compact('plano_familiares', 'page', 'total'));
     }
 
-    function filtro() {
+    function filtro()
+    {
         $this->layout = 'ajax';
         $this->loadModel('Domicilio');
         $bairros = $this->Domicilio->Bairro->find('list', array('order' => 'Bairro.nome_bairro'));
@@ -46,11 +50,13 @@ class ProntuariosController extends AppController {
         $this->set(compact('bairros', 'cras', 'regioes'));
     }
 
-    function gerar() {
+    function gerar()
+    {
         parent::temAcesso();
     }
 
-    function gerarProntuario($cod_domiciliar = null) {
+    function gerarPlanoFamiliar($cod_domiciliar = null)
+    {
         parent::temAcesso();
         if ($cod_domiciliar == null)
             $this->redirect(array('action' => 'index'));
@@ -66,10 +72,10 @@ class ProntuariosController extends AppController {
         $indicadores = $this->Indicador->find('list');
 
         $this->data = array();
-        $this->data['Prontuario'] = array(
+        $this->data['PlanoFamiliar'] = array(
             'cod_domiciliar' => $cod_domiciliar,
-            'usuario_id' => $this->Session->read('Auth.Usuario.id'),
-            'numero_prontuario' => (int) $this->Prontuario->field('MAX(numero_prontuario)', array('cod_domiciliar' => $cod_domiciliar)) + 1,
+            'usuario_id' => $this->Session->read('Auth.Usuario.id_usuario'),
+            'numero_plano_familiar' => (int) $this->PlanoFamiliar->field('MAX(numero_plano_familiar)', array('cod_domiciliar' => $cod_domiciliar)) + 1,
         );
 
         foreach ($indices['Indice'] as $key => $value) {
@@ -86,40 +92,42 @@ class ProntuariosController extends AppController {
             'conditions' => array(
                 "indicador_id IN ('" . implode("','", array_keys($list)) . "')"
             ),
-                )
+            )
         );
 
         foreach ($estrategias as $estrategia) {
             $this->data['Estrategia']['Estrategia'][] = $estrategia[0]['estrategia_id'];
         }
 
-        if ($this->Prontuario->save($this->data)) {
-            $this->redirect(array('controller' => 'prontuarios', 'action' => 'gerarPDF', $this->Prontuario->id));
+        if ($this->PlanoFamiliar->save($this->data)) {
+            $this->redirect(array('controller' => 'plano_familiares', 'action' => 'gerarPDF', $this->PlanoFamiliar->id));
         } else {
             $this->Session->setFlash('Ocorreu um erro ao gravar o prontuário!');
-            $this->redirect(array('controller' => 'prontuarios', 'action' => 'index'));
+            $this->redirect(array('controller' => 'plano_familiares', 'action' => 'index'));
         }
     }
 
-    function exibirProntuario($id) {
+    function exibirPlanoFamiliar($id)
+    {
         parent::temAcesso();
         $this->layout = 'ajax';
-        $this->Prontuario->recursive = 2;
-        $this->data = $this->Prontuario->read();
+        $this->PlanoFamiliar->recursive = 2;
+        $this->data = $this->PlanoFamiliar->read();
         $this->loadModel('Estrategia');
         $total_estrategias = $this->Estrategia->find('count');
         $this->set(compact('total_estrategias'));
     }
 
-    function gerarPDF($id) {
+    function gerarPDF($id)
+    {
         $this->autoRender = false;
-        $cod_domiciliar = $this->Prontuario->field('cod_domiciliar');
-        $numero_prontuario = $this->Prontuario->field('numero_prontuario');
-        $html = $this->requestAction(array('controller' => 'prontuarios', 'action' => 'exibirProntuario'), array('return', 'pass' => array($id)));
+        $cod_domiciliar = $this->PlanoFamiliar->field('cod_domiciliar');
+        $numero_plano_familiar = $this->PlanoFamiliar->field('numero_plano_familiar');
+        $html = $this->requestAction(array('controller' => 'plano_familiares', 'action' => 'exibirPlanoFamiliar'), array('return', 'pass' => array($id)));
         App::import('Vendor', 'mpdf53/mpdf');
         $pdf = new mPDF('utf-8', 'A4-L', '', '', 15, 15, 25, 15, 10, 10);
         //The last parameters are all margin values in millimetres: left-margin, right-margin, top-margin, bottom-margin, header-margin, footer-margin.
-        $setFooter = $pdf->SetFooter("Prontuário no. " . str_pad($numero_prontuario, 4, "0", STR_PAD_LEFT) . "|Código Domiciliar: $cod_domiciliar|{PAGENO}");
+        $setFooter = $pdf->SetFooter("Prontuário no. " . str_pad($numero_plano_familiar, 4, "0", STR_PAD_LEFT) . "|Código Domiciliar: $cod_domiciliar|{PAGENO}");
         $setFooter = $pdf->SetHTMLHeader('<table cellspacing="0" cellpading="0" border="0" style="border: none; margin-bottom: 10mm;">
         <tr>
             <td style="border: none;">
@@ -134,12 +142,13 @@ class ProntuariosController extends AppController {
         </tr>
     </table>');
         $pdf->WriteHTML($html);
-        $pdf->Output('Prontuario_' . $cod_domiciliar . '_' . str_pad($numero_prontuario, 4, "0", STR_PAD_LEFT) . '.pdf', 'D');
+        $pdf->Output('PlanoFamiliar_' . $cod_domiciliar . '_' . str_pad($numero_plano_familiar, 4, "0", STR_PAD_LEFT) . '.pdf', 'D');
     }
 
-    private function crasUsuario() {
+    private function crasUsuario()
+    {
         $this->loadModel('Usuario');
-        $this->Usuario->id = $this->Session->read('Auth.Usuario.id');
+        $this->Usuario->id = $this->Session->read('Auth.Usuario.id_usuario');
         $cras_usuario = array();
 
         if ($this->Usuario->id == 1) {

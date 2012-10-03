@@ -63,15 +63,15 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             {display: 'Logradouro', name : 'Domicilio.end_logradouro', width : 190, sortable : true, align: 'left'},
             {display: 'Numero', name : 'Domicilio.end_num', width : 40, sortable : true, align: 'center'},
             {display: 'Bairro', name : 'Bairro.nome_bairro', width : 105, sortable : true, align: 'left'},
-            {display: 'IDF', name : 'Indice.vlr_idf', width : 30, sortable : true, align: 'center'},
+            {display: 'vlr_idf', name : 'Indice.vlr_idf', width : 30, sortable : true, align: 'center'},
             {display: 'Renda Familiar', name : 'Domicilio.vlr_renda_familiar', width : 70, sortable : true, align: 'center'},
             {display: 'Qtd.', name : 'Domicilio.qtd_pessoa', width : 20, sortable : true, align: 'center'},
             {display: 'Renda per Cap.', name : 'Domicilio.vlr_renda_per_capita', width : 70, sortable : true, align: 'center'}
         ],
         buttons : [
-            {name: 'Prontuario', bclass: 'prontuario', onpress : actions},
+            {name: 'PlanoFamiliar', bclass: 'plano_familiar', onpress : actions},
             {separator: true},
-            {name: 'Filtrar', bclass: 'prontuario', onpress : actions},
+            {name: 'Filtrar', bclass: 'plano_familiar', onpress : actions},
             {separator: true}
         ],
         sortname: 'Domicilio.cod_domiciliar',
@@ -105,9 +105,9 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         var nome = $('.trSelected', grid).find('td[abbr="Responsavel.nome"]').text();
         switch(com)
         {
-            case "Prontuario":
+            case "PlanoFamiliar":
                 if(id != '')
-                    $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'gerarProntuario')); ?>/' + id);
+                    $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'plano_familiares', 'action' => 'gerarPlanoFamiliar')); ?>/' + id);
                 else
                     alert('Selecione um registro primeiro!');
                 break;

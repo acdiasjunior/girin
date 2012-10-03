@@ -1,17 +1,19 @@
 <?php
 
-class AppController extends Controller {
+class AppController extends Controller
+{
 
     var $components = array('Session', 'Auth', 'RequestHandler');
     var $helpers = array('Javascript', 'Js', 'Session', 'Html', 'Form', 'Formatacao');
 
-    function temAcesso() {
+    function temAcesso()
+    {
         $this->loadModel('Permissao');
         $permissoes = $this->Permissao->find('first', array(
             'conditions' => array(
                 'Permissao.nome_controller' => $this->params['controller'],
                 'Permissao.nome_action' => $this->params['action'],
-                ))
+            ))
         );
         $id_grupo = $this->Session->read('Auth.Usuario.id_grupo');
         switch ($id_grupo) {
@@ -36,13 +38,14 @@ class AppController extends Controller {
         $this->redirect('/');
     }
 
-    function temAcessoEscrita() {
+    function temAcessoEscrita()
+    {
         $this->loadModel('Permissao');
         $permissoes = $this->Permissao->find('first', array(
             'conditions' => array(
                 'Permissao.nome_controller' => $this->params['controller'],
                 'Permissao.nome_action' => $this->params['action'],
-                ))
+            ))
         );
         $id_grupo = $this->Session->read('Auth.Usuario.id_grupo');
         switch ($id_grupo) {
@@ -65,13 +68,14 @@ class AppController extends Controller {
         return false;
     }
 
-    function temAcessoExclusao() {
+    function temAcessoExclusao()
+    {
         $this->loadModel('Permissao');
         $permissoes = $this->Permissao->find('first', array(
             'conditions' => array(
                 'Permissao.nome_controller' => $this->params['controller'],
                 'Permissao.nome_action' => 'excluir',
-                ))
+            ))
         );
         $id_grupo = $this->Session->read('Auth.Usuario.id_grupo');
         switch ($id_grupo) {
@@ -99,8 +103,9 @@ class AppController extends Controller {
      * @param $data Data a ser convertida
      * @param $formato Formato de entrada (1: d/m/Y, 2: Y-m-d)
      */
-    function converteData($data, $formato) {
-        if($formato == 1) {
+    function converteData($data, $formato)
+    {
+        if ($formato == 1) {
             list($dia, $mes, $ano) = explode('/', $data);
             return sprintf("%s-%s-%s", $ano, $mes, $dia);
         } else {
@@ -109,7 +114,8 @@ class AppController extends Controller {
         }
     }
 
-    function _populateLookups($models = array()) {
+    function _populateLookups($models = array())
+    {
         if (empty($models)) {
             $rootModel = $this->{$this->modelClass};
             foreach ($rootModel->belongsTo as $model => $attr) {
@@ -125,19 +131,21 @@ class AppController extends Controller {
         }
     }
 
-    function beforeRender() {
+    function beforeRender()
+    {
         $this->disableCache();
         switch ($this->action) {
             case 'cadastro';
                 $this->_populateLookups();
                 break;
         }
-        $this->loadModel('Page');
-        $paginas = $this->Page->find('all');
+        $this->loadModel('Pagina');
+        $paginas = $this->Pagina->find('all');
         $this->set('paginas', $paginas);
     }
 
-    function beforeFilter() {
+    function beforeFilter()
+    {
         Security::setHash('sha256'); // substitua pelo hash que está usando
         $this->Auth->userModel = 'Usuario'; // nome do seu modelo de usuario
         //$this->Auth->fields = array('username' => 'login', 'password' => 'senha'); // campos correspondentes a usuario e senha
@@ -150,13 +158,15 @@ class AppController extends Controller {
         $this->Auth->authError = "Área restrita, por favor faça o login."; // mensagem de acesso restrito
     }
 
-    function isAuthorized() {
+    function isAuthorized()
+    {
         return true;
     }
 
-    function isUploadedFile($file) {
+    function isUploadedFile($file)
+    {
         if ((isset($file['error']) && $file['error'] == 0) ||
-                (!empty($file['tmp_name']) && $file['tmp_name'] != 'none')) {
+            (!empty($file['tmp_name']) && $file['tmp_name'] != 'none')) {
             return is_uploaded_file($file['tmp_name']);
         }
         return false;

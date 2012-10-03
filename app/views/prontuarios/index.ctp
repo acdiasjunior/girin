@@ -4,31 +4,31 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
 
 $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] . '.flexigrid';
 ?>
-<table id="flex" style="display: none"></table> 
+<table id="flex" style="display: none"></table>
 <script type="text/javascript">
     $("#flex").flexigrid({
-        url: '<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'lista')); ?>',
+        url: '<?php echo $this->Html->url(array('controller' => 'plano_familiares', 'action' => 'lista')); ?>',
         dataType: 'json',
         colModel : [
-            {display: 'ID', name : 'Prontuario.id', width : 40, sortable : true, align: 'center'}, //, hide: true},
-            {display: 'Núm.', name : 'Prontuario.numero_prontuario', width : 60, sortable : true, align: 'center'},
+            {display: 'ID', name : 'PlanoFamiliar.id', width : 40, sortable : true, align: 'center'}, //, hide: true},
+            {display: 'Núm.', name : 'PlanoFamiliar.numero_plano_familiar', width : 60, sortable : true, align: 'center'},
             {display: 'Cód. Domiciliar', name : 'Domicilio.cod_domiciliar', width : 80, sortable : true, align: 'center'},
             {display: 'Cras', name : 'Cras.desc_cras', width : 160, sortable : true, align: 'left'},
-            {display: 'IDF', name : 'Indice.indice', width : 40, sortable : true, align: 'center'},
+            {display: 'vlr_idf', name : 'Indice.indice', width : 40, sortable : true, align: 'center'},
             {display: 'Usuário', name : 'Usuario.nome', width : 220, sortable : true, align: 'left'},
-            {display: 'Data', name : 'Prontuario.created', width : 110, sortable : true, align: 'center'}
+            {display: 'Data', name : 'PlanoFamiliar.created', width : 110, sortable : true, align: 'center'}
         ],
         buttons : [
             {name: 'Exibir', bclass: 'show', onpress : actions},
             {separator: true},
             {name: 'Gerar PDF', bclass: 'pdf', onpress : actions},
             {separator: true},
-			<?php
-			if($temAcessoExclusao) {
-				echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
-				echo " {separator: true}";
-			}
-			?>
+<?php
+if ($temAcessoExclusao) {
+    echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
+    echo " {separator: true}";
+}
+?>
         ],
         searchitems : [
             {display: 'Cód. Domiciliar', name : 'Domicilio.cod_domiciliar', isdefault: true},
@@ -56,37 +56,37 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         procmsg:'Processando, por favor aguarde ...',
         nomsg:'Nenhum item'
     });
-    
+
     $('#flex').dblclick( function(){
-        var id = $('.trSelected').find('td[abbr="Prontuario.id"]').text();
+        var id = $('.trSelected').find('td[abbr="PlanoFamiliar.id"]').text();
         if(id != '')
-            $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'exibirProntuario')); ?>/' + id);
+            $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'plano_familiares', 'action' => 'exibirPlanoFamiliar')); ?>/' + id);
     });
     //}).disableSelection();
-    
+
     function actions(com, grid) {
-        var id = $('.trSelected', grid).find('td[abbr="Prontuario.id"]').text();
+        var id = $('.trSelected', grid).find('td[abbr="PlanoFamiliar.id"]').text();
         var nome = $('.trSelected', grid).find('td[abbr="Usuario.nome"]').text();
         switch(com)
         {
             case "Exibir":
                 if(id != '')
-                    $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'exibirProntuario')); ?>/' + id);
+                    $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'plano_familiares', 'action' => 'exibirPlanoFamiliar')); ?>/' + id);
                 else
                     alert('Selecione um registro primeiro!');
                 break;
             case "Gerar PDF":
                 if(id != '')
-                    $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'gerarPDF')); ?>/' + id);
+                    $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'plano_familiares', 'action' => 'gerarPDF')); ?>/' + id);
                 else
                     alert('Selecione um registro primeiro!');
                 break;
-             default:
-                 break;
+            default:
+                break;
+            }
         }
-    }
-    
-    window.onbeforeunload = function() {
+
+        window.onbeforeunload = function() {
             $.ajax({
                 url: '<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'gravaParametros', 'flexigrid')) ?>',
                 type: 'POST',

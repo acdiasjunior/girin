@@ -1,12 +1,14 @@
 <?php
 
-class IndicesController extends AppController {
+class IndicesController extends AppController
+{
 
     var $name = 'Indices';
     var $helpers = array('Javascript', 'Js');
     var $components = array('RequestHandler');
 
-    function index() {
+    function index()
+    {
         parent::temAcesso();
         $joins = array(
             array('table' => 'tb_domicilio',
@@ -39,9 +41,9 @@ class IndicesController extends AppController {
             ),
         );
         $fields = array(
-            'AVG(Indice.idf) AS idf_media',
-            'MAX(Indice.idf) AS idf_max',
-            'MIN(Indice.idf) AS idf_min',
+            'AVG(Indice.vlr_idf) AS idf_media',
+            'MAX(Indice.vlr_idf) AS idf_max',
+            'MIN(Indice.vlr_idf) AS idf_min',
             'AVG(Indice.vulnerabilidade) AS vulnerabilidade',
             'AVG(Indice.conhecimento) AS conhecimento',
             'AVG(Indice.trabalho) AS trabalho',
@@ -53,7 +55,7 @@ class IndicesController extends AppController {
 
         foreach ($this->Indice->indicadores as $indicador)
             $fields[] = "AVG($indicador) AS $indicador";
-        
+
         $conditions = array(
             'Domicilio.qtd_pessoa != 0',
             'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
@@ -115,7 +117,8 @@ class IndicesController extends AppController {
         $this->set(compact('indices', 'totais'));
     }
 
-    function atualizarIndices($atualizar = null) {
+    function atualizarIndices($atualizar = null)
+    {
         $this->loadModel('Domicilio');
         $retorno['status'] = 1;
         switch ($atualizar) {
@@ -131,7 +134,7 @@ class IndicesController extends AppController {
                             'Indice.modified IS NULL',
                         )
                     )
-                        ));
+                    ));
                 break;
             case 'atualizar':
                 if (isset($this->params['form']['limit']))
@@ -155,7 +158,7 @@ class IndicesController extends AppController {
                         )
                     ),
                     'limit' => $limite,
-                        )
+                    )
                 );
 
                 foreach ($domicilios as $cod_domiciliar) {
@@ -184,13 +187,14 @@ class IndicesController extends AppController {
                         'Indice.modified IS NULL',
                     )
                 )
-                    ));
+                ));
             echo json_encode($retorno);
             die();
         }
     }
 
-    function beforeRender() {
+    function beforeRender()
+    {
         parent::beforeRender();
         $this->loadModel('Bairro');
         $this->loadModel('Cras');
@@ -201,16 +205,18 @@ class IndicesController extends AppController {
         $this->set(compact('bairros', 'cras', 'regioes'));
     }
 
-    function beforeFilter() {
+    function beforeFilter()
+    {
         // executa o beforeFilter do AppController
         parent::beforeFilter();
         // adicione ao método allow as actions que quer permitir sem o usuário estar logado
         $this->Auth->allow(array('atualizarIndices'));
     }
-    
-    private function crasUsuario() {
+
+    private function crasUsuario()
+    {
         $this->loadModel('Usuario');
-        $this->Usuario->id = $this->Session->read('Auth.Usuario.id');
+        $this->Usuario->id = $this->Session->read('Auth.Usuario.id_usuario');
         $cras_usuario = array();
 
         if ($this->Usuario->id == 1) {
@@ -225,5 +231,5 @@ class IndicesController extends AppController {
 
         return implode(',', $cras_usuario);
     }
-    
+
 }

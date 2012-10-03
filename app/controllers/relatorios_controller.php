@@ -1,18 +1,21 @@
 <?php
 
-class RelatoriosController extends AppController {
+class RelatoriosController extends AppController
+{
 
     var $name = 'Relatorios';
     var $uses = array('Pessoa', 'Domicilio', 'Indice');
     var $helpers = array('Javascript', 'Js');
     var $components = array('RequestHandler');
 
-    function index() {
+    function index()
+    {
         parent::temAcesso();
         $this->redirect(array('controller' => 'pages', 'action' => 'display'));
     }
 
-    function mapaIdfCsv() {
+    function mapaIdfCsv()
+    {
         parent::temAcesso();
         set_time_limit(0);
 
@@ -34,7 +37,7 @@ class RelatoriosController extends AppController {
         if ($fw != false) {
             $fr = fopen($file['tmp'], "r");
             if ($fr !== false) {
-                $linha = array('COD_DOMICILIAR', 'IDF', 'V1', 'V2', 'GEST_AMAM', 'V3', 'V4', 'V5', 'CRI_ADOL_JOV', 'V6', 'V7',
+                $linha = array('COD_DOMICILIAR', 'vlr_idf', 'V1', 'V2', 'GEST_AMAM', 'V3', 'V4', 'V5', 'CRI_ADOL_JOV', 'V6', 'V7',
                     'IDOSO_DEFI', 'V8', 'V9', 'DEP_ECONO', 'VULNERABILIDADE', 'C1', 'C2', 'ANALFABETO', 'C3', 'C4', 'C5', 'ESCOLARIDADE',
                     'CONHECIMENTO', 'T1', 'DISP_TRAB', 'T2', 'T3', 'QUALID_TRAB', 'T4', 'T5', 'REMUNERA', 'TRABALHO', 'R1', 'R2',
                     'R3', 'EXT_POB', 'R4', 'R5', 'POB', 'R6', 'CAP_GER_RENDA', 'DISPON_RECURSO', 'D1', 'D2', 'TRAB_PREC', 'D3',
@@ -80,7 +83,7 @@ class RelatoriosController extends AppController {
 
                         $linha = array();
                         $linha[] = $domicilio['Domicilio']['cod_domiciliar'];
-                        $linha[] = number_format($domicilio['Indice']['idf'], 5, ',', '.');
+                        $linha[] = number_format($domicilio['Indice']['vlr_idf'], 5, ',', '.');
                         $linha[] = $domicilio['Indice']['v1'];
                         $linha[] = $domicilio['Indice']['v2'];
                         $linha[] = number_format($domicilio['Indice']['gestacao'], 2, ',', '.');
@@ -184,7 +187,8 @@ class RelatoriosController extends AppController {
         }
     }
 
-    function trabalhoEmprego() {
+    function trabalhoEmprego()
+    {
         parent::temAcesso();
         $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."dt_nasc")))';
         $options = array(
@@ -244,12 +248,12 @@ class RelatoriosController extends AppController {
         foreach ($pessoas as $faixa) {
             if ($faixa[0]['idade'] < 65) {
                 $faixaEtaria[$this->faixaEtaria($faixa[0]['idade'])]
-                        [$faixa['Pessoa']['tp_trabalho']][$faixa[0]['idade']]
-                        = (int) $faixa[0]['total'];
+                    [$faixa['Pessoa']['tp_trabalho']][$faixa[0]['idade']]
+                    = (int) $faixa[0]['total'];
             } else {
                 $faixaEtaria[$this->faixaEtaria(65)]
-                        [$faixa['Pessoa']['tp_trabalho']][65]
-                        += (int) $faixa[0]['total'];
+                    [$faixa['Pessoa']['tp_trabalho']][65]
+                    += (int) $faixa[0]['total'];
             }
 
             if (isset($faixaEtaria[$faixa['Pessoa']['tp_trabalho']])) {
@@ -267,7 +271,8 @@ class RelatoriosController extends AppController {
         $this->set(compact('faixaEtaria', 'bairros', 'cras', 'regioes', 'domicilios'));
     }
 
-    function faixasEtarias() {
+    function faixasEtarias()
+    {
         parent::temAcesso();
         $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."dt_nasc")))';
         $options = array(
@@ -329,14 +334,14 @@ class RelatoriosController extends AppController {
             $faixaEtaria['total'] += $total;
             if ($faixa[0]['idade'] < 65) {
                 $faixaEtaria
-                        [$this->faixaEtaria($faixa[0]['idade'])]
-                        [$faixa['Pessoa']['SEXO']]
-                        [$faixa[0]['idade']] = $total;
+                    [$this->faixaEtaria($faixa[0]['idade'])]
+                    [$faixa['Pessoa']['SEXO']]
+                    [$faixa[0]['idade']] = $total;
             } else {
                 $faixaEtaria
-                        [$this->faixaEtaria(65)]
-                        [$faixa['Pessoa']['SEXO']]
-                        [65] += $total;
+                    [$this->faixaEtaria(65)]
+                    [$faixa['Pessoa']['SEXO']]
+                    [65] += $total;
             }
 
             //Totalizador por faixa etária
@@ -371,14 +376,15 @@ class RelatoriosController extends AppController {
 
         $bairros = $this->Domicilio->Bairro->find('list', array(
             'order' => 'Bairro.nome_bairro'
-                ));
+            ));
         $cras = $this->Domicilio->Cras->find('list');
         $regioes = $this->Domicilio->Regiao->find('list');
 
         $this->set(compact('faixaEtaria', 'bairros', 'cras', 'regioes'));
     }
 
-    function valorRenda() {
+    function valorRenda()
+    {
         parent::temAcesso();
         $idade = '(SELECT EXTRACT(year from AGE(NOW(), "Pessoa"."dt_nasc")))';
         $options = array(
@@ -445,14 +451,14 @@ class RelatoriosController extends AppController {
             $valorRenda['total'] += (int) $renda[0]['total'];
             if ($renda[0]['idade'] < 65) {
                 $valorRenda
-                        [$this->faixaEtaria($renda[0]['idade'])]
-                        [$renda[0]['remuneracao']]
-                        [$renda[0]['idade']] = (int) $renda[0]['total'];
+                    [$this->faixaEtaria($renda[0]['idade'])]
+                    [$renda[0]['remuneracao']]
+                    [$renda[0]['idade']] = (int) $renda[0]['total'];
             } else {
                 $valorRenda
-                        [$this->faixaEtaria(65)]
-                        [$renda[0]['remuneracao']]
-                        [65] += (int) $renda[0]['total'];
+                    [$this->faixaEtaria(65)]
+                    [$renda[0]['remuneracao']]
+                    [65] += (int) $renda[0]['total'];
             }
 
             if (isset($valorRenda[$renda[0]['remuneracao']])) {
@@ -466,14 +472,15 @@ class RelatoriosController extends AppController {
 
         $bairros = $this->Domicilio->Bairro->find('list', array(
             'order' => 'Bairro.nome_bairro'
-                ));
+            ));
         $cras = $this->Domicilio->Cras->find('list');
         $regioes = $this->Domicilio->Regiao->find('list');
 
         $this->set(compact('valorRenda', 'bairros', 'cras', 'regioes'));
     }
 
-    function educacaoFormal() {
+    function educacaoFormal()
+    {
         parent::temAcesso();
 
         $serie_escolar = '(CASE';
@@ -559,9 +566,9 @@ class RelatoriosController extends AppController {
 
         foreach ($pessoas as $educacao) {
             $educacaoFormal
-                    [$educacao['FaixasEtaria']['faixa']]
-                    [$educacao[0]['educacao_formal']]
-                    [$educacao['FaixasEtaria']['descricao']] = $educacao[0]['total'];
+                [$educacao['FaixasEtaria']['faixa']]
+                [$educacao[0]['educacao_formal']]
+                [$educacao['FaixasEtaria']['descricao']] = $educacao[0]['total'];
             $educacaoFormal[$educacao[0]['educacao_formal']] += $educacao[0]['total'];
         }
 
@@ -569,16 +576,17 @@ class RelatoriosController extends AppController {
 
         $bairros = $this->Domicilio->Bairro->find('list', array(
             'order' => 'Bairro.nome_bairro'
-                ));
+            ));
         $cras = $this->Domicilio->Cras->find('list');
         $regioes = $this->Domicilio->Regiao->find('list');
 
         $this->set(compact('educacaoFormal', 'bairros', 'cras', 'regioes'));
     }
 
-    private function crasUsuario() {
+    private function crasUsuario()
+    {
         $this->loadModel('Usuario');
-        $this->Usuario->id = $this->Session->read('Auth.Usuario.id');
+        $this->Usuario->id = $this->Session->read('Auth.Usuario.id_usuario');
         $cras_usuario = array();
 
         if ($this->Usuario->id == 1) {
@@ -594,7 +602,8 @@ class RelatoriosController extends AppController {
         return implode(',', $cras_usuario);
     }
 
-    private function faixaEtaria($idade) {
+    private function faixaEtaria($idade)
+    {
         if ($idade < 10)
             return 'Criança';
         else if ($idade < 15)

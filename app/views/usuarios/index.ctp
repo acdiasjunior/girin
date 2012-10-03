@@ -14,7 +14,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
     <span>Insira a nova senha para o usuário.</span>
 </div>
 <h1>Cadastro de Usuários</h1>
-<table id="flex" style="display: none"></table> 
+<table id="flex" style="display: none"></table>
 <script type="text/javascript">
     $("#flex").flexigrid({
         url: '<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'lista')); ?>',
@@ -28,11 +28,11 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         buttons : [
             {name: 'Incluir', bclass: 'add', onpress : actions},
             {name: 'Editar', bclass: 'edit', onpress : actions},
-            <?php
-			if($temAcessoExclusao) {
-				echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
-			}
-			?>
+<?php
+if ($temAcessoExclusao) {
+    echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
+}
+?>
             {separator: true},
             {name: 'Senha', bclass: 'edit', onpress : actions}
         ],
@@ -43,13 +43,13 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         height: 270,
         singleSelect: true
     });
-    
+
     $('#flex').dblclick( function(){
         var id = $('.trSelected', grid).find('td[abbr="id"]').text();
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'cadastro')); ?>/' + id);
     }).disableSelection();
-    
+
     function actions(com, grid) {
         var id = $('.trSelected', grid).find('td[abbr="id"]').text();
         var nome = $('.trSelected', grid).find('td[abbr="nome"]').text();
@@ -82,7 +82,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
                 break;
             }
         }
-        
+
         $(function() {
             $("#alterarSenha").dialog({
                 resizable: false,

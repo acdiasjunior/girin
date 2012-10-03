@@ -5,13 +5,12 @@ $data['page'] = $page;
 $data['total'] = $total;
 $data['rows'] = array();
 
-foreach($servicos as $servico)
-{
+foreach ($servicos as $servico) {
     $data['rows'][] = array(
         'id' => $servico['Servico']['id'],
         'cell' => array(
             $servico['Servico']['id'],
-             Servico::tipoServico($servico['Servico']['tp_servico']),
+            Servico::tipoServico($servico['Servico']['tp_servico']),
             $servico['Servico']['descricao'],
             $servico['Servico']['faixa_etaria'],
             $servico['Servico']['capacidade'],

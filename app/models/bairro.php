@@ -1,6 +1,7 @@
 <?php
 
-class Bairro extends AppModel {
+class Bairro extends AppModel
+{
 
     var $name = 'Bairro';
     var $primaryKey = 'id_bairro';
@@ -28,7 +29,8 @@ class Bairro extends AppModel {
     );
     var $sequence = 'seq_bairro';
 
-    public function __construct($id = false, $table = null, $ds = null) {
+    public function __construct($id = false, $table = null, $ds = null)
+    {
         parent::__construct($id, $table, $ds);
         $this->virtualFields = array(
             'domicilio_count' => 'SELECT COUNT(*) FROM tb_domicilio WHERE tb_domicilio.id_bairro = Bairro.id_bairro'

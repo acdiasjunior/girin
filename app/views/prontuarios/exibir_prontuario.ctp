@@ -1,6 +1,7 @@
 <?php
 
-function corBarra($indice) {
+function corBarra($indice)
+{
     if ($indice <= 0.61) {
         $cor = 'red';
     } else if ($indice > 0.61 && $indice <= 0.7) {
@@ -15,7 +16,8 @@ function corBarra($indice) {
     return $cor;
 }
 
-function classificaIDF($indice) {
+function classificaIDF($indice)
+{
     if ($indice <= 0.61) {
         $classificacao = 'D5';
     } else if ($indice > 0.61 && $indice <= 0.7) {
@@ -170,7 +172,7 @@ function classificaIDF($indice) {
     <table cellspacing="0" cellpading="0">
         <thead>
             <tr>
-                <td colspan="4" align="center">Prontuário gerado em: <?php echo date('d/m/Y H:i:s', strtotime($this->data['Prontuario']['created'])) ?> por <?php echo $this->data['Usuario']['nome'] ?></td>
+                <td colspan="4" align="center">Prontuário gerado em: <?php echo date('d/m/Y H:i:s', strtotime($this->data['PlanoFamiliar']['created'])) ?> por <?php echo $this->data['Usuario']['nome'] ?></td>
             </tr>
         </thead>
         <tbody>
@@ -455,16 +457,16 @@ function classificaIDF($indice) {
         <tfoot>
             <tr>
                 <td align="right">IDF da Família</td>
-                <td style="text-align: center;"><?php echo round($this->data['Indice']['idf'], 2) ?></td>
+                <td style="text-align: center;"><?php echo round($this->data['Indice']['vlr_idf'], 2) ?></td>
                 <td>
                     <?php
-                    $tamanho = round((($this->data['Indice']['idf'] * 100) / 1) * 95 / 100);
-                    echo $this->Html->image('graficos/' . corBarra($this->data['Indice']['idf']) . '.png', array('alt' => '', 'style' => 'width: ' . $tamanho . 'mm; height: 3mm;'));
+                    $tamanho = round((($this->data['Indice']['vlr_idf'] * 100) / 1) * 95 / 100);
+                    echo $this->Html->image('graficos/' . corBarra($this->data['Indice']['vlr_idf']) . '.png', array('alt' => '', 'style' => 'width: ' . $tamanho . 'mm; height: 3mm;'));
                     ?>
                 </td>
             </tr>
             <tr>
-                <td align="center" colspan="3">Classificação - <?php echo classificaIDF($this->data['Indice']['idf']) ?></td>
+                <td align="center" colspan="3">Classificação - <?php echo classificaIDF($this->data['Indice']['vlr_idf']) ?></td>
             </tr>
         </tfoot>
     </table>

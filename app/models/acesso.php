@@ -1,6 +1,7 @@
 <?php
 
-class Acesso extends AppModel {
+class Acesso extends AppModel
+{
 
     var $name = 'Acesso';
     var $primaryKey = 'id_acesso';

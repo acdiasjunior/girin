@@ -1,10 +1,14 @@
 <?php
 
-class Regiao extends AppModel {
+class Regiao extends AppModel
+{
 
     var $name = 'Regiao';
-    var $displayField = 'descricao';
-    var $order = 'descricao';
+    var $useTable = 'regiao';
+    var $tablePrefix = 'tb_';
+    var $primaryKey = 'id_regiao';
+    var $displayField = 'desc_regiao';
+    var $order = 'desc_regiao';
     var $hasMany = array(
         'Cras' => array(
             'foreignKey' => 'id_regiao',

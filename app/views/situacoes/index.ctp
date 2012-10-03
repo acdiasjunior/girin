@@ -4,7 +4,7 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
 
 $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] . '.flexigrid';
 ?>
-<table id="flex" style="display: none"></table> 
+<table id="flex" style="display: none"></table>
 <script type="text/javascript">
     $("#flex").flexigrid({
         url: '<?php echo $this->Html->url(array('controller' => 'situacoes', 'action' => 'lista')); ?>',
@@ -16,12 +16,12 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         buttons : [
             {name: 'Incluir', bclass: 'add', onpress : actions},
             {separator: true},
-            <?php
-			if($temAcessoExclusao) {
-				echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
-				echo " {separator: true}";
-			}
-			?>
+<?php
+if ($temAcessoExclusao) {
+    echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
+    echo " {separator: true}";
+}
+?>
         ],
         searchitems : [
             {display: 'Nome', name : 'nome', isdefault: true},
@@ -45,13 +45,13 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         procmsg:'Processando, por favor aguarde ...',
         nomsg:'Nenhum item'
     });
-    
+
     $('#flex').dblclick( function(){
         var id = $('.trSelected').find('td[abbr="id"]').text();
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'situacoes', 'action' => 'cadastro')); ?>/' + id);
     }).disableSelection();
-    
+
     function actions(com, grid) {
         var id = $('.trSelected', grid).find('td[abbr="id"]').text();
         var nome = $('.trSelected', grid).find('td[abbr="nome"]').text();

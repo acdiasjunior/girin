@@ -1,16 +1,19 @@
 <?php
 
-class AcoesController extends AppController {
+class AcoesController extends AppController
+{
 
     var $name = 'Acoes';
 
-    function index() {
+    function index()
+    {
         parent::temAcesso();
-		$temAcessoExclusao = parent::temAcessoExclusao();
-		$this->set(compact('temAcessoExclusao'));
+        $temAcessoExclusao = parent::temAcessoExclusao();
+        $this->set(compact('temAcessoExclusao'));
     }
 
-    function lista() {
+    function lista()
+    {
         $this->layout = 'ajax';
 
         if ($this->params['form']['query'] != '')
@@ -35,12 +38,13 @@ class AcoesController extends AppController {
         $this->set(compact('acoes', 'page', 'total'));
     }
 
-    function cadastro($id = null) {
+    function cadastro($id = null)
+    {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Acao->read();
-			$temAcessoEscrita = parent::temAcessoEscrita();
-			$this->set(compact('temAcessoEscrita'));
+            $temAcessoEscrita = parent::temAcessoEscrita();
+            $this->set(compact('temAcessoEscrita'));
         } else {
             if ($this->Acao->save($this->data)) {
                 $this->Session->setFlash('Cadastro salvo.');
@@ -48,8 +52,9 @@ class AcoesController extends AppController {
             }
         }
     }
-    
-    function excluir($id) {
+
+    function excluir($id)
+    {
         parent::temAcesso();
         if (!empty($id)) {
             $this->Acao->delete($id);
@@ -60,7 +65,8 @@ class AcoesController extends AppController {
         $this->redirect(array('action' => 'index'));
     }
 
-    function autoComplete($campo = null) {
+    function autoComplete($campo = null)
+    {
         $this->layout = 'ajax';
         if ($campo != null) {
             $this->Acao->displayField = $campo;

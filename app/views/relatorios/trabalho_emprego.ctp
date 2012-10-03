@@ -86,47 +86,47 @@ echo $this->element('filtro');
 </table>
 <br />
 <table style="text-align: center; width: 920px;" border="1" cellpadding="2" cellspacing="0">
-<tbody>
-    <tr>
-        <td colspan="1" rowspan="6" style="width: 80px;"><span class="rotate">Adolescentes</span></td>
-        <td style="width: 154px;">10 anos</td>
-        <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][10] ?></td>
-        <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][10] ?></td>
-        <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][10] ?></td>
-        <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][10] ?></td>
-        <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][10] ?></td>
-        <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_TRABALHADOR_RURAL][10] ?></td>
-        <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_NAO_TRABALHA][10] ?></td>
-    </tr>
-
-    <?php
-    for ($i = 11; $i <= 14; $i++):
-        ?>
+    <tbody>
         <tr>
-            <td style="width: 154px;"><?php echo $i ?> anos</td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][$i] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][$i] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][$i] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][$i] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][$i] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_TRABALHADOR_RURAL][$i] ?></td>
-            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_NAO_TRABALHA][$i] ?></td>
+            <td colspan="1" rowspan="6" style="width: 80px;"><span class="rotate">Adolescentes</span></td>
+            <td style="width: 154px;">10 anos</td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][10] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][10] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][10] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][10] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][10] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_TRABALHADOR_RURAL][10] ?></td>
+            <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_NAO_TRABALHA][10] ?></td>
         </tr>
-        <?php
-    endfor;
-    ?>
 
-    <tr style="font-weight: bold;">
-        <td style="width: 154px;">Subtotal Adolescentes</td>
-        <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]) ?></td>
-        <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]) ?></td>
-        <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]) ?></td>
-        <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]) ?></td>
-        <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]) ?></td>
-        <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_TRABALHADOR_RURAL]) ?></td>
-        <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_NAO_TRABALHA]) ?></td>
-    </tr>
-</tbody>
+        <?php
+        for ($i = 11; $i <= 14; $i++):
+            ?>
+            <tr>
+                <td style="width: 154px;"><?php echo $i ?> anos</td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_TRABALHADOR_RURAL][$i] ?></td>
+                <td style="width: 90px;"><?php echo $faixaEtaria['Adolescente'][Pessoa::TRABALHO_NAO_TRABALHA][$i] ?></td>
+            </tr>
+            <?php
+        endfor;
+        ?>
+
+        <tr style="font-weight: bold;">
+            <td style="width: 154px;">Subtotal Adolescentes</td>
+            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_COM_CARTEIRA]) ?></td>
+            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_ASSALARIADO_SEM_CARTEIRA]) ?></td>
+            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_COM_PREVIDENCIA]) ?></td>
+            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_AUTONOMO_SEM_PREVIDENCIA]) ?></td>
+            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_APOSENTADO_PENSIONISTA]) ?></td>
+            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_TRABALHADOR_RURAL]) ?></td>
+            <td style="width: 90px;"><?php echo array_sum($faixaEtaria['Adolescente'][Pessoa::TRABALHO_NAO_TRABALHA]) ?></td>
+        </tr>
+    </tbody>
 </table>
 <br />
 <table style="text-align: center; width: 920px;" border="1" cellpadding="2" cellspacing="0">

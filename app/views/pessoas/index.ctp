@@ -4,7 +4,7 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
 
 $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] . '.flexigrid';
 ?>
-<table id="flex" style="display: none"></table> 
+<table id="flex" style="display: none"></table>
 <script type="text/javascript">
     $("#flex").flexigrid({
         url: '<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'lista')); ?>',
@@ -19,12 +19,12 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         buttons : [
             {name: 'Editar', bclass: 'edit', onpress : actions},
             {separator: true},
-			<?php
-			if($temAcessoExclusao) {
-				echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
-				echo " {separator: true}";
-			}
-			?>
+<?php
+if ($temAcessoExclusao) {
+    echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
+    echo " {separator: true}";
+}
+?>
         ],
         searchitems : [
             {display: 'NIS', name : 'Pessoa.cod_nis'},
@@ -52,14 +52,14 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         procmsg:'Processando, por favor aguarde ...',
         nomsg:'Nenhum item'
     });
-    
+
     $('#flex').dblclick( function(){
         var id = $('.trSelected').find('td[abbr="Pessoa.cod_nis"]').text();
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'cadastro')); ?>/' + id);
     });
     //}).disableSelection();
-    
+
     function actions(com, grid) {
         var id = $('.trSelected', grid).find('td[abbr="Pessoa.cod_nis"]').text();
         var nome = $('.trSelected', grid).find('td[abbr="nome"]').text();
@@ -85,7 +85,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
                 break;
             }
         }
-        
+
         window.onbeforeunload = function() {
             $.ajax({
                 url: '<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'gravaParametros', 'flexigrid')) ?>',
@@ -101,5 +101,5 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
                 }
             });
         };
-        
+
 </script>

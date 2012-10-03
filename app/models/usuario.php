@@ -1,17 +1,25 @@
 <?php
 
-class Usuario extends AppModel {
+class Usuario extends AppModel
+{
 
     var $name = 'Usuario';
-    var $displayField = 'nome';
+    var $useTable = 'usuario';
+    var $tablePrefix = 'tb_';
+    var $primaryKey = 'id_usuario';
     var $hasMany = array(
         'Acesso' => array(
             'foreignKey' => 'id_usuario',
             'dependent' => true
         ),
-        'Prontuario',
-        'Visita',
-        'ParametrosUsuario'
+        'PlanoFamiliar' => array(
+            'foreignKey' => 'id_usuario',
+            'dependent' => true
+        ),
+        'Visita' => array(
+            'foreignKey' => 'id_usuario',
+            'dependent' => true
+        ),
     );
     var $hasAndBelongsToMany = array(
         'Cras' => array(
@@ -29,7 +37,8 @@ class Usuario extends AppModel {
      * @access static
      */
 
-    static function grupoUsuario($value = null) {
+    static function grupoUsuario($value = null)
+    {
         $options = array(
             self::GRUPO_ADMINISTRADOR => __('Administrador', true),
             self::GRUPO_TECNICO_SAS => __('Técnico SAS', true),

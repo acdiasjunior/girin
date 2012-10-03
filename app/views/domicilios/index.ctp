@@ -15,7 +15,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             {display: 'Logradouro', name : 'Domicilio.end_logradouro', width : 190, sortable : true, align: 'left'},
             {display: 'Numero', name : 'Domicilio.end_num', width : 40, sortable : true, align: 'center'},
             {display: 'Bairro', name : 'Bairro.nome_bairro', width : 105, sortable : true, align: 'left'},
-            {display: 'IDF', name : 'Indice.vlr_idf', width : 30, sortable : true, align: 'center'},
+            {display: 'vlr_idf', name : 'Indice.vlr_idf', width : 30, sortable : true, align: 'center'},
             {display: 'Renda Familiar', name : 'Domicilio.vlr_renda_familia', width : 70, sortable : true, align: 'center'},
             {display: 'Qtd.', name : 'Domicilio.qtd_pessoa', width : 20, sortable : true, align: 'center'},
             {display: 'Renda per Cap.', name : 'Domicilio.vlr_renda_per_capita', width : 70, sortable : true, align: 'center'}
@@ -23,14 +23,14 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         buttons : [
             {name: 'Editar', bclass: 'edit', onpress : actions},
             {separator: true},
-            {name: 'Prontuario', bclass: 'prontuario', onpress : actions},
+            {name: 'PlanoFamiliar', bclass: 'plano_familiar', onpress : actions},
             {separator: true},
-			<?php
-			if($temAcessoExclusao) {
-				echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
-				echo " {separator: true}";
-			}
-			?>
+<?php
+if ($temAcessoExclusao) {
+    echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
+    echo " {separator: true}";
+}
+?>
         ],
         searchitems : [
             {display: 'Cód. Domiciliar', name : 'Domicilio.cod_domiciliar', isdefault: true},
@@ -90,15 +90,15 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
                 else
                     alert('Selecione um registro primeiro!');
                 break;
-            case "Prontuario":
+            case "PlanoFamiliar":
                 if(id != '')
-                    $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'gerarProntuario')); ?>/' + id);
+                    $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'plano_familiares', 'action' => 'gerarPlanoFamiliar')); ?>/' + id);
                 else
                     alert('Selecione um registro primeiro!');
                 break;
             }
         }
-        
+
         window.onbeforeunload = function() {
             $.ajax({
                 url: '<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'gravaParametros', 'flexigrid')) ?>',

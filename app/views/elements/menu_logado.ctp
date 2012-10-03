@@ -124,7 +124,7 @@
                             </ul>
                         </li>-->
             <!--            <li>
-                            <a href="<?php echo $this->Html->url(array('controller' => 'relatorios', 'action' => 'idf')); ?>">Selecionar Famílias</a>
+                            <a href="<?php echo $this->Html->url(array('controller' => 'relatorios', 'action' => 'vlr_idf')); ?>">Selecionar Famílias</a>
                         </li>-->
             <li>
                 <a href="<?php echo $this->Html->url(array('controller' => 'indices', 'action' => 'index')); ?>">Mapa Social</a>
@@ -137,10 +137,10 @@
     <li><a href="#" class="hide pai">Prontuários</a>
         <ul>
             <li>
-                <a href="<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'index')); ?>">Listar</a>
+                <a href="<?php echo $this->Html->url(array('controller' => 'plano_familiares', 'action' => 'index')); ?>">Listar</a>
             </li>
             <li>
-                <a href="<?php echo $this->Html->url(array('controller' => 'prontuarios', 'action' => 'gerar')); ?>">Gerar Prontuário</a>
+                <a href="<?php echo $this->Html->url(array('controller' => 'plano_familiares', 'action' => 'gerar')); ?>">Gerar Prontuário</a>
             </li>
         </ul>
     </li>
@@ -162,7 +162,7 @@
                     <a href="<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'mudarSenha')); ?>" class="hide">Mudar Senha</a>
                 </li>
                 <li>
-                    <a href="<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'cadastro', $this->Session->read('Auth.Usuario.id'))); ?>" class="hide">Alterar Dados</a>
+                    <a href="<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'cadastro', $this->Session->read('Auth.Usuario.id_usuario'))); ?>" class="hide">Alterar Dados</a>
                 </li>
                 <?php
             }
