@@ -13,7 +13,18 @@ class Estrategia extends AppModel
             'dependent' => true
         )
     );
-    var $hasAndBelongsToMany = array('Indicador', 'PlanoFamiliar');
+    var $hasAndBelongsToMany = array(
+        'Indicador' => array(
+            'joinTable' => 'tb_estrategia_indicador',
+            'foreignKey' => 'id_estrategia_indicador',
+            'associationForeignKey' => 'id_estrategia',
+        ),
+        'PlanoFamiliar' => array(
+            'joinTable' => 'tb_plano_familiar',
+            'foreignKey' => 'id_plano_familiar',
+            'associationForeignKey' => 'id_estrategia',
+        ),
+    );
     var $order = array('Estrategia.codigo');
     var $sequence = 'seq_estrategia';
 

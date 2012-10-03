@@ -17,9 +17,6 @@ class Indice extends AppModel
         'PlanoFamiliar' => array(
             'foreignKey' => 'cod_domiciliar',
         ),
-        'IndicesHistorico' => array(
-            'foreignKey' => 'cod_domiciliar',
-        ),
     );
     public $indicadores = array(
         1 => 'v1', 'v2', 'v3', 'v4', 'v5', 'v6', 'v7', 'v8', 'v9', 'c1', 'c2', 'c3',

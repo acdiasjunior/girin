@@ -16,10 +16,6 @@ class Usuario extends AppModel
             'foreignKey' => 'id_usuario',
             'dependent' => true
         ),
-        'Visita' => array(
-            'foreignKey' => 'id_usuario',
-            'dependent' => true
-        ),
     );
     var $hasAndBelongsToMany = array(
         'Cras' => array(
