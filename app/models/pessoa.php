@@ -26,12 +26,6 @@ class Pessoa extends AppModel
             'foreignKey' => 'cod_nis_responsavel'
         ),
     );
-//    var $hasMany = array(
-//        'Membro' => array(
-//            'className' => 'Pessoa',
-//            'foreignKey' => 'cod_nis_responsavel'
-//        )
-//    );
     var $validate = array(
         'cod_nis' => array(
             'rule' => 'isUnique'

@@ -7,7 +7,6 @@ class PlanoFamiliar extends AppModel
     var $useTable = 'plano_familiar';
     var $tablePrefix = 'tb_';
     var $primaryKey = 'id_plano_familiar';
-    var $hasMany = array('Visita');
     var $belongsTo = array(
         'Domicilio' => array(
             'foreignKey' => 'cod_domiciliar',

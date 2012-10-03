@@ -13,7 +13,18 @@ class Indicador extends AppModel
             'foreignKey' => 'id_dimensao_idf'
         )
     );
-    var $hasAndBelongsToMany = array('Estrategia', 'PlanoFamiliar');
+    var $hasAndBelongsToMany = array(
+        'Estrategia' => array(
+            'joinTable' => 'tb_estrategia_indicador',
+            'foreignKey' => 'id_indicador',
+            'associationForeignKey' => 'id_estrategia',
+        ),
+        'PlanoFamiliar' => array(
+            'joinTable' => 'tb_plano_familiar',
+            'foreignKey' => 'id_indicador',
+            'associationForeignKey' => 'id_plano_familiar',
+        ),
+    );
     var $sequence = 'seq_indicador';
 
 }
