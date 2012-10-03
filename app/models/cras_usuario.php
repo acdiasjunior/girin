@@ -1,6 +1,7 @@
 <?php
 
-class CrasUsuario extends AppModel {
+class CrasUsuario extends AppModel
+{
 
     var $name = 'CrasUsuario';
     var $primaryKey = 'id_cras_usuario';

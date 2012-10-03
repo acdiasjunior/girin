@@ -1,16 +1,19 @@
 <?php
 
-class IndicadoresController extends AppController {
+class IndicadoresController extends AppController
+{
 
     var $name = 'Indicadores';
-    
-    function index() {
+
+    function index()
+    {
         parent::temAcesso();
-		$temAcessoExclusao = parent::temAcessoExclusao();
-		$this->set(compact('temAcessoExclusao'));
+        $temAcessoExclusao = parent::temAcessoExclusao();
+        $this->set(compact('temAcessoExclusao'));
     }
-    
-    function lista() {
+
+    function lista()
+    {
         $this->layout = 'ajax';
 
         if ($this->params['form']['query'] != '')
@@ -28,19 +31,20 @@ class IndicadoresController extends AppController {
             ),
             'conditions' => $conditions
         );
-      
+
         $indicadores = $this->paginate('Indicador');
         $page = $this->params['form']['page'];
         $total = $this->Indicador->find('count', array('conditions' => $conditions));
         $this->set(compact('indicadores', 'page', 'total'));
     }
-    
-    function cadastro($id = null) {
+
+    function cadastro($id = null)
+    {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Indicador->read();
-			$temAcessoEscrita = parent::temAcessoEscrita();
-			$this->set(compact('temAcessoEscrita'));
+            $temAcessoEscrita = parent::temAcessoEscrita();
+            $this->set(compact('temAcessoEscrita'));
         } else {
             if ($this->Indicador->save($this->data)) {
                 $this->Session->setFlash('Cadastro salvo.');

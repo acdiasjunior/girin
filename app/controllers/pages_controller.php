@@ -1,12 +1,14 @@
 <?php
 
-class PagesController extends AppController {
+class PagesController extends AppController
+{
 
     var $name = 'Pages';
     var $helpers = array('Html', 'Session');
-    var $uses = array('Page');
+    var $uses = array('Pagina');
 
-    function display() {
+    function display()
+    {
         $path = func_get_args();
 
         $count = count($path);
@@ -28,13 +30,15 @@ class PagesController extends AppController {
         $this->render(implode('/', $path));
     }
 
-    function pagina($link) {
+    function pagina($link)
+    {
         $pagina = $this->Page->findByLink($link);
         $this->set('conteudo', $pagina['Page']['conteudo']);
         $this->set('title_for_layout', $pagina['Page']['titulo']);
     }
 
-    function beforeFilter() {
+    function beforeFilter()
+    {
         parent::beforeFilter();
         $this->Auth->allow(array('pagina'));
     }

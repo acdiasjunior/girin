@@ -1,6 +1,7 @@
 <?php
 
-class Acao extends AppModel {
+class Acao extends AppModel
+{
 
     var $name = 'Acao';
     var $primaryKey = 'id_acao';
@@ -22,7 +23,8 @@ class Acao extends AppModel {
      * @access static
      */
 
-    static function responsavel($value = null) {
+    static function responsavel($value = null)
+    {
         $options = array(
             self::RESPONSAVEL_AGENTE_LOCAL_DA_FAMILIA => __('Agente Local da Família', true),
             self::RESPONSAVEL_EQUIPE_CRAS => __('Equipe CRAS', true),
@@ -35,7 +37,8 @@ class Acao extends AppModel {
     const RESPONSAVEL_EQUIPE_CRAS = 2;
     const RESPONSAVEL_TECNICO_CRAS = 3;
 
-    static function atividade($value = null) {
+    static function atividade($value = null)
+    {
         $options = array(
             self::ATIVIDADE_AGENDA_CASA => __('Agenda em Casa', true),
             self::ATIVIDADE_ACOMPANHAMENTO_REDE => __('Acompanhamento Rede', true),
@@ -66,7 +69,8 @@ class Acao extends AppModel {
     const ATIVIDADE_LEVANTAMENTO_SISTEMA = 11;
     const ATIVIDADE_VISITA_DOMICILIAR = 12;
 
-    static function usuarios($value = null) {
+    static function usuarios($value = null)
+    {
         $options = array(
             self::USUARIOS_ADOLESCENTES => __('Adolescente(s)', true),
             self::USUARIOS_ADULTOS => __('Adulto(s) ', true),
@@ -103,7 +107,8 @@ class Acao extends AppModel {
     const USUARIOS_ADULTO_ANALFABETO = 14;
     const USUARIOS_DEFICIENTE_IDOSO = 15;
 
-    static function rede($value = null) {
+    static function rede($value = null)
+    {
         $options = array(
             self::REDE_PROTECAO_ATENDIMENTO => __('Rede de Atendimento', true),
             self::REDE_PROTECAO_ABUSO_DROGAS => __('Proteção ao abuso de drogas', true),
@@ -128,7 +133,8 @@ class Acao extends AppModel {
     const REDE_PROTECAO_SOCIOHABITACIONAL = 8;
     const REDE_PROTECAO_TRABALHO = 9;
 
-    static function pontoSocioassistencial($value = null) {
+    static function pontoSocioassistencial($value = null)
+    {
         $options = array(
             self::PONTO_SOCIO_CRAS => __('CRAS', true),
             self::PONTO_SOCIO_CREAS => __('CREAS', true),
@@ -147,7 +153,8 @@ class Acao extends AppModel {
     const PONTO_SOCIO_SOCIOASSISTENCIAL = 5;
     const PONTO_SOCIO_SOCIOEDUCATIVO = 6;
 
-    static function sistemaSetorialApoio($value = null) {
+    static function sistemaSetorialApoio($value = null)
+    {
         $options = array(
             self::SISTEMA_SETORIAL_NAO_APLICAVEL => __('N/A', true),
             self::SISTEMA_SETORIAL_SERVICO_CONVIVENCIA => __('Serviço Convivência', true),
@@ -168,7 +175,8 @@ class Acao extends AppModel {
     const SISTEMA_SETORIAL_SISTEMA_JUDICIARIO = 5;
     const SISTEMA_SETORIAL_UNIDADE_SAUDE = 6;
 
-    static function sistemaLogistico($value = null) {
+    static function sistemaLogistico($value = null)
+    {
         $options = array(
             self::SISTEMA_LOGISTICO_NAO_APLICAVEL => __('N/A', true),
             self::SISTEMA_LOGISTICO_CADUNICO => __('CadÚnico', true),

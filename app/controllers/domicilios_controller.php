@@ -1,19 +1,22 @@
 <?php
 
-class DomiciliosController extends AppController {
+class DomiciliosController extends AppController
+{
 
     var $name = 'Domicilios';
     var $helpers = array('Javascript', 'Js');
     var $components = array('RequestHandler');
 
-    function index() {
+    function index()
+    {
         parent::temAcesso();
         $temAcessoExclusao = parent::temAcessoExclusao();
         $this->set(compact('temAcessoExclusao'));
         $this->set('title_for_layout', 'Listagem de Domicílios');
     }
 
-    function lista() {
+    function lista()
+    {
 
         $this->layout = 'ajax';
 
@@ -41,7 +44,7 @@ class DomiciliosController extends AppController {
                 'Domicilio.end_logradouro',
                 'Domicilio.end_num',
                 'Bairro.nome_bairro',
-                'Indice.idf',
+                'Indice.vlr_idf',
                 'Domicilio.vlr_renda_familia',
                 'Domicilio.qtd_pessoa',
                 'Domicilio.vlr_renda_per_capita'
@@ -49,7 +52,8 @@ class DomiciliosController extends AppController {
             'page' => $this->params['form']['page'],
             'limit' => $this->params['form']['rp'],
             'order' => array(
-                $this->params['form']['sortname'] => $this->params['form']['sortorder']
+                $this->params['form']['sortname'] => $this->params['form']['sortorder'],
+                'Domicilio.cod_domiciliar' => 'ASC'
             ),
             'conditions' => $conditions
         );
@@ -59,10 +63,11 @@ class DomiciliosController extends AppController {
         $this->set(compact('domicilios', 'page', 'total'));
     }
 
-    function listaDomiciliosFiltro() {
+    function listaDomiciliosFiltro()
+    {
 
         $this->layout = 'ajax';
-        $container = 'prontuarios.gerar.filtroDomicilios';
+        $container = 'plano_familiares.gerar.filtroDomicilios';
 
         $conditions = array(
             'Domicilio.qtd_pessoa != 0',
@@ -97,7 +102,7 @@ class DomiciliosController extends AppController {
                 default:
                     return;
             }
-            $conditions['Indice.idf ' . $tp_busca] = $this->Session->read("$container.Domicilio_vlr_idf");
+            $conditions['Indice.vlr_idf ' . $tp_busca] = $this->Session->read("$container.Domicilio_vlr_idf");
         }
 
         $this->paginate = array(
@@ -115,7 +120,8 @@ class DomiciliosController extends AppController {
         $this->render('lista');
     }
 
-    function cadastro($id = null) {
+    function cadastro($id = null)
+    {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Domicilio->read();
@@ -129,7 +135,8 @@ class DomiciliosController extends AppController {
         }
     }
 
-    function excluir($id) {
+    function excluir($id)
+    {
         parent::temAcesso();
         if (!empty($id)) {
             if ($this->Domicilio->Pessoa->findAllByDomicilioId($id)) {
@@ -152,7 +159,8 @@ class DomiciliosController extends AppController {
         }
     }
 
-    function listaDomiciliosBairro($id_bairro) {
+    function listaDomiciliosBairro($id_bairro)
+    {
         $this->layout = 'ajax';
 
         $conditions = array('Domicilio.id_bairro =' => $id_bairro);
@@ -173,7 +181,8 @@ class DomiciliosController extends AppController {
         $this->set(compact('domicilios', 'page', 'total'));
     }
 
-    function importar($arquivo = null) {
+    function importar($arquivo = null)
+    {
         parent::temAcesso();
         if (empty($this->data)) {
             //Abre a tela de importação
@@ -214,9 +223,10 @@ class DomiciliosController extends AppController {
         }
     }
 
-    private function crasUsuario() {
+    private function crasUsuario()
+    {
         $this->loadModel('Usuario');
-        $this->Usuario->id = $this->Session->read('Auth.Usuario.id');
+        $this->Usuario->id = $this->Session->read('Auth.Usuario.id_usuario');
         $cras_usuario = array();
 
         if ($this->Usuario->id == 1) {

@@ -5,8 +5,7 @@ $data['page'] = $page;
 $data['total'] = $total;
 $data['rows'] = array();
 
-foreach($indicadores as $indicador)
-{
+foreach ($indicadores as $indicador) {
     $data['rows'][] = array(
         'id' => $indicador['Indicador']['id'],
         'cell' => array(

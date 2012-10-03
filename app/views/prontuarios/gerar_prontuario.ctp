@@ -15,10 +15,10 @@
     $(function() {
 
         $('.filtro').parent().hide();
-        if($('#ProntuarioFiltro').val() != '')
-            $('.' + $('#ProntuarioFiltro').val()).parent().show();
+        if($('#PlanoFamiliarFiltro').val() != '')
+            $('.' + $('#PlanoFamiliarFiltro').val()).parent().show();
 
-        $('#ProntuarioFiltro').change(function(){
+        $('#PlanoFamiliarFiltro').change(function(){
             $('.filtro').val('').parent().hide();
             $('.' + $(this).val()).parent().show();
         });
@@ -27,7 +27,7 @@
 </script>
 <?php
 
-echo $this->Form->create('Prontuario', array('url' => array('controller' => $this->params['controller'], 'action' => $this->params['action'])));
+echo $this->Form->create('PlanoFamiliar', array('url' => array('controller' => $this->params['controller'], 'action' => $this->params['action'])));
 
 echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Selecione o filtro para busca');
@@ -40,7 +40,7 @@ echo $this->Form->input('cod_domiciliar', array('label' => 'Código Domicíliar'
 echo $this->Form->input('cod_nis_responsavel', array('label' => 'NIS Responsável Legal'));
 echo $this->Form->input('cpf_responsavel', array('label' => 'CPF Responsável Legal'));
 echo $this->Html->div('', '', array('style' => 'clear: both;'));
-echo $this->Form->input('idf', array('label' => 'IDF'));
+echo $this->Form->input('vlr_idf', array('label' => 'vlr_idf'));
 echo $this->Form->input('tipo', array('label' => 'Tipo de busca', 'options' => array('<=' => 'Menor ou Igual que', '=' => 'Exatamente', '>' => 'Acima de')));
 echo $this->Html->tag('/fieldset', null);
 

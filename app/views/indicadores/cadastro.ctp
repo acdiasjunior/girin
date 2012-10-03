@@ -27,19 +27,19 @@ echo $this->Form->button('Fechar', array(
     'onClick' => "window.location.href = '" . $this->Html->url(array('controller' => 'indicadores', 'action' => 'index')) . "';"
 ));
 if ($temAcessoEscrita) {
-	echo $this->Form->button('Salvar', array('type' => 'submit'));
+    echo $this->Form->button('Salvar', array('type' => 'submit'));
 } else {
-	?>
-	<script type="text/javascript">
-		$(document).ready(function () 
-		{
-			$('select').attr('disabled','disabled');
-			$('input, textarea').attr('readonly','readonly').click(function() {
-				return false;
-			});
-		});
-	</script>
-	<?php
+    ?>
+    <script type="text/javascript">
+        $(document).ready(function ()
+        {
+            $('select').attr('disabled','disabled');
+            $('input, textarea').attr('readonly','readonly').click(function() {
+                return false;
+            });
+        });
+    </script>
+    <?php
 
 }
 echo $this->Form->end();

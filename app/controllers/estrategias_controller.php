@@ -1,16 +1,19 @@
 <?php
 
-class EstrategiasController extends AppController {
+class EstrategiasController extends AppController
+{
 
     var $name = 'Estrategias';
 
-    function index() {
+    function index()
+    {
         parent::temAcesso();
-		$temAcessoExclusao = parent::temAcessoExclusao();
-		$this->set(compact('temAcessoExclusao'));
+        $temAcessoExclusao = parent::temAcessoExclusao();
+        $this->set(compact('temAcessoExclusao'));
     }
 
-    function lista() {
+    function lista()
+    {
         $this->layout = 'ajax';
 
         if ($this->params['form']['query'] != '')
@@ -35,12 +38,13 @@ class EstrategiasController extends AppController {
         $this->set(compact('estrategias', 'page', 'total'));
     }
 
-    function cadastro($id = null) {
+    function cadastro($id = null)
+    {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Estrategia->read();
-			$temAcessoEscrita = parent::temAcessoEscrita();
-			$this->set(compact('temAcessoEscrita'));
+            $temAcessoEscrita = parent::temAcessoEscrita();
+            $this->set(compact('temAcessoEscrita'));
             $this->Estrategia->Indicador->displayField = array("%s - %s", "{n}.Indicador.codigo", "{n}.Indicador.label");
         } else {
             if ($this->Estrategia->save($this->data)) {

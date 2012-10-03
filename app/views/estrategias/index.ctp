@@ -4,9 +4,9 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
 
 $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] . '.flexigrid';
 ?>
-<table id="flex" style="display: none"></table> 
+<table id="flex" style="display: none"></table>
 <script type="text/javascript">
-    
+
     var flexiOptions = {
         url: '<?php echo $this->Html->url(array('controller' => 'estrategias', 'action' => 'lista')); ?>',
         dataType: 'json',
@@ -20,12 +20,12 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             {separator: true},
             {name: 'Editar', bclass: 'edit', onpress : actions},
             {separator: true},
-            <?php
-			if($temAcessoExclusao) {
-				echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
-				echo " {separator: true}";
-			}
-			?>
+<?php
+if ($temAcessoExclusao) {
+    echo " {name: 'Excluir', bclass: 'delete', onpress : actions},";
+    echo " {separator: true}";
+}
+?>
         ],
         searchitems : [
             {display: 'Descrição', name : 'Estrategia.descricao', isdefault: true}
@@ -49,16 +49,16 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         procmsg:'Processando, por favor aguarde ...',
         nomsg:'Nenhum item'
     };
-    
+
     var flexiGrid = $("#flex").flexigrid(flexiOptions);
-    
+
     $('#flex').dblclick( function(){
         var id = $('.trSelected').find('td[abbr="Estrategia.id"]').text();
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'estrategias', 'action' => 'cadastro')); ?>/' + id);
     });
     //}).disableSelection();
-    
+
     function actions(com, grid) {
         var id = $('.trSelected', grid).find('td[abbr="Estrategia.id"]').text();
         var nome = $('.trSelected', grid).find('td[abbr="Estrategia.descricao"]').text();
@@ -84,7 +84,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
                 break;
             }
         }
-        
+
         window.onbeforeunload = function() {
             $.ajax({
                 url: '<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'gravaParametros', 'flexigrid')) ?>',

@@ -42,7 +42,7 @@ if ($temAcessoEscrita) {
 } else {
     ?>
     <script type="text/javascript">
-        $(document).ready(function () 
+        $(document).ready(function ()
         {
             $('select').attr('disabled','disabled');
             $('input, textarea').attr('readonly','readonly').click(function() {

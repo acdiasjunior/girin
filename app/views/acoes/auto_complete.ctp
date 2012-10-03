@@ -2,8 +2,7 @@
 
 $data = array();
 
-foreach($nomes as $id => $nome)
-{
+foreach ($nomes as $id => $nome) {
     $data[] = array(
         'id' => $id,
         'value' => $nome,

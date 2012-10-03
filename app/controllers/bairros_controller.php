@@ -1,17 +1,20 @@
 <?php
 
-class BairrosController extends AppController {
+class BairrosController extends AppController
+{
 
     var $name = 'Bairros';
 
-    function index() {
+    function index()
+    {
         parent::temAcesso();
         $bairros = $this->Bairro->find('list');
         $temAcessoExclusao = parent::temAcessoExclusao();
         $this->set(compact('temAcessoExclusao', 'bairros'));
     }
 
-    function lista() {
+    function lista()
+    {
         $this->layout = 'ajax';
 
         if ($this->params['form']['query'] != '')
@@ -36,7 +39,8 @@ class BairrosController extends AppController {
         $this->set(compact('bairros', 'page', 'total'));
     }
 
-    function cadastro($id = null) {
+    function cadastro($id = null)
+    {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Bairro->read();
@@ -51,7 +55,8 @@ class BairrosController extends AppController {
         }
     }
 
-    function listaBairrosCras($id_cras) {
+    function listaBairrosCras($id_cras)
+    {
         $this->layout = 'ajax';
 
         $conditions = array('Bairro.id_cras =' => $id_cras);
@@ -72,7 +77,8 @@ class BairrosController extends AppController {
         $this->set(compact('bairros', 'page', 'total'));
     }
 
-    function preencheCombo($id_cras = null) {
+    function preencheCombo($id_cras = null)
+    {
         $this->layout = 'ajax';
         $this->autoRender = false;
         if ($id_cras == null)
@@ -84,7 +90,8 @@ class BairrosController extends AppController {
             echo '<option value="' . $key . '">' . $value . '</option>';
     }
 
-    function excluir($id, $novo_bairro = null) {
+    function excluir($id, $novo_bairro = null)
+    {
         parent::temAcesso();
         if (!empty($id)) {
             $this->Bairro->delete($id);

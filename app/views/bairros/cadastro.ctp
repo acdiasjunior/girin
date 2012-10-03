@@ -3,7 +3,7 @@ echo $this->Html->css(array('flexigrid'));
 echo $javascript->link(array('flexigrid.pack', 'button'));
 ?>
 <script type="text/javascript">
-    $(function() {        
+    $(function() {
         $("#flex").flexigrid({
             url: '/prefeitura/domicilios/listaDomiciliosBairro/<?php echo $this->data['Bairro']['id_bairro'] ?>',
             dataType: 'json',
@@ -41,13 +41,13 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
             procmsg:'Processando, por favor aguarde ...',
             nomsg:'Nenhum item'
         });
-        
+
         $('#flex').dblclick( function(){
             var id = $('.trSelected').find('td[abbr="Domicilio.cod_domiciliar"]').text();
             if(id != '')
                 $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'domicilios', 'action' => 'cadastro')); ?>/' + id);
         }).disableSelection();
-    
+
         function actions(com, grid) {
             var id = $('.trSelected', grid).find('td[abbr="Domicilio.cod_domiciliar"]').text();
             var nome = $('.trSelected', grid).find('td[abbr="Responsavel.nome"]').text();
@@ -91,7 +91,7 @@ if ($temAcessoEscrita) {
 } else {
     ?>
     <script type="text/javascript">
-            $(document).ready(function () 
+            $(document).ready(function ()
             {
                 $('select').attr('disabled','disabled');
                 $('input, textarea').attr('readonly','readonly').click(function() {

@@ -192,7 +192,7 @@ class PessoasController extends AppController
     private function crasUsuario()
     {
         $this->loadModel('Usuario');
-        $this->Usuario->id = $this->Session->read('Auth.Usuario.id');
+        $this->Usuario->id = $this->Session->read('Auth.Usuario.id_usuario');
         $cras_usuario = array();
 
         if ($this->Usuario->id == 1) {

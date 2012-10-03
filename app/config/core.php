@@ -34,7 +34,7 @@
  * In development mode, you need to click the flash message to continue.
  */
         if($_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_NAME'] == '127.0.0.1')
-            Configure::write('debug', 1); // Servidor Local
+            Configure::write('debug', 2); // Servidor Local
         else
             Configure::write('debug', 0); // Servidor Remoto
 

@@ -15,6 +15,6 @@ echo $this->Html->tag('/fieldset', null);
 echo $this->Form->button('Fechar', array(
     'type' => 'button',
     'onClick' => "window.location.href = '" . $this->Html->url('/') . "';"
-    ));
+));
 echo $this->Form->button('Salvar', array('type' => 'submit'));
 echo $this->Form->end();

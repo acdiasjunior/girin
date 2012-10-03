@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Helper para exibir os estados brasileiros
  *
@@ -15,35 +16,38 @@
  *
  * @link http://wiki.github.com/jrbasso/cake_ptbr/helper-estados
  */
-class EstadosHelper extends AppHelper {
+class EstadosHelper extends AppHelper
+{
 
-/**
- * Helpers auxiliares
- *
- * @var array
- * @access public
- */
-	var $helpers = array('Form');
+    /**
+     * Helpers auxiliares
+     *
+     * @var array
+     * @access public
+     */
+    var $helpers = array('Form');
 
-/**
- * Retorna a select com a lista dos estados
- *
- * @param string $fieldName Nome do campo
- * @param string $selected Sigla do estado que deve ser selecionado
- * @param array $attributes Mesmos atributos do Form::select(). Também é possível passar o param
-				'uf' para mostrar apenas as siglas, sem os nomes
- */
-	function select($fieldName, $selected = null, $attributes = array()) {
-		App::import('Vendor', 'CakePtbr.Estados');
-		$options = Estados::lista();
-		if (isset($attributes['uf']) && $attributes['uf'] === true) {
-			$estados = array_keys($options);
-			$options = array_combine($estados, $estados);
-			unset($attributes['uf']);
-		}
-		if (!isset($attributes['empty'])) {
-			$attributes['empty'] = false;
-		}
-		return $this->Form->select($fieldName, $options, $selected, $attributes);
-	}
+    /**
+     * Retorna a select com a lista dos estados
+     *
+     * @param string $fieldName Nome do campo
+     * @param string $selected Sigla do estado que deve ser selecionado
+     * @param array $attributes Mesmos atributos do Form::select(). Também é possível passar o param
+      'uf' para mostrar apenas as siglas, sem os nomes
+     */
+    function select($fieldName, $selected = null, $attributes = array())
+    {
+        App::import('Vendor', 'CakePtbr.Estados');
+        $options = Estados::lista();
+        if (isset($attributes['uf']) && $attributes['uf'] === true) {
+            $estados = array_keys($options);
+            $options = array_combine($estados, $estados);
+            unset($attributes['uf']);
+        }
+        if (!isset($attributes['empty'])) {
+            $attributes['empty'] = false;
+        }
+        return $this->Form->select($fieldName, $options, $selected, $attributes);
+    }
+
 }

@@ -29,7 +29,7 @@ class Domicilio extends AppModel
         ),
     );
     var $hasMany = array(
-        'Prontuario' => array(
+        'PlanoFamiliar' => array(
             'foreignKey' => 'cod_domiciliar',
         ),
         'Pessoa' => array(

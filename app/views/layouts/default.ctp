@@ -25,7 +25,7 @@ $logado = $this->Session->check('Auth.Usuario');
                 <div style="float: left;">
                     <?php
                     echo $this->Html->link(
-                            $this->Html->image('logos/logo_agenda_familia.png', array('alt' => '', 'border' => '0')), 'http://www.juniordias.com.br/prefeitura', array('target' => '_parent', 'escape' => false)
+                        $this->Html->image('logos/logo_agenda_familia.png', array('alt' => '', 'border' => '0')), 'http://www.juniordias.com.br/prefeitura', array('target' => '_parent', 'escape' => false)
                     );
                     ?>
                 </div>
@@ -66,7 +66,7 @@ $logado = $this->Session->check('Auth.Usuario');
                 <div style="float: left; margin-right: 30px;">
                     <?php
                     echo $this->Html->link(
-                            $this->Html->image('logos/logopjf.png', array('alt' => '', 'border' => '0', 'height' => '50px')), 'http://www.pjf.mg.gov.br/sas/', array('target' => '_blank', 'escape' => false)
+                        $this->Html->image('logos/logopjf.png', array('alt' => '', 'border' => '0', 'height' => '50px')), 'http://www.pjf.mg.gov.br/sas/', array('target' => '_blank', 'escape' => false)
                     );
                     ?>
                 </div>

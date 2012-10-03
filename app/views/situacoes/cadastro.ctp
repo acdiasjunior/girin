@@ -1,4 +1,5 @@
 <?php
+
 $javascript->link(array('jquery.ui.datepicker-pt-BR', 'jquery.maskedinput-1.2.2.min', 'errormessage'), false);
 
 echo $this->Form->create('Situacao');
@@ -10,19 +11,19 @@ echo $this->Form->input('descricao', array('label' => 'Descrição', 'class' => 
 echo $this->Html->tag('/fieldset', null);
 
 if ($temAcessoEscrita) {
-	echo $this->Form->button('Salvar', array('type' => 'submit'));
+    echo $this->Form->button('Salvar', array('type' => 'submit'));
 } else {
-	?>
-	<script type="text/javascript">
-		$(document).ready(function () 
-		{
-			$('select').attr('disabled','disabled');
-			$('input, textarea').attr('readonly','readonly').click(function() {
-				return false;
-			});
-		});
-	</script>
-	<?php
+    ?>
+    <script type="text/javascript">
+        $(document).ready(function ()
+        {
+            $('select').attr('disabled','disabled');
+            $('input, textarea').attr('readonly','readonly').click(function() {
+                return false;
+            });
+        });
+    </script>
+    <?php
 
 }
 echo $this->Form->button('Fechar', array(

@@ -1,9 +1,13 @@
 <?php
 
-class Servico extends AppModel {
+class Servico extends AppModel
+{
 
     var $name = 'Servico';
-    var $displayField = 'descricao';
+    var $useTable = 'servico';
+    var $tablePrefix = 'tb_';
+    var $primaryKey = 'id_servico';
+    var $displayField = 'nome_servico';
     var $hasAndBelongsToMany = array(
         'Pessoa' => array(
             'joinTable' => 'tb_pessoa_servico',
@@ -11,7 +15,7 @@ class Servico extends AppModel {
             'associationForeignKey' => 'cod_nis_pessoa',
         ),
     );
-	var $sequence = 'seq_servico';
+    var $sequence = 'seq_servico';
 
     //////////////////////////// COMBOS BOXES
 
@@ -20,7 +24,8 @@ class Servico extends AppModel {
      * @access static
      */
 
-    static function tipoServico($value = null) {
+    static function tipoServico($value = null)
+    {
         $options = array(
             self::SERVICO_PROTECAO_BASICA => __('Proteção Básica', true),
             self::SERVICO_PROTECAO_ESPECIAL_MEDIA => __('Proteção Especial - Média Complexidade', true),
@@ -32,4 +37,5 @@ class Servico extends AppModel {
     const SERVICO_PROTECAO_BASICA = 1;
     const SERVICO_PROTECAO_ESPECIAL_MEDIA = 2;
     const SERVICO_PROTECAO_ESPECIAL_ALTA = 3;
+
 }
