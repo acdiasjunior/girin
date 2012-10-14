@@ -13,16 +13,18 @@ class PlanoFamiliar extends AppModel {
         'Indice' => array(
             'foreignKey' => 'cod_domiciliar',
         ),
-        'Usuario',
+        'Usuario' => array(
+            'foreignKey' => 'id_usuario',
+        )
     );
     var $hasAndBelongsToMany = array(
         'Estrategia' => array(
-            'joinTable' => 'tb_estrategia_indicador',
+            'joinTable' => 'tb_estrategia_plano_familiar',
             'foreignKey' => 'id_plano_familiar',
             'associationForeignKey' => 'id_estrategia',
         ),
         'Indicador' => array(
-            'joinTable' => 'tb_estrategia_indicador',
+            'joinTable' => 'tb_indicador_plano_familiar',
             'foreignKey' => 'id_plano_familiar',
             'associationForeignKey' => 'id_indicador',
         ),

@@ -16,21 +16,24 @@ class IndicesController extends AppController {
                     'Indice.cod_domiciliar = Domicilio.cod_domiciliar',
                 )
             ),
-            array('table' => 'regioes',
+            array(
+                'table' => 'tb_regiao',
                 'alias' => 'Regiao',
                 'type' => 'LEFT',
                 'conditions' => array(
-                    'Regiao.id = Domicilio.id_regiao',
+                    'Regiao.id_regiao = Domicilio.id_regiao',
                 )
             ),
-            array('table' => 'tb_bairro',
+            array(
+                'table' => 'tb_bairro',
                 'alias' => 'Bairro',
                 'type' => 'LEFT',
                 'conditions' => array(
                     'Bairro.id_bairro = Domicilio.id_bairro',
                 )
             ),
-            array('table' => 'tb_cras',
+            array(
+                'table' => 'tb_cras',
                 'alias' => 'Cras',
                 'type' => 'LEFT',
                 'conditions' => array(
@@ -42,12 +45,12 @@ class IndicesController extends AppController {
             'AVG(Indice.vlr_idf) AS idf_media',
             'MAX(Indice.vlr_idf) AS idf_max',
             'MIN(Indice.vlr_idf) AS idf_min',
-            'AVG(Indice.vulnerabilidade) AS vulnerabilidade',
-            'AVG(Indice.conhecimento) AS conhecimento',
-            'AVG(Indice.trabalho) AS trabalho',
-            'AVG(Indice.recursos) AS recursos',
-            'AVG(Indice.desenvolvimento) AS desenvolvimento',
-            'AVG(Indice.habitacao) AS habitacao',
+            'AVG(Indice.vlr_dimensao_vulnerabilidade) AS vulnerabilidade',
+            'AVG(Indice.vlr_dimensao_conhecimento) AS conhecimento',
+            'AVG(Indice.vlr_dimensao_trabalho) AS trabalho',
+            'AVG(Indice.vlr_dimensao_recurso) AS recursos',
+            'AVG(Indice.vlr_dimensao_desenvolvimento) AS desenvolvimento',
+            'AVG(Indice.vlr_dimensao_habitacao) AS habitacao',
         );
         $conditions = array();
 
@@ -84,11 +87,11 @@ class IndicesController extends AppController {
         $fields = array(
             'COUNT(*) AS total',
             '(CASE
-                    WHEN "Indice"."idf" <= 0.61 THEN \'ate06\'
-                    WHEN "Indice"."idf" > 0.61 AND "Indice"."idf" <= 0.7 THEN \'de06a07\'
-                    WHEN "Indice"."idf" > 0.7 AND "Indice"."idf" <= 0.8 THEN \'de07a08\'
-                    WHEN "Indice"."idf" > 0.8 AND "Indice"."idf" <= 0.9 THEN \'de08a09\'
-                    WHEN "Indice"."idf" > 0.9 THEN \'maior09\'
+                    WHEN "Indice"."vlr_idf" <= 0.61 THEN \'ate06\'
+                    WHEN "Indice"."vlr_idf" > 0.61 AND "Indice"."vlr_idf" <= 0.7 THEN \'de06a07\'
+                    WHEN "Indice"."vlr_idf" > 0.7 AND "Indice"."vlr_idf" <= 0.8 THEN \'de07a08\'
+                    WHEN "Indice"."vlr_idf" > 0.8 AND "Indice"."vlr_idf" <= 0.9 THEN \'de08a09\'
+                    WHEN "Indice"."vlr_idf" > 0.9 THEN \'maior09\'
                  END) AS indice',
         );
         $group = array('indice');

@@ -18,10 +18,17 @@ class Indice extends AppModel {
         ),
     );
     public $indicadores = array(
-        1 => 'v1', 'v2', 'v3', 'v4', 'v5', 'v6', 'v7', 'v8', 'v9', 'c1', 'c2', 'c3',
-        'c4', 'c5', 't1', 't2', 't3', 't4', 't5', 'r1', 'r2', 'r3', 'r4', 'r5',
-        'r6', 'd1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8', 'h1', 'h2', 'h3',
-        'h4', 'h5', 'h6', 'h7', 'h8', 'v10', 'v11', 'v12',
+        1 => 'vlr_indicador_v1', 'vlr_indicador_v2', 'vlr_indicador_v3', 'vlr_indicador_v4',
+        'vlr_indicador_v5', 'vlr_indicador_v6', 'vlr_indicador_v7', 'vlr_indicador_v8',
+        'vlr_indicador_v9', 'vlr_indicador_c1', 'vlr_indicador_c2', 'vlr_indicador_c3',
+        'vlr_indicador_c4', 'vlr_indicador_c5', 'vlr_indicador_t1', 'vlr_indicador_t2',
+        'vlr_indicador_t3', 'vlr_indicador_t4', 'vlr_indicador_t5', 'vlr_indicador_r1',
+        'vlr_indicador_r2', 'vlr_indicador_r3', 'vlr_indicador_r4', 'vlr_indicador_r5',
+        'vlr_indicador_r6', 'vlr_indicador_d1', 'vlr_indicador_d2', 'vlr_indicador_d3',
+        'vlr_indicador_d4', 'vlr_indicador_d5', 'vlr_indicador_d6', 'vlr_indicador_d7',
+        'vlr_indicador_d8', 'vlr_indicador_h1', 'vlr_indicador_h2', 'vlr_indicador_h3',
+        'vlr_indicador_h4', 'vlr_indicador_h5', 'vlr_indicador_h6', 'vlr_indicador_h7',
+        'vlr_indicador_h8', 'vlr_indicador_v10', 'vlr_indicador_v11', 'vlr_indicador_v12'
     );
     public $dimensoes = array(
         'vulnerabilidade' => array(

@@ -1454,10 +1454,10 @@ CREATE INDEX prontuarios_codigo_domiciliar_idx ON tb_plano_familiar USING btree 
 --
 -- TOC entry 2030 (class 1259 OID 17631)
 -- Dependencies: 1579
--- Name: prontuarios_usuario_id_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
+-- Name: prontuarios_id_usuario_idx; Type: INDEX; Schema: public; Owner: programacaolocal; Tablespace: 
 --
 
-CREATE INDEX prontuarios_usuario_id_idx ON tb_plano_familiar USING btree (id_usuario);
+CREATE INDEX prontuarios_id_usuario_idx ON tb_plano_familiar USING btree (id_usuario);
 
 
 --

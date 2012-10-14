@@ -92,15 +92,15 @@ function classificaIDF($indice) {
                 <br />
                 <strong>Endereço: </strong>
                 <?php
-                echo (strlen($this->data['Domicilio']['tp_logradouro']) > 0) ? $this->data['Domicilio']['tp_logradouro'] . ' ' : '';
-                echo (strlen($this->data['Domicilio']['logradouro']) > 0) ? $this->data['Domicilio']['logradouro'] : '';
-                echo (strlen($this->data['Domicilio']['numero']) > 0) ? ', no ' . $this->data['Domicilio']['numero'] : '';
-                echo (strlen($this->data['Domicilio']['complemento']) > 0) ? ', ' . $this->data['Domicilio']['complemento'] : '';
+                echo (strlen($this->data['Domicilio']['end_tipo']) > 0) ? $this->data['Domicilio']['end_tipo'] . ' ' : '';
+                echo (strlen($this->data['Domicilio']['end_logradouro']) > 0) ? $this->data['Domicilio']['end_logradouro'] : '';
+                echo (strlen($this->data['Domicilio']['end_num']) > 0) ? ', no ' . $this->data['Domicilio']['end_num'] : '';
+                echo (strlen($this->data['Domicilio']['end_compl']) > 0) ? ', ' . $this->data['Domicilio']['end_compl'] : '';
                 ?>
-                <strong>Situação do Domicílio:</strong> <?php echo Domicilio::situacaoDomicilio($this->data['Domicilio']['situacao_domicilio']) ?>
+                <strong>Situação do Domicílio:</strong> <?php echo Domicilio::situacaoDomicilio($this->data['Domicilio']['tp_situacao_domicilio']) ?>
                 <p>
                     <strong>Responsável Legal:</strong> <?php echo $this->data['Domicilio']['Responsavel']['nome'] ?>
-                    <strong>Telefone:</strong> <?php echo $this->data['Domicilio']['telefone'] ?>
+                    <strong>Telefone:</strong> <?php echo $this->data['Domicilio']['tel_ddd'] ?> <?php echo $this->data['Domicilio']['tel_num'] ?>
                 </p>
                 <p>&nbsp;</p>
             </td>
@@ -152,7 +152,7 @@ function classificaIDF($indice) {
                                 - NIS: <?php echo $membro['cod_nis'] ?>
                                 <br />&nbsp;
                             </td>
-                            <td valign="top"><?php echo Pessoa::grauParentesco($membro['responsavel_parentesco']) ?></td>
+                            <td valign="top"><?php echo Pessoa::grauParentesco($membro['tp_pararentesco_responsavel']) ?></td>
                             <td valign="top"><?php echo Pessoa::estadoCivil($membro['est_civil']) ?></td>
                             <td valign="top"><?php echo Pessoa::serieEscolar($membro['serie_escolar']) ?> - <?php echo Pessoa::tipoEscola($membro['tp_escola']) ?></td>
                             <td valign="top"><?php echo Pessoa::tipoTrabalho($membro['tp_trabalho']) ?></td>
@@ -170,7 +170,7 @@ function classificaIDF($indice) {
     <table cellspacing="0" cellpading="0">
         <thead>
             <tr>
-                <td colspan="4" align="center">Prontuário gerado em: <?php echo date('d/m/Y H:i:s', strtotime($this->data['PlanoFamiliar']['created'])) ?> por <?php echo $this->data['Usuario']['nome'] ?></td>
+                <td colspan="4" align="center">Prontuário gerado em: <?php echo date('d/m/Y H:i:s', strtotime($this->data['PlanoFamiliar']['created'])) ?> por <?php echo $this->data['Usuario']['nome_usuario'] ?></td>
             </tr>
         </thead>
         <tbody>
@@ -192,7 +192,7 @@ function classificaIDF($indice) {
 <div class="content">
     <p class="subtitulo">2. Situação do Desenvolvimento da Família</p>
     <?php
-    if ($this->data['Indice']['vulnerabilidade'] != 1) {
+    if ($this->data['Indice']['vlr_dimensao_vulnerabilidade'] != 1) {
         ?>
         <table cellspacing="0" cellpading="0">
             <thead>
@@ -207,10 +207,10 @@ function classificaIDF($indice) {
             <tbody>
                 <?php
                 foreach ($this->data['Indicador'] as $indicador) {
-                    if ($indicador['Dimensao']['desc_coluna_idf'] == 'vulnerabilidade') {
+                    if ($indicador['Dimensao']['desc_coluna_idf'] == 'vlr_dimensao_vulnerabilidade') {
                         ?>
                         <tr>
-                            <td><?php echo $indicador['codigo'] . ' ' . $indicador['label'] ?></td>
+                            <td><?php echo $indicador['cod_indicador'] . ' ' . $indicador['desc_label_indicador'] ?></td>
                             <td>&nbsp;</td>
                         </tr>
                         <?php
@@ -224,7 +224,7 @@ function classificaIDF($indice) {
     ?>
     <p><!-- SEPARADOR --></p>
     <?php
-    if ($this->data['Indice']['conhecimento'] != 1) {
+    if ($this->data['Indice']['vlr_dimensao_conhecimento'] != 1) {
         ?>
         <table cellspacing="0" cellpading="0">
             <thead>
@@ -239,10 +239,10 @@ function classificaIDF($indice) {
             <tbody>
                 <?php
                 foreach ($this->data['Indicador'] as $indicador) {
-                    if ($indicador['Dimensao']['desc_coluna_idf'] == 'conhecimento') {
+                    if ($indicador['Dimensao']['desc_coluna_idf'] == 'vlr_dimensao_conhecimento') {
                         ?>
                         <tr>
-                            <td><?php echo $indicador['codigo'] . ' ' . $indicador['label'] ?></td>
+                            <td><?php echo $indicador['cod_indicador'] . ' ' . $indicador['desc_label_indicador'] ?></td>
                             <td>&nbsp;</td>
                         </tr>
                         <?php
@@ -256,7 +256,7 @@ function classificaIDF($indice) {
     ?>
     <p><!-- SEPARADOR --></p>
     <?php
-    if ($this->data['Indice']['trabalho'] != 1) {
+    if ($this->data['Indice']['vlr_dimensao_trabalho'] != 1) {
         ?>
         <table cellspacing="0" cellpading="0">
             <thead>
@@ -271,10 +271,10 @@ function classificaIDF($indice) {
             <tbody>
                 <?php
                 foreach ($this->data['Indicador'] as $indicador) {
-                    if ($indicador['Dimensao']['desc_coluna_idf'] == 'trabalho') {
+                    if ($indicador['Dimensao']['desc_coluna_idf'] == 'vlr_dimensao_trabalho') {
                         ?>
                         <tr>
-                            <td><?php echo $indicador['codigo'] . ' ' . $indicador['label'] ?></td>
+                            <td><?php echo $indicador['cod_indicador'] . ' ' . $indicador['desc_label_indicador'] ?></td>
                             <td>&nbsp;</td>
                         </tr>
                         <?php
@@ -288,7 +288,7 @@ function classificaIDF($indice) {
     ?>
     <p><!-- SEPARADOR --></p>
     <?php
-    if ($this->data['Indice']['recursos'] != 1) {
+    if ($this->data['Indice']['vlr_dimensao_recurso'] != 1) {
         ?>
         <table cellspacing="0" cellpading="0">
             <thead>
@@ -303,10 +303,10 @@ function classificaIDF($indice) {
             <tbody>
                 <?php
                 foreach ($this->data['Indicador'] as $indicador) {
-                    if ($indicador['Dimensao']['desc_coluna_idf'] == 'recursos') {
+                    if ($indicador['Dimensao']['desc_coluna_idf'] == 'vlr_dimensao_recurso') {
                         ?>
                         <tr>
-                            <td><?php echo $indicador['codigo'] . ' ' . $indicador['label'] ?></td>
+                            <td><?php echo $indicador['cod_indicador'] . ' ' . $indicador['desc_label_indicador'] ?></td>
                             <td>&nbsp;</td>
                         </tr>
                         <?php
@@ -320,7 +320,7 @@ function classificaIDF($indice) {
     ?>
     <p><!-- SEPARADOR --></p>
     <?php
-    if ($this->data['Indice']['desenvolvimento'] != 1) {
+    if ($this->data['Indice']['vlr_dimensao_desenvolvimento'] != 1) {
         ?>
         <table cellspacing="0" cellpading="0">
             <thead>
@@ -335,10 +335,10 @@ function classificaIDF($indice) {
             <tbody>
                 <?php
                 foreach ($this->data['Indicador'] as $indicador) {
-                    if ($indicador['Dimensao']['desc_coluna_idf'] == 'desenvolvimento') {
+                    if ($indicador['Dimensao']['desc_coluna_idf'] == 'vlr_dimensao_desenvolvimento') {
                         ?>
                         <tr>
-                            <td><?php echo $indicador['codigo'] . ' ' . $indicador['label'] ?></td>
+                            <td><?php echo $indicador['cod_indicador'] . ' ' . $indicador['desc_label_indicador'] ?></td>
                             <td>&nbsp;</td>
                         </tr>
                         <?php
@@ -352,7 +352,7 @@ function classificaIDF($indice) {
     ?>
     <p><!-- SEPARADOR --></p>
     <?php
-    if ($this->data['Indice']['habitacao'] != 1) {
+    if ($this->data['Indice']['vlr_dimensao_habitacao'] != 1) {
         ?>
         <table cellspacing="0" cellpading="0">
             <thead>
@@ -367,10 +367,10 @@ function classificaIDF($indice) {
             <tbody>
                 <?php
                 foreach ($this->data['Indicador'] as $indicador) {
-                    if ($indicador['Dimensao']['desc_coluna_idf'] == 'habitacao') {
+                    if ($indicador['Dimensao']['desc_coluna_idf'] == 'vlr_dimensao_habitacao') {
                         ?>
                         <tr>
-                            <td><?php echo $indicador['codigo'] . ' ' . $indicador['label'] ?></td>
+                            <td><?php echo $indicador['cod_indicador'] . ' ' . $indicador['desc_label_indicador'] ?></td>
                             <td>&nbsp;</td>
                         </tr>
                         <?php
@@ -393,61 +393,61 @@ function classificaIDF($indice) {
         <tbody>
             <tr>
                 <td>Vulnerabilidade Familiar</td>
-                <td style="text-align: center; width: 18mm;"><?php echo round($this->data['Indice']['vulnerabilidade'], 2) ?></td>
+                <td style="text-align: center; width: 18mm;"><?php echo round($this->data['Indice']['vlr_dimensao_vulnerabilidade'], 2) ?></td>
                 <td style="width: 100mm;">
                     <?php
-                    $tamanho = round((($this->data['Indice']['vulnerabilidade'] * 100) / 1) * 95 / 100);
-                    echo $this->Html->image('graficos/' . corBarra($this->data['Indice']['vulnerabilidade']) . '.png', array('alt' => '', 'style' => 'width: ' . $tamanho . 'mm; height: 3mm;'));
+                    $tamanho = round((($this->data['Indice']['vlr_dimensao_vulnerabilidade'] * 100) / 1) * 95 / 100);
+                    echo $this->Html->image('graficos/' . corBarra($this->data['Indice']['vlr_dimensao_vulnerabilidade']) . '.png', array('alt' => '', 'style' => 'width: ' . $tamanho . 'mm; height: 3mm;'));
                     ?>
                 </td>
             </tr>
             <tr>
                 <td>Acesso ao Conhecimento</td>
-                <td style="text-align: center;"><?php echo round($this->data['Indice']['conhecimento'], 2) ?></td>
+                <td style="text-align: center;"><?php echo round($this->data['Indice']['vlr_dimensao_conhecimento'], 2) ?></td>
                 <td>
                     <?php
-                    $tamanho = round((($this->data['Indice']['conhecimento'] * 100) / 1) * 95 / 100);
-                    echo $this->Html->image('graficos/' . corBarra($this->data['Indice']['conhecimento']) . '.png', array('alt' => '', 'style' => 'width: ' . $tamanho . 'mm; height: 3mm;'));
+                    $tamanho = round((($this->data['Indice']['vlr_dimensao_conhecimento'] * 100) / 1) * 95 / 100);
+                    echo $this->Html->image('graficos/' . corBarra($this->data['Indice']['vlr_dimensao_conhecimento']) . '.png', array('alt' => '', 'style' => 'width: ' . $tamanho . 'mm; height: 3mm;'));
                     ?>
                 </td>
             </tr>
             <tr>
                 <td>Acesso ao Trabalho</td>
-                <td style="text-align: center;"><?php echo round($this->data['Indice']['trabalho'], 2) ?></td>
+                <td style="text-align: center;"><?php echo round($this->data['Indice']['vlr_dimensao_trabalho'], 2) ?></td>
                 <td>
                     <?php
-                    $tamanho = round((($this->data['Indice']['trabalho'] * 100) / 1) * 95 / 100);
-                    echo $this->Html->image('graficos/' . corBarra($this->data['Indice']['trabalho']) . '.png', array('alt' => '', 'style' => 'width: ' . $tamanho . 'mm; height: 3mm;'));
+                    $tamanho = round((($this->data['Indice']['vlr_dimensao_trabalho'] * 100) / 1) * 95 / 100);
+                    echo $this->Html->image('graficos/' . corBarra($this->data['Indice']['vlr_dimensao_trabalho']) . '.png', array('alt' => '', 'style' => 'width: ' . $tamanho . 'mm; height: 3mm;'));
                     ?>
                 </td>
             </tr>
             <tr>
                 <td>Disponibilidade de Recursos</td>
-                <td style="text-align: center;"><?php echo round($this->data['Indice']['recursos'], 2) ?></td>
+                <td style="text-align: center;"><?php echo round($this->data['Indice']['vlr_dimensao_recurso'], 2) ?></td>
                 <td>
                     <?php
-                    $tamanho = round((($this->data['Indice']['recursos'] * 100) / 1) * 95 / 100);
-                    echo $this->Html->image('graficos/' . corBarra($this->data['Indice']['recursos']) . '.png', array('alt' => '', 'style' => 'width: ' . $tamanho . 'mm; height: 3mm;'));
+                    $tamanho = round((($this->data['Indice']['vlr_dimensao_recurso'] * 100) / 1) * 95 / 100);
+                    echo $this->Html->image('graficos/' . corBarra($this->data['Indice']['vlr_dimensao_recurso']) . '.png', array('alt' => '', 'style' => 'width: ' . $tamanho . 'mm; height: 3mm;'));
                     ?>
                 </td>
             </tr>
             <tr>
                 <td>Desenvolvimento Infantil</td>
-                <td style="text-align: center;"><?php echo round($this->data['Indice']['desenvolvimento'], 2) ?></td>
+                <td style="text-align: center;"><?php echo round($this->data['Indice']['vlr_dimensao_desenvolvimento'], 2) ?></td>
                 <td>
                     <?php
-                    $tamanho = round((($this->data['Indice']['desenvolvimento'] * 100) / 1) * 95 / 100);
-                    echo $this->Html->image('graficos/' . corBarra($this->data['Indice']['desenvolvimento']) . '.png', array('alt' => '', 'style' => 'width: ' . $tamanho . 'mm; height: 3mm;'));
+                    $tamanho = round((($this->data['Indice']['vlr_dimensao_desenvolvimento'] * 100) / 1) * 95 / 100);
+                    echo $this->Html->image('graficos/' . corBarra($this->data['Indice']['vlr_dimensao_desenvolvimento']) . '.png', array('alt' => '', 'style' => 'width: ' . $tamanho . 'mm; height: 3mm;'));
                     ?>
                 </td>
             </tr>
             <tr>
                 <td>Condições Habitacionais</td>
-                <td style="text-align: center;"><?php echo round($this->data['Indice']['habitacao'], 2) ?></td>
+                <td style="text-align: center;"><?php echo round($this->data['Indice']['vlr_dimensao_habitacao'], 2) ?></td>
                 <td>
                     <?php
-                    $tamanho = round((($this->data['Indice']['habitacao'] * 100) / 1) * 95 / 100);
-                    echo $this->Html->image('graficos/' . corBarra($this->data['Indice']['habitacao']) . '.png', array('alt' => '', 'style' => 'width: ' . $tamanho . 'mm; height: 3mm;'));
+                    $tamanho = round((($this->data['Indice']['vlr_dimensao_habitacao'] * 100) / 1) * 95 / 100);
+                    echo $this->Html->image('graficos/' . corBarra($this->data['Indice']['vlr_dimensao_habitacao']) . '.png', array('alt' => '', 'style' => 'width: ' . $tamanho . 'mm; height: 3mm;'));
                     ?>
                 </td>
             </tr>
@@ -476,7 +476,7 @@ function classificaIDF($indice) {
         ?>
         <table cellspacing="0" cellpading="0">
             <tr>
-                <td colspan="3"><strong><?php echo $estrategia['codigo'] ?></strong> - <?php echo $estrategia['descricao'] ?></td>
+                <td colspan="3"><strong><?php echo $estrategia['cod_estrategia'] ?></strong> - <?php echo $estrategia['desc_estrategia'] ?></td>
             </tr>
             <tr>
                 <td style="width: 5cm;">Atividade:</td>

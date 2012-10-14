@@ -68,7 +68,7 @@ class PlanoFamiliaresController extends AppController {
         $this->data = array();
         $this->data['PlanoFamiliar'] = array(
             'cod_domiciliar' => $cod_domiciliar,
-            'usuario_id' => $this->Session->read('Auth.Usuario.id_usuario'),
+            'id_usuario' => $this->Session->read('Auth.Usuario.id_usuario'),
             'numero_plano_familiar' => (int) $this->PlanoFamiliar->field('MAX(numero_plano_familiar)', array('cod_domiciliar' => $cod_domiciliar)) + 1,
         );
 
