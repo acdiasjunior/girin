@@ -1,18 +1,15 @@
 <?php
 
-class PaginasController extends AppController
-{
+class PaginasController extends AppController {
 
     var $name = 'Paginas';
 
-    function index()
-    {
+    function index() {
         $temAcessoExclusao = parent::temAcessoExclusao();
         $this->set(compact('temAcessoExclusao'));
     }
 
-    function lista()
-    {
+    function lista() {
         $this->layout = 'ajax';
 
         if ($this->params['form']['query'] != '')
@@ -37,8 +34,7 @@ class PaginasController extends AppController
         $this->set(compact('paginas', 'page', 'total'));
     }
 
-    function cadastro($id = null)
-    {
+    function cadastro($id = null) {
         if (empty($this->data)) {
             $this->Page->id = $id;
             $this->data = $this->Page->read();

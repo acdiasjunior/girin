@@ -1,12 +1,10 @@
 <?php
 
-class UsuariosController extends AppController
-{
+class UsuariosController extends AppController {
 
     var $name = 'Usuarios';
 
-    function index()
-    {
+    function index() {
         parent::temAcesso();
         if ($this->Session->read('Auth.Usuario.id_grupo') != Usuario::GRUPO_ADMINISTRADOR) {
             $this->Session->setFlash('Somente administradores podem<br />cadastrar usuários!');
@@ -16,8 +14,7 @@ class UsuariosController extends AppController
         $this->set(compact('temAcessoExclusao'));
     }
 
-    function lista()
-    {
+    function lista() {
         $this->layout = 'ajax';
         $this->Usuario->order = array(
             $this->params['form']['sortname'] => $this->params['form']['sortorder']
@@ -26,8 +23,7 @@ class UsuariosController extends AppController
         $this->set('usuarios', $data);
     }
 
-    function cadastro($id = null)
-    {
+    function cadastro($id = null) {
         if (empty($this->data)) {
             if ($id == null && $this->Session->read('Auth.Usuario.id_usuario') != 1)
                 $id = $this->Session->read('Auth.Usuario.id');
@@ -54,8 +50,7 @@ class UsuariosController extends AppController
         }
     }
 
-    function excluir($id)
-    {
+    function excluir($id) {
         parent::temAcesso();
         if ($this->Session->read('Auth.Usuario.id_grupo') != Usuario::GRUPO_ADMINISTRADOR) {
             $this->Session->setFlash('Somente administradores podem<br />excluir usuários!');
@@ -72,8 +67,7 @@ class UsuariosController extends AppController
         }
     }
 
-    function login()
-    {
+    function login() {
         if (!(empty($this->data)) && $this->Auth->user()) {
             $this->Usuario->Acesso->create();
             $this->Usuario->Acesso->set('id_usuario', $this->Session->read('Auth.Usuario.id_usuario'));
@@ -85,8 +79,7 @@ class UsuariosController extends AppController
     }
 
     // Usado para mudar senha pelo proprio usuario
-    function mudarSenha()
-    {
+    function mudarSenha() {
         if (!empty($this->data['Usuario']['nova_senha'])) {
             $this->Usuario->id = $this->Session->read('Auth.Usuario.id_usuario');
             $this->Usuario->set('password', $this->Auth->password($this->data['Usuario']['nova_senha']));
@@ -99,8 +92,7 @@ class UsuariosController extends AppController
     }
 
     // Usado pelo admin para mudar senha do usuario
-    function mudarSenhaUsuario()
-    {
+    function mudarSenhaUsuario() {
         if (!empty($this->data)) {
             $this->Usuario->set('password', $this->Auth->password($this->data['Usuario']['nova_senha']));
             if ($this->Usuario->save($this->data)) {
@@ -113,13 +105,11 @@ class UsuariosController extends AppController
         $this->render('admin_index');
     }
 
-    function logout()
-    {
+    function logout() {
         $this->redirect($this->Auth->logout());
     }
 
-    function gravaParametros($container)
-    {
+    function gravaParametros($container) {
         $this->autoRender = false;
         $controller = array_shift($this->params['form']);
         $action = array_shift($this->params['form']);
@@ -129,8 +119,7 @@ class UsuariosController extends AppController
         }
     }
 
-    function beforeFilter()
-    {
+    function beforeFilter() {
         $this->Auth->autoRedirect = false;
         // executa o beforeFilter do AppController
         parent::beforeFilter();
@@ -138,8 +127,7 @@ class UsuariosController extends AppController
         $this->Auth->allow(array('login', 'logout'));
     }
 
-    function beforeSave()
-    {
+    function beforeSave() {
         if (!empty($this->data['Usuario']['passwd'])) {
             $this->data['Usuario']['password'] = $this->Auth->password($this->data['Usuario']['passwd']);
         }

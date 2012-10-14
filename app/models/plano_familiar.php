@@ -1,7 +1,6 @@
 <?php
 
-class PlanoFamiliar extends AppModel
-{
+class PlanoFamiliar extends AppModel {
 
     var $name = 'PlanoFamiliar';
     var $useTable = 'plano_familiar';

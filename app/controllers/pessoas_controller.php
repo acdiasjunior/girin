@@ -1,7 +1,6 @@
 <?php
 
-class PessoasController extends AppController
-{
+class PessoasController extends AppController {
 
     var $name = 'Pessoas';
     var $helpers = array('Javascript', 'Js');
@@ -12,15 +11,13 @@ class PessoasController extends AppController
      */
     var $Pessoa;
 
-    function index()
-    {
+    function index() {
         parent::temAcesso();
         $temAcessoExclusao = parent::temAcessoExclusao();
         $this->set(compact('temAcessoExclusao'));
     }
 
-    function lista()
-    {
+    function lista() {
         $this->layout = 'ajax';
 
         $this->Pessoa->recursive = 0;
@@ -53,8 +50,7 @@ class PessoasController extends AppController
         $this->set(compact('pessoas', 'page', 'total'));
     }
 
-    function listaNomes()
-    {
+    function listaNomes() {
         $options = array(
             'conditions' => array(
                 'Pessoa.nome LIKE ' => '%' . str_replace(' ', '%', $this->params['form']['term']) . '%'
@@ -65,8 +61,7 @@ class PessoasController extends AppController
         $this->render('lista_nomes');
     }
 
-    function listaNomesResponsavel()
-    {
+    function listaNomesResponsavel() {
         $options = array(
             'conditions' => array(
                 'Pessoa.cod_nis_responsavel IS NULL',
@@ -79,8 +74,7 @@ class PessoasController extends AppController
         $this->render('lista_nomes');
     }
 
-    function listaMembros($cod_nis_responsavel)
-    {
+    function listaMembros($cod_nis_responsavel) {
 
         $this->layout = 'ajax';
 
@@ -103,8 +97,7 @@ class PessoasController extends AppController
         $this->set(compact('membros', 'page', 'total'));
     }
 
-    function listaPessoasDomicilio($cod_domiciliar)
-    {
+    function listaPessoasDomicilio($cod_domiciliar) {
         $this->layout = 'ajax';
 
         $conditions = array('Pessoa.cod_domiciliar =' => $cod_domiciliar);
@@ -125,8 +118,40 @@ class PessoasController extends AppController
         $this->set(compact('pessoas', 'page', 'total'));
     }
 
-    function cadastro($id = null)
-    {
+    function listaPessoasServico($id_servico) {
+        $this->layout = 'ajax';
+
+        $this->Pessoa->Behaviors->attach('Containable');
+        
+        $conditions = array();
+
+        if ($this->params['form']['query'] != '') {
+            $conditions[] = array($this->params['form']['qtype'] . ' LIKE' => '%' . str_replace(' ', '%', $this->params['form']['query']) . '%');
+        }
+
+        $this->paginate = array(
+            'contain' => array(
+                'Servico' => array(
+                    'conditions' => array(
+                        'Servico.id_servico = ' => $id_servico
+                    )
+                )
+            ),
+            'page' => $this->params['form']['page'],
+            'limit' => $this->params['form']['rp'],
+            'order' => array(
+                $this->params['form']['sortname'] => $this->params['form']['sortorder']
+            ),
+            'conditions' => $conditions
+        );
+        
+        $pessoas = $this->paginate('Pessoa');
+        $page = $this->params['form']['page'];
+        $total = $this->Pessoa->find('count', array('conditions' => $conditions));
+        $this->set(compact('pessoas', 'page', 'total'));
+    }
+
+    function cadastro($id = null) {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Pessoa->read();
@@ -141,8 +166,7 @@ class PessoasController extends AppController
         }
     }
 
-    function excluir($id)
-    {
+    function excluir($id) {
         parent::temAcesso();
         if (!empty($id)) {
             $this->Pessoa->delete($id);
@@ -153,8 +177,7 @@ class PessoasController extends AppController
         $this->redirect(array('action' => 'index'));
     }
 
-    function importar($arquivo = null)
-    {
+    function importar($arquivo = null) {
         parent::temAcesso();
         if (empty($this->data)) {
             //Abre a tela de importação
@@ -189,8 +212,7 @@ class PessoasController extends AppController
         }
     }
 
-    private function crasUsuario()
-    {
+    private function crasUsuario() {
         $this->loadModel('Usuario');
         $this->Usuario->id = $this->Session->read('Auth.Usuario.id_usuario');
         $cras_usuario = array();

@@ -13,17 +13,17 @@ foreach ($permissoes as $permissao) {
             $permissao['Permissao']['nome_controller'],
             $permissao['Permissao']['nome_action'],
             $permissao['Permissao']['tp_acesso_simples'] ?
-                Permissao::permissaoAcessoSimples($permissao['Permissao']['tp_acesso_administrador']) :
-                Permissao::permissaoAcesso($permissao['Permissao']['tp_acesso_administrador']),
+                    Permissao::permissaoAcessoSimples($permissao['Permissao']['tp_acesso_administrador']) :
+                    Permissao::permissaoAcesso($permissao['Permissao']['tp_acesso_administrador']),
             $permissao['Permissao']['tp_acesso_simples'] ?
-                Permissao::permissaoAcessoSimples($permissao['Permissao']['tp_acesso_tecnico_sas']) :
-                Permissao::permissaoAcesso($permissao['Permissao']['tp_acesso_tecnico_sas']),
+                    Permissao::permissaoAcessoSimples($permissao['Permissao']['tp_acesso_tecnico_sas']) :
+                    Permissao::permissaoAcesso($permissao['Permissao']['tp_acesso_tecnico_sas']),
             $permissao['Permissao']['tp_acesso_simples'] ?
-                Permissao::permissaoAcessoSimples($permissao['Permissao']['tp_acesso_coordenador_cras']) :
-                Permissao::permissaoAcesso($permissao['Permissao']['tp_acesso_coordenador_cras']),
+                    Permissao::permissaoAcessoSimples($permissao['Permissao']['tp_acesso_coordenador_cras']) :
+                    Permissao::permissaoAcesso($permissao['Permissao']['tp_acesso_coordenador_cras']),
             $permissao['Permissao']['tp_acesso_simples'] ?
-                Permissao::permissaoAcessoSimples($permissao['Permissao']['tp_acesso_tecnico_cras']) :
-                Permissao::permissaoAcesso($permissao['Permissao']['tp_acesso_tecnico_cras']),
+                    Permissao::permissaoAcessoSimples($permissao['Permissao']['tp_acesso_tecnico_cras']) :
+                    Permissao::permissaoAcesso($permissao['Permissao']['tp_acesso_tecnico_cras']),
         )
     );
 }

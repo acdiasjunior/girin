@@ -1,7 +1,6 @@
 <?php
 
-function corBarra($indice)
-{
+function corBarra($indice) {
     if ($indice <= 0.61) {
         $cor = 'red';
     } else if ($indice > 0.61 && $indice <= 0.7) {
@@ -16,8 +15,7 @@ function corBarra($indice)
     return $cor;
 }
 
-function classificaIDF($indice)
-{
+function classificaIDF($indice) {
     if ($indice <= 0.61) {
         $classificacao = 'D5';
     } else if ($indice > 0.61 && $indice <= 0.7) {

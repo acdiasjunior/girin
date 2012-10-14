@@ -1,7 +1,6 @@
 <?php
 
-class Usuario extends AppModel
-{
+class Usuario extends AppModel {
 
     var $name = 'Usuario';
     var $useTable = 'usuario';
@@ -33,8 +32,7 @@ class Usuario extends AppModel
      * @access static
      */
 
-    static function grupoUsuario($value = null)
-    {
+    static function grupoUsuario($value = null) {
         $options = array(
             self::GRUPO_ADMINISTRADOR => __('Administrador', true),
             self::GRUPO_TECNICO_SAS => __('Técnico SAS', true),

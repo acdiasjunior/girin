@@ -12,8 +12,7 @@
  * @author     Giorgio Maria Santini <giosan83@gmail.com>
  * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
  */
-class InheritBehavior extends ModelBehavior
-{
+class InheritBehavior extends ModelBehavior {
 
     const MTI_METHOD = 'MTI';
     const STI_METHOD = 'STI';
@@ -35,11 +34,10 @@ class InheritBehavior extends ModelBehavior
      *      MTI (Multiple Table Inheritance), STI (Single Table Inheritance), SMTI ( Mix between MTI and STI)
      * @see ModelBehavior::setup()
      */
-    public function setup(&$model, $config = array())
-    {
+    public function setup(&$model, $config = array()) {
 
         $this->settings[$model->alias] =
-            am(array(
+                am(array(
             'plugin' => 'Public',
             'parentClass' => get_parent_class($model),
             'fullPathParentClass' => '',
@@ -47,7 +45,7 @@ class InheritBehavior extends ModelBehavior
             'inheritanceAlias' => Inflector::tableize($model->alias),
             'fields' => array(),
             'method' => self::DEFAULT_METHOD
-            ), $config);
+                ), $config);
 
         $this->_setMethod($model);
         $this->_init($model);
@@ -57,8 +55,7 @@ class InheritBehavior extends ModelBehavior
      * Initializes the behavior class and the model class
      * @param unknown_type $model
      */
-    private function _init($model)
-    {
+    private function _init($model) {
         extract($this->settings[$model->alias]);
 
         $this->_initParent($model);
@@ -73,8 +70,7 @@ class InheritBehavior extends ModelBehavior
      * Normalize choosen method for inheritance
      * @param unknown_type $model
      */
-    private function _setMethod($model)
-    {
+    private function _setMethod($model) {
         $availableMethods = array(self::MTI_METHOD, self::STI_METHOD, self::SMTI_METHOD);
 
         $this->settings[$model->alias]['method'] = strtoupper($this->settings[$model->alias]['method']);
@@ -87,8 +83,7 @@ class InheritBehavior extends ModelBehavior
      * Initializes the parent reference for the model
      * @param unknown_type $model
      */
-    private function _initParent($model)
-    {
+    private function _initParent($model) {
 
         extract($this->settings[$model->alias]);
 
@@ -114,8 +109,7 @@ class InheritBehavior extends ModelBehavior
      * no fields will be removed from the schema
      * @param unknown_type $model
      */
-    private function _initFields($model)
-    {
+    private function _initFields($model) {
         extract($this->settings[$model->alias]);
 
         if (property_exists($model, 'fields') && $fields && $model->fields) {
@@ -137,8 +131,7 @@ class InheritBehavior extends ModelBehavior
      * Adds bindings for MTI/SMTI methods
      * @param unknown_type $model
      */
-    private function _initBindings($model)
-    {
+    private function _initBindings($model) {
         extract($this->settings[$model->alias]);
 
         //add binding
@@ -162,8 +155,7 @@ class InheritBehavior extends ModelBehavior
      * @param unknown_type $model
      * @param unknown_type $query
      */
-    private function _stiBeforeSave($model, $query)
-    {
+    private function _stiBeforeSave($model, $query) {
         extract($this->settings[$model->alias]);
 
         if (isset($model->_schema[$inheritanceField])) {
@@ -178,8 +170,7 @@ class InheritBehavior extends ModelBehavior
      * @param unknown_type $model
      * @param unknown_type $query
      */
-    private function _stiBeforeFind($model, $query)
-    {
+    private function _stiBeforeFind($model, $query) {
         extract($this->settings[$model->alias]);
 
         if (isset($model->_schema[$inheritanceField])) {
@@ -210,8 +201,7 @@ class InheritBehavior extends ModelBehavior
      * @param unknown_type $model
      * @param unknown_type $query
      */
-    private function _mtiBeforeFind($model, $query)
-    {
+    private function _mtiBeforeFind($model, $query) {
 
         $model->bindModel(array('belongsTo' => $model->bindings));
         return $query;
@@ -221,8 +211,7 @@ class InheritBehavior extends ModelBehavior
      * MTI needs parent to be saved before the current model. Model->primaryKey is then setted up with parent->primaryKey
      * @param unknown_type $model
      */
-    private function _mtiBeforeSave($model)
-    {
+    private function _mtiBeforeSave($model) {
         extract($this->settings[$model->alias]);
 
         if ($method == self::SMTI_METHOD)
@@ -243,8 +232,7 @@ class InheritBehavior extends ModelBehavior
      * (non-PHPdoc)
      * @see ModelBehavior::beforeFind()
      */
-    public function beforeFind(&$model, $query)
-    {
+    public function beforeFind(&$model, $query) {
         extract($this->settings[$model->alias]);
 
         if ($method == self::STI_METHOD)
@@ -257,8 +245,7 @@ class InheritBehavior extends ModelBehavior
      * (non-PHPdoc)
      * @see ModelBehavior::afterFind()
      */
-    public function afterFind(&$model, $results, $primary = false)
-    {
+    public function afterFind(&$model, $results, $primary = false) {
         extract($this->settings[$model->alias]);
 
         if ($method != self::STI_METHOD) {
@@ -283,8 +270,7 @@ class InheritBehavior extends ModelBehavior
      * (non-PHPdoc)
      * @see ModelBehavior::afterDelete()
      */
-    public function afterDelete(&$model)
-    {
+    public function afterDelete(&$model) {
         extract($this->settings[$model->alias]);
 
         if ($method != self::STI_METHOD)
@@ -297,8 +283,7 @@ class InheritBehavior extends ModelBehavior
      * (non-PHPdoc)
      * @see ModelBehavior::beforeSave()
      */
-    public function beforeSave(&$model)
-    {
+    public function beforeSave(&$model) {
         extract($this->settings[$model->alias]);
 
         if ($method == self::STI_METHOD)
@@ -311,8 +296,7 @@ class InheritBehavior extends ModelBehavior
      * (non-PHPdoc)
      * @see ModelBehavior::afterSave()
      */
-    public function afterSave(&$model, $created)
-    {
+    public function afterSave(&$model, $created) {
         extract($this->settings[$model->alias]);
 
         if ($method == self::STI_METHOD)

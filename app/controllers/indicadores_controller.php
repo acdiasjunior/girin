@@ -1,19 +1,16 @@
 <?php
 
-class IndicadoresController extends AppController
-{
+class IndicadoresController extends AppController {
 
     var $name = 'Indicadores';
 
-    function index()
-    {
+    function index() {
         parent::temAcesso();
         $temAcessoExclusao = parent::temAcessoExclusao();
         $this->set(compact('temAcessoExclusao'));
     }
 
-    function lista()
-    {
+    function lista() {
         $this->layout = 'ajax';
 
         if ($this->params['form']['query'] != '')
@@ -38,8 +35,7 @@ class IndicadoresController extends AppController
         $this->set(compact('indicadores', 'page', 'total'));
     }
 
-    function cadastro($id = null)
-    {
+    function cadastro($id = null) {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Indicador->read();

@@ -1,7 +1,6 @@
 <?php
 
-class Servico extends AppModel
-{
+class Servico extends AppModel {
 
     var $name = 'Servico';
     var $useTable = 'servico';
@@ -24,8 +23,7 @@ class Servico extends AppModel
      * @access static
      */
 
-    static function tipoServico($value = null)
-    {
+    static function tipoServico($value = null) {
         $options = array(
             self::SERVICO_PROTECAO_BASICA => __('Proteção Básica', true),
             self::SERVICO_PROTECAO_ESPECIAL_MEDIA => __('Proteção Especial - Média Complexidade', true),

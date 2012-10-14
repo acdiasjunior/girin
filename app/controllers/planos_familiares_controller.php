@@ -1,19 +1,16 @@
 <?php
 
-class PlanoFamiliaresController extends AppController
-{
+class PlanoFamiliaresController extends AppController {
 
     var $name = 'PlanoFamiliares';
 
-    function index()
-    {
+    function index() {
         parent::temAcesso();
         $temAcessoExclusao = parent::temAcessoExclusao();
         $this->set(compact('temAcessoExclusao'));
     }
 
-    function lista()
-    {
+    function lista() {
         $this->layout = 'ajax';
 
         $this->PlanoFamiliar->recursive = 2;
@@ -40,8 +37,7 @@ class PlanoFamiliaresController extends AppController
         $this->set(compact('plano_familiares', 'page', 'total'));
     }
 
-    function filtro()
-    {
+    function filtro() {
         $this->layout = 'ajax';
         $this->loadModel('Domicilio');
         $bairros = $this->Domicilio->Bairro->find('list', array('order' => 'Bairro.nome_bairro'));
@@ -50,13 +46,11 @@ class PlanoFamiliaresController extends AppController
         $this->set(compact('bairros', 'cras', 'regioes'));
     }
 
-    function gerar()
-    {
+    function gerar() {
         parent::temAcesso();
     }
 
-    function gerarPlanoFamiliar($cod_domiciliar = null)
-    {
+    function gerarPlanoFamiliar($cod_domiciliar = null) {
         parent::temAcesso();
         if ($cod_domiciliar == null)
             $this->redirect(array('action' => 'index'));
@@ -92,7 +86,7 @@ class PlanoFamiliaresController extends AppController
             'conditions' => array(
                 "indicador_id IN ('" . implode("','", array_keys($list)) . "')"
             ),
-            )
+                )
         );
 
         foreach ($estrategias as $estrategia) {
@@ -107,8 +101,7 @@ class PlanoFamiliaresController extends AppController
         }
     }
 
-    function exibirPlanoFamiliar($id)
-    {
+    function exibirPlanoFamiliar($id) {
         parent::temAcesso();
         $this->layout = 'ajax';
         $this->PlanoFamiliar->recursive = 2;
@@ -118,8 +111,7 @@ class PlanoFamiliaresController extends AppController
         $this->set(compact('total_estrategias'));
     }
 
-    function gerarPDF($id)
-    {
+    function gerarPDF($id) {
         $this->autoRender = false;
         $cod_domiciliar = $this->PlanoFamiliar->field('cod_domiciliar');
         $numero_plano_familiar = $this->PlanoFamiliar->field('numero_plano_familiar');
@@ -145,8 +137,7 @@ class PlanoFamiliaresController extends AppController
         $pdf->Output('PlanoFamiliar_' . $cod_domiciliar . '_' . str_pad($numero_plano_familiar, 4, "0", STR_PAD_LEFT) . '.pdf', 'D');
     }
 
-    private function crasUsuario()
-    {
+    private function crasUsuario() {
         $this->loadModel('Usuario');
         $this->Usuario->id = $this->Session->read('Auth.Usuario.id_usuario');
         $cras_usuario = array();

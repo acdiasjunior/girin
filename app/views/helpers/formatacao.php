@@ -16,8 +16,7 @@
  *
  * @link http://wiki.github.com/jrbasso/cake_ptbr/helper-formatao
  */
-class FormatacaoHelper extends AppHelper
-{
+class FormatacaoHelper extends AppHelper {
 
     /**
      * Helpers auxiliares
@@ -35,8 +34,7 @@ class FormatacaoHelper extends AppHelper
      * @return string Data no formato dd/mm/aaaa
      * @access public
      */
-    function data($data = null, $opcoes = array())
-    {
+    function data($data = null, $opcoes = array()) {
         $padrao = array(
             'invalid' => '31/12/1969',
             'userOffset' => null
@@ -56,8 +54,7 @@ class FormatacaoHelper extends AppHelper
      * @return string Data no formato dd/mm/aaaa hh:mm:ss
      * @access public
      */
-    function dataHora($dataHora = null, $segundos = true, $opcoes = array())
-    {
+    function dataHora($dataHora = null, $segundos = true, $opcoes = array()) {
         $padrao = array(
             'invalid' => '31/12/1969',
             'userOffset' => null
@@ -78,8 +75,7 @@ class FormatacaoHelper extends AppHelper
      * @return string Descrição da data no estilo "Sexta-feira", 01 de Janeiro de 2010, 00:00:00"
      * @access public
      */
-    function dataCompleta($dataHora = null)
-    {
+    function dataCompleta($dataHora = null) {
         $_diasDaSemana = array('Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado');
         $_meses = array('Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro');
 
@@ -97,8 +93,7 @@ class FormatacaoHelper extends AppHelper
      * @return integer Se null, retorna a data/hora atual
      * @access protected
      */
-    function _ajustaDataHora($data)
-    {
+    function _ajustaDataHora($data) {
         if (is_null($data)) {
             return time();
         }
@@ -116,8 +111,7 @@ class FormatacaoHelper extends AppHelper
      * @return string Descrição da data em tempo ex.: a 1 minuto, a 1 semana
      * @access public
      */
-    function tempo($dataHora = null, $limite = '30 days')
-    {
+    function tempo($dataHora = null, $limite = '30 days') {
         if (!$dataHora) {
             $dataHora = time();
         }
@@ -179,8 +173,7 @@ class FormatacaoHelper extends AppHelper
      * @return string Número formatado
      * @access public
      */
-    function precisao($numero, $casasDecimais = 3)
-    {
+    function precisao($numero, $casasDecimais = 3) {
         return number_format($numero, $casasDecimais, ',', '.');
     }
 
@@ -192,8 +185,7 @@ class FormatacaoHelper extends AppHelper
      * @return string Número formatado com %
      * @access public
      */
-    function porcentagem($numero, $casasDecimais = 2)
-    {
+    function porcentagem($numero, $casasDecimais = 2) {
         return $this->precisao($numero, $casasDecimais) . '%';
     }
 
@@ -205,8 +197,7 @@ class FormatacaoHelper extends AppHelper
      * @return string Valor formatado em reais
      * @access public
      */
-    function moeda($valor, $opcoes = array())
-    {
+    function moeda($valor, $opcoes = array()) {
         $padrao = array(
             'before' => 'R$ ',
             'after' => '',
@@ -242,8 +233,7 @@ class FormatacaoHelper extends AppHelper
      * @access public
      * @link http://forum.imasters.uol.com.br/index.php?showtopic=125375
      */
-    function moedaPorExtenso($numero)
-    {
+    function moedaPorExtenso($numero) {
         $singular = array('centavo', 'real', 'mil', 'milhão', 'bilhão', 'trilhão', 'quatrilhão');
         $plural = array('centavos', 'reais', 'mil', 'milhões', 'bilhões', 'trilhões', 'quatrilhões');
 

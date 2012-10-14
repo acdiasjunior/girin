@@ -7,13 +7,13 @@ $data['rows'] = array();
 
 foreach ($servicos as $servico) {
     $data['rows'][] = array(
-        'id' => $servico['Servico']['id'],
+        'id' => $servico['Servico']['id_servico'],
         'cell' => array(
-            $servico['Servico']['id'],
+            $servico['Servico']['id_servico'],
             Servico::tipoServico($servico['Servico']['tp_servico']),
-            $servico['Servico']['descricao'],
+            $servico['Servico']['nome_servico'],
             $servico['Servico']['faixa_etaria'],
-            $servico['Servico']['capacidade'],
+            $servico['Servico']['qtd_capacidade'],
         )
     );
 }

@@ -1,7 +1,6 @@
 <?php
 
-class Dimensao extends AppModel
-{
+class Dimensao extends AppModel {
 
     var $name = 'Dimensao';
     var $primaryKey = 'id_dimensao_idf';

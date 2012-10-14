@@ -1,19 +1,16 @@
 <?php
 
-class ServicosController extends AppController
-{
+class ServicosController extends AppController {
 
     var $name = 'Servicos';
 
-    function index()
-    {
+    function index() {
         parent::temAcesso();
         $temAcessoExclusao = parent::temAcessoExclusao();
         $this->set(compact('temAcessoExclusao'));
     }
 
-    function lista()
-    {
+    function lista() {
         $this->layout = 'ajax';
 
         if ($this->params['form']['query'] != '')
@@ -38,8 +35,7 @@ class ServicosController extends AppController
         $this->set(compact('servicos', 'page', 'total'));
     }
 
-    function cadastro($id = null)
-    {
+    function cadastro($id = null) {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Servico->read();
@@ -53,8 +49,7 @@ class ServicosController extends AppController
         }
     }
 
-    function listaServicosPessoa($pessoa_id)
-    {
+    function listaServicosPessoa($pessoa_id) {
         $this->layout = 'ajax';
 
         $conditions = array('Servico.pessoa_id =' => $pessoa_id);
@@ -75,8 +70,7 @@ class ServicosController extends AppController
         $this->set(compact('servicos', 'page', 'total'));
     }
 
-    function preencheCombo($pessoa_id = null)
-    {
+    function preencheCombo($pessoa_id = null) {
         $this->layout = 'ajax';
         $this->autoRender = false;
         if ($pessoa_id == null)
@@ -88,8 +82,7 @@ class ServicosController extends AppController
             echo '<option value="' . $key . '">' . $value . '</option>';
     }
 
-    function excluir($id, $novo_servico = null)
-    {
+    function excluir($id, $novo_servico = null) {
         parent::temAcesso();
         if (!empty($id)) {
             $this->Servico->delete($id);

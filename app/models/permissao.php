@@ -1,7 +1,6 @@
 <?php
 
-class Permissao extends AppModel
-{
+class Permissao extends AppModel {
 
     var $name = 'Permissao';
     var $primaryKey = 'id_permissao';
@@ -16,8 +15,7 @@ class Permissao extends AppModel
      * @access static
      */
 
-    static function permissaoAcesso($value = null)
-    {
+    static function permissaoAcesso($value = null) {
         $options = array(
             self::PERMISSAO_NENHUMA => __('Nenhuma', true),
             self::PERMISSAO_LEITURA => __('Leitura', true),
@@ -30,8 +28,7 @@ class Permissao extends AppModel
     const PERMISSAO_LEITURA = 1;
     const PERMISSAO_ESCRITA = 2;
 
-    static function permissaoAcessoSimples($value = null)
-    {
+    static function permissaoAcessoSimples($value = null) {
         $options = array(
             self::PERMISSAO_NAO => __('Não', true),
             self::PERMISSAO_SIM => __('Sim', true),

@@ -1,12 +1,10 @@
 <?php
 
-class CepsController extends AppController
-{
+class CepsController extends AppController {
 
     var $name = 'Ceps';
 
-    function consultaCep($cep)
-    {
+    function consultaCep($cep) {
         $this->layout = 'ajax';
         $cep = Inflector::slug($cep, '');
         $this->set('data', $this->Cep->consulta($cep));

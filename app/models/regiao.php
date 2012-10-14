@@ -1,7 +1,6 @@
 <?php
 
-class Regiao extends AppModel
-{
+class Regiao extends AppModel {
 
     var $name = 'Regiao';
     var $useTable = 'regiao';

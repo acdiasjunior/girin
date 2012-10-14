@@ -32,8 +32,7 @@ App::import('Core', array('HttpSocket', 'Xml'));
  *
  * @link http://wiki.github.com/jrbasso/cake_ptbr/behavior-correios
  */
-class CorreiosBehavior extends ModelBehavior
-{
+class CorreiosBehavior extends ModelBehavior {
 
     /**
      * Cálculo do valor do frete
@@ -49,8 +48,7 @@ class CorreiosBehavior extends ModelBehavior
      * @return mixed Array com os dados do frete ou integer com erro. Ver defines ERRO_CORREIOS_* para erros.
      * @access public
      */
-    function valorFrete(&$model, $servico, $cepOrigem, $cepDestino, $peso, $maoPropria = false, $valorDeclarado = 0.0, $avisoRecebimento = false)
-    {
+    function valorFrete(&$model, $servico, $cepOrigem, $cepDestino, $peso, $maoPropria = false, $valorDeclarado = 0.0, $avisoRecebimento = false) {
         // Validação dos parâmetros
         $tipos = array(CORREIOS_SEDEX, CORREIOS_SEDEX_A_COBRAR, CORREIOS_SEDEX_10, CORREIOS_SEDEX_HOJE, CORREIOS_ENCOMENDA_NORMAL);
         if (!in_array($servico, $tipos)) {
@@ -124,8 +122,7 @@ class CorreiosBehavior extends ModelBehavior
      * @return mixed Array com os dados do endereço ou interger para erro. Ver defines ERRO_CORREIOS_* para os erros.
      * @access public
      */
-    function endereco(&$model, $cep)
-    {
+    function endereco(&$model, $cep) {
         if (!$this->_validaCep($cep, '-')) {
             return ERRO_CORREIOS_PARAMETROS_INVALIDOS;
         }
@@ -182,8 +179,7 @@ class CorreiosBehavior extends ModelBehavior
      * @return boolean CEP Correto
      * @access protected
      */
-    function _validaCep($cep)
-    {
+    function _validaCep($cep) {
         return (bool) preg_match('/^\d{5}\-?\d{3}$/', $cep);
     }
 
@@ -196,8 +192,7 @@ class CorreiosBehavior extends ModelBehavior
      * @return string Página solicitada
      * @access protected
      */
-    function _requisitaUrl($url, $method, $query)
-    {
+    function _requisitaUrl($url, $method, $query) {
         $HttpSocket = new HttpSocket();
         $uri = array(
             'scheme' => 'http',

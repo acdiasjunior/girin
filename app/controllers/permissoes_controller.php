@@ -1,17 +1,14 @@
 <?php
 
-class PermissoesController extends AppController
-{
+class PermissoesController extends AppController {
 
     var $name = 'Permissoes';
 
-    function index()
-    {
+    function index() {
         parent::temAcesso();
     }
 
-    function lista()
-    {
+    function lista() {
         $this->layout = 'ajax';
 
         if ($this->params['form']['query'] != '')
@@ -36,8 +33,7 @@ class PermissoesController extends AppController
         $this->set(compact('permissoes', 'page', 'total'));
     }
 
-    function gerenciar($id = null)
-    {
+    function gerenciar($id = null) {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Permissao->read();

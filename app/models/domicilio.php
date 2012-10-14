@@ -1,7 +1,6 @@
 <?php
 
-class Domicilio extends AppModel
-{
+class Domicilio extends AppModel {
 
     var $name = 'Domicilio';
     var $useTable = 'domicilio';
@@ -50,8 +49,7 @@ class Domicilio extends AppModel
      */
     var $Bairro;
 
-    public function __construct($id = false, $table = null, $ds = null)
-    {
+    public function __construct($id = false, $table = null, $ds = null) {
         parent::__construct($id, $table, $ds);
         $this->virtualFields = array(
             'vlr_renda_per_capita' => "(Domicilio.vlr_renda_familia / Domicilio.qtd_pessoa)"
@@ -65,8 +63,7 @@ class Domicilio extends AppModel
      * @access static
      */
 
-    static function bolsaFamilia($value = null)
-    { // 211
+    static function bolsaFamilia($value = null) { // 211
         $options = array(
             self::BOLSA_FAMILIA_NAO => __('Não', true),
             self::BOLSA_FAMILIA_SIM => __('Sim', true),
@@ -77,8 +74,7 @@ class Domicilio extends AppModel
     const BOLSA_FAMILIA_NAO = 0;
     const BOLSA_FAMILIA_SIM = 1;
 
-    static function tipoLocalidade($value = null)
-    {
+    static function tipoLocalidade($value = null) {
         $options = array(
             self::LOCALIDADE_NAO_INFORMADO => __('Não Informado', true),
             self::LOCALIDADE_URBANA => __('Urbana', true),
@@ -91,8 +87,7 @@ class Domicilio extends AppModel
     const LOCALIDADE_URBANA = 1;
     const LOCALIDADE_RURAL = 2;
 
-    static function situacaoDomicilio($value = null)
-    { // 213
+    static function situacaoDomicilio($value = null) { // 213
         $options = array(
             self::DOMICILIO_NAO_INFORMADO => __('Não Informado', true),
             self::DOMICILIO_PROPRIO => __('Próprio', true),
@@ -115,8 +110,7 @@ class Domicilio extends AppModel
     const DOMICILIO_FINANCIADO = 6;
     const DOMICILIO_OUTRA = 7;
 
-    static function tipoDomicilio($value = null)
-    { // 214
+    static function tipoDomicilio($value = null) { // 214
         $options = array(
             self::TP_DOMICILIO_NAO_INFORMADO => __('Não Informado', true),
             self::TP_DOMICILIO_APARTAMENTO => __('Apartamento', true),
@@ -133,8 +127,7 @@ class Domicilio extends AppModel
     const TP_DOMICILIO_COMODOS = 3;
     const TP_DOMICILIO_OUTRO = 4;
 
-    static function tipoConstrucao($value = null)
-    { // 216
+    static function tipoConstrucao($value = null) { // 216
         $options = array(
             self::CONSTRUCAO_NAO_INFORMADO => __('Não Informado', true),
             self::CONSTRUCAO_TIJOLO_ALVENARIA => __('Tijolo/Alvenaria', true),
@@ -157,8 +150,7 @@ class Domicilio extends AppModel
     const CONSTRUCAO_MATERIAL_APROVEITADO = 6;
     const CONSTRUCAO_OUTRO = 7;
 
-    static function tipoAbastecimentoAgua($value = null)
-    { // 217
+    static function tipoAbastecimentoAgua($value = null) { // 217
         $options = array(
             self::ABASTECIMENTO_NAO_INFORMADO => __('Não Informado', true),
             self::ABASTECIMENTO_REDE_PUBLICA => __('Rede Pública', true),
@@ -175,8 +167,7 @@ class Domicilio extends AppModel
     const ABASTECIMENTO_CARRO_PIPA = 3;
     const ABASTECIMENTO_OUTRO = 4;
 
-    static function tratamentoAgua($value = null)
-    { // 218
+    static function tratamentoAgua($value = null) { // 218
         $options = array(
             self::TRATAMENTO_NAO_INFORMADO => __('Não Informado', true),
             self::TRATAMENTO_FILTRACAO => __('Filtração', true),
@@ -195,8 +186,7 @@ class Domicilio extends AppModel
     const TRATAMENTO_SEM_TRATAMENTO = 4;
     const TRATAMENTO_OUTRO = 5;
 
-    static function tipoIluminacao($value = null)
-    { // 219
+    static function tipoIluminacao($value = null) { // 219
         $options = array(
             self::ILUMINACAO_NAO_INFORMADO => __('Não Informado', true),
             self::ILUMINACAO_RELOGIO_PROPRIO => __('Relógio Próprio', true),
@@ -217,8 +207,7 @@ class Domicilio extends AppModel
     const ILUMINACAO_VELA = 5;
     const ILUMINACAO_OUTRO = 6;
 
-    static function escoamentoSanitario($value = null)
-    { // 220
+    static function escoamentoSanitario($value = null) { // 220
         $options = array(
             self::ESCOAMENTO_NAO_INFORMADO => __('Não Informado', true),
             self::ESCOAMENTO_REDE_PUBLICA => __('Rede pública', true),
@@ -239,8 +228,7 @@ class Domicilio extends AppModel
     const ESCOAMENTO_CEU_ABERTO = 5;
     const ESCOAMENTO_OUTRO = 6;
 
-    static function destinoLixo($value = null)
-    { // 221
+    static function destinoLixo($value = null) { // 221
         $options = array(
             self::LIXO_NAO_INFORMADO => __('Não Informado', true),
             self::LIXO_COLETADO => __('Coletado', true),

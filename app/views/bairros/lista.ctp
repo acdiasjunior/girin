@@ -12,7 +12,7 @@ foreach ($bairros as $bairro) {
             $bairro['Bairro']['id_bairro'],
             $bairro['Bairro']['nome_bairro'],
             $bairro['Cras']['desc_cras'],
-            $bairro['Regiao']['descricao'],
+            $bairro['Regiao']['desc_regiao'],
             $bairro['Bairro']['domicilio_count'],
         )
     );

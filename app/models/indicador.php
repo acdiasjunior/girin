@@ -1,7 +1,6 @@
 <?php
 
-class Indicador extends AppModel
-{
+class Indicador extends AppModel {
 
     var $name = 'Indicador';
     var $useTable = 'indicador';

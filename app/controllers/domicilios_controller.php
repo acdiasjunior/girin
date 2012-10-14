@@ -1,22 +1,19 @@
 <?php
 
-class DomiciliosController extends AppController
-{
+class DomiciliosController extends AppController {
 
     var $name = 'Domicilios';
     var $helpers = array('Javascript', 'Js');
     var $components = array('RequestHandler');
 
-    function index()
-    {
+    function index() {
         parent::temAcesso();
         $temAcessoExclusao = parent::temAcessoExclusao();
         $this->set(compact('temAcessoExclusao'));
         $this->set('title_for_layout', 'Listagem de Domicílios');
     }
 
-    function lista()
-    {
+    function lista() {
 
         $this->layout = 'ajax';
 
@@ -63,8 +60,7 @@ class DomiciliosController extends AppController
         $this->set(compact('domicilios', 'page', 'total'));
     }
 
-    function listaDomiciliosFiltro()
-    {
+    function listaDomiciliosFiltro() {
 
         $this->layout = 'ajax';
         $container = 'plano_familiares.gerar.filtroDomicilios';
@@ -120,8 +116,7 @@ class DomiciliosController extends AppController
         $this->render('lista');
     }
 
-    function cadastro($id = null)
-    {
+    function cadastro($id = null) {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Domicilio->read();
@@ -135,8 +130,7 @@ class DomiciliosController extends AppController
         }
     }
 
-    function excluir($id)
-    {
+    function excluir($id) {
         parent::temAcesso();
         if (!empty($id)) {
             if ($this->Domicilio->Pessoa->findAllByDomicilioId($id)) {
@@ -159,8 +153,7 @@ class DomiciliosController extends AppController
         }
     }
 
-    function listaDomiciliosBairro($id_bairro)
-    {
+    function listaDomiciliosBairro($id_bairro) {
         $this->layout = 'ajax';
 
         $conditions = array('Domicilio.id_bairro =' => $id_bairro);
@@ -181,8 +174,7 @@ class DomiciliosController extends AppController
         $this->set(compact('domicilios', 'page', 'total'));
     }
 
-    function importar($arquivo = null)
-    {
+    function importar($arquivo = null) {
         parent::temAcesso();
         if (empty($this->data)) {
             //Abre a tela de importação
@@ -223,8 +215,7 @@ class DomiciliosController extends AppController
         }
     }
 
-    private function crasUsuario()
-    {
+    private function crasUsuario() {
         $this->loadModel('Usuario');
         $this->Usuario->id = $this->Session->read('Auth.Usuario.id_usuario');
         $cras_usuario = array();

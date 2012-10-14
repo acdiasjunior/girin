@@ -16,8 +16,7 @@
  *
  * @link http://wiki.github.com/jrbasso/cake_ptbr/helper-estados
  */
-class EstadosHelper extends AppHelper
-{
+class EstadosHelper extends AppHelper {
 
     /**
      * Helpers auxiliares
@@ -35,8 +34,7 @@ class EstadosHelper extends AppHelper
      * @param array $attributes Mesmos atributos do Form::select(). Também é possível passar o param
       'uf' para mostrar apenas as siglas, sem os nomes
      */
-    function select($fieldName, $selected = null, $attributes = array())
-    {
+    function select($fieldName, $selected = null, $attributes = array()) {
         App::import('Vendor', 'CakePtbr.Estados');
         $options = Estados::lista();
         if (isset($attributes['uf']) && $attributes['uf'] === true) {

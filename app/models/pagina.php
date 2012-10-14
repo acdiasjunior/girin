@@ -1,7 +1,6 @@
 <?php
 
-class Pagina extends AppModel
-{
+class Pagina extends AppModel {
 
     var $name = 'Pagina';
     var $primaryKey = 'id_pagina';

@@ -7,8 +7,7 @@
  * @url http://nik.chankov.net
  * @see http://nik.chankov.net/2007/12/20/using-different-date-format-in-cakephp-12/
  */
-class DateFormatterBehavior extends ModelBehavior
-{
+class DateFormatterBehavior extends ModelBehavior {
 
     /**
      * Class Vars
@@ -28,8 +27,7 @@ class DateFormatterBehavior extends ModelBehavior
     /**
      * Empty Setup Function
      */
-    function setup(&$model)
-    {
+    function setup(&$model) {
         //Getting user defined vars
         $dateFormat = Configure::read('DateBehaviour.dateFormat');
         if ($dateFormat != null) {
@@ -66,8 +64,7 @@ class DateFormatterBehavior extends ModelBehavior
      * @return string date formated with $format2
      * @access restricted
      */
-    function _convertDate($date, $format1, $format2, $delimiterDateFormat, $delimiterDatabaseFormat)
-    {
+    function _convertDate($date, $format1, $format2, $delimiterDateFormat, $delimiterDatabaseFormat) {
         if ($date == null OR $date == '') {
             return '';
         }
@@ -97,8 +94,7 @@ class DateFormatterBehavior extends ModelBehavior
      * @return array converted array;
      * @access restricted
      */
-    function _changeDate($data, $direction)
-    {
+    function _changeDate($data, $direction) {
         //just return false if the data var is false
         if ($data == false) {
             return false;
@@ -186,14 +182,12 @@ class DateFormatterBehavior extends ModelBehavior
     }
 
     //Function before save.
-    function beforeSave($model)
-    {
+    function beforeSave($model) {
         $model->data = $this->_changeDate($model->data, 1); //direction is from interface to database
         return true;
     }
 
-    function afterFind(&$model, $results)
-    {
+    function afterFind(&$model, $results) {
         $results = $this->_changeDate($results, 2); //direction is from database to interface
         return $results;
     }

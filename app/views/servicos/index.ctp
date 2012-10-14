@@ -10,11 +10,11 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         url: '<?php echo $this->Html->url(array('controller' => 'servicos', 'action' => 'lista')); ?>',
         dataType: 'json',
         colModel : [
-            {display: 'id', name : 'Servico.id', width : 80, sortable : true, align: 'center', hide: true},
+            {display: 'id', name : 'Servico.id_servico', width : 80, sortable : true, align: 'center', hide: true},
             {display: 'Tipo Serviço', name : 'Servico.tp_servico', width : 200, sortable : true, align: 'left'},
-            {display: 'Descrição', name : 'Servico.descricao', width : 300, sortable : true, align: 'left'},
+            {display: 'Nome Serviço', name : 'Servico.nome_servico', width : 300, sortable : true, align: 'left'},
             {display: 'Faixa Etária', name : 'Servico.faixa_etaria', width : 120, sortable : true, align: 'left'},
-            {display: 'Capac.', name : 'Servico.capacidade', width : 40, sortable : true, align: 'center'}
+            {display: 'Capac.', name : 'Servico.qtd_capacidade', width : 40, sortable : true, align: 'center'}
         ],
         buttons : [
             {name: 'Incluir', bclass: 'add', onpress : actions},
@@ -29,9 +29,9 @@ if ($temAcessoExclusao) {
 ?>
         ],
         searchitems : [
-            {display: 'Nome', name : 'Servico.nome', isdefault: true}
+            {display: 'Nome', name : 'Servico.nome_servico', isdefault: true}
         ],
-        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Servico.descricao'; ?>',
+        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Servico.nome_servico'; ?>',
         sortorder: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortorder') : 'asc'; ?>',
         usepager: true,
         useRp: true,
@@ -52,14 +52,14 @@ if ($temAcessoExclusao) {
     });
 
     $('#flex').dblclick( function(){
-        var id = $('.trSelected').find('td[abbr="Servico.id"]').text();
+        var id = $('.trSelected').find('td[abbr="Servico.id_servico"]').text();
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'servicos', 'action' => 'cadastro')); ?>/' + id);
     });
     //}).disableSelection();
 
     function actions(com, grid) {
-        var id = $('.trSelected', grid).find('td[abbr="Servico.id"]').text();
+        var id = $('.trSelected', grid).find('td[abbr="Servico.id_servico"]').text();
         var nome = $('.trSelected', grid).find('td[abbr="Servico.nome"]').text();
         switch(com)
         {

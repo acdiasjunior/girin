@@ -11,9 +11,9 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         url: '<?php echo $this->Html->url(array('controller' => 'estrategias', 'action' => 'lista')); ?>',
         dataType: 'json',
         colModel : [
-            {display: 'ID', name : 'Estrategia.id', width : 30, sortable : true, align: 'center', hide: true},
-            {display: 'Cód.', name : 'Estrategia.codigo', width : 30, sortable : true, align: 'center'},
-            {display: 'Descrição', name : 'Estrategia.descricao', width : 800, sortable : true, align: 'left'}
+            {display: 'ID', name : 'Estrategia.id_estrategia', width : 30, sortable : true, align: 'center', hide: true},
+            {display: 'Cód.', name : 'Estrategia.cod_estrategia', width : 30, sortable : true, align: 'center'},
+            {display: 'Descrição', name : 'Estrategia.desc_estrategia', width : 800, sortable : true, align: 'left'}
         ],
         buttons : [
             {name: 'Incluir', bclass: 'add', onpress : actions},
@@ -28,9 +28,9 @@ if ($temAcessoExclusao) {
 ?>
         ],
         searchitems : [
-            {display: 'Descrição', name : 'Estrategia.descricao', isdefault: true}
+            {display: 'Descrição', name : 'Estrategia.desc_estrategia', isdefault: true}
         ],
-        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Estrategia.codigo'; ?>',
+        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Estrategia.cod_estrategia'; ?>',
         sortorder: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortorder') : 'asc'; ?>',
         usepager: true,
         useRp: true,
@@ -60,8 +60,8 @@ if ($temAcessoExclusao) {
     //}).disableSelection();
 
     function actions(com, grid) {
-        var id = $('.trSelected', grid).find('td[abbr="Estrategia.id"]').text();
-        var nome = $('.trSelected', grid).find('td[abbr="Estrategia.descricao"]').text();
+        var id = $('.trSelected', grid).find('td[abbr="Estrategia.id_estrategia"]').text();
+        var nome = $('.trSelected', grid).find('td[abbr="Estrategia.desc_estrategia"]').text();
         switch(com)
         {
             case "Incluir":

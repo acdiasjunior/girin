@@ -1,7 +1,6 @@
 <?php
 
-class Pessoa extends AppModel
-{
+class Pessoa extends AppModel {
 
     var $name = 'Domicilio';
     var $useTable = 'pessoa';
@@ -37,8 +36,7 @@ class Pessoa extends AppModel
      */
     var $Domicilio;
 
-    public function __construct($id = false, $table = null, $ds = null)
-    {
+    public function __construct($id = false, $table = null, $ds = null) {
         parent::__construct($id, $table, $ds);
         $this->virtualFields = array(
             'idade' => "(SELECT EXTRACT(year from AGE(NOW(), {$this->alias}.dt_nasc)))",
@@ -53,8 +51,7 @@ class Pessoa extends AppModel
      * @access static
      */
 
-    static function sexo($value = null)
-    { // 203
+    static function sexo($value = null) { // 203
         $options = array(
             self::SEXO_NAO_INFORMADO => __('Não Informado', true),
             self::SEXO_MASCULINO => __('Masculino', true),
@@ -67,8 +64,7 @@ class Pessoa extends AppModel
     const SEXO_MASCULINO = '1';
     const SEXO_FEMININO = '2';
 
-    static function estadoCivil($value = null)
-    { // 212
+    static function estadoCivil($value = null) { // 212
         $options = array(
             self::EST_CIVIL_NAO_INFORMADO => __('Não Informado', true),
             self::EST_CIVIL_SOLTEIRO => __('Solteiro(a)', true),
@@ -87,8 +83,7 @@ class Pessoa extends AppModel
     const EST_CIVIL_SEPARADO = 4;
     const EST_CIVIL_VIUVO = 5;
 
-    static function grauParentesco($value = null)
-    { // 212
+    static function grauParentesco($value = null) { // 212
         $options = array(
             self::PARENTESCO_MAE => __('Mãe/responsável legal', true),
             self::PARENTESCO_ESPOSO => __('Esposo(a)', true),
@@ -135,8 +130,7 @@ class Pessoa extends AppModel
     const PARENTESCO_SEM_PARENTESCO = 19;
     const PARENTESCO_OUTRO = 20;
 
-    static function serieEscolar($value = null)
-    { // 239
+    static function serieEscolar($value = null) { // 239
         $options = array(
             self::SERIE_NAO_INFORMADO => __('Não Informado', true),
             self::SERIE_CA_ALFABETIZACAO => __('CA (Alfabetização)', true),
@@ -181,8 +175,7 @@ class Pessoa extends AppModel
     const SERIE_2_ENSINO_MEDIO = 17;
     const SERIE_3_ENSINO_MEDIO = 18;
 
-    static function tipoTrabalho($value = null)
-    { // 242
+    static function tipoTrabalho($value = null) { // 242
         $options = array(
             self::TRABALHO_NAO_INFORMADO => __('Não Informado', true),
             self::TRABALHO_ASSALARIADO_COM_CARTEIRA => __('Assalariado com carteira de trabalho', true),
@@ -211,8 +204,7 @@ class Pessoa extends AppModel
     const TRABALHO_NAO_TRABALHA = 9;
     const TRABALHO_OUTRA = 10;
 
-    static function cor($value = null)
-    { //215
+    static function cor($value = null) { //215
         $options = array(
             self::COR_NAO_INFORMADO => __('Não Informado', true),
             self::COR_NEGRA => __('Negra', true),
@@ -231,8 +223,7 @@ class Pessoa extends AppModel
     const COR_AMARELA = 4;
     const COR_INDIGENA = 5;
 
-    static function grauInstrucao($value = null)
-    { // 238
+    static function grauInstrucao($value = null) { // 238
         $options = array(
             self::ESCOLARIDADE_NAO_INFORMADO => __('Não Informado', true),
             self::ESCOLARIDADE_ANALFABETO => __('Analfabeto', true), // ANALFABETO TOTAL
@@ -265,8 +256,7 @@ class Pessoa extends AppModel
     const ESCOLARIDADE_MESTRADO = 11;
     const ESCOLARIDADE_DOUTORADO = 12;
 
-    static function tipoEscola($value = null)
-    { // 237
+    static function tipoEscola($value = null) { // 237
         $options = array(
             self::ESCOLA_NAO_INFORMADO => __('Não Informado', true),
             self::ESCOLA_NAO_FREQUENTA => __('Não frequenta', true),
@@ -287,8 +277,7 @@ class Pessoa extends AppModel
     const ESCOLA_OUTRA = 5;
     const ESCOLA_NAO_FREQUENTA = 6;
 
-    static function faixaEtaria($value = null)
-    {
+    static function faixaEtaria($value = null) {
         $options = array(
             self::IDADE_CRIANCA => __('Criança', true),
             self::IDADE_ADOLESCENTE => __('Adolescente', true),

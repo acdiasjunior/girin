@@ -1,16 +1,14 @@
 <?php
 
-class Cep extends AppModel
-{
+class Cep extends AppModel {
 
     var $name = 'Cep';
 
-    function consulta($cep)
-    {
+    function consulta($cep) {
         $info = $this->setCep($cep)
-            ->setUser("juniordias")
-            ->setPass("sfQRadf78")
-            ->find();
+                ->setUser("juniordias")
+                ->setPass("sfQRadf78")
+                ->find();
 
         return $info;
     }
@@ -42,8 +40,7 @@ class Cep extends AppModel
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         // Verifica se a extensão SOAP está carregada no servidor
         if (!extension_loaded("soap")) {
             throw new Exception('A extensão "SOAP" não está carregada, ative-a nas configurações do "php.ini".');
@@ -56,8 +53,7 @@ class Cep extends AppModel
      * @param string $cep
      * @return CepWebService
      */
-    public function setCep($cep)
-    {
+    public function setCep($cep) {
         $this->_cep = (string) $cep;
         return $this;
     }
@@ -67,8 +63,7 @@ class Cep extends AppModel
      *
      * @return string
      */
-    public function getCep()
-    {
+    public function getCep() {
         return $this->_cep;
     }
 
@@ -78,8 +73,7 @@ class Cep extends AppModel
      * @param string $user
      * @return CepWebService
      */
-    public function setUser($user)
-    {
+    public function setUser($user) {
         $this->_username = (string) $user;
         return $this;
     }
@@ -89,8 +83,7 @@ class Cep extends AppModel
      *
      * @return string
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->_username;
     }
 
@@ -100,8 +93,7 @@ class Cep extends AppModel
      * @param string $pass
      * @return CepWebService
      */
-    public function setPass($pass)
-    {
+    public function setPass($pass) {
         $this->_password = (string) $pass;
         return $this;
     }
@@ -111,8 +103,7 @@ class Cep extends AppModel
      *
      * @return string
      */
-    public function getPass()
-    {
+    public function getPass() {
         return $this->_password;
     }
 
@@ -121,8 +112,7 @@ class Cep extends AppModel
      *
      * @return array
      */
-    public function find()
-    {
+    public function find() {
         // Validando CEP
         if (empty($this->_cep)) {
             throw new Exception('Parâmetro "CEP" não foi definido.');
@@ -140,44 +130,44 @@ class Cep extends AppModel
 
         // Definindo o webservice
         $client = new SoapClient(NULL,
-                array(
-                    "location" => "http://www.byjg.com.br/site/webservice.php/ws/cep",
-                    "uri" => "urn:xmethods-delayed-quotes",
-                    "style" => SOAP_RPC,
-                    "use" => SOAP_ENCODED
-                )
+                        array(
+                            "location" => "http://www.byjg.com.br/site/webservice.php/ws/cep",
+                            "uri" => "urn:xmethods-delayed-quotes",
+                            "style" => SOAP_RPC,
+                            "use" => SOAP_ENCODED
+                        )
         );
 
         // Chamando método do webservice
         $result = $client->__call(
-            // Nome do método
-            "obterLogradouroAuth",
-            // Parâmetros
-            array(
+                // Nome do método
+                "obterLogradouroAuth",
+                // Parâmetros
+                array(
             new SoapParam(
-                // informando CEP
-                $this->_cep,
-                // Nome do parâmentro
-                "cep"
+                    // informando CEP
+                    $this->_cep,
+                    // Nome do parâmentro
+                    "cep"
             ),
             new SoapParam(
-                // Informando usuário
-                $this->_username,
-                // Nome do parâmentro
-                "usuario"
+                    // Informando usuário
+                    $this->_username,
+                    // Nome do parâmentro
+                    "usuario"
             ),
             new SoapParam(
-                // Informando senha
-                $this->_password,
-                // Nome do parâmentro
-                "senha"
+                    // Informando senha
+                    $this->_password,
+                    // Nome do parâmentro
+                    "senha"
             )
-            ),
-            // Opções
-            array(
+                ),
+                // Opções
+                array(
             "uri" => "urn:xmethods-delayed-quotes",
             "soapaction" => "urn:xmethods-delayed-quotes#getQuote"
-            )
+                )
         );
 
         // Verifica o resultado retornado pelo webservice
@@ -215,8 +205,7 @@ class Cep extends AppModel
      * @param string $string
      * @return string
      */
-    public function clear($string)
-    {
+    public function clear($string) {
         //return strtr($string, "áàãâéêíóôõúüçÁÀÃÂÉÊÍÓÔÕÚÜÇ", "aaaaeeiooouucAAAAEEIOOOUUC");
         foreach ($string as $key => $value)
             $string[$key] = strtoupper(Inflector::slug($value, ' '));
