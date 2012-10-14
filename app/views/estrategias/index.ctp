@@ -53,7 +53,7 @@ if ($temAcessoExclusao) {
     var flexiGrid = $("#flex").flexigrid(flexiOptions);
 
     $('#flex').dblclick( function(){
-        var id = $('.trSelected').find('td[abbr="Estrategia.id"]').text();
+        var id = $('.trSelected').find('td[abbr="Estrategia.id_estrategia"]').text();
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'estrategias', 'action' => 'cadastro')); ?>/' + id);
     });

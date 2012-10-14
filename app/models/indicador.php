@@ -6,7 +6,7 @@ class Indicador extends AppModel {
     var $useTable = 'indicador';
     var $tablePrefix = 'tb_';
     var $primaryKey = 'id_indicador';
-    var $displayField = array("%s - %s", "{n}.Indicador.codigo", "{n}.Indicador.descricao");
+    var $displayField = array("%s - %s", "{n}.Indicador.cod_indicador", "{n}.Indicador.desc_indicador");
     var $belongsTo = array(
         'Dimensao' => array(
             'foreignKey' => 'id_dimensao_idf'
@@ -19,7 +19,7 @@ class Indicador extends AppModel {
             'associationForeignKey' => 'id_estrategia',
         ),
         'PlanoFamiliar' => array(
-            'joinTable' => 'tb_plano_familiar',
+            'joinTable' => 'tb_indicador_plano_familiar',
             'foreignKey' => 'id_indicador',
             'associationForeignKey' => 'id_plano_familiar',
         ),

@@ -41,7 +41,7 @@ class EstrategiasController extends AppController {
             $this->data = $this->Estrategia->read();
             $temAcessoEscrita = parent::temAcessoEscrita();
             $this->set(compact('temAcessoEscrita'));
-            $this->Estrategia->Indicador->displayField = array("%s - %s", "{n}.Indicador.codigo", "{n}.Indicador.label");
+            $this->Estrategia->Indicador->displayField = array("%s - %s", "{n}.Indicador.cod_indicador", "{n}.Indicador.desc_label_indicador");
         } else {
             if ($this->Estrategia->save($this->data)) {
                 $this->Session->setFlash('Cadastro salvo.');

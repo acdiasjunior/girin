@@ -9,12 +9,12 @@ echo $this->Form->create('Indicador');
 
 echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Indicador');
-echo $this->Form->input('id', array('label' => 'ID'));
+echo $this->Form->input('id_indicador', array('label' => 'ID'));
 echo $this->Form->input('Dimensao.id_dimensao_idf', array('type' => 'select', 'options' => $dimensoes, 'label' => 'Dimensão'));
-echo $this->Form->input('codigo', array('label' => 'Código'));
-echo $this->Form->input('descricao', array('label' => 'Descrição', 'class' => 'edit40'));
-echo $this->Form->input('label', array('label' => 'Label', 'class' => 'edit40'));
-echo $this->Form->input('coluna', array('label' => 'Coluna', 'disabled' => 'disabled'));
+echo $this->Form->input('cod_indicador', array('label' => 'Código'));
+echo $this->Form->input('desc_indicador', array('label' => 'Descrição', 'class' => 'edit40'));
+echo $this->Form->input('desc_label_indicador', array('label' => 'Label', 'class' => 'edit40'));
+echo $this->Form->input('cod_coluna_indicador', array('label' => 'Coluna', 'disabled' => 'disabled'));
 echo $this->Html->tag('/fieldset', null);
 
 echo $this->Html->tag('fieldset', null);

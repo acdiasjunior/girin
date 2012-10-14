@@ -10,11 +10,11 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         url: '<?php echo $this->Html->url(array('controller' => 'indicadores', 'action' => 'lista')); ?>',
         dataType: 'json',
         colModel : [
-            {display: 'ID', name : 'Indicador.id', width : 50, sortable : true, align: 'center', hide: true},
+            {display: 'ID', name : 'Indicador.id_indicador', width : 50, sortable : true, align: 'center', hide: true},
             {display: 'Dimensão', name : 'Dimensao.desc_dimensao_idf', width : 150, sortable : true, align: 'left'},
-            {display: 'Código', name : 'Indicador.codigo', width : 80, sortable : true, align: 'left'},
-            {display: 'Descrição', name : 'Indicador.descricao', width : 600, sortable : true, align: 'left'},
-            {display: 'Label', name : 'Indicador.label', width : 600, sortable : true, align: 'left', hide: true}
+            {display: 'Código', name : 'Indicador.cod_indicador', width : 80, sortable : true, align: 'left'},
+            {display: 'Descrição', name : 'Indicador.desc_indicador', width : 600, sortable : true, align: 'left'},
+            {display: 'Label', name : 'Indicador.desc_label_indicador', width : 600, sortable : true, align: 'left', hide: true}
         ],
         buttons : [
             {name: 'Incluir', bclass: 'add', onpress : actions},
@@ -29,7 +29,7 @@ if ($temAcessoExclusao) {
 ?>
         ],
         searchitems : [
-            {display: 'Indicador', name : 'Indicador.descricao', isdefault: true}
+            {display: 'Indicador', name : 'Indicador.desc_indicador', isdefault: true}
         ],
         sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Dimensao.desc_dimensao_idf'; ?>',
         sortorder: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortorder') : 'asc'; ?>',
@@ -52,7 +52,7 @@ if ($temAcessoExclusao) {
     });
 
     $('#flex').dblclick( function(){
-        var id = $('.trSelected').find('td[abbr="Indicador.id"]').text();
+        var id = $('.trSelected').find('td[abbr="Indicador.id_indicador"]').text();
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'indicadores', 'action' => 'cadastro')); ?>/' + id);
     });
@@ -60,7 +60,7 @@ if ($temAcessoExclusao) {
 
     function actions(com, grid) {
         var id = $('.trSelected', grid).find('td[abbr="Indicador.id"]').text();
-        var nome = $('.trSelected', grid).find('td[abbr="Indicador.nome"]').text();
+        var nome = $('.trSelected', grid).find('td[abbr="Indicador.desc__indicador"]').text();
         switch(com)
         {
             case "Incluir":

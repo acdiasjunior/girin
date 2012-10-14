@@ -15,13 +15,13 @@ class Estrategia extends AppModel {
     var $hasAndBelongsToMany = array(
         'Indicador' => array(
             'joinTable' => 'tb_estrategia_indicador',
-            'foreignKey' => 'id_estrategia_indicador',
-            'associationForeignKey' => 'id_estrategia',
+            'foreignKey' => 'id_estrategia',
+            'associationForeignKey' => 'id_indicador',
         ),
         'PlanoFamiliar' => array(
             'joinTable' => 'tb_estrategia_plano_familiar',
-            'foreignKey' => 'id_plano_familiar',
-            'associationForeignKey' => 'id_estrategia',
+            'foreignKey' => 'id_estrategia',
+            'associationForeignKey' => 'id_plano_familiar',
         ),
     );
     var $order = array('Estrategia.cod_estrategia');

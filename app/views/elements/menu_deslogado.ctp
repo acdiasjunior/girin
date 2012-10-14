@@ -15,7 +15,7 @@
                 ?>
 
                 <li>
-                    <a href="<?php echo $this->Html->url(array('controller' => 'pages', 'action' => $pagina['Page']['link'])); ?>" class="hide"><?php echo $pagina['Page']['titulo'] ?></a>
+                    <a href="<?php echo $this->Html->url(array('controller' => 'pages', 'action' => $pagina['Pagina']['nome_link'])); ?>"><?php echo $pagina['Pagina']['desc_titulo'] ?></a>
                 </li>
                 <?php
             }

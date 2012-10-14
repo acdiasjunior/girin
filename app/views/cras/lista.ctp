@@ -16,7 +16,7 @@ foreach ($cras as $cra) {
             $cra['Bairro']['nome_bairro'],
             $cra['Cras']['end_cidade'],
             $cra['Cras']['end_estado'],
-            $cra['Regiao']['descricao'],
+            $cra['Regiao']['desc_regiao'],
         )
     );
 }
