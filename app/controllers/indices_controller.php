@@ -45,12 +45,12 @@ class IndicesController extends AppController {
             'AVG(Indice.vlr_idf) AS idf_media',
             'MAX(Indice.vlr_idf) AS idf_max',
             'MIN(Indice.vlr_idf) AS idf_min',
-            'AVG(Indice.vlr_dimensao_vulnerabilidade) AS vulnerabilidade',
-            'AVG(Indice.vlr_dimensao_conhecimento) AS conhecimento',
-            'AVG(Indice.vlr_dimensao_trabalho) AS trabalho',
-            'AVG(Indice.vlr_dimensao_recurso) AS recursos',
-            'AVG(Indice.vlr_dimensao_desenvolvimento) AS desenvolvimento',
-            'AVG(Indice.vlr_dimensao_habitacao) AS habitacao',
+            'AVG(Indice.vlr_dimensao_vulnerabilidade) AS vlr_dimensao_vulnerabilidade',
+            'AVG(Indice.vlr_dimensao_conhecimento) AS vlr_dimensao_conhecimento',
+            'AVG(Indice.vlr_dimensao_trabalho) AS vlr_dimensao_trabalho',
+            'AVG(Indice.vlr_dimensao_recurso) AS vlr_dimensao_recurso',
+            'AVG(Indice.vlr_dimensao_desenvolvimento) AS vlr_dimensao_desenvolvimento',
+            'AVG(Indice.vlr_dimensao_habitacao) AS vlr_dimensao_habitacao',
         );
         $conditions = array();
 

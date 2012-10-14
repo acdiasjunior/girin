@@ -63,103 +63,103 @@
         ],
         name = 'Valores por Dimensão',
         data = [{ 
-                y: <?php echo round($indices[0][0]['vulnerabilidade'], 2) ?>,
+                y: <?php echo round($indices[0][0]['vlr_dimensao_vulnerabilidade'], 2) ?>,
                 color: colors[0],
                 drilldown: {
                     name: 'Vulnerabilidade Familiar',
                     categories: ['v1', 'v2', 'v3', 'v4', 'v5', 'v6', 'v7', 'v8', 'v9'],
                     data: [
-<?php echo round($indices[0][0]['v1'], 2) ?>,
-<?php echo round($indices[0][0]['v2'], 2) ?>,
-<?php echo round($indices[0][0]['v3'], 2) ?>,
-<?php echo round($indices[0][0]['v4'], 2) ?>,
-<?php echo round($indices[0][0]['v5'], 2) ?>,
-<?php echo round($indices[0][0]['v6'], 2) ?>,
-<?php echo round($indices[0][0]['v7'], 2) ?>,
-<?php echo round($indices[0][0]['v8'], 2) ?>,
-<?php echo round($indices[0][0]['v9'], 2) ?>
+<?php echo round($indices[0][0]['vlr_indicador_v1'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_v2'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_v3'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_v4'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_v5'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_v6'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_v7'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_v8'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_v9'], 2) ?>
                     ],
                     color: colors[0]
                 }
             }, {
-                y: <?php echo round($indices[0][0]['conhecimento'], 2) ?>,
+                y: <?php echo round($indices[0][0]['vlr_dimensao_conhecimento'], 2) ?>,
                 color: colors[1],
                 drilldown: {
                     name: 'Acesso ao Conhecimento',
                     categories: ['c1', 'c2', 'c3', 'c4', 'c5'],
                     data: [
-<?php echo round($indices[0][0]['c1'], 2) ?>,
-<?php echo round($indices[0][0]['c2'], 2) ?>,
-<?php echo round($indices[0][0]['c3'], 2) ?>,
-<?php echo round($indices[0][0]['c4'], 2) ?>,
-<?php echo round($indices[0][0]['c5'], 2) ?>
+<?php echo round($indices[0][0]['vlr_indicador_c1'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_c2'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_c3'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_c4'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_c5'], 2) ?>
                     ],
                     color: colors[1]
                 }
             }, {
-                y: <?php echo round($indices[0][0]['trabalho'], 2) ?>,
+                y: <?php echo round($indices[0][0]['vlr_dimensao_trabalho'], 2) ?>,
                 color: colors[2],
                 drilldown: {
                     name: 'Acesso ao Trabalho',
                     categories: ['t1', 't2', 't3', 't4', 't5'],
                     data: [
-<?php echo round($indices[0][0]['t1'], 2) ?>,
-<?php echo round($indices[0][0]['t2'], 2) ?>,
-<?php echo round($indices[0][0]['t3'], 2) ?>,
-<?php echo round($indices[0][0]['t4'], 2) ?>,
-<?php echo round($indices[0][0]['t5'], 2) ?>
+<?php echo round($indices[0][0]['vlr_indicador_t1'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_t2'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_t3'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_t4'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_t5'], 2) ?>
                     ],
                     color: colors[2]
                 }
             }, {
-                y: <?php echo round($indices[0][0]['recursos'], 2) ?>,
+                y: <?php echo round($indices[0][0]['vlr_dimensao_recurso'], 2) ?>,
                 color: colors[3],
                 drilldown: {
                     name: 'Disponibilidade de Recursos',
                     categories: ['r1', 'r2', 'r3', 'r4', 'r5', 'r6'],
                     data: [
-<?php echo round($indices[0][0]['r1'], 2) ?>,
-<?php echo round($indices[0][0]['r2'], 2) ?>,
-<?php echo round($indices[0][0]['r3'], 2) ?>,
-<?php echo round($indices[0][0]['r4'], 2) ?>,
-<?php echo round($indices[0][0]['r5'], 2) ?>,
-<?php echo round($indices[0][0]['r6'], 2) ?>
+<?php echo round($indices[0][0]['vlr_indicador_r1'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_r2'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_r3'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_r4'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_r5'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_r6'], 2) ?>
                     ],
                     color: colors[3]
                 }
             }, {
-                y: <?php echo round($indices[0][0]['desenvolvimento'], 2) ?>,
+                y: <?php echo round($indices[0][0]['vlr_dimensao_desenvolvimento'], 2) ?>,
                 color: '#F4FA58',
                 drilldown: {
                     name: 'Desenvolvimento Infantil',
                     categories: ['d1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8'],
                     data: [
-<?php echo round($indices[0][0]['d1'], 2) ?>,
-<?php echo round($indices[0][0]['d2'], 2) ?>,
-<?php echo round($indices[0][0]['d3'], 2) ?>,
-<?php echo round($indices[0][0]['d4'], 2) ?>,
-<?php echo round($indices[0][0]['d5'], 2) ?>,
-<?php echo round($indices[0][0]['d6'], 2) ?>,
-<?php echo round($indices[0][0]['d7'], 2) ?>,
-<?php echo round($indices[0][0]['d8'], 2) ?>
+<?php echo round($indices[0][0]['vlr_indicador_d1'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_d2'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_d3'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_d4'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_d5'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_d6'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_d7'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_d8'], 2) ?>
                     ],
                     color: '#F4FA58'
                 }
             }, {
-                y: <?php echo round($indices[0][0]['habitacao'], 2) ?>,
+                y: <?php echo round($indices[0][0]['vlr_dimensao_habitacao'], 2) ?>,
                 color: '#FE9A2E',
                 drilldown: {
                     name: 'Condições Habitacionais',
                     categories: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'h7', 'h8'],
                     data: [
-<?php echo round($indices[0][0]['h1'], 2) ?>,
-<?php echo round($indices[0][0]['h2'], 2) ?>,
-<?php echo round($indices[0][0]['h3'], 2) ?>,
-<?php echo round($indices[0][0]['h4'], 2) ?>,
-<?php echo round($indices[0][0]['h5'], 2) ?>,
-<?php echo round($indices[0][0]['h6'], 2) ?>,
-<?php echo round($indices[0][0]['h7'], 2) ?>,
-<?php echo round($indices[0][0]['h8'], 2) ?>
+<?php echo round($indices[0][0]['vlr_indicador_h1'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_h2'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_h3'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_h4'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_h5'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_h6'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_h7'], 2) ?>,
+<?php echo round($indices[0][0]['vlr_indicador_h8'], 2) ?>
                     ],
                     color: '#FE9A2E'
                 }
