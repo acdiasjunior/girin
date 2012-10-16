@@ -13,7 +13,8 @@ class PlanoFamiliaresController extends AppController {
     function lista() {
         $this->layout = 'ajax';
 
-        $this->PlanoFamiliar->recursive = 2;
+        $this->PlanoFamiliar->recursive = 0;
+        $this->PlanoFamiliar->Behaviors->attach('Containable');
 
         $conditions = array(
             'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
@@ -24,6 +25,13 @@ class PlanoFamiliaresController extends AppController {
                     = sprintf('%%%s%%', str_replace(' ', '%', stroupper($this->params['form']['query'])));
 
         $this->paginate = array(
+            'contain' => array(
+                'Domicilio' => array(
+                    'Cras.desc_cras'
+                ),
+                'Indice.vlr_idf',
+                'Usuario.nome_usuario'
+            ),
             'page' => $this->params['form']['page'],
             'limit' => $this->params['form']['rp'],
             'order' => array(
