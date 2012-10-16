@@ -50,4 +50,20 @@ class IndicadoresController extends AppController {
         }
     }
 
+    function beforeRender() {
+        parent::beforeRender();
+        switch ($this->action) {
+            case 'cadastro';
+                $this->_populateLookups(array('Dimensao', 'Estrategia'));
+                break;
+        }
+    }
+
+    function _populateLookups($models) {
+        foreach ($models as $model) {
+            $name = Inflector::variable(Inflector::pluralize(strtolower($model)));
+            $this->set($name, $this->Indicador->{$model}->find("list"));
+        }
+    }
+
 }

@@ -10,9 +10,9 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         url: '<?php echo $this->Html->url(array('controller' => 'paginas', 'action' => 'lista')); ?>',
         dataType: 'json',
         colModel : [
-            {display: 'Cód.', name : 'Page.id', width : 50, sortable : true, align: 'center'}, //, hide: true},
-            {display: 'Link', name : 'Page.link', width : 150, sortable : true, align: 'left'},
-            {display: 'Título', name : 'Page.titulo', width : 230, sortable : true, align: 'left'}
+            {display: 'Cód.', name : 'Pagina.id_pagina', width : 50, sortable : true, align: 'center'}, //, hide: true},
+            {display: 'Link', name : 'Pagina.nome_link', width : 150, sortable : true, align: 'left'},
+            {display: 'Título', name : 'Pagina.desc_titulo', width : 230, sortable : true, align: 'left'}
         ],
         buttons : [
             {name: 'Incluir', bclass: 'add', onpress : actions},
@@ -27,9 +27,9 @@ if ($temAcessoExclusao) {
 ?>
         ],
         searchitems : [
-            {display: 'Link', name : 'Page.link', isdefault: true}
+            {display: 'Link', name : 'Pagina.nome_link', isdefault: true}
         ],
-        sortname: "Page.link",
+        sortname: "Pagina.nome_link",
         sortorder: "asc",
         usepager: true,
         useRp: true,
@@ -49,15 +49,15 @@ if ($temAcessoExclusao) {
     });
 
     $('#flex').dblclick( function(){
-        var id = $('.trSelected').find('td[abbr="Page.id"]').text();
+        var id = $('.trSelected').find('td[abbr="Pagina.id_pagina"]').text();
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'paginas', 'action' => 'cadastro')); ?>/' + id);
     });
     //}).disableSelection();
 
     function actions(com, grid) {
-        var id = $('.trSelected', grid).find('td[abbr="Page.id"]').text();
-        var nome = $('.trSelected', grid).find('td[abbr="Page.link"]').text();
+        var id = $('.trSelected', grid).find('td[abbr="Pagina.id_pagina"]').text();
+        var nome = $('.trSelected', grid).find('td[abbr="Pagina.nome_link"]').text();
         switch(com)
         {
             case "Incluir":

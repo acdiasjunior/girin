@@ -62,4 +62,20 @@ class CrasController extends AppController {
             echo '<option value="' . $key . '">' . $value . '</option>';
     }
 
+    function beforeRender() {
+        parent::beforeRender();
+        switch ($this->action) {
+            case 'cadastro';
+                $this->_populateLookups(array('Bairro', 'Regiao'));
+                break;
+        }
+    }
+
+    function _populateLookups($models) {
+        foreach ($models as $model) {
+            $name = Inflector::variable(Inflector::pluralize(strtolower($model)));
+            $this->set($name, $this->Cras->{$model}->find("list"));
+        }
+    }
+
 }

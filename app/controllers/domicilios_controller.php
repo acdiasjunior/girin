@@ -16,7 +16,7 @@ class DomiciliosController extends AppController {
     function lista() {
 
         $this->layout = 'ajax';
-        
+
         $this->Domicilio->recursive = 0;
 
         $conditions = array(
@@ -120,7 +120,6 @@ class DomiciliosController extends AppController {
     }
 
     function cadastro($id = null) {
-        xdebug_break();
         parent::temAcesso();
         if (empty($this->data)) {
             $this->Domicilio->recursive = 0;
@@ -236,6 +235,22 @@ class DomiciliosController extends AppController {
         }
 
         return implode(',', $cras_usuario);
+    }
+
+    function beforeRender() {
+        parent::beforeRender();
+        switch ($this->action) {
+            case 'cadastro';
+                $this->_populateLookups(array('Bairro', 'Regiao', 'Cras'));
+                break;
+        }
+    }
+
+    function _populateLookups($models) {
+        foreach ($models as $model) {
+            $name = Inflector::variable(Inflector::pluralize(strtolower($model)));
+            $this->set($name, $this->Domicilio->{$model}->find("list"));
+        }
     }
 
 }

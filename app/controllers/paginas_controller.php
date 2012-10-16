@@ -29,20 +29,20 @@ class PaginasController extends AppController {
             'conditions' => $conditions
         );
 
-        $paginas = $this->paginate('Page');
+        $paginas = $this->paginate('Pagina');
         $page = $this->params['form']['page'];
-        $total = $this->Page->find('count', array('conditions' => $conditions));
+        $total = $this->Pagina->find('count', array('conditions' => $conditions));
         $this->set(compact('paginas', 'page', 'total'));
     }
 
     function cadastro($id = null) {
         if (empty($this->data)) {
-            $this->Page->id = $id;
-            $this->data = $this->Page->read();
+            $this->Pagina->id = $id;
+            $this->data = $this->Pagina->read();
             $temAcessoEscrita = parent::temAcessoEscrita();
             $this->set(compact('temAcessoEscrita'));
         } else {
-            if ($this->Page->save($this->data)) {
+            if ($this->Pagina->save($this->data)) {
                 $this->Session->setFlash('Cadastro salvo.');
                 $this->redirect(array('controller' => 'pages', 'action' => 'conheca'));
             }

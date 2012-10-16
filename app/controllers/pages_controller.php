@@ -29,9 +29,9 @@ class PagesController extends AppController {
     }
 
     function pagina($link) {
-        $pagina = $this->Page->findByLink($link);
-        $this->set('conteudo', $pagina['Page']['conteudo']);
-        $this->set('title_for_layout', $pagina['Page']['titulo']);
+        $pagina = $this->Pagina->findByNomeLink($link);
+        $this->set('conteudo', $pagina['Pagina']['desc_conteudo']);
+        $this->set('title_for_layout', $pagina['Pagina']['desc_titulo']);
     }
 
     function beforeFilter() {

@@ -157,10 +157,8 @@ if ($temAcessoEscrita) {
     <?php
 }
 
-//if (count($this->data['Membro']) > 0) {
 echo $this->Html->tag('div', '', array('style' => 'height: 20px;'));
 echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Pessoa - Membros');
 echo '<table id="flex" style="display: none"></table>';
 echo $this->Html->tag('/fieldset', null);
-//}

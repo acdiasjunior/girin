@@ -51,4 +51,20 @@ class EstrategiasController extends AppController {
         }
     }
 
+    function beforeRender() {
+        parent::beforeRender();
+        switch ($this->action) {
+            case 'cadastro';
+                $this->_populateLookups(array('Indicador'));
+                break;
+        }
+    }
+
+    function _populateLookups($models) {
+        foreach ($models as $model) {
+            $name = Inflector::variable(Inflector::pluralize(strtolower($model)));
+            $this->set($name, $this->Estrategia->{$model}->find("list"));
+        }
+    }
+
 }

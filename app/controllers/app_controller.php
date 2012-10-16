@@ -109,29 +109,8 @@ class AppController extends Controller {
         }
     }
 
-    function _populateLookups($models = array()) {
-        if (empty($models)) {
-            $rootModel = $this->{$this->modelClass};
-            foreach ($rootModel->belongsTo as $model => $attr) {
-                $models[] = $model;
-            }
-            foreach ($rootModel->hasAndBelongsToMany as $model => $attr) {
-                $models[] = $model;
-            }
-        }
-        foreach ($models as $model) {
-            $name = Inflector::variable(Inflector::pluralize($model));
-            $this->set($name, $rootModel->{$model}->find("list"));
-        }
-    }
-
     function beforeRender() {
         $this->disableCache();
-        switch ($this->action) {
-            case 'cadastro';
-                $this->_populateLookups();
-                break;
-        }
         $this->loadModel('Pagina');
         $paginas = $this->Pagina->find('all');
         $this->set('paginas', $paginas);

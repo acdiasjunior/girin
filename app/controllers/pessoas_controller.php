@@ -236,5 +236,21 @@ class PessoasController extends AppController {
 
         return implode(',', $cras_usuario);
     }
+    
+    function beforeRender() {
+        parent::beforeRender();
+        switch ($this->action) {
+            case 'cadastro';
+                $this->_populateLookups(array('Servico'));
+                break;
+        }
+    }
+
+    function _populateLookups($models) {
+        foreach ($models as $model) {
+            $name = Inflector::variable(Inflector::pluralize(strtolower($model)));
+            $this->set($name, $this->Pessoa->{$model}->find("list"));
+        }
+    }
 
 }

@@ -72,4 +72,20 @@ class AcoesController extends AppController {
         $this->set(compact('nomes'));
     }
 
+    function beforeRender() {
+        parent::beforeRender();
+        switch ($this->action) {
+            case 'cadastro';
+                $this->_populateLookups(array('Estrategia'));
+                break;
+        }
+    }
+
+    function _populateLookups($models) {
+        foreach ($models as $model) {
+            $name = Inflector::variable(Inflector::pluralize(strtolower($model)));
+            $this->set($name, $this->Acao->{$model}->find("list"));
+        }
+    }
+
 }

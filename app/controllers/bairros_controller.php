@@ -101,5 +101,21 @@ class BairrosController extends AppController {
             $this->redirect(array('controller' => $this->name, 'action' => 'index'));
         }
     }
+    
+        function beforeRender() {
+        parent::beforeRender();
+        switch ($this->action) {
+            case 'cadastro';
+                $this->_populateLookups(array('Regiao', 'Cras'));
+                break;
+        }
+    }
+
+    function _populateLookups($models) {
+        foreach ($models as $model) {
+            $name = Inflector::variable(Inflector::pluralize(strtolower($model)));
+            $this->set($name, $this->Bairro->{$model}->find("list"));
+        }
+    }
 
 }

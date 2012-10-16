@@ -172,6 +172,7 @@ select {
     height: 22px;
     border: 1px solid #888888;
     vertical-align: text-bottom;
+    margin: 2px;
 }
 select[multiple=multiple] {
     width: 100%;

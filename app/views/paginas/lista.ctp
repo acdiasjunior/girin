@@ -7,11 +7,11 @@ $data['rows'] = array();
 
 foreach ($paginas as $pagina) {
     $data['rows'][] = array(
-        'id' => $pagina['Page']['id'],
+        'id' => $pagina['Pagina']['id_pagina'],
         'cell' => array(
-            $pagina['Page']['id'],
-            $pagina['Page']['link'],
-            $pagina['Page']['titulo'],
+            $pagina['Pagina']['id_pagina'],
+            $pagina['Pagina']['nome_link'],
+            $pagina['Pagina']['desc_titulo'],
         )
     );
 }
