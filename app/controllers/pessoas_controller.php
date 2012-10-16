@@ -21,6 +21,7 @@ class PessoasController extends AppController {
         $this->layout = 'ajax';
 
         $this->Pessoa->recursive = 0;
+        $this->Pessoa->Behaviors->attach('Containable');
 
         $conditions = array(
             'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
@@ -32,11 +33,16 @@ class PessoasController extends AppController {
                     $conditions['Pessoa.dt_nasc ='] = parent::converteData($this->params['form']['query'], 1);
                     break;
                 default:
-                    $conditions[$this->params['form']['qtype'] . ' LIKE'] = '%' . str_replace(' ', '%', $this->params['form']['query']) . '%';
+                    $conditions[sprintf('UPPER(%s) LIKE', $this->params['form']['qtype'])]
+                            = sprintf('%%%s%%', str_replace(' ', '%', stroupper($this->params['form']['query'])));
             }
 
-
         $this->paginate = array(
+            'contain' => array(
+                'Domicilio.id_cras',
+                'Responsavel.nome',
+                'Responsavel.cod_nis',
+            ),
             'page' => $this->params['form']['page'],
             'limit' => $this->params['form']['rp'],
             'order' => array(
@@ -122,7 +128,7 @@ class PessoasController extends AppController {
         $this->layout = 'ajax';
 
         $this->Pessoa->Behaviors->attach('Containable');
-        
+
         $conditions = array();
 
         if ($this->params['form']['query'] != '') {
@@ -144,7 +150,7 @@ class PessoasController extends AppController {
             ),
             'conditions' => $conditions
         );
-        
+
         $pessoas = $this->paginate('Pessoa');
         $page = $this->params['form']['page'];
         $total = $this->Pessoa->find('count', array('conditions' => $conditions));
@@ -154,6 +160,7 @@ class PessoasController extends AppController {
     function cadastro($id = null) {
         parent::temAcesso();
         if (empty($this->data)) {
+            $this->Pessoa->recursive = 0;
             $this->data = $this->Pessoa->read();
             $temAcessoEscrita = parent::temAcessoEscrita();
             $bairros = $this->Pessoa->Domicilio->Bairro->find('list');

@@ -15,7 +15,8 @@ class CrasController extends AppController {
 
         if ($this->params['form']['query'] != '')
             $conditions = array(
-                $this->params['form']['qtype'] . ' LIKE' => '%' . str_replace(' ', '%', $this->params['form']['query']) . '%'
+                sprintf('UPPER(%s) LIKE', $this->params['form']['qtype'])
+                => sprintf('%%%s%%', str_replace(' ', '%', stroupper($this->params['form']['query'])))
             );
         else
             $conditions = array();

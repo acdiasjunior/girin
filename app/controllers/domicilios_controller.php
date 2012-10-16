@@ -16,6 +16,8 @@ class DomiciliosController extends AppController {
     function lista() {
 
         $this->layout = 'ajax';
+        
+        $this->Domicilio->recursive = 0;
 
         $conditions = array(
             'Domicilio.qtd_pessoa != 0',
@@ -31,7 +33,8 @@ class DomiciliosController extends AppController {
                     $conditions['Responsavel.dt_nasc ='] = parent::converteData($this->params['form']['query'], 1);
                     break;
                 default:
-                    $conditions[$this->params['form']['qtype'] . ' LIKE'] = '%' . str_replace(' ', '%', $this->params['form']['query']) . '%';
+                    $conditions[sprintf('UPPER(%s) LIKE', $this->params['form']['qtype'])]
+                            = sprintf('%%%s%%', str_replace(' ', '%', stroupper($this->params['form']['query'])));
             }
 
         $this->paginate = array(
@@ -117,8 +120,10 @@ class DomiciliosController extends AppController {
     }
 
     function cadastro($id = null) {
+        xdebug_break();
         parent::temAcesso();
         if (empty($this->data)) {
+            $this->Domicilio->recursive = 0;
             $this->data = $this->Domicilio->read();
             $temAcessoEscrita = parent::temAcessoEscrita();
             $this->set(compact('temAcessoEscrita'));
