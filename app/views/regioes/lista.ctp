@@ -7,10 +7,10 @@ $data['rows'] = array();
 
 foreach ($regioes as $regiao) {
     $data['rows'][] = array(
-        'id' => $regiao['Regiao']['id'],
+        'id' => $regiao['Regiao']['id_regiao'],
         'cell' => array(
-            $regiao['Regiao']['id'],
-            $regiao['Regiao']['descricao'],
+            $regiao['Regiao']['id_regiao'],
+            $regiao['Regiao']['desc_regiao'],
         )
     );
 }

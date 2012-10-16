@@ -10,8 +10,8 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         url: '<?php echo $this->Html->url(array('controller' => 'regioes', 'action' => 'lista')); ?>',
         dataType: 'json',
         colModel : [
-            {display: 'Cód.', name : 'Regiao.id', width : 30, sortable : true, align: 'center', hide: true},
-            {display: 'Descrição', name : 'Regiao.descricao', width : 300, sortable : true, align: 'left'}
+            {display: 'Cód.', name : 'Regiao.id_regiao', width : 30, sortable : true, align: 'center', hide: true},
+            {display: 'Descrição', name : 'Regiao.desc_regiao', width : 300, sortable : true, align: 'left'}
         ],
         buttons : [
             {name: 'Incluir', bclass: 'add', onpress : actions},
@@ -26,9 +26,9 @@ if ($temAcessoExclusao) {
 ?>
         ],
         searchitems : [
-            {display: 'Descrição', name : 'Regiao.descricao', isdefault: true}
+            {display: 'Descrição', name : 'Regiao.desc_regiao', isdefault: true}
         ],
-        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Regiao.descricao'; ?>',
+        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Regiao.desc_regiao'; ?>',
         sortorder: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortorder') : 'asc'; ?>',
         usepager: true,
         useRp: true,
@@ -49,15 +49,15 @@ if ($temAcessoExclusao) {
     });
 
     $('#flex').dblclick( function(){
-        var id = $('.trSelected').find('td[abbr="Regiao.id"]').text();
+        var id = $('.trSelected').find('td[abbr="Regiao.id_regiao"]').text();
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'regioes', 'action' => 'cadastro')); ?>/' + id);
     });
     //}).disableSelection();
 
     function actions(com, grid) {
-        var id = $('.trSelected', grid).find('td[abbr="Regiao.id"]').text();
-        var nome = $('.trSelected', grid).find('td[abbr="Regiao.descricao"]').text();
+        var id = $('.trSelected', grid).find('td[abbr="Regiao.id_regiao"]').text();
+        var nome = $('.trSelected', grid).find('td[abbr="Regiao.desc_regiao"]').text();
         switch(com)
         {
             case "Incluir":

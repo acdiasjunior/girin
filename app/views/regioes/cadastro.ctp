@@ -6,8 +6,8 @@ echo $this->Form->create('Regiao');
 
 echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Endereço');
-echo $this->Form->input('id', array('label' => 'Cód.'));
-echo $this->Form->input('descricao', array('label' => 'Descrição'));
+echo $this->Form->input('id_regiao', array('label' => 'Cód.'));
+echo $this->Form->input('desc_regiao', array('label' => 'Descrição'));
 echo $this->Html->tag('/fieldset', null);
 
 echo $this->Form->button('Fechar', array(
