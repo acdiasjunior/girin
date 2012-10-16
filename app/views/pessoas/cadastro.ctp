@@ -10,7 +10,7 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
             colModel : [
                 {display: 'NIS', name : 'Pessoa.cod_nis', width : 80, sortable : true, align: 'center', hide: false},
                 {display: 'Nome', name : 'Pessoa.nome', width : 250, sortable : true, align: 'left'},
-                {display: 'Idade', name : 'Pessoa.dt_nasc', width : 80, sortable : true, align: 'center'}
+                {display: 'Idade', name : 'Pessoa.idade', width : 80, sortable : true, align: 'center'}
             ],
             searchitems : [
                 {display: 'Nome', name : 'Pessoa.nome', isdefault: true}
@@ -19,8 +19,9 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
             sortorder: "asc",
             usepager: true,
             useRp: true,
-            rp: 10,
+            rp: 15,
             rpOptions: [10,15,20,25,40],
+            //title: 'Domicílio - Pessoas',
             width: 700,
             height: 150,
             singleSelect: true,
@@ -34,13 +35,13 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
         });
 
         $('#flex').dblclick( function(){
-            var id = $('.trSelected').find('td[abbr="Pessoa.cod_nis"]').text();
+            var id = $('.trSelected').find('td[abbr="Pessoa.nis"]').text();
             if(id != '')
                 $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'cadastro')); ?>/' + id);
-        });
-
+        }).disableSelection();
     });
-</script><?php
+</script>
+<?php
 $javascript->link(array('jquery.ui.datepicker-pt-BR', 'jquery.maskedinput-1.2.2.min', 'errormessage', 'maskinput', 'datepicker', 'autocomplete'), false);
 
 echo $this->Form->create('Pessoa');
@@ -159,6 +160,6 @@ if ($temAcessoEscrita) {
 
 echo $this->Html->tag('div', '', array('style' => 'height: 20px;'));
 echo $this->Html->tag('fieldset', null);
-echo $this->Html->tag('legend', 'Pessoa - Membros');
+echo $this->Html->tag('legend', 'Domicílio - Pessoas');
 echo '<table id="flex" style="display: none"></table>';
 echo $this->Html->tag('/fieldset', null);
