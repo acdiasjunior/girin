@@ -62,7 +62,7 @@ if ($temAcessoExclusao) {
 
     function actions(com, grid) {
         var id = $('.trSelected', grid).find('td[abbr="Pessoa.cod_nis"]').text();
-        var nome = $('.trSelected', grid).find('td[abbr="nome"]').text();
+        var nome = $('.trSelected', grid).find('td[abbr="Pessoa.nome"]').text();
         switch(com)
         {
             case "Incluir":
@@ -77,7 +77,7 @@ if ($temAcessoExclusao) {
             case "Excluir":
                 if(id != '')
                 {
-                    if(confirm('Deseja realmente excluir?\nCliente: ' + nome))
+                    if(confirm('Deseja realmente excluir?\nPessoa: ' + nome))
                         $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'excluir')); ?>/' + id);
                 }
                 else
