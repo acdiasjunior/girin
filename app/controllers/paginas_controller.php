@@ -48,5 +48,16 @@ class PaginasController extends AppController {
             }
         }
     }
+    
+    function excluir($id) {
+        parent::temAcesso();
+        if (!empty($id)) {
+            $this->Pagina->delete($id);
+            $this->Session->setFlash('A página com código: ' . $id . ' foi excluída.');
+        } else {
+            $this->Session->setFlash('Erro ao tentar excluir: id inexistente!');
+        }
+        $this->redirect(array('action' => 'index'));
+    }
 
 }

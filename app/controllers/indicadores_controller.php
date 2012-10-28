@@ -49,6 +49,17 @@ class IndicadoresController extends AppController {
             }
         }
     }
+    
+    function excluir($id) {
+        parent::temAcesso();
+        if (!empty($id)) {
+            $this->Indicador->delete($id);
+            $this->Session->setFlash('O indicador com código: ' . $id . ' foi excluída.');
+        } else {
+            $this->Session->setFlash('Erro ao tentar excluir: id inexistente!');
+        }
+        $this->redirect(array('action' => 'index'));
+    }
 
     function beforeRender() {
         parent::beforeRender();

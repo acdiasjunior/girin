@@ -46,6 +46,17 @@ class PlanoFamiliaresController extends AppController {
         $this->set(compact('plano_familiares', 'page', 'total'));
     }
 
+    function excluir($id) {
+        parent::temAcesso();
+        if (!empty($id)) {
+            $this->PlanoFamiliar->delete($id);
+            $this->Session->setFlash('O plano familiar com código: ' . $id . ' foi excluída.');
+        } else {
+            $this->Session->setFlash('Erro ao tentar excluir: id inexistente!');
+        }
+        $this->redirect(array('action' => 'index'));
+    }
+    
     function filtro() {
         $this->layout = 'ajax';
         $this->loadModel('Domicilio');

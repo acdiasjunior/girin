@@ -50,7 +50,18 @@ class EstrategiasController extends AppController {
             }
         }
     }
-
+    
+    function excluir($id) {
+        parent::temAcesso();
+        if (!empty($id)) {
+            $this->Estrategia->delete($id);
+            $this->Session->setFlash('A estratégia com código: ' . $id . ' foi excluída.');
+        } else {
+            $this->Session->setFlash('Erro ao tentar excluir: id inexistente!');
+        }
+        $this->redirect(array('action' => 'index'));
+    }
+    
     function beforeRender() {
         parent::beforeRender();
         switch ($this->action) {

@@ -49,5 +49,16 @@ class RegioesController extends AppController {
             }
         }
     }
+    
+    function excluir($id) {
+        parent::temAcesso();
+        if (!empty($id)) {
+            $this->Regiao->delete($id);
+            $this->Session->setFlash('A região com código: ' . $id . ' foi excluída.');
+        } else {
+            $this->Session->setFlash('Erro ao tentar excluir: id inexistente!');
+        }
+        $this->redirect(array('action' => 'index'));
+    }
 
 }
