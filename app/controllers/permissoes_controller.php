@@ -38,6 +38,8 @@ class PermissoesController extends AppController {
         parent::temAcesso();
         if (empty($this->data)) {
             $this->data = $this->Permissao->read();
+            $temAcessoEscrita = parent::temAcessoEscrita();
+            $this->set(compact('temAcessoEscrita'));
         } else {
             if ($this->Permissao->save($this->data)) {
                 $this->Session->setFlash('Cadastro salvo.');

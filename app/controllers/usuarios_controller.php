@@ -133,5 +133,21 @@ class UsuariosController extends AppController {
         }
         return true;
     }
+    
+    function beforeRender() {
+        parent::beforeRender();
+        switch ($this->action) {
+            case 'cadastro';
+                $this->_populateLookups(array('Cras'));
+                break;
+        }
+    }
+
+    function _populateLookups($models) {
+        foreach ($models as $model) {
+            $name = Inflector::variable(Inflector::pluralize(strtolower($model)));
+            $this->set($name, $this->Usuario->{$model}->find("list"));
+        }
+    }
 
 }
