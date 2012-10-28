@@ -60,7 +60,7 @@ if ($temAcessoExclusao) {
 
     function actions(com, grid) {
         var id = $('.trSelected', grid).find('td[abbr="Indicador.id"]').text();
-        var nome = $('.trSelected', grid).find('td[abbr="Indicador.desc__indicador"]').text();
+        var nome = $('.trSelected', grid).find('td[abbr="Indicador.desc_indicador"]').text();
         switch(com)
         {
             case "Incluir":
@@ -75,7 +75,7 @@ if ($temAcessoExclusao) {
             case "Excluir":
                 if(id != '')
                 {
-                    if(confirm('Deseja realmente excluir?\nCliente: ' + nome))
+                    if(confirm('Deseja realmente excluir?\nIndicador: ' + nome))
                         $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'indicadores', 'action' => 'excluir')); ?>/' + id);
                 }
                 else

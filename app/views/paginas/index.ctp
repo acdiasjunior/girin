@@ -72,7 +72,7 @@ if ($temAcessoExclusao) {
             case "Excluir":
                 if(id != '')
                 {
-                    if(confirm('Deseja realmente excluir?\nCliente: ' + nome))
+                    if(confirm('Deseja realmente excluir?\nLink: ' + nome))
                         $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'paginas', 'action' => 'excluir')); ?>/' + id);
                 }
                 else

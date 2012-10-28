@@ -57,7 +57,7 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
                 case "Excluir":
                     if(id != '')
                     {
-                        if(confirm('Deseja realmente excluir?\nCliente: ' + nome))
+                        if(confirm('Deseja realmente excluir?\nBairro: ' + nome))
                             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'bairros', 'action' => 'excluir')); ?>/' + id);
                     }
                     else
