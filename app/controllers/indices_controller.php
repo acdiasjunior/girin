@@ -63,7 +63,7 @@ class IndicesController extends AppController {
         );
 
         switch ($this->data['Relatorio']['filtro']) {
-            case 'regiao_id':
+            case 'id_regiao':
                 $conditions['Domicilio.id_regiao'] = $this->data['Relatorio']['id_regiao'];
                 break;
             case 'id_cras':

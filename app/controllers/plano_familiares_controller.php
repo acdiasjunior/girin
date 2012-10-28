@@ -71,14 +71,14 @@ class PlanoFamiliaresController extends AppController {
         $this->Indice->recursive = -1;
         $indices = $this->Indice->read($this->Indice->indicadores, $cod_domiciliar);
 
-        $this->Indicador->displayField = 'coluna';
+        $this->Indicador->displayField = 'cod_coluna_indicador';
         $indicadores = $this->Indicador->find('list');
 
         $this->data = array();
         $this->data['PlanoFamiliar'] = array(
             'cod_domiciliar' => $cod_domiciliar,
             'id_usuario' => $this->Session->read('Auth.Usuario.id_usuario'),
-            'numero_plano_familiar' => (int) $this->PlanoFamiliar->field('MAX(numero_plano_familiar)', array('cod_domiciliar' => $cod_domiciliar)) + 1,
+            'num_plano_familiar' => (int) $this->PlanoFamiliar->field('MAX(num_plano_familiar)', array('cod_domiciliar' => $cod_domiciliar)) + 1,
         );
 
         foreach ($indices['Indice'] as $key => $value) {
@@ -87,19 +87,19 @@ class PlanoFamiliaresController extends AppController {
                 $this->data['Indicador']['Indicador'][] = array_search($key, $indicadores);
             }
         }
+        
+        $conditions = isset($list) ? array("id_indicador IN ('" . implode("','", array_keys($list)) . "')") : '';
 
         $estrategias = $this->EstrategiaIndicador->find('all', array(
             'fields' => array(
-                'DISTINCT(estrategia_id)',
+                'DISTINCT(EstrategiaIndicador.id_estrategia)',
             ),
-            'conditions' => array(
-                "indicador_id IN ('" . implode("','", array_keys($list)) . "')"
-            ),
+            'conditions' => $conditions
                 )
         );
 
         foreach ($estrategias as $estrategia) {
-            $this->data['Estrategia']['Estrategia'][] = $estrategia[0]['estrategia_id'];
+            $this->data['Estrategia']['Estrategia'][] = $estrategia[0]['id_estrategia'];
         }
 
         if ($this->PlanoFamiliar->save($this->data)) {
@@ -123,12 +123,12 @@ class PlanoFamiliaresController extends AppController {
     function gerarPDF($id) {
         $this->autoRender = false;
         $cod_domiciliar = $this->PlanoFamiliar->field('cod_domiciliar');
-        $numero_plano_familiar = $this->PlanoFamiliar->field('numero_plano_familiar');
+        $num_plano_familiar = $this->PlanoFamiliar->field('num_plano_familiar');
         $html = $this->requestAction(array('controller' => 'plano_familiares', 'action' => 'exibirPlanoFamiliar'), array('return', 'pass' => array($id)));
         App::import('Vendor', 'mpdf53/mpdf');
         $pdf = new mPDF('utf-8', 'A4-L', '', '', 15, 15, 25, 15, 10, 10);
         //The last parameters are all margin values in millimetres: left-margin, right-margin, top-margin, bottom-margin, header-margin, footer-margin.
-        $setFooter = $pdf->SetFooter("Prontuário no. " . str_pad($numero_plano_familiar, 4, "0", STR_PAD_LEFT) . "|Código Domiciliar: $cod_domiciliar|{PAGENO}");
+        $setFooter = $pdf->SetFooter("Prontuário no. " . str_pad($num_plano_familiar, 4, "0", STR_PAD_LEFT) . "|Código Domiciliar: $cod_domiciliar|{PAGENO}");
         $setFooter = $pdf->SetHTMLHeader('<table cellspacing="0" cellpading="0" border="0" style="border: none; margin-bottom: 10mm;">
         <tr>
             <td style="border: none;">
@@ -143,7 +143,7 @@ class PlanoFamiliaresController extends AppController {
         </tr>
     </table>');
         $pdf->WriteHTML($html);
-        $pdf->Output('PlanoFamiliar_' . $cod_domiciliar . '_' . str_pad($numero_plano_familiar, 4, "0", STR_PAD_LEFT) . '.pdf', 'D');
+        $pdf->Output('PlanoFamiliar_' . $cod_domiciliar . '_' . str_pad($num_plano_familiar, 4, "0", STR_PAD_LEFT) . '.pdf', 'D');
     }
 
     private function crasUsuario() {
