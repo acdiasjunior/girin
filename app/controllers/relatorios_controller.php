@@ -296,10 +296,18 @@ class RelatoriosController extends AppController {
                         'Bairro.id_bairro = Domicilio.id_bairro',
                     )
                 ),
+                array(
+                    'table' => 'tb_cras',
+                    'alias' => 'Cras',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Bairro.id_cras = Cras.id_cras',
+                    )
+                ),
             ),
             'conditions' => array(
                 'Domicilio.qtd_pessoa > 0',
-                'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
+                'Bairro.id_cras IN(' . $this->crasUsuario() . ')',
             ),
             'fields' => array(
                 $idade . ' AS idade',
@@ -386,8 +394,8 @@ class RelatoriosController extends AppController {
         $bairros = $this->Domicilio->Bairro->find('list', array(
             'order' => 'Bairro.nome_bairro'
                 ));
-        $cras = $this->Domicilio->Cras->find('list');
-        $regioes = $this->Domicilio->Regiao->find('list');
+        $cras = $this->Domicilio->Bairro->Cras->find('list');
+        $regioes = $this->Domicilio->Bairro->Regiao->find('list');
 
         $this->set(compact('faixaEtaria', 'bairros', 'cras', 'regioes'));
     }
@@ -414,6 +422,14 @@ class RelatoriosController extends AppController {
                         'Bairro.id_bairro = Domicilio.id_bairro',
                     )
                 ),
+                array(
+                    'table' => 'tb_cras',
+                    'alias' => 'Cras',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Bairro.id_cras = Cras.id_cras',
+                    )
+                ),
             ),
             'fields' => array(
                 'COUNT(' . $idade . ') AS total',
@@ -429,7 +445,7 @@ class RelatoriosController extends AppController {
             ),
             'conditions' => array(
                 'Domicilio.qtd_pessoa > 0',
-                'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
+                'Bairro.id_cras IN(' . $this->crasUsuario() . ')',
             ),
             'group' => array(
                 'remuneracao',
@@ -488,8 +504,8 @@ class RelatoriosController extends AppController {
         $bairros = $this->Domicilio->Bairro->find('list', array(
             'order' => 'Bairro.nome_bairro'
                 ));
-        $cras = $this->Domicilio->Cras->find('list');
-        $regioes = $this->Domicilio->Regiao->find('list');
+        $cras = $this->Domicilio->Bairro->Cras->find('list');
+        $regioes = $this->Domicilio->Bairro->Regiao->find('list');
 
         $this->set(compact('valorRenda', 'bairros', 'cras', 'regioes'));
     }
@@ -534,6 +550,14 @@ class RelatoriosController extends AppController {
                         'Bairro.id_bairro = Domicilio.id_bairro',
                     )
                 ),
+                array(
+                    'table' => 'tb_cras',
+                    'alias' => 'Cras',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Bairro.id_cras = Cras.id_cras',
+                    )
+                ),
             ),
             'fields' => array(
                 'COUNT(FaixasEtaria.id) AS total',
@@ -548,7 +572,7 @@ class RelatoriosController extends AppController {
             ),
             'conditions' => array(
                 'Domicilio.qtd_pessoa > 0',
-                'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
+                'Bairro.id_cras IN(' . $this->crasUsuario() . ')',
             ),
             'order' => array(
                 'FaixasEtaria.faixa',
@@ -591,8 +615,8 @@ class RelatoriosController extends AppController {
         $bairros = $this->Domicilio->Bairro->find('list', array(
             'order' => 'Bairro.nome_bairro'
                 ));
-        $cras = $this->Domicilio->Cras->find('list');
-        $regioes = $this->Domicilio->Regiao->find('list');
+        $cras = $this->Domicilio->Bairro->Cras->find('list');
+        $regioes = $this->Domicilio->Bairro->Regiao->find('list');
 
         $this->set(compact('educacaoFormal', 'bairros', 'cras', 'regioes'));
     }

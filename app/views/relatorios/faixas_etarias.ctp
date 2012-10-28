@@ -75,7 +75,7 @@ echo $this->element('filtro');
             <td style="width: 100px;"><?php echo round($faixaEtaria['Adolescente']['idade'][10] * 100 / $faixaEtaria['total'], 2) ?> %</td>
         </tr>
         <?php
-        for ($i = 10; $i <= 14; $i++):
+        for ($i = 11; $i <= 14; $i++):
             ?>
             <tr>
                 <td style="width: 317px;"><?php echo $i; ?> anos</td>

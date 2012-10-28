@@ -89,7 +89,7 @@ echo $this->element('filtro');
             <td style="width: 110px;"><?php echo $valorRenda['Adolescente']['acima 545 reais'][10] ?></td>
         </tr>
         <?php
-        for ($i = 10; $i <= 14; $i++):
+        for ($i = 11; $i <= 14; $i++):
             ?>
             <tr>
                 <td style="width: 200px;"><?php echo $i; ?> anos</td>
