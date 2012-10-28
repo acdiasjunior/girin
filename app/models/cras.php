@@ -9,10 +9,6 @@ class Cras extends AppModel {
     var $displayField = 'desc_cras';
     var $order = 'Cras.desc_cras';
     var $hasMany = array(
-        'Domicilio' => array(
-            'foreignKey' => 'id_cras',
-            'dependent' => true
-        ),
         'Bairro' => array(
             'foreignKey' => 'id_cras',
             'dependent' => true

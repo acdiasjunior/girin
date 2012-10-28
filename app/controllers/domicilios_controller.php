@@ -21,7 +21,7 @@ class DomiciliosController extends AppController {
 
         $conditions = array(
             'Domicilio.qtd_pessoa != 0',
-            'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
+            'Bairro.id_cras IN(' . $this->crasUsuario() . ')',
         );
 
         if ($this->params['form']['query'] != '')
@@ -241,7 +241,7 @@ class DomiciliosController extends AppController {
         parent::beforeRender();
         switch ($this->action) {
             case 'cadastro';
-                $this->_populateLookups(array('Bairro', 'Regiao', 'Cras'));
+                $this->_populateLookups(array('Bairro'));
                 break;
         }
     }

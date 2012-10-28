@@ -7,12 +7,6 @@ class Domicilio extends AppModel {
     var $tablePrefix = 'tb_';
     var $primaryKey = 'cod_domiciliar';
     var $belongsTo = array(
-        'Cras' => array(
-            'foreignKey' => 'id_cras'
-        ),
-        'Regiao' => array(
-            'foreignKey' => 'id_regiao'
-        ),
         'Bairro' => array(
             'foreignKey' => 'id_bairro'
         ),

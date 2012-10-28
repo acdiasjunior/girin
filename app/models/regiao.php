@@ -16,11 +16,7 @@ class Regiao extends AppModel {
         'Bairro' => array(
             'foreignKey' => 'id_regiao',
             'dependent' => true
-        ),
-        'Domicilio' => array(
-            'foreignKey' => 'id_regiao',
-            'dependent' => true
-        ),
+        )
     );
     var $recursive = 0;
     var $sequence = 'seq_regiao';

@@ -190,26 +190,35 @@ class RelatoriosController extends AppController {
         $options = array(
             'recursive' => -1,
             'joins' => array(
-                array('table' => 'tb_domicilio',
+                array(
+                    'table' => 'tb_domicilio',
                     'alias' => 'Domicilio',
-                    'type' => 'INNER',
+                    'type' => 'LEFT',
                     'conditions' => array(
                         'Pessoa.cod_domiciliar = Domicilio.cod_domiciliar',
+                    )
+                ),
+                array(
+                    'table' => 'tb_bairro',
+                    'alias' => 'Bairro',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Bairro.id_bairro = Domicilio.id_bairro',
                     )
                 ),
             ),
             'fields' => array(
                 $idade . ' AS idade',
                 'COUNT(' . $idade . ') AS total',
-                'Pessoa.tp_trabalho',
+                'Pessoa.tp_trabalho'
             ),
             'conditions' => array(
                 'Domicilio.qtd_pessoa > 0',
-                'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
+                'Bairro.id_cras IN(' . $this->crasUsuario() . ')',
             ),
             'group' => array(
                 'Pessoa.tp_trabalho',
-                $idade,
+                $idade
             ),
             'order' => array(
                 $idade,
@@ -218,16 +227,14 @@ class RelatoriosController extends AppController {
 
         switch ($this->data['Relatorio']['filtro']) {
             case 'id_regiao':
-                $options['fields'][] = 'Domicilio.id_regiao';
-                $options['conditions'] = array(
-                    'Domicilio.id_regiao' => $this->data['Relatorio']['id_regiao'],
-                );
-                $options['group'][] = 'Domicilio.id_regiao';
+                $options['fields'][] = 'Bairro.id_regiao';
+                $options['conditions']['Bairro.id_regiao'] = $this->data['Relatorio']['id_regiao'];
+                $options['group'][] = 'Bairro.id_regiao';
                 break;
             case 'id_cras':
-                $options['fields'][] = 'Domicilio.id_cras';
-                $options['conditions']['Domicilio.id_cras'] = $this->data['Relatorio']['id_cras'];
-                $options['group'][] = 'Domicilio.id_cras';
+                $options['fields'][] = 'Bairro.id_cras';
+                $options['conditions']['Bairro.id_cras'] = $this->data['Relatorio']['id_cras'];
+                $options['group'][] = 'Bairro.id_cras';
                 break;
             case 'id_bairro':
                 $options['fields'][] = 'Domicilio.id_bairro';
@@ -261,8 +268,8 @@ class RelatoriosController extends AppController {
 
         $faixaEtaria['tempo'] = microtime(true) - $inicio;
         $bairros = $this->Domicilio->Bairro->find('list', array('order' => 'Bairro.nome_bairro'));
-        $cras = $this->Domicilio->Cras->find('list');
-        $regioes = $this->Domicilio->Regiao->find('list');
+        $cras = $this->Domicilio->Bairro->Cras->find('list');
+        $regioes = $this->Domicilio->Bairro->Regiao->find('list');
 
         $this->set(compact('faixaEtaria', 'bairros', 'cras', 'regioes', 'domicilios'));
     }
@@ -273,11 +280,20 @@ class RelatoriosController extends AppController {
         $options = array(
             'recursive' => -1,
             'joins' => array(
-                array('table' => 'tb_domicilio',
+                array(
+                    'table' => 'tb_domicilio',
                     'alias' => 'Domicilio',
-                    'type' => 'INNER',
+                    'type' => 'LEFT',
                     'conditions' => array(
                         'Pessoa.cod_domiciliar = Domicilio.cod_domiciliar',
+                    )
+                ),
+                array(
+                    'table' => 'tb_bairro',
+                    'alias' => 'Bairro',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Bairro.id_bairro = Domicilio.id_bairro',
                     )
                 ),
             ),
@@ -301,16 +317,14 @@ class RelatoriosController extends AppController {
 
         switch ($this->data['Relatorio']['filtro']) {
             case 'id_regiao':
-                $options['fields'][] = 'Domicilio.id_regiao';
-                $options['conditions'] = array(
-                    'Domicilio.id_regiao' => $this->data['Relatorio']['id_regiao'],
-                );
-                $options['group'][] = 'Domicilio.id_regiao';
+                $options['fields'][] = 'Bairro.id_regiao';
+                $options['conditions']['Bairro.id_regiao'] = $this->data['Relatorio']['id_regiao'];
+                $options['group'][] = 'Bairro.id_regiao';
                 break;
             case 'id_cras':
-                $options['fields'][] = 'Domicilio.id_cras';
-                $options['conditions']['Domicilio.id_cras'] = $this->data['Relatorio']['id_cras'];
-                $options['group'][] = 'Domicilio.id_cras';
+                $options['fields'][] = 'Bairro.id_cras';
+                $options['conditions']['Bairro.id_cras'] = $this->data['Relatorio']['id_cras'];
+                $options['group'][] = 'Bairro.id_cras';
                 break;
             case 'id_bairro':
                 $options['fields'][] = 'Domicilio.id_bairro';
@@ -384,11 +398,20 @@ class RelatoriosController extends AppController {
         $options = array(
             'recursive' => -1,
             'joins' => array(
-                array('table' => 'tb_domicilio',
+                array(
+                    'table' => 'tb_domicilio',
                     'alias' => 'Domicilio',
-                    'type' => 'INNER',
+                    'type' => 'LEFT',
                     'conditions' => array(
-                        '"Pessoa"."cod_domiciliar" = "Domicilio"."cod_domiciliar"',
+                        'Pessoa.cod_domiciliar = Domicilio.cod_domiciliar',
+                    )
+                ),
+                array(
+                    'table' => 'tb_bairro',
+                    'alias' => 'Bairro',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Bairro.id_bairro = Domicilio.id_bairro',
                     )
                 ),
             ),
@@ -419,16 +442,14 @@ class RelatoriosController extends AppController {
 
         switch ($this->data['Relatorio']['filtro']) {
             case 'id_regiao':
-                $options['fields'][] = 'Domicilio.id_regiao';
-                $options['conditions'] = array(
-                    'Domicilio.id_regiao' => $this->data['Relatorio']['id_regiao'],
-                );
-                $options['group'][] = 'Domicilio.id_regiao';
+                $options['fields'][] = 'Bairro.id_regiao';
+                $options['conditions']['Bairro.id_regiao'] = $this->data['Relatorio']['id_regiao'];
+                $options['group'][] = 'Bairro.id_regiao';
                 break;
             case 'id_cras':
-                $options['fields'][] = 'Domicilio.id_cras';
-                $options['conditions']['Domicilio.id_cras'] = $this->data['Relatorio']['id_cras'];
-                $options['group'][] = 'Domicilio.id_cras';
+                $options['fields'][] = 'Bairro.id_cras';
+                $options['conditions']['Bairro.id_cras'] = $this->data['Relatorio']['id_cras'];
+                $options['group'][] = 'Bairro.id_cras';
                 break;
             case 'id_bairro':
                 $options['fields'][] = 'Domicilio.id_bairro';
@@ -497,18 +518,20 @@ class RelatoriosController extends AppController {
         $options = array(
             'recursive' => -1,
             'joins' => array(
-                array('table' => 'faixas_etarias',
-                    'alias' => 'FaixasEtaria',
-                    'type' => 'INNER',
-                    'conditions' => array(
-                        'CASE WHEN ' . $idade . ' > 80 THEN FaixasEtaria.idade = 80 ELSE FaixasEtaria.idade = ' . $idade . 'END',
-                    )
-                ),
-                array('table' => 'tb_domicilio',
+                array(
+                    'table' => 'tb_domicilio',
                     'alias' => 'Domicilio',
-                    'type' => 'INNER',
+                    'type' => 'LEFT',
                     'conditions' => array(
                         'Pessoa.cod_domiciliar = Domicilio.cod_domiciliar',
+                    )
+                ),
+                array(
+                    'table' => 'tb_bairro',
+                    'alias' => 'Bairro',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Bairro.id_bairro = Domicilio.id_bairro',
                     )
                 ),
             ),
@@ -534,16 +557,14 @@ class RelatoriosController extends AppController {
 
         switch ($this->data['Relatorio']['filtro']) {
             case 'id_regiao':
-                $options['fields'][] = 'Domicilio.id_regiao';
-                $options['conditions'] = array(
-                    'Domicilio.id_regiao' => $this->data['Relatorio']['id_regiao'],
-                );
-                $options['group'][] = 'Domicilio.id_regiao';
+                $options['fields'][] = 'Bairro.id_regiao';
+                $options['conditions']['Bairro.id_regiao'] = $this->data['Relatorio']['id_regiao'];
+                $options['group'][] = 'Bairro.id_regiao';
                 break;
             case 'id_cras':
-                $options['fields'][] = 'Domicilio.id_cras';
-                $options['conditions']['Domicilio.id_cras'] = $this->data['Relatorio']['id_cras'];
-                $options['group'][] = 'Domicilio.id_cras';
+                $options['fields'][] = 'Bairro.id_cras';
+                $options['conditions']['Bairro.id_cras'] = $this->data['Relatorio']['id_cras'];
+                $options['group'][] = 'Bairro.id_cras';
                 break;
             case 'id_bairro':
                 $options['fields'][] = 'Domicilio.id_bairro';

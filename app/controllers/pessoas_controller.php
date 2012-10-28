@@ -20,11 +20,36 @@ class PessoasController extends AppController {
     function lista() {
         $this->layout = 'ajax';
 
-        $this->Pessoa->recursive = 0;
-        $this->Pessoa->Behaviors->attach('Containable');
+        $this->Pessoa->recursive = -1;
 
         $conditions = array(
-            'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
+            'Bairro.id_cras IN(' . $this->crasUsuario() . ')',
+        );
+        $joins = array(
+            array(
+                'table' => 'tb_pessoa',
+                'alias' => 'Responsavel',
+                'type' => 'LEFT',
+                'conditions' => array(
+                    'Pessoa.cod_nis = Responsavel.cod_nis',
+                )
+            ),
+            array(
+                'table' => 'tb_domicilio',
+                'alias' => 'Domicilio',
+                'type' => 'LEFT',
+                'conditions' => array(
+                    'Pessoa.cod_domiciliar = Domicilio.cod_domiciliar',
+                )
+            ),
+            array(
+                'table' => 'tb_bairro',
+                'alias' => 'Bairro',
+                'type' => 'LEFT',
+                'conditions' => array(
+                    'Bairro.id_bairro = Domicilio.id_bairro',
+                )
+            ),
         );
 
         if ($this->params['form']['query'] != '')
@@ -38,10 +63,9 @@ class PessoasController extends AppController {
             }
 
         $this->paginate = array(
-            'contain' => array(
-                'Domicilio.id_cras',
-                'Responsavel.nome',
-                'Responsavel.cod_nis',
+            'joins' => $joins,
+            'fields' => array(
+                'Pessoa.cod_nis', 'Pessoa.nome', 'Pessoa.idade', 'Pessoa.meses', 'Responsavel.nome', 'Responsavel.cod_nis'
             ),
             'page' => $this->params['form']['page'],
             'limit' => $this->params['form']['rp'],
@@ -52,7 +76,7 @@ class PessoasController extends AppController {
         );
         $pessoas = $this->paginate('Pessoa');
         $page = $this->params['form']['page'];
-        $total = $this->Pessoa->find('count', array('conditions' => $conditions));
+        $total = $this->Pessoa->find('count', array('conditions' => $conditions, 'joins' => $joins));
         $this->set(compact('pessoas', 'page', 'total'));
     }
 
@@ -236,7 +260,7 @@ class PessoasController extends AppController {
 
         return implode(',', $cras_usuario);
     }
-    
+
     function beforeRender() {
         parent::beforeRender();
         switch ($this->action) {

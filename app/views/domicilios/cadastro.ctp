@@ -54,8 +54,6 @@ echo $this->Form->input('Domicilio.end_tipo', array('label' => 'Tipo'));
 echo $this->Form->input('Domicilio.end_logradouro', array('label' => 'Logradouro'));
 echo $this->Form->input('Domicilio.end_num', array('label' => 'Número'));
 echo $this->Form->input('Domicilio.end_compl', array('label' => 'Complemento'));
-echo $this->Form->input('Domicilio.id_regiao', array('label' => 'Região'));
-echo $this->Form->input('Domicilio.id_cras', array('type' => 'select', 'options' => $cras, 'label' => 'CRAS'));
 echo $this->Form->input('Domicilio.id_bairro', array('type' => 'select', 'options' => $bairros, 'label' => 'Bairro'));
 echo $this->Form->input('Domicilio.end_cidade', array('label' => 'Cidade'));
 echo $this->Form->input('Domicilio.end_estado', array('label' => 'UF', 'size' => '2'));
