@@ -9,4 +9,4 @@ echo $this->Html->tag('legend', 'Arquivo CSV');
 echo $this->Form->file('Pessoa.arquivo');
 echo $this->Html->tag('/fieldset', null);
 
-echo $this->Form->end('Importar Registros');
+echo $this->Form->end(array('label' => 'Importar Registros','style' => 'width: 150px;'));
