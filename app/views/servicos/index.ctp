@@ -60,7 +60,7 @@ if ($temAcessoExclusao) {
 
     function actions(com, grid) {
         var id = $('.trSelected', grid).find('td[abbr="Servico.id_servico"]').text();
-        var nome = $('.trSelected', grid).find('td[abbr="Servico.nome"]').text();
+        var nome = $('.trSelected', grid).find('td[abbr="Servico.nome_servico"]').text();
         switch(com)
         {
             case "Incluir":
