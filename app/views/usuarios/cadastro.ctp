@@ -8,8 +8,8 @@ echo $this->Form->create('Usuario');
 
 echo $this->Html->tag('fieldset', null);
 echo $this->Html->tag('legend', 'Identificação');
-echo $this->Form->input('id');
-echo $this->Form->input('nome', array('label' => 'Nome completo'));
+echo $this->Form->input('id_usuario');
+echo $this->Form->input('nome_usuario', array('label' => 'Nome completo'));
 if ($this->Session->read('Auth.Usuario.id_grupo') == Usuario::GRUPO_ADMINISTRADOR)
     echo $this->Form->input('id_grupo', array('options' => Usuario::grupoUsuario(), 'label' => 'Grupo'));
 echo $this->Html->tag('/fieldset', null);

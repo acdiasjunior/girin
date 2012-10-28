@@ -7,7 +7,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
 <div id="alterarSenha" title="Alterar Senha do Usuário" style="display: none;">
     <?php
     echo $this->Form->create('Usuario', array('action' => 'mudarSenhaUsuario'));
-    echo $this->Form->hidden('id');
+    echo $this->Form->hidden('id_usuario');
     echo $this->Form->input('nova_senha', array('label' => 'Senha', 'value' => '', 'type' => 'password'));
     echo $this->Form->end();
     ?>
@@ -20,8 +20,8 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         url: '<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'lista')); ?>',
         dataType: 'json',
         colModel : [
-            {display: 'Codigo', name : 'id', width : 50, sortable : true, align: 'center'}, //, hide: true},
-            {display: 'Nome', name : 'nome', width : 160, sortable : true, align: 'left'},
+            {display: 'Codigo', name : 'id_usuario', width : 50, sortable : true, align: 'center'}, //, hide: true},
+            {display: 'Nome', name : 'nome_usuario', width : 160, sortable : true, align: 'left'},
             {display: 'Login', name : 'username', width : 160, sortable : true, align: 'left'},
             {display: 'Grupo', name : 'id_grupo', width : 160, sortable : true, align: 'left'}
         ],
@@ -36,7 +36,7 @@ if ($temAcessoExclusao) {
             {separator: true},
             {name: 'Senha', bclass: 'edit', onpress : actions}
         ],
-        sortname: "nome",
+        sortname: "nome_usuario",
         sortorder: "asc",
         //title: 'Usuarios',
         width: 620,
@@ -45,14 +45,14 @@ if ($temAcessoExclusao) {
     });
 
     $('#flex').dblclick( function(){
-        var id = $('.trSelected', grid).find('td[abbr="id"]').text();
+        var id = $('.trSelected', grid).find('td[abbr="id_usuario"]').text();
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'usuarios', 'action' => 'cadastro')); ?>/' + id);
     }).disableSelection();
 
     function actions(com, grid) {
-        var id = $('.trSelected', grid).find('td[abbr="id"]').text();
-        var nome = $('.trSelected', grid).find('td[abbr="nome"]').text();
+        var id = $('.trSelected', grid).find('td[abbr="id_usuario"]').text();
+        var nome = $('.trSelected', grid).find('td[abbr="nome_usuario"]').text();
         switch(com)
         {
             case "Incluir":
@@ -74,7 +74,7 @@ if ($temAcessoExclusao) {
             case "Senha":
                 if(id != '')
                 {
-                    $("#UsuarioId").val(id);
+                    $("#IdUsuario").val(id);
                     $("#alterarSenha").dialog("open");
                 }
                 else

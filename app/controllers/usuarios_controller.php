@@ -19,14 +19,14 @@ class UsuariosController extends AppController {
         $this->Usuario->order = array(
             $this->params['form']['sortname'] => $this->params['form']['sortorder']
         );
-        $data = $this->Usuario->find('all', array('conditions' => array('Usuario.id <>' => 1)));
+        $data = $this->Usuario->find('all', array('conditions' => array('Usuario.id_usuario <>' => 1)));
         $this->set('usuarios', $data);
     }
 
     function cadastro($id = null) {
         if (empty($this->data)) {
             if ($id == null && $this->Session->read('Auth.Usuario.id_usuario') != 1)
-                $id = $this->Session->read('Auth.Usuario.id');
+                $id = $this->Session->read('Auth.Usuario.id_usuario');
             if ($id == 1) {
                 $this->Session->setFlash('Alteração do Usuário Admistrador desabilitada!');
                 $this->redirect(array('controller' => 'pages'));
