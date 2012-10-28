@@ -10,12 +10,12 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
         url: '<?php echo $this->Html->url(array('controller' => 'plano_familiares', 'action' => 'lista')); ?>',
         dataType: 'json',
         colModel : [
-            {display: 'ID', name : 'PlanoFamiliar.id', width : 40, sortable : true, align: 'center'}, //, hide: true},
+            {display: 'ID', name : 'PlanoFamiliar.id_plano_familiar', width : 40, sortable : true, align: 'center'}, //, hide: true},
             {display: 'Núm.', name : 'PlanoFamiliar.num_plano_familiar', width : 60, sortable : true, align: 'center'},
             {display: 'Cód. Domiciliar', name : 'Domicilio.cod_domiciliar', width : 80, sortable : true, align: 'center'},
             {display: 'Cras', name : 'Cras.desc_cras', width : 160, sortable : true, align: 'left'},
-            {display: 'vlr_idf', name : 'Indice.indice', width : 40, sortable : true, align: 'center'},
-            {display: 'Usuário', name : 'Usuario.nome', width : 220, sortable : true, align: 'left'},
+            {display: 'vlr_idf', name : 'Indice.vlr_idf', width : 40, sortable : true, align: 'center'},
+            {display: 'Usuário', name : 'Usuario.nome_usuario', width : 220, sortable : true, align: 'left'},
             {display: 'Data', name : 'PlanoFamiliar.created', width : 110, sortable : true, align: 'center'}
         ],
         buttons : [
@@ -37,7 +37,7 @@ if ($temAcessoExclusao) {
             {display: 'Bairro', name : 'Bairro.nome_bairro'},
             {display: 'Cidade', name : 'Domicilio.end_cidade'}
         ],
-        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'Domicilio.cod_domiciliar'; ?>',
+        sortname: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortname') : 'PlanoFamiliar.id_plano_familiar'; ?>',
         sortorder: '<?php echo ($this->Session->check($flexigridSession)) ? $this->Session->read($flexigridSession . '.sortorder') : 'asc'; ?>',
         usepager: true,
         useRp: true,
