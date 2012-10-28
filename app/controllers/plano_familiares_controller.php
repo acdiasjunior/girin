@@ -13,11 +13,10 @@ class PlanoFamiliaresController extends AppController {
     function lista() {
         $this->layout = 'ajax';
 
-        $this->PlanoFamiliar->recursive = 0;
-        $this->PlanoFamiliar->Behaviors->attach('Containable');
+        $this->PlanoFamiliar->recursive = -1;
 
         $conditions = array(
-            'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
+            'Bairro.id_cras IN(' . $this->crasUsuario() . ')',
         );
 
         if ($this->params['form']['query'] != '')
@@ -25,12 +24,51 @@ class PlanoFamiliaresController extends AppController {
                     = sprintf('%%%s%%', str_replace(' ', '%', stroupper($this->params['form']['query'])));
 
         $this->paginate = array(
-            'contain' => array(
-                'Domicilio' => array(
-                    'Cras.desc_cras'
+            'joins' => array(
+                array(
+                    'table' => 'tb_domicilio',
+                    'alias' => 'Domicilio',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'PlanoFamiliar.cod_domiciliar = Domicilio.cod_domiciliar',
+                    )
                 ),
-                'Indice.vlr_idf',
-                'Usuario.nome_usuario'
+                array(
+                    'table' => 'tb_bairro',
+                    'alias' => 'Bairro',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Bairro.id_bairro = Domicilio.id_bairro',
+                    )
+                ),
+                array(
+                    'table' => 'tb_cras',
+                    'alias' => 'Cras',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Bairro.id_cras = Cras.id_cras',
+                    )
+                ),
+                array(
+                    'table' => 'tb_indice',
+                    'alias' => 'Indice',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Domicilio.cod_domiciliar = Indice.cod_domiciliar',
+                    )
+                ),
+                array(
+                    'table' => 'tb_usuario',
+                    'alias' => 'Usuario',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'PlanoFamiliar.id_usuario = Usuario.id_usuario',
+                    )
+                ),
+            ),
+            'fields' => array(
+                'PlanoFamiliar.id_plano_familiar', 'PlanoFamiliar.num_plano_familiar', 'Domicilio.cod_domiciliar',
+                'Cras.desc_cras', 'Indice.vlr_idf', 'Usuario.nome_usuario', 'PlanoFamiliar.created'
             ),
             'page' => $this->params['form']['page'],
             'limit' => $this->params['form']['rp'],
@@ -42,7 +80,7 @@ class PlanoFamiliaresController extends AppController {
 
         $plano_familiares = $this->paginate('PlanoFamiliar');
         $page = $this->params['form']['page'];
-        $total = $this->PlanoFamiliar->find('count', array('conditions' => $conditions));
+        $total = $this->params['paging']['PlanoFamiliar']['count'];
         $this->set(compact('plano_familiares', 'page', 'total'));
     }
 
@@ -56,7 +94,7 @@ class PlanoFamiliaresController extends AppController {
         }
         $this->redirect(array('action' => 'index'));
     }
-    
+
     function filtro() {
         $this->layout = 'ajax';
         $this->loadModel('Domicilio');
@@ -98,7 +136,7 @@ class PlanoFamiliaresController extends AppController {
                 $this->data['Indicador']['Indicador'][] = array_search($key, $indicadores);
             }
         }
-        
+
         $conditions = isset($list) ? array("id_indicador IN ('" . implode("','", array_keys($list)) . "')") : '';
 
         $estrategias = $this->EstrategiaIndicador->find('all', array(

@@ -59,7 +59,7 @@ class DomiciliosController extends AppController {
         );
         $domicilios = $this->paginate('Domicilio');
         $page = $this->params['form']['page'];
-        $total = $this->Domicilio->find('count', array('conditions' => $conditions));
+        $total = $this->params['paging']['Domicilio']['count'];
         $this->set(compact('domicilios', 'page', 'total'));
     }
 
