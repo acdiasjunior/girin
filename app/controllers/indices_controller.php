@@ -17,14 +17,6 @@ class IndicesController extends AppController {
                 )
             ),
             array(
-                'table' => 'tb_regiao',
-                'alias' => 'Regiao',
-                'type' => 'LEFT',
-                'conditions' => array(
-                    'Regiao.id_regiao = Domicilio.id_regiao',
-                )
-            ),
-            array(
                 'table' => 'tb_bairro',
                 'alias' => 'Bairro',
                 'type' => 'LEFT',
@@ -33,11 +25,19 @@ class IndicesController extends AppController {
                 )
             ),
             array(
+                'table' => 'tb_regiao',
+                'alias' => 'Regiao',
+                'type' => 'LEFT',
+                'conditions' => array(
+                    'Regiao.id_regiao = Bairro.id_regiao',
+                )
+            ),
+            array(
                 'table' => 'tb_cras',
                 'alias' => 'Cras',
                 'type' => 'LEFT',
                 'conditions' => array(
-                    'Cras.id_cras = Domicilio.id_cras',
+                    'Cras.id_cras = Bairro.id_cras',
                 )
             ),
         );
@@ -59,15 +59,15 @@ class IndicesController extends AppController {
 
         $conditions = array(
             'Domicilio.qtd_pessoa != 0',
-            'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
+            'Bairro.id_cras IN(' . $this->crasUsuario() . ')',
         );
 
         switch ($this->data['Relatorio']['filtro']) {
             case 'id_regiao':
-                $conditions['Domicilio.id_regiao'] = $this->data['Relatorio']['id_regiao'];
+                $conditions['Bairro.id_regiao'] = $this->data['Relatorio']['id_regiao'];
                 break;
             case 'id_cras':
-                $conditions['Domicilio.id_cras'] = $this->data['Relatorio']['id_cras'];
+                $conditions['Bairro.id_cras'] = $this->data['Relatorio']['id_cras'];
                 break;
             case 'id_bairro':
                 $conditions['Domicilio.id_bairro'] = $this->data['Relatorio']['id_bairro'];
