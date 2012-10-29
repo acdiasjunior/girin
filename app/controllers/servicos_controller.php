@@ -64,9 +64,9 @@ class ServicosController extends AppController {
             ),
             'conditions' => $conditions
         );
-        $servicos = $this->paginate('Servico');
+        $servicos = $this->paginate($this->modelClass);
         $page = $this->params['form']['page'];
-        $total = $this->Servico->find('count', array('conditions' => $conditions));
+        $total = $this->params['paging'][$this->modelClass]['count'];
         $this->set(compact('servicos', 'page', 'total'));
     }
 

@@ -30,9 +30,9 @@ class AcoesController extends AppController {
             'conditions' => $conditions
         );
 
-        $acoes = $this->paginate('Acao');
+        $acoes = $this->paginate($this->modelClass);
         $page = $this->params['form']['page'];
-        $total = $this->Acao->find('count', array('conditions' => $conditions));
+        $total = $this->params['paging'][$this->modelClass]['count'];
         $this->set(compact('acoes', 'page', 'total'));
     }
 

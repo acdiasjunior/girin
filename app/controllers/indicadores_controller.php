@@ -30,9 +30,9 @@ class IndicadoresController extends AppController {
             'conditions' => $conditions
         );
 
-        $indicadores = $this->paginate('Indicador');
+        $indicadores = $this->paginate($this->modelClass);
         $page = $this->params['form']['page'];
-        $total = $this->Indicador->find('count', array('conditions' => $conditions));
+        $total = $this->params['paging'][$this->modelClass]['count'];
         $this->set(compact('indicadores', 'page', 'total'));
     }
 

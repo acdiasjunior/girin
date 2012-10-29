@@ -29,9 +29,9 @@ class PaginasController extends AppController {
             'conditions' => $conditions
         );
 
-        $paginas = $this->paginate('Pagina');
+        $paginas = $this->paginate($this->modelClass);
         $page = $this->params['form']['page'];
-        $total = $this->Pagina->find('count', array('conditions' => $conditions));
+        $total = $this->params['paging'][$this->modelClass]['count'];
         $this->set(compact('paginas', 'page', 'total'));
     }
 

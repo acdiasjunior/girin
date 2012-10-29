@@ -30,9 +30,9 @@ class CrasController extends AppController {
             'conditions' => $conditions
         );
 
-        $cras = $this->paginate('Cras');
+        $cras = $this->paginate($this->modelClass);
         $page = $this->params['form']['page'];
-        $total = $this->Cras->find('count', array('conditions' => $conditions));
+        $total = $this->params['paging'][$this->modelClass]['count'];
         $this->set(compact('cras', 'page', 'total'));
     }
 

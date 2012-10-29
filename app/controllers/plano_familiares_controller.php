@@ -78,9 +78,9 @@ class PlanoFamiliaresController extends AppController {
             'conditions' => $conditions
         );
 
-        $plano_familiares = $this->paginate('PlanoFamiliar');
+        $plano_familiares = $this->paginate($this->modelClass);
         $page = $this->params['form']['page'];
-        $total = $this->params['paging']['PlanoFamiliar']['count'];
+        $total = $this->params['paging'][$this->modelClass]['count'];
         $this->set(compact('plano_familiares', 'page', 'total'));
     }
 

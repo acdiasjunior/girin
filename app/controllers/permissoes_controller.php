@@ -28,9 +28,9 @@ class PermissoesController extends AppController {
             'conditions' => $conditions
         );
 
-        $permissoes = $this->paginate('Permissao');
+        $permissoes = $this->paginate($this->modelClass);
         $page = $this->params['form']['page'];
-        $total = $this->Permissao->find('count', array('conditions' => $conditions));
+        $total = $this->params['paging'][$this->modelClass]['count'];
         $this->set(compact('permissoes', 'page', 'total'));
     }
 

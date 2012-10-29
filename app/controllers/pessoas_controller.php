@@ -74,9 +74,9 @@ class PessoasController extends AppController {
             ),
             'conditions' => $conditions
         );
-        $pessoas = $this->paginate('Pessoa');
+        $pessoas = $this->paginate($this->modelClass);
         $page = $this->params['form']['page'];
-        $total = $this->Pessoa->find('count', array('conditions' => $conditions, 'joins' => $joins));
+        $total = $this->params['paging'][$this->modelClass]['count'];
         $this->set(compact('pessoas', 'page', 'total'));
     }
 

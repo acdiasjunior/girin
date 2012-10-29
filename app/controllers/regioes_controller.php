@@ -30,9 +30,9 @@ class RegioesController extends AppController {
             'conditions' => $conditions
         );
 
-        $regioes = $this->paginate('Regiao');
+        $regioes = $this->paginate($this->modelClass);
         $page = $this->params['form']['page'];
-        $total = $this->Regiao->find('count', array('conditions' => $conditions));
+        $total = $this->params['paging'][$this->modelClass]['count'];
         $this->set(compact('regioes', 'page', 'total'));
     }
 
