@@ -21,7 +21,7 @@ class PlanoFamiliaresController extends AppController {
 
         if ($this->params['form']['query'] != '')
             $conditions[sprintf('UPPER(%s) LIKE', $this->params['form']['qtype'])]
-                    = sprintf('%%%s%%', str_replace(' ', '%', stroupper($this->params['form']['query'])));
+                    = sprintf('%%%s%%', str_replace(' ', '%', strtoupper($this->params['form']['query'])));
 
         $this->paginate = array(
             'joins' => array(
