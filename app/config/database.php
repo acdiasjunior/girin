@@ -82,6 +82,30 @@ class DATABASE_CONFIG {
             $this->default = array(
                 'driver' => 'postgres',
                 'persistent' => false,
+                'host' => base64_decode('cGdzcWwuanVuaW9yZGlhcy5jb20uYnI='),
+                'login' => base64_decode('anVuaW9yZGlhcw=='),
+                'password' => base64_decode('c3lzdGVt'),
+                'database' => base64_decode('anVuaW9yZGlhcw=='),
+                'encoding' => 'utf8'
+            );
+        else
+            $this->default = array(
+                'driver' => 'postgres',
+                'persistent' => false,
+                'host' => '127.0.0.1',
+                'login' => base64_decode('cHJvZ3JhbWFjYW9sb2NhbA=='),
+                'password' => base64_decode('c2lzdGVtYQ=='),
+                'database' => base64_decode('cHJvZ3JhbWFjYW9sb2NhbA=='),
+                'encoding' => 'utf8'
+            );
+    }
+    /*
+     * 
+    function __construct() {
+        if (!in_array($_SERVER['SERVER_ADDR'], array('127.0.0.1', '::1')))
+            $this->default = array(
+                'driver' => 'postgres',
+                'persistent' => false,
                 'host' => '127.0.0.1',
                 'login' => base64_decode('dXN1X3NpbWFz'),
                 'password' => base64_decode('U2kyNkBkaiE='),
@@ -99,5 +123,6 @@ class DATABASE_CONFIG {
                 'encoding' => 'utf8'
             );
     }
+     */
 
 }
