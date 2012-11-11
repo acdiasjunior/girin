@@ -99,8 +99,8 @@ class PlanoFamiliaresController extends AppController {
         $this->layout = 'ajax';
         $this->loadModel('Domicilio');
         $bairros = $this->Domicilio->Bairro->find('list', array('order' => 'Bairro.nome_bairro'));
-        $cras = $this->Domicilio->Cras->find('list');
-        $regioes = $this->Domicilio->Regiao->find('list');
+        $cras = $this->Domicilio->Bairro->Cras->find('list');
+        $regioes = $this->Domicilio->Bairro->Regiao->find('list');
         $this->set(compact('bairros', 'cras', 'regioes'));
     }
 
