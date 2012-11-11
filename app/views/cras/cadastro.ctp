@@ -5,7 +5,7 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
 <script type="text/javascript">
     $(function() {
         $("#flex").flexigrid({
-            url: '/prefeitura/bairros/listaBairrosCras/<?php echo $this->data['Cras']['id_cras'] ?>',
+            url: '<?php echo $this->Html->url(array('controller' => 'bairros', 'action' => 'listaBairrosCras', $this->data['Cras']['id_cras'])) ?>',
             dataType: 'json',
             colModel : [
                 {display: 'Cód.', name : 'Bairro.id_bairro', width : 80, sortable : true, align: 'center', hide: false},
