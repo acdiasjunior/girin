@@ -58,15 +58,14 @@ if ($temAcessoExclusao) {
     });
 
     $('#flex').dblclick( function(){
-        var id = $('.trSelected').find('td[abbr="PlanoFamiliar.id"]').text();
+        var id = $('.trSelected').find('td[abbr="PlanoFamiliar.id_plano_familiar"]').text();
         if(id != '')
             $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'plano_familiares', 'action' => 'exibirPlanoFamiliar')); ?>/' + id);
     });
     //}).disableSelection();
 
     function actions(com, grid) {
-        var id = $('.trSelected', grid).find('td[abbr="PlanoFamiliar.id"]').text();
-        var nome = $('.trSelected', grid).find('td[abbr="Usuario.nome"]').text();
+        var id = $('.trSelected', grid).find('td[abbr="PlanoFamiliar.id_plano_familiar"]').text();
         switch(com)
         {
             case "Exibir":
