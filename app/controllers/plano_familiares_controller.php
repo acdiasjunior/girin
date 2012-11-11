@@ -137,15 +137,8 @@ class PlanoFamiliaresController extends AppController {
             }
         }
 
-        $conditions = isset($list) ? array("id_indicador IN ('" . implode("','", array_keys($list)) . "')") : '';
-
-        $estrategias = $this->EstrategiaIndicador->find('all', array(
-            'fields' => array(
-                'DISTINCT(EstrategiaIndicador.id_estrategia)',
-            ),
-            'conditions' => $conditions
-                )
-        );
+        $conditions = isset($list) ? "'" . implode("','", array_keys($list)) . "'" : '';
+        $estrategias = $this->EstrategiaIndicador->query("SELECT DISTINCT(id_estrategia) from tb_estrategia_indicador WHERE id_indicador IN ({$conditions})");
 
         foreach ($estrategias as $estrategia) {
             $this->data['Estrategia']['Estrategia'][] = $estrategia[0]['id_estrategia'];
