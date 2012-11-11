@@ -35,7 +35,7 @@ echo $javascript->link(array('flexigrid.pack', 'button'));
         });
 
         $('#flex').dblclick( function(){
-            var id = $('.trSelected').find('td[abbr="Pessoa.nis"]').text();
+            var id = $('.trSelected').find('td[abbr="Pessoa.cod_nis"]').text();
             if(id != '')
                 $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'pessoas', 'action' => 'cadastro')); ?>/' + id);
         }).disableSelection();
