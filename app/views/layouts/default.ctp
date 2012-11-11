@@ -25,7 +25,7 @@ $logado = $this->Session->check('Auth.Usuario');
                 <div style="float: left;">
                     <?php
                     echo $this->Html->link(
-                            $this->Html->image('logos/logo_agenda_familia.png', array('alt' => '', 'border' => '0')), $this->Html->url('/'), array('target' => '_parent', 'escape' => false)
+                            $this->Html->image('logos/logo_agenda_familia.png', array('alt' => '', 'border' => '0')), '/', array('target' => '_parent', 'escape' => false)
                     );
                     ?>
                 </div>
