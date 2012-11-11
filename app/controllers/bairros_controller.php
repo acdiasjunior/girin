@@ -69,7 +69,7 @@ class BairrosController extends AppController {
         );
         $bairros = $this->paginate('Bairro');
         $page = $this->params['form']['page'];
-        $total = $this->Bairro->find('count', array('conditions' => $conditions));
+		$total = $this->params['paging'][$this->modelClass]['count'];
         $this->set(compact('bairros', 'page', 'total'));
     }
 

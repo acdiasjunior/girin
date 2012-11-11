@@ -123,7 +123,7 @@ class PessoasController extends AppController {
         );
         $membros = $this->paginate('Pessoa');
         $page = $this->params['form']['page'];
-        $total = $this->Pessoa->find('count', array('conditions' => $conditions));
+		$total = $this->params['paging'][$this->modelClass]['count'];
         $this->set(compact('membros', 'page', 'total'));
     }
 
@@ -144,7 +144,7 @@ class PessoasController extends AppController {
         );
         $pessoas = $this->paginate('Pessoa');
         $page = $this->params['form']['page'];
-        $total = $this->Pessoa->find('count', array('conditions' => $conditions));
+		$total = $this->params['paging'][$this->modelClass]['count'];
         $this->set(compact('pessoas', 'page', 'total'));
     }
 
@@ -177,7 +177,7 @@ class PessoasController extends AppController {
 
         $pessoas = $this->paginate('Pessoa');
         $page = $this->params['form']['page'];
-        $total = $this->Pessoa->find('count', array('conditions' => $conditions));
+		$total = $this->params['paging'][$this->modelClass]['count'];
         $this->set(compact('pessoas', 'page', 'total'));
     }
 
