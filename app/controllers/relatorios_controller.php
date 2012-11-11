@@ -53,7 +53,7 @@ class RelatoriosController extends AppController {
                             'Domicilio.cod_domiciliar',
                             'Indice.*',
                             'Responsavel.nome',
-                            'Responsavel.nis',
+                            'Responsavel.cod_nis',
                             'Domicilio.vlr_renda_familia',
                             'Domicilio.qtd_pessoa',
                             'Domicilio.vlr_beneficio',

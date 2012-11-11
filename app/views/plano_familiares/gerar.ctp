@@ -38,15 +38,15 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             data: {
                 controller: '<?php echo $this->params['controller'] ?>',
                 action: '<?php echo $this->params['action'] ?>',
-                'Domicilio.cod_domiciliar': $('input[id$="DomicilioCodigoDomiciliar"]').val(),
-                'Domicilio.id_regiao': $('select[id$="DomicilioIdRegiao"]').val(),
-                'Domicilio.id_cras': $('select[id$="DomicilioIdCras"]').val(),
-                'Domicilio.id_bairro': $('select[id$="DomicilioIdBairro"]').val(),
-                'Responsavel.cod_nis': $('input[id$="ResponsavelCodNis"]').val(),
-                'Responsavel.cpf': $('input[id$="ResponsavelCpf"]').val(),
-                'Responsavel.nome': $('input[id$="ResponsavelNome"]').val(),
-                'Domicilio.vlr_idf': $('input[id$="DomicilioVlrIdf"]').val(),
-                'TipoBusca': $('select[id$="TipoBusca"]').val()
+                cod_domiciliar: $('input[id$="PlanoFamiliarCodDomiciliar"]').val(),
+                id_regiao: $('select[id$="PlanoFamiliarIdRegiao"]').val(),
+                id_cras: $('select[id$="PlanoFamiliarIdCras"]').val(),
+                id_bairro: $('select[id$="PlanoFamiliarIdBairro"]').val(),
+                cod_nis: $('input[id$="PlanoFamiliarCodNis"]').val(),
+                cpf: $('input[id$="PlanoFamiliarCpf"]').val(),
+                nome: $('input[id$="PlanoFamiliarNome"]').val(),
+                vlr_idf: $('input[id$="PlanoFamiliarVlrIdf"]').val(),
+                tp_busca: $('select[id$="PlanoFamiliarTpBusca"]').val()
             }
         });
     };

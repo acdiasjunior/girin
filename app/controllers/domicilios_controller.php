@@ -70,25 +70,24 @@ class DomiciliosController extends AppController {
 
         $conditions = array(
             'Domicilio.qtd_pessoa != 0',
-            'Domicilio.id_cras IN(' . $this->crasUsuario() . ')',
+            'Bairro.id_cras IN(' . $this->crasUsuario() . ')',
         );
-
-        if ($this->Session->read("$container.Domicilio_cod_domiciliar") != '')
-            $conditions['Domicilio.cod_domiciliar'] = $this->Session->read("$container.Domicilio_cod_domiciliar");
-        if ($this->Session->read("$container.Domicilio_id_regiao") != '')
-            $conditions['Domicilio.id_regiao'] = $this->Session->read("$container.Domicilio_id_regiao");
-        if ($this->Session->read("$container.Domicilio_id_cras") != '')
-            $conditions['Domicilio.id_cras'] = $this->Session->read("$container.Domicilio_id_cras");
-        if ($this->Session->read("$container.Domicilio_id_bairro") != '')
-            $conditions['Domicilio.id_bairro'] = $this->Session->read("$container.Domicilio_id_bairro");
-        if ($this->Session->read("$container.Responsavel_nis") != '')
-            $conditions['Responsavel.nis'] = $this->Session->read("$container.Responsavel_nis");
-        if ($this->Session->read("$container.Responsavel_cpf") != '')
-            $conditions['Responsavel.cpf'] = str_replace(array('.', '-'), '', $this->Session->read("$container.Responsavel_cpf"));
-        if ($this->Session->read("$container.Responsavel_nome") != '')
-            $conditions['Responsavel.nome LIKE '] = '%' . $this->Session->read("$container.Responsavel_nome") . '%';
-        if ($this->Session->read("$container.Domicilio_vlr_idf") != '') {
-            switch ($this->Session->read("$container.TipoBusca")) {
+        if ($this->Session->read("$container.cod_domiciliar") != '')
+            $conditions['Domicilio.cod_domiciliar'] = $this->Session->read("$container.cod_domiciliar");
+        if ($this->Session->read("$container.id_regiao") != '')
+            $conditions['Bairro.id_regiao'] = $this->Session->read("$container.id_regiao");
+        if ($this->Session->read("$container.id_cras") != '')
+            $conditions['Bairro.id_cras'] = $this->Session->read("$container.id_cras");
+        if ($this->Session->read("$container.id_bairro") != '')
+            $conditions['Domicilio.id_bairro'] = $this->Session->read("$container.id_bairro");
+        if ($this->Session->read("$container.cod_nis") != '')
+            $conditions['Responsavel.cod_nis'] = $this->Session->read("$container.cod_nis");
+        if ($this->Session->read("$container.cpf") != '')
+            $conditions['Responsavel.cpf'] = str_replace(array('.', '-'), '', $this->Session->read("$container.cpf"));
+        if ($this->Session->read("$container.nome") != '')
+            $conditions['Responsavel.nome LIKE '] = '%' . $this->Session->read("$container.nome") . '%';
+        if ($this->Session->read("$container.vlr_idf") != '') {
+            switch ($this->Session->read("$container.tp_busca")) {
                 case 'menor':
                     $tp_busca = '<=';
                     break;
@@ -101,10 +100,48 @@ class DomiciliosController extends AppController {
                 default:
                     return;
             }
-            $conditions['Indice.vlr_idf ' . $tp_busca] = $this->Session->read("$container.Domicilio_vlr_idf");
+            $conditions['Indice.vlr_idf ' . $tp_busca] = $this->Session->read("$container.vlr_idf");
         }
 
         $this->paginate = array(
+            'recursive' => -1,
+            'joins' => array(
+                array(
+                    'table' => 'tb_indice',
+                    'alias' => 'Indice',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Domicilio.cod_domiciliar = Indice.cod_domiciliar',
+                    )
+                ),
+                array(
+                    'table' => 'tb_bairro',
+                    'alias' => 'Bairro',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Bairro.id_bairro = Domicilio.id_bairro',
+                    )
+                ),
+                array(
+                    'table' => 'tb_pessoa',
+                    'alias' => 'Responsavel',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Domicilio.cod_nis_responsavel = Responsavel.cod_nis',
+                    )
+                ),
+            ),
+            'fields' => array(
+                'Domicilio.cod_domiciliar',
+                'Responsavel.nome',
+                'Domicilio.end_logradouro',
+                'Domicilio.end_num',
+                'Bairro.nome_bairro',
+                'Indice.vlr_idf',
+                'Domicilio.vlr_renda_familia',
+                'Domicilio.qtd_pessoa',
+                'Domicilio.vlr_renda_per_capita'
+            ),
             'page' => $this->params['form']['page'],
             'limit' => $this->params['form']['rp'],
             'order' => array(
