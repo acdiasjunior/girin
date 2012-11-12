@@ -84,11 +84,13 @@ class PlanoFamiliaresController extends AppController {
         $this->set(compact('plano_familiares', 'page', 'total'));
     }
 
-    function excluir($id) {
+    function excluir($id_plano_familiar) {
         parent::temAcesso();
-        if (!empty($id)) {
-            $this->PlanoFamiliar->delete($id);
-            $this->Session->setFlash('O plano familiar com código: ' . $id . ' foi excluída.');
+        if (!empty($id_plano_familiar)) {
+            $this->PlanoFamiliar->query("DELETE FROM tb_indicador_plano_familiar WHERE id_plano_familiar = {$id_plano_familiar}");
+            $this->PlanoFamiliar->query("DELETE FROM tb_estrategia_plano_familiar WHERE id_plano_familiar = {$id_plano_familiar}");
+            $this->PlanoFamiliar->query("DELETE FROM tb_plano_familiar WHERE id_plano_familiar = {$id_plano_familiar}");
+            $this->Session->setFlash('O plano familiar com código: ' . $id_plano_familiar . ' foi excluída.');
         } else {
             $this->Session->setFlash('Erro ao tentar excluir: id inexistente!');
         }

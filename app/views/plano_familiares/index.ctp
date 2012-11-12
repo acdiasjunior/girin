@@ -80,6 +80,15 @@ if ($temAcessoExclusao) {
                 else
                     alert('Selecione um registro primeiro!');
                 break;
+            case "Excluir":
+                if(id != '')
+                {
+                    if(confirm('Deseja realmente excluir o prontuário?'))
+                        $(location).attr('href','<?php echo $this->Html->url(array('controller' => 'plano_familiares', 'action' => 'excluir')); ?>/' + id);
+                }
+                else
+                    alert('Selecione um registro primeiro!');
+                break;
             default:
                 break;
             }
