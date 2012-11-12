@@ -49,6 +49,49 @@ class RelatoriosController extends AppController {
 
                 for ($i = 1; $i <= ceil($quant / $cache); $i++) {
                     $this->paginate = array(
+                        'recursive' => -1,
+                        'joins' => array(
+                            array(
+                                'table' => 'tb_indice',
+                                'alias' => 'Indice',
+                                'type' => 'LEFT',
+                                'conditions' => array(
+                                    'Domicilio.cod_domiciliar = Indice.cod_domiciliar',
+                                )
+                            ),
+                            array(
+                                'table' => 'tb_pessoa',
+                                'alias' => 'Responsavel',
+                                'type' => 'LEFT',
+                                'conditions' => array(
+                                    'Domicilio.cod_nis_responsavel = Responsavel.cod_nis',
+                                )
+                            ),
+                            array(
+                                'table' => 'tb_bairro',
+                                'alias' => 'Bairro',
+                                'type' => 'LEFT',
+                                'conditions' => array(
+                                    'Bairro.id_bairro = Domicilio.id_bairro',
+                                )
+                            ),
+                            array(
+                                'table' => 'tb_cras',
+                                'alias' => 'Cras',
+                                'type' => 'LEFT',
+                                'conditions' => array(
+                                    'Bairro.id_cras = Cras.id_cras',
+                                )
+                            ),
+                            array(
+                                'table' => 'tb_regiao',
+                                'alias' => 'Regiao',
+                                'type' => 'LEFT',
+                                'conditions' => array(
+                                    'Bairro.id_regiao = Regiao.id_regiao',
+                                )
+                            ),
+                        ),
                         'fields' => array(
                             'Domicilio.cod_domiciliar',
                             'Indice.*',
@@ -63,7 +106,7 @@ class RelatoriosController extends AppController {
                             'Domicilio.end_compl',
                             'Bairro.nome_bairro',
                             'Cras.desc_cras',
-                            'Regiao.descricao'
+                            'Regiao.desc_regiao'
                         ),
                         'page' => $i,
                         'limit' => $cache,

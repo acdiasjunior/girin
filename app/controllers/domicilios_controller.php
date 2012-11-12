@@ -85,7 +85,7 @@ class DomiciliosController extends AppController {
         if ($this->Session->read("$container.cpf") != '')
             $conditions['Responsavel.cpf'] = str_replace(array('.', '-'), '', $this->Session->read("$container.cpf"));
         if ($this->Session->read("$container.nome") != '')
-            $conditions['Responsavel.nome LIKE '] = '%' . $this->Session->read("$container.nome") . '%';
+            $conditions['UPPER(Responsavel.nome) LIKE '] = sprintf('%%%s%%', str_replace(' ', '%', strtoupper($this->Session->read("$container.nome"))));
         if ($this->Session->read("$container.vlr_idf") != '') {
             switch ($this->Session->read("$container.tp_busca")) {
                 case 'menor':
