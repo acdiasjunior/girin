@@ -29,8 +29,11 @@ $logado = $this->Session->check('Auth.Usuario');
                     );
                     ?>
                 </div>
-                <div style="width: 750px; float: left; text-align: center; text-decoration: none; color: #5c7492; font-size: 32pt; font-weight: bold; line-height: 70px;">
-                    Programação Local
+                <div style="width: 750px; float: left; text-align: center; text-decoration: none; color: #5c7492; font-size: 30pt; font-weight: bold; line-height: 40px;">
+                    SIMAS
+                </div>
+                <div style="width: 750px; float: left; text-align: center; text-decoration: none; color: #5c7492; font-size: 12pt; font-weight: bold;">
+                    Sistema de Informação e Monitoramento da Assistência Social.
                 </div>
             </div>
             <div id="pagebody">
