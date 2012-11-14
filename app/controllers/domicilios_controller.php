@@ -233,6 +233,7 @@ class DomiciliosController extends AppController {
 
                     foreach ($header as $key => $value) {
                         $row[$key] = utf8_encode($row[$key]);
+                        $row[$key] = (strtoupper($row[$key]) == 'NULL') ? null : $row[$key];
                         $this->data['Domicilio'][$value] = $row[$key];
                     }
 
@@ -242,8 +243,7 @@ class DomiciliosController extends AppController {
                         die('Erro ao gravar o registro!');
                     }
                 }
-                $this->Domicilio->query('UPDATE tb_domicilio d SET id_bairro = (SELECT b.id FROM bairros b WHERE d.bairro_nome = b.nome)');
-                $this->Domicilio->query('UPDATE tb_domicilio SET id_cras = (SELECT id_cras FROM bairros WHERE bairros.id = tb_domicilio.id_bairro), id_regiao = (SELECT id_regiao FROM bairros WHERE bairros.id = tb_domicilio.id_bairro)');
+                $this->Domicilio->query('UPDATE tb_domicilio d SET id_bairro = (SELECT b.id_bairro FROM tb_bairro b WHERE d.nome_bairro = b.nome_bairro)');
 
                 // close the file
                 fclose($handle);
