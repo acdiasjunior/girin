@@ -63,7 +63,7 @@ $flexigridSession = $this->params['controller'] . '.' . $this->params['action'] 
             {display: 'Logradouro', name : 'Domicilio.end_logradouro', width : 190, sortable : true, align: 'left'},
             {display: 'Numero', name : 'Domicilio.end_num', width : 40, sortable : true, align: 'center'},
             {display: 'Bairro', name : 'Bairro.nome_bairro', width : 105, sortable : true, align: 'left'},
-            {display: 'vlr_idf', name : 'Indice.vlr_idf', width : 30, sortable : true, align: 'center'},
+            {display: 'IDF', name : 'Indice.vlr_idf', width : 30, sortable : true, align: 'center'},
             {display: 'Renda Familiar', name : 'Domicilio.vlr_renda_familiar', width : 70, sortable : true, align: 'center'},
             {display: 'Qtd.', name : 'Domicilio.qtd_pessoa', width : 20, sortable : true, align: 'center'},
             {display: 'Renda per Cap.', name : 'Domicilio.vlr_renda_per_capita', width : 70, sortable : true, align: 'center'}
