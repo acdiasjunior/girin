@@ -141,8 +141,9 @@ class IndicesController extends AppController {
                     $limite = $this->params['form']['limit'];
 
                 $domicilios = $this->Domicilio->find('list', array(
+                    'recursive' => -1,
                     'joins' => array(
-                        array('table' => 'indices',
+                        array('table' => 'tb_indice',
                             'alias' => 'Indice',
                             'type' => 'LEFT',
                             'conditions' => array(
