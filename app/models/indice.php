@@ -31,101 +31,101 @@ class Indice extends AppModel {
         'vlr_indicador_h8', 'vlr_indicador_v10', 'vlr_indicador_v11', 'vlr_indicador_v12'
     );
     public $dimensoes = array(
-        'vulnerabilidade' => array(
-            'gestacao' => array(
-                'v1' => 1,
-                'v2' => 1,
+        'vlr_dimensao_vulnerabilidade' => array(
+            'vlr_componente_gestacao' => array(
+                'vlr_indicador_v1' => 1,
+                'vlr_indicador_v2' => 1,
             ),
-            'criancas' => array(
-                'v3' => 1,
-                'v4' => 1,
-                'v5' => 1,
+            'vlr_componente_crianca' => array(
+                'vlr_indicador_v3' => 1,
+                'vlr_indicador_v4' => 1,
+                'vlr_indicador_v5' => 1,
             ),
-            'idosos' => array(
-                'v6' => 1,
-                'v7' => 1,
+            'vlr_componente_idoso' => array(
+                'vlr_indicador_v6' => 1,
+                'vlr_indicador_v7' => 1,
             ),
-            'dependencia' => array(
-                'v8' => 1,
-                'v9' => 1,
-            ),
-        ),
-        'conhecimento' => array(
-            'analfabetismo' => array(
-                'c1' => 1,
-                'c2' => 1,
-            ),
-            'escolaridade' => array(
-                'c3' => 0,
-                'c4' => 0,
-                'c5' => 0,
+            'vlr_componente_dependencia' => array(
+                'vlr_indicador_v8' => 1,
+                'vlr_indicador_v9' => 1,
             ),
         ),
-        'trabalho' => array(
-            'disponibilidade' => array(
-                't1' => 0,
+        'vlr_dimensao_conhecimento' => array(
+            'vlr_componente_analfabetismo' => array(
+                'vlr_indicador_c1' => 1,
+                'vlr_indicador_c2' => 1,
             ),
-            'qualidade' => array(
-                't2' => 0,
-                't3' => 0,
-            ),
-            'remuneracao' => array(
-                't4' => 0,
-                't5' => 0,
+            'vlr_componente_escolaridade' => array(
+                'vlr_indicador_c3' => 0,
+                'vlr_indicador_c4' => 0,
+                'vlr_indicador_c5' => 0,
             ),
         ),
-        'recursos' => array(
-            'extremaPobreza' => array(
-                'r1' => 1,
-                'r2' => 1,
-                'r3' => 1,
+        'vlr_dimensao_trabalho' => array(
+            'vlr_componente_disponibilidade' => array(
+                'vlr_indicador_t1' => 0,
             ),
-            'pobreza' => array(
-                'r4' => 1,
-                'r5' => 1,
+            'vlr_componente_qualidade' => array(
+                'vlr_indicador_t2' => 0,
+                'vlr_indicador_t3' => 0,
             ),
-            'capacidadeGeracao' => array(
-                'r6' => 1,
-            ),
-        ),
-        'desenvolvimento' => array(
-            'trabalhoPrecoce' => array(
-                'd1' => 1,
-                'd2' => 1,
-            ),
-            'acessoEscola' => array(
-                'd3' => 1,
-                'd4' => 1,
-                'd5' => 1,
-            ),
-            'progressoEscolar' => array(
-                'd6' => 1,
-                'd7' => 1,
-                'd8' => 1,
+            'vlr_componente_remuneracao' => array(
+                'vlr_indicador_t4' => 0,
+                'vlr_indicador_t5' => 0,
             ),
         ),
-        'habitacao' => array(
-            'propriedade' => array(
-                'h1' => 1,
-                'h2' => 1,
+        'vlr_dimensao_recurso' => array(
+            'vlr_componente_extrema_pobreza' => array(
+                'vlr_indicador_r1' => 1,
+                'vlr_indicador_r2' => 1,
+                'vlr_indicador_r3' => 1,
             ),
-            'deficit' => array(
-                'h3' => 1,
+            'vlr_componente_pobreza' => array(
+                'vlr_indicador_r4' => 1,
+                'vlr_indicador_r5' => 1,
             ),
-            'abrigalidade' => array(
-                'h4' => 1,
+            'vlr_componente_capacidade_geracao' => array(
+                'vlr_indicador_r6' => 1,
             ),
-            'acessoAgua' => array(
-                'h5' => 1,
+        ),
+        'vlr_dimensao_desenvolvimento' => array(
+            'vlr_componente_trabalho_precoce' => array(
+                'vlr_indicador_d1' => 1,
+                'vlr_indicador_d2' => 1,
             ),
-            'acessoSaneamento' => array(
-                'h6' => 1,
+            'vlr_componente_acesso_escola' => array(
+                'vlr_indicador_d3' => 1,
+                'vlr_indicador_d4' => 1,
+                'vlr_indicador_d5' => 1,
             ),
-            'acessoColetaLixo' => array(
-                'h7' => 1,
+            'vlr_componente_progresso_escolar' => array(
+                'vlr_indicador_d6' => 1,
+                'vlr_indicador_d7' => 1,
+                'vlr_indicador_d8' => 1,
             ),
-            'acessoEletricidade' => array(
-                'h8' => 1,
+        ),
+        'vlr_dimensao_habitacao' => array(
+            'vlr_componente_propriedade' => array(
+                'vlr_indicador_h1' => 1,
+                'vlr_indicador_h2' => 1,
+            ),
+            'vlr_componente_deficit' => array(
+                'vlr_indicador_h3' => 1,
+            ),
+            'vlr_componente_abrigalidade' => array(
+                'vlr_indicador_h4' => 1,
+            ),
+            'vlr_componente_acesso_agua' => array(
+                'vlr_indicador_h5' => 1,
+            ),
+            'vlr_componente_acesso_escoamento' => array(
+                'vlr_indicador_h6' => 1,
+            ),
+            'vlr_componente_acesso_coleta_lixo' => array(
+                'vlr_indicador_h7' => 1,
+            ),
+            'vlr_componente_acesso_eletricidade' => array(
+                'vlr_indicador_h8' => 1,
             ),
         ),
     );
@@ -156,78 +156,78 @@ class Indice extends AppModel {
     function calcularIndices($domicilio) {
         $this->domicilio = $domicilio;
         // Calculo para Dimensão - Vulnerabilidade
-        $gestacao = Indice::calculoComponenteGestacao();
-        $this->domicilio['Indice']['gestacao'] = $gestacao;
-        $criancas = Indice::calculoComponenteCriancas();
-        $this->domicilio['Indice']['criancas'] = $criancas;
-        $idosos = Indice::calculoComponenteIdosos();
-        $this->domicilio['Indice']['idosos'] = $idosos;
-        $dependencia = Indice::calculoComponenteDependencia();
-        $this->domicilio['Indice']['dependencia'] = $dependencia;
-        $vulnerabilidade = ($gestacao + $criancas + $idosos + $dependencia) / 4;
-        $this->domicilio['Indice']['vulnerabilidade'] = $vulnerabilidade;
+        $vlr_componente_gestacao = Indice::calculoComponenteGestacao();
+        $this->domicilio['Indice']['vlr_componente_gestacao'] = $vlr_componente_gestacao;
+        $vlr_componente_crianca = Indice::calculoComponenteCriancas();
+        $this->domicilio['Indice']['vlr_componente_crianca'] = $vlr_componente_crianca;
+        $vlr_componente_idoso = Indice::calculoComponenteIdosos();
+        $this->domicilio['Indice']['vlr_componente_idoso'] = $vlr_componente_idoso;
+        $vlr_componente_dependencia = Indice::calculoComponenteDependencia();
+        $this->domicilio['Indice']['vlr_componente_dependencia'] = $vlr_componente_dependencia;
+        $vlr_dimensao_vulnerabilidade = ($vlr_componente_gestacao + $vlr_componente_crianca + $vlr_componente_idoso + $vlr_componente_dependencia) / 4;
+        $this->domicilio['Indice']['vlr_dimensao_vulnerabilidade'] = $vlr_dimensao_vulnerabilidade;
 
         // Calculo para Dimensão - Conhecimento
-        $analfabetismo = Indice::calculoComponenteAnalfabetismo();
-        $this->domicilio['Indice']['analfabetismo'] = $analfabetismo;
-        $escolaridade = Indice::calculoComponenteEscolaridade();
-        $this->domicilio['Indice']['escolaridade'] = $escolaridade;
-        $conhecimento = ($analfabetismo + $escolaridade) / 2;
-        $this->domicilio['Indice']['conhecimento'] = $conhecimento;
+        $vlr_componente_analfabetismo = Indice::calculoComponenteAnalfabetismo();
+        $this->domicilio['Indice']['vlr_componente_analfabetismo'] = $vlr_componente_analfabetismo;
+        $vlr_componente_escolaridade = Indice::calculoComponenteEscolaridade();
+        $this->domicilio['Indice']['vlr_componente_escolaridade'] = $vlr_componente_escolaridade;
+        $vlr_dimensao_conhecimento = ($vlr_componente_analfabetismo + $vlr_componente_escolaridade) / 2;
+        $this->domicilio['Indice']['vlr_dimensao_conhecimento'] = $vlr_dimensao_conhecimento;
 
         // Calculo para Dimensão - Trabalho
-        $disponibilidade = Indice::calculoComponenteDisponibilidade();
-        $this->domicilio['Indice']['disponibilidade'] = $disponibilidade;
-        $qualidade = Indice::calculoComponenteQualidade();
-        $this->domicilio['Indice']['qualidade'] = $qualidade;
-        $remuneracao = Indice::calculoComponenteRemuneracao();
-        $this->domicilio['Indice']['remuneracao'] = $remuneracao;
-        $trabalho = ($disponibilidade + $qualidade + $remuneracao) / 3;
-        $this->domicilio['Indice']['trabalho'] = $trabalho;
+        $vlr_componente_disponibilidade = Indice::calculoComponenteDisponibilidade();
+        $this->domicilio['Indice']['vlr_componente_disponibilidade'] = $vlr_componente_disponibilidade;
+        $vlr_componente_qualidade = Indice::calculoComponenteQualidade();
+        $this->domicilio['Indice']['vlr_componente_qualidade'] = $vlr_componente_qualidade;
+        $vlr_componente_remuneracao = Indice::calculoComponenteRemuneracao();
+        $this->domicilio['Indice']['vlr_componente_remuneracao'] = $vlr_componente_remuneracao;
+        $vlr_dimensao_trabalho = ($vlr_componente_disponibilidade + $vlr_componente_qualidade + $vlr_componente_remuneracao) / 3;
+        $this->domicilio['Indice']['vlr_dimensao_trabalho'] = $vlr_dimensao_trabalho;
 
         // Calculo para Dimensao - Recursos
-        $extremaPobreza = Indice::calculoComponenteExtremaPobreza();
-        $this->domicilio['Indice']['extremaPobreza'] = $extremaPobreza;
-        $pobreza = Indice::calculoComponentePobreza();
-        $this->domicilio['Indice']['pobreza'] = $pobreza;
-        $capacidadeGeracao = Indice::calculoComponenteCapacidadeGeracao();
-        $this->domicilio['Indice']['capacidadeGeracao'] = $capacidadeGeracao;
-        $recursos = ($extremaPobreza + $pobreza + $capacidadeGeracao) / 3;
-        $this->domicilio['Indice']['recursos'] = $recursos;
+        $vlr_componente_extrema_pobreza = Indice::calculoComponenteExtremaPobreza();
+        $this->domicilio['Indice']['vlr_componente_extrema_pobreza'] = $vlr_componente_extrema_pobreza;
+        $vlr_componente_pobreza = Indice::calculoComponentePobreza();
+        $this->domicilio['Indice']['vlr_componente_pobreza'] = $vlr_componente_pobreza;
+        $vlr_componente_capacidade_geracao = Indice::calculoComponenteCapacidadeGeracao();
+        $this->domicilio['Indice']['vlr_componente_capacidade_geracao'] = $vlr_componente_capacidade_geracao;
+        $vlr_dimensao_recurso = ($vlr_componente_extrema_pobreza + $vlr_componente_pobreza + $vlr_componente_capacidade_geracao) / 3;
+        $this->domicilio['Indice']['vlr_dimensao_recurso'] = $vlr_dimensao_recurso;
 
         // Calculo para Dimensao - Desenvolvimento Infantil
-        $trabalhoPrecoce = Indice::calculoComponenteTrabalhoPrecoce();
-        $this->domicilio['Indice']['trabalhoPrecoce'] = $trabalhoPrecoce;
-        $acessoEscola = Indice::calculoComponenteAcessoEscola();
-        $this->domicilio['Indice']['acessoEscola'] = $acessoEscola;
-        $progressoEscolar = Indice::calculoComponenteProgressoEscolar();
-        $this->domicilio['Indice']['progressoEscolar'] = $progressoEscolar;
-        $desenvolvimento = ($trabalhoPrecoce + $acessoEscola + $progressoEscolar) / 3;
-        $this->domicilio['Indice']['desenvolvimento'] = $desenvolvimento;
+        $vlr_componente_trabalho_precoce = Indice::calculoComponenteTrabalhoPrecoce();
+        $this->domicilio['Indice']['vlr_componente_trabalho_precoce'] = $vlr_componente_trabalho_precoce;
+        $vlr_componente_acesso_escola = Indice::calculoComponenteAcessoEscola();
+        $this->domicilio['Indice']['vlr_componente_acesso_escola'] = $vlr_componente_acesso_escola;
+        $vlr_componente_progresso_escolar = Indice::calculoComponenteProgressoEscolar();
+        $this->domicilio['Indice']['vlr_componente_progresso_escolar'] = $vlr_componente_progresso_escolar;
+        $vlr_dimensao_desenvolvimento = ($vlr_componente_trabalho_precoce + $vlr_componente_acesso_escola + $vlr_componente_progresso_escolar) / 3;
+        $this->domicilio['Indice']['vlr_dimensao_desenvolvimento'] = $vlr_dimensao_desenvolvimento;
 
         // Calculo para Dimensao - Habitação
-        $propriedade = Indice::calculoComponentePropriedade();
-        $this->domicilio['Indice']['propriedade'] = $propriedade;
-        $deficit = Indice::calculoComponenteDeficit();
-        $this->domicilio['Indice']['deficit'] = $deficit;
-        $abrigalidade = Indice::calculoComponenteAbrigalidade();
-        $this->domicilio['Indice']['abrigalidade'] = $abrigalidade;
-        $acessoAgua = Indice::calculoComponenteAcessoAgua();
-        $this->domicilio['Indice']['acessoAgua'] = $acessoAgua;
-        $acessoSaneamento = Indice::calculoComponenteAcessoSaneamento();
-        $this->domicilio['Indice']['acessoSaneamento'] = $acessoSaneamento;
-        $acessoColetaLixo = Indice::calculoComponenteAcessoColetaLixo();
-        $this->domicilio['Indice']['acessoColetaLixo'] = $acessoColetaLixo;
-        $acessoEletricidade = Indice::calculoComponenteAcessoEletricidade();
-        $this->domicilio['Indice']['acessoEletricidade'] = $acessoEletricidade;
-        $habitacao = ($propriedade + $deficit + $abrigalidade +
-                $acessoAgua + $acessoSaneamento +
-                $acessoColetaLixo + $acessoEletricidade) / 7;
-        $this->domicilio['Indice']['habitacao'] = $habitacao;
+        $vlr_componente_propriedade = Indice::calculoComponentePropriedade();
+        $this->domicilio['Indice']['vlr_componente_propriedade'] = $vlr_componente_propriedade;
+        $vlr_componente_deficit = Indice::calculoComponenteDeficit();
+        $this->domicilio['Indice']['vlr_componente_deficit'] = $vlr_componente_deficit;
+        $vlr_componente_abrigalidade = Indice::calculoComponenteAbrigalidade();
+        $this->domicilio['Indice']['vlr_componente_abrigalidade'] = $vlr_componente_abrigalidade;
+        $vlr_componente_acesso_agua = Indice::calculoComponenteAcessoAgua();
+        $this->domicilio['Indice']['vlr_componente_acesso_agua'] = $vlr_componente_acesso_agua;
+        $vlr_componente_acesso_escoamento = Indice::calculoComponenteAcessoEscoamento();
+        $this->domicilio['Indice']['vlr_componente_acesso_escoamento'] = $vlr_componente_acesso_escoamento;
+        $vlr_componente_acesso_coleta_lixo = Indice::calculoComponenteAcessoColetaLixo();
+        $this->domicilio['Indice']['vlr_componente_acesso_coleta_lixo'] = $vlr_componente_acesso_coleta_lixo;
+        $vlr_componente_acesso_eletricidade = Indice::calculoComponenteAcessoEletricidade();
+        $this->domicilio['Indice']['vlr_componente_acesso_eletricidade'] = $vlr_componente_acesso_eletricidade;
+        $vlr_dimensao_habitacao = ($vlr_componente_propriedade + $vlr_componente_deficit + $vlr_componente_abrigalidade +
+                $vlr_componente_acesso_agua + $vlr_componente_acesso_escoamento +
+                $vlr_componente_acesso_coleta_lixo + $vlr_componente_acesso_eletricidade) / 7;
+        $this->domicilio['Indice']['vlr_dimensao_habitacao'] = $vlr_dimensao_habitacao;
 
         // Calculo do IDF da Familia
-        $idf = round(($vulnerabilidade + $conhecimento + $trabalho +
-                $recursos + $desenvolvimento + $habitacao) / 6, 2);
+        $idf = round(($vlr_dimensao_vulnerabilidade + $vlr_dimensao_conhecimento + $vlr_dimensao_trabalho +
+                $vlr_dimensao_recurso + $vlr_dimensao_desenvolvimento + $vlr_dimensao_habitacao) / 6, 2);
 
         $this->domicilio['Indice']['vlr_idf'] = $idf;
         $this->domicilio['Domicilio']['vlr_idf'] = $idf;
@@ -247,7 +247,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['v1'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_v1'] = $retorno;
         return $retorno;
     }
 
@@ -260,7 +260,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['v2'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_v2'] = $retorno;
         return $retorno;
     }
 
@@ -277,7 +277,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['v3'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_v3'] = $retorno;
         return $retorno;
     }
 
@@ -290,7 +290,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['v4'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_v4'] = $retorno;
         return $retorno;
     }
 
@@ -303,7 +303,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['v5'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_v5'] = $retorno;
         return $retorno;
     }
 
@@ -320,7 +320,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['v6'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_v6'] = $retorno;
         return $retorno;
     }
 
@@ -333,7 +333,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['v7'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_v7'] = $retorno;
         return $retorno;
     }
 
@@ -350,7 +350,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['v8'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_v8'] = $retorno;
         return $retorno;
     }
 
@@ -360,7 +360,7 @@ class Indice extends AppModel {
         if ($this->domicilio['Domicilio']['qtd_pessoa'] / 2 < $this->contadorMembrosIdadeAtiva()) {
             $retorno = 1;
         }
-        $this->domicilio['Indice']['v9'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_v9'] = $retorno;
         return $retorno;
     }
 
@@ -377,7 +377,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['c1'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_c1'] = $retorno;
         return $retorno;
     }
 
@@ -390,7 +390,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['c2'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_c2'] = $retorno;
         return $retorno;
     }
 
@@ -409,7 +409,7 @@ class Indice extends AppModel {
                 }
             }
         }
-        $this->domicilio['Indice']['c3'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_c3'] = $retorno;
         return $retorno;
     }
 
@@ -424,7 +424,7 @@ class Indice extends AppModel {
                 }
             }
         }
-        $this->domicilio['Indice']['c4'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_c4'] = $retorno;
         return $retorno;
     }
 
@@ -439,7 +439,7 @@ class Indice extends AppModel {
                 }
             }
         }
-        $this->domicilio['Indice']['c5'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_c5'] = $retorno;
         return $retorno;
     }
 
@@ -453,7 +453,7 @@ class Indice extends AppModel {
         if ($this->contadorMembrosIdadeAtivaOcupados() > $this->domicilio['Domicilio']['qtd_pessoa'] / 2) {
             $retorno = 1;
         }
-        $this->domicilio['Indice']['t1'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_t1'] = $retorno;
         return $retorno;
     }
 
@@ -471,7 +471,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['t2'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_t2'] = $retorno;
         return $retorno;
     }
 
@@ -487,7 +487,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['t3'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_t3'] = $retorno;
         return $retorno;
     }
 
@@ -506,7 +506,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['t4'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_t4'] = $retorno;
         return $retorno;
     }
 
@@ -521,7 +521,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['t5'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_t5'] = $retorno;
         return $retorno;
     }
 
@@ -529,33 +529,33 @@ class Indice extends AppModel {
         return ($this->r1() + $this->r2() + $this->r3()) / 3;
     }
 
-    //R.1 Despesa familiar per capita superior a linha de extema pobreza
+    //R.1 Despesa familiar per capita superior a linha de extema vlr_componente_pobreza
     function r1() {
         $retorno = 0;
         if ($this->domicilio['Domicilio']['qtd_pessoa'] > 0 && $this->domicilio['Domicilio']['vlr_despesa_familia'] / $this->domicilio['Domicilio']['qtd_pessoa'] >= 70) {
             $retorno = 1;
         }
-        $this->domicilio['Indice']['r1'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_r1'] = $retorno;
         return $retorno;
     }
 
-    //R.2 Renda familiar per capita superior a linha de extrema pobreza
+    //R.2 Renda familiar per capita superior a linha de extrema vlr_componente_pobreza
     function r2() {
         $retorno = 0;
         if ($this->domicilio['Domicilio']['vlr_renda_familia'] / $this->domicilio['Domicilio']['qtd_pessoa'] >= 70) {
             $retorno = 1;
         }
-        $this->domicilio['Indice']['r2'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_r2'] = $retorno;
         return $retorno;
     }
 
-    //R.3 Despesa com alimentos superior a linha de extema pobreza
+    //R.3 Despesa com alimentos superior a linha de extema vlr_componente_pobreza
     function r3() {
         $retorno = 0;
         if ($this->domicilio['Domicilio']['vlr_despesa_alimentacao'] >= 70) {
             $retorno = 1;
         }
-        $this->domicilio['Indice']['r3'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_r3'] = $retorno;
         return $retorno;
     }
 
@@ -563,23 +563,23 @@ class Indice extends AppModel {
         return ($this->r4() + $this->r5()) / 2;
     }
 
-    //R.4 Despesa familiar per capita superior a linha de pobreza
+    //R.4 Despesa familiar per capita superior a linha de vlr_componente_pobreza
     function r4() {
         $retorno = 0;
         if ($this->domicilio['Domicilio']['vlr_despesa_familia'] / $this->domicilio['Domicilio']['qtd_pessoa'] >= 140) {
             $retorno = 1;
         }
-        $this->domicilio['Indice']['r4'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_r4'] = $retorno;
         return $retorno;
     }
 
-    //R.5 Renda familiar per capita superior a linha de pobreza
+    //R.5 Renda familiar per capita superior a linha de vlr_componente_pobreza
     function r5() {
         $retorno = 0;
         if ($this->domicilio['Domicilio']['vlr_renda_familia'] / $this->domicilio['Domicilio']['qtd_pessoa'] >= 140) {
             $retorno = 1;
         }
-        $this->domicilio['Indice']['r5'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_r5'] = $retorno;
         return $retorno;
     }
 
@@ -593,7 +593,7 @@ class Indice extends AppModel {
         if ($this->domicilio['Domicilio']['vlr_beneficio'] > $this->domicilio['Domicilio']['vlr_renda_familia']) {
             $retorno = 0;
         }
-        $this->domicilio['Indice']['r6'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_r6'] = $retorno;
         return $retorno;
     }
 
@@ -612,7 +612,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['d1'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_d1'] = $retorno;
         return $retorno;
     }
 
@@ -627,7 +627,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['d2'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_d2'] = $retorno;
         return $retorno;
     }
 
@@ -645,7 +645,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['d3'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_d3'] = $retorno;
         return $retorno;
     }
 
@@ -659,7 +659,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['d4'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_d4'] = $retorno;
         return $retorno;
     }
 
@@ -673,7 +673,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['d5'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_d5'] = $retorno;
         return $retorno;
     }
 
@@ -690,7 +690,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['d6'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_d6'] = $retorno;
         return $retorno;
     }
 
@@ -704,7 +704,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['d7'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_d7'] = $retorno;
         return $retorno;
     }
 
@@ -718,7 +718,7 @@ class Indice extends AppModel {
                 break;
             }
         }
-        $this->domicilio['Indice']['d8'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_d8'] = $retorno;
         return $retorno;
     }
 
@@ -732,7 +732,7 @@ class Indice extends AppModel {
         if ($this->domicilio['Domicilio']['tp_situacao_domicilio'] != Domicilio::DOMICILIO_PROPRIO) {
             $retorno = 0;
         }
-        $this->domicilio['Indice']['h1'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_h1'] = $retorno;
         return $retorno;
     }
 
@@ -744,7 +744,7 @@ class Indice extends AppModel {
                 $this->domicilio['Domicilio']['tp_situacao_domicilio'] != Domicilio::DOMICILIO_ALUGADO) {
             $retorno = 0;
         }
-        $this->domicilio['Indice']['h2'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_h2'] = $retorno;
         return $retorno;
     }
 
@@ -758,7 +758,7 @@ class Indice extends AppModel {
         if ($this->domicilio['Domicilio']['qtd_pessoa'] / $this->domicilio['Domicilio']['qtd_comodo'] > 2) {
             $retorno = 0;
         }
-        $this->domicilio['Indice']['h3'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_h3'] = $retorno;
         return $retorno;
     }
 
@@ -772,7 +772,7 @@ class Indice extends AppModel {
         if ($this->domicilio['Domicilio']['tp_construcao'] != Domicilio::CONSTRUCAO_TIJOLO_ALVENARIA) {
             $retorno = 0;
         }
-        $this->domicilio['Indice']['h4'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_h4'] = $retorno;
         return $retorno;
     }
 
@@ -786,11 +786,11 @@ class Indice extends AppModel {
         if ($this->domicilio['Domicilio']['tp_abastecimento'] != Domicilio::ABASTECIMENTO_REDE_PUBLICA) {
             $retorno = 0;
         }
-        $this->domicilio['Indice']['h5'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_h5'] = $retorno;
         return $retorno;
     }
 
-    function calculoComponenteAcessoSaneamento() {
+    function calculoComponenteAcessoEscoamento() {
         return $this->h6();
     }
 
@@ -800,7 +800,7 @@ class Indice extends AppModel {
         if ($this->domicilio['Domicilio']['tp_escoamento_sanitario'] != Domicilio::ESCOAMENTO_REDE_PUBLICA) {
             $retorno = 0;
         }
-        $this->domicilio['Indice']['h6'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_h6'] = $retorno;
         return $retorno;
     }
 
@@ -814,7 +814,7 @@ class Indice extends AppModel {
         if ($this->domicilio['Domicilio']['tp_destino_lixo'] != Domicilio::LIXO_COLETADO) {
             $retorno = 0;
         }
-        $this->domicilio['Indice']['h7'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_h7'] = $retorno;
         return $retorno;
     }
 
@@ -829,7 +829,7 @@ class Indice extends AppModel {
                 $this->domicilio['Domicilio']['tp_iluminacao'] != Domicilio::ILUMINACAO_RELOGIO_COMUNITARIO) {
             $retorno = 0;
         }
-        $this->domicilio['Indice']['h8'] = $retorno;
+        $this->domicilio['Indice']['vlr_indicador_h8'] = $retorno;
         return $retorno;
     }
 
